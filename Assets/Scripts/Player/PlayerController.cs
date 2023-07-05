@@ -33,6 +33,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
+    void Start()
+    {
+        FindObjectOfType<AudioManager>().Play("EngineIdle");
+    }
+
+    void Update()
+    {
+        // remove later
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            FindObjectOfType<AudioManager>().Play("Nos");
+        }
+        
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            FindObjectOfType<AudioManager>().Play("EngineAccelerate");
+        }
+    }
+
     private void FixedUpdate() {
         GetInput();
         HandleMotor();
@@ -66,6 +85,7 @@ public class PlayerController : MonoBehaviour
         if (input != 0)
         {
             speed += (input / 100) * Time.deltaTime;
+            FindObjectOfType<AudioManager>().Pause("EngineIdle");
         }
         else
         {
