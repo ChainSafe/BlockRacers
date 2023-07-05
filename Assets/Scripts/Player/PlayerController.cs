@@ -14,15 +14,22 @@ public class PlayerController : MonoBehaviour
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
     private bool nosActive;
+    // particles
+    [SerializeField] private GameObject nosParticles;
+    [SerializeField] private GameObject tireTrailRL;
+    [SerializeField] private GameObject tireTrailRR;
+    
+    // rigidbody
+    [SerializeField] private Rigidbody rb;
 
-    // Settings
+    // settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
 
-    // Wheel Colliders
+    // wheel Colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
     [SerializeField] private WheelCollider rearLeftWheelCollider, rearRightWheelCollider;
 
-    // Wheels
+    // wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
@@ -33,26 +40,27 @@ public class PlayerController : MonoBehaviour
         UpdateWheels();
         HandleNos();
         HandleDrift();
+        HandleTireTrails();
     }
 
     private void GetInput() {
-        // Steering Input
+        // steering Input
         horizontalInput = Input.GetAxis("Horizontal");
 
-        // Acceleration Input
+        // acceleration Input
         verticalInput = Input.GetAxis("Vertical");
 
-        // Breaking Input
+        // breaking Input
         isBreaking = Input.GetKey(KeyCode.Space);
         
-        // NOS Input
+        // nos Input
         nosActive = Input.GetKey(KeyCode.LeftShift);
     }
     
     // engine
     private void HandleMotor()
     {
-        float input = verticalInput * (motorForce * nosForce);
+        float input = verticalInput * motorForce;
         frontLeftWheelCollider.motorTorque = input;
         frontRightWheelCollider.motorTorque = input;
         if (input != 0)
@@ -67,13 +75,36 @@ public class PlayerController : MonoBehaviour
         ApplyBreaking();
     }
     
-    // NOS
+    // nos
     private void HandleNos()
     {
-        // if nos active set power to 10, else it's 1. Applied to motor force above
-        nosForce = nosActive ? 10 : 1;
+        if (nosActive)
+        {
+            nosParticles.SetActive(true);
+            rb.AddForce(0,0, nosForce);
+        }
+        else
+        {
+            nosParticles.SetActive(false);
+        }
     }
-
+    
+    // tire trails
+    private void HandleTireTrails()
+    {
+        if ((currentSteerAngle > 25) || (currentSteerAngle < -25) || (isBreaking))
+        {
+            tireTrailRL.SetActive(true);
+            tireTrailRR.SetActive(true);
+        }
+        else
+        {
+            tireTrailRL.SetActive(false);
+            tireTrailRR.SetActive(false);
+        }
+    }
+    
+    // drifting
     private void HandleDrift()
     {
         JointSpring suspensionSpringFL = frontLeftWheelCollider.suspensionSpring;
@@ -86,13 +117,15 @@ public class PlayerController : MonoBehaviour
             suspensionSpringFR.damper = 10000;
             suspensionSpringRL.damper = 10000;
             suspensionSpringRR.damper = 10000;
+            maxSteerAngle = 60;
         }
         else
         {
-            suspensionSpringFL.damper = 5000;
-            suspensionSpringFR.damper = 5000;
-            suspensionSpringRL.damper = 5000;
-            suspensionSpringRR.damper = 5000;
+            suspensionSpringFL.damper = 6000;
+            suspensionSpringFR.damper = 6000;
+            suspensionSpringRL.damper = 6000;
+            suspensionSpringRR.damper = 6000;
+            maxSteerAngle = 40;
         }
     }
     
