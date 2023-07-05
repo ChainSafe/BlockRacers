@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=09f558309f9a4ad45aa3384c88f2f700&amp;type=3#StyleSheet" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/menuBG.png?fileID=21300000&amp;guid=d73638a3195548145942712a66ecf605&amp;type=3#menuBG&apos;);">
+            <ui:Label tabindex="-1" text="Coming Soon!" display-tooltip-when-elided="true" style="font-size: 100px; -unity-text-align: upper-center; color: rgb(10, 250, 0);" />
+            <ui:Button text="Back" display-tooltip-when-elided="true" name="BackButton" class="button" style="translate: 0 250px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
