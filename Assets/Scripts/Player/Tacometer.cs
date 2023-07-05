@@ -1,32 +1,34 @@
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tacometer : MonoBehaviour
 {
-    public float acceleration = 0f;
+    public GameObject player;
+    public Text speedText;
+    private PlayerController playerController;
     private Transform needleTransform;
     private const float ZERO_SPEED_ANGLE = 136;
     private const float MAX_SPEED_ANGLE = -136;
-    private float speedMax;
-    private float speed;
 
     private void Awake()
     {
+        playerController = player.GetComponent<PlayerController>();
         needleTransform = transform.Find("Needle");
-        speed = 0f;
-        speedMax = 200f;
     }
     
     private float GetSpeedRotation()
     {
         float totalAngleSize = ZERO_SPEED_ANGLE - MAX_SPEED_ANGLE;
-        float speedNormalized = speed / speedMax;
+        float speedNormalized = playerController.speed / playerController.speedMax;
         return ZERO_SPEED_ANGLE - speedNormalized * totalAngleSize;
     }
 
     private void Update()
     {
-        speed += 30f * Time.deltaTime;
-        if (speed > speedMax) speed = speedMax;
+        if (playerController.speed > playerController.speedMax) playerController.speed = playerController.speedMax;
+        if (playerController.speed < 0) playerController.speed = 0;
         needleTransform.eulerAngles = new Vector3(0, 0, GetSpeedRotation());
+        speedText.text = Mathf.Floor(playerController.speed).ToString();
     }
 }

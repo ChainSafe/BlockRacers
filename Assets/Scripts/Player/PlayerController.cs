@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // speed
+    public float speed;
+    public float speedMax = 280f;
     // input
     private float horizontalInput, verticalInput;
     // steering and breaking
@@ -47,9 +50,19 @@ public class PlayerController : MonoBehaviour
     }
     
     // engine
-    private void HandleMotor() {
-        frontLeftWheelCollider.motorTorque = verticalInput * (motorForce * nosForce);
-        frontRightWheelCollider.motorTorque = verticalInput * (motorForce * nosForce);
+    private void HandleMotor()
+    {
+        float input = verticalInput * (motorForce * nosForce);
+        frontLeftWheelCollider.motorTorque = input;
+        frontRightWheelCollider.motorTorque = input;
+        if (input != 0)
+        {
+            speed += (input / 100) * Time.deltaTime;
+        }
+        else
+        {
+            speed -= 2 * Time.deltaTime;
+        }
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
     }
@@ -89,6 +102,7 @@ public class PlayerController : MonoBehaviour
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
         rearLeftWheelCollider.brakeTorque = currentbreakForce;
         rearRightWheelCollider.brakeTorque = currentbreakForce;
+        speed -= (currentbreakForce / 100) * Time.deltaTime;
     }
     
     // steering
