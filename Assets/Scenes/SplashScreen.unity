@@ -262,6 +262,30 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: EngineIdle
+    clip: {fileID: 8300000, guid: 917b06794c4b27246b00e6e2e142f3da, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: EngineAccelerate
+    clip: {fileID: 8300000, guid: 917b06794c4b27246b00e6e2e142f3da, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Break
+    clip: {fileID: 8300000, guid: 917b06794c4b27246b00e6e2e142f3da, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Nos
+    clip: {fileID: 8300000, guid: 917b06794c4b27246b00e6e2e142f3da, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!4 &4689980
 Transform:
   m_ObjectHideFlags: 0
