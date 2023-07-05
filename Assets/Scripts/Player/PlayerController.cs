@@ -10,9 +10,10 @@ public class PlayerController : MonoBehaviour
     // steering and breaking
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
+    private bool nosActive;
 
     // Settings
-    [SerializeField] private float motorForce, breakForce, maxSteerAngle;
+    [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
 
     // Wheel Colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        HandleNos();
+        HandleDrift();
     }
 
     private void GetInput() {
@@ -38,14 +41,46 @@ public class PlayerController : MonoBehaviour
 
         // Breaking Input
         isBreaking = Input.GetKey(KeyCode.Space);
+        
+        // NOS Input
+        nosActive = Input.GetKey(KeyCode.LeftShift);
     }
     
     // engine
     private void HandleMotor() {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+        frontLeftWheelCollider.motorTorque = verticalInput * (motorForce * nosForce);
+        frontRightWheelCollider.motorTorque = verticalInput * (motorForce * nosForce);
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
+    }
+    
+    // NOS
+    private void HandleNos()
+    {
+        // if nos active set power to 10, else it's 1. Applied to motor force above
+        nosForce = nosActive ? 10 : 1;
+    }
+
+    private void HandleDrift()
+    {
+        JointSpring suspensionSpringFL = frontLeftWheelCollider.suspensionSpring;
+        JointSpring suspensionSpringFR = frontRightWheelCollider.suspensionSpring;
+        JointSpring suspensionSpringRL = rearLeftWheelCollider.suspensionSpring;
+        JointSpring suspensionSpringRR = rearRightWheelCollider.suspensionSpring;
+        if ((isBreaking) || (nosActive))
+        {
+            suspensionSpringFL.damper = 10000;
+            suspensionSpringFR.damper = 10000;
+            suspensionSpringRL.damper = 10000;
+            suspensionSpringRR.damper = 10000;
+        }
+        else
+        {
+            suspensionSpringFL.damper = 5000;
+            suspensionSpringFR.damper = 5000;
+            suspensionSpringRL.damper = 5000;
+            suspensionSpringRR.damper = 5000;
+        }
     }
     
     // breaking
