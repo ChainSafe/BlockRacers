@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=09f558309f9a4ad45aa3384c88f2f700&amp;type=3#StyleSheet" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/menuBG.png?fileID=21300000&amp;guid=d73638a3195548145942712a66ecf605&amp;type=3#menuBG&apos;);">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/NFTCarGameTitle.png?fileID=2800000&amp;guid=4b82a96620a7a934a924f70078d3c13e&amp;type=3#NFTCarGameTitle&apos;); -unity-background-scale-mode: stretch-to-fill; position: relative; width: 800px; height: 200px; align-self: center; align-items: center; justify-content: flex-start; translate: 0 50px;" />
+        <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 15%; padding-right: 15%; padding-top: 5%; padding-bottom: 5%;">
+            <ui:Button text="Race" display-tooltip-when-elided="true" name="RaceButton" class="button" />
+            <ui:Button text="Free Roam" display-tooltip-when-elided="true" name="FreeRoamButton" class="button" />
+            <ui:Button text="Garage" display-tooltip-when-elided="true" name="GarageButton" class="button" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="QuitButton" class="button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
