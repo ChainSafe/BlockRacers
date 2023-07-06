@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // audio
+    private AudioManager audioManager;
     // speed
     public float speed;
-    public float speedMax = 280f;
+    public float maxSpeed = 280f;
+    private float speedRatio;
     // input
     private float horizontalInput, verticalInput;
     // steering and breaking
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
+    private bool isDrifting;
     public static bool nosActive;
     // particles
     [SerializeField] private GameObject nosParticles;
@@ -20,7 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject tireTrailRR;
     
     // rigidbody
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody rigidBody;
+    
+    // Tailights
+    [SerializeField] private GameObject tailLights;
 
     // settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
@@ -35,20 +42,40 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("EngineIdle");
     }
 
     void Update()
     {
         // remove later
+        
+        // speed derived from wheel speed
+        speedRatio = GetSpeedRatio();
+        speed = rearLeftWheelCollider.rpm * rearLeftWheelCollider.radius * 2f * Mathf.PI / 10f;
+
+        // nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Play("Nos");
         }
         
         if (Input.GetKeyDown(KeyCode.W))
         {
+            if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Play("EngineAccelerate");
+        }
+        
+        // brake lights
+        if ((isBreaking) || (isDrifting))
+        {
+            tailLights.SetActive(true);
+        }
+        else
+        {
+            tailLights.SetActive(false);
         }
     }
 
@@ -70,7 +97,10 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         // breaking Input
-        isBreaking = Input.GetKey(KeyCode.Space);
+        isBreaking = Input.GetKey(KeyCode.S);
+        
+        // drifting Input
+        isDrifting = Input.GetKey(KeyCode.Space);
         
         // nos Input
         nosActive = Input.GetKey(KeyCode.LeftShift);
@@ -79,20 +109,37 @@ public class PlayerController : MonoBehaviour
     // engine
     private void HandleMotor()
     {
+        // get input for accleration
         float input = verticalInput * motorForce;
-        frontLeftWheelCollider.motorTorque = input;
-        frontRightWheelCollider.motorTorque = input;
-        if (input != 0)
+        
+        // if less than max speed
+        if (speed < maxSpeed)
         {
-            speed += (input / 100) * Time.deltaTime;
-            FindObjectOfType<AudioManager>().Pause("EngineIdle");
+            frontLeftWheelCollider.motorTorque = input;
+            frontRightWheelCollider.motorTorque = input;
         }
         else
         {
-            speed -= 2 * Time.deltaTime;
+            frontLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
         }
+        
+        if (input != 0)
+        {
+            if (audioManager == null) return;
+            FindObjectOfType<AudioManager>().Pause("EngineIdle");
+        }
+
         currentbreakForce = isBreaking ? breakForce : 0f;
+        
         ApplyBreaking();
+    }
+    
+    // used four sounds
+    public float GetSpeedRatio()
+    {
+        var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
+        return (speed*gas)/maxSpeed;
     }
     
     // nos
@@ -101,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (nosActive)
         {
             nosParticles.SetActive(true);
-            rb.AddForce(0,0, nosForce);
+            rigidBody.AddForce(0,0, nosForce);
         }
         else
         {
@@ -112,15 +159,18 @@ public class PlayerController : MonoBehaviour
     // tire trails
     private void HandleTireTrails()
     {
-        if ((currentSteerAngle > 25) || (currentSteerAngle < -25) || (isBreaking))
+        if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
-            tireTrailRL.SetActive(true);
-            tireTrailRR.SetActive(true);
-        }
-        else
-        {
-            tireTrailRL.SetActive(false);
-            tireTrailRR.SetActive(false);
+            if ((currentSteerAngle > 25) || (currentSteerAngle < -25) || (isBreaking))
+            {
+                tireTrailRL.SetActive(true);
+                tireTrailRR.SetActive(true);
+            }
+            else
+            {
+                tireTrailRL.SetActive(false);
+                tireTrailRR.SetActive(false);
+            }
         }
     }
     
@@ -131,20 +181,20 @@ public class PlayerController : MonoBehaviour
         JointSpring suspensionSpringFR = frontRightWheelCollider.suspensionSpring;
         JointSpring suspensionSpringRL = rearLeftWheelCollider.suspensionSpring;
         JointSpring suspensionSpringRR = rearRightWheelCollider.suspensionSpring;
-        if ((isBreaking) || (nosActive))
+        if (isDrifting)
         {
-            suspensionSpringFL.damper = 10000;
-            suspensionSpringFR.damper = 10000;
-            suspensionSpringRL.damper = 10000;
-            suspensionSpringRR.damper = 10000;
+            suspensionSpringFL.damper = 2000;
+            suspensionSpringFR.damper = 2000;
+            suspensionSpringRL.damper = 2000;
+            suspensionSpringRR.damper = 2000;
             maxSteerAngle = 60;
         }
         else
         {
-            suspensionSpringFL.damper = 6000;
-            suspensionSpringFR.damper = 6000;
-            suspensionSpringRL.damper = 6000;
-            suspensionSpringRR.damper = 6000;
+            suspensionSpringFL.damper = 1000;
+            suspensionSpringFR.damper = 1000;
+            suspensionSpringRL.damper = 1000;
+            suspensionSpringRR.damper = 1000;
             maxSteerAngle = 40;
         }
     }
@@ -155,7 +205,6 @@ public class PlayerController : MonoBehaviour
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
         rearLeftWheelCollider.brakeTorque = currentbreakForce;
         rearRightWheelCollider.brakeTorque = currentbreakForce;
-        speed -= (currentbreakForce / 100) * Time.deltaTime;
     }
     
     // steering

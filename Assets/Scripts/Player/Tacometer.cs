@@ -20,13 +20,13 @@ public class Tacometer : MonoBehaviour
     private float GetSpeedRotation()
     {
         float totalAngleSize = ZERO_SPEED_ANGLE - MAX_SPEED_ANGLE;
-        float speedNormalized = playerController.speed / playerController.speedMax;
+        float speedNormalized = playerController.speed / playerController.maxSpeed;
         return ZERO_SPEED_ANGLE - speedNormalized * totalAngleSize;
     }
 
     private void Update()
     {
-        if (playerController.speed > playerController.speedMax) playerController.speed = playerController.speedMax;
+        if (playerController.speed > playerController.maxSpeed) playerController.speed = playerController.maxSpeed;
         if (playerController.speed < 0) playerController.speed = 0;
         needleTransform.eulerAngles = new Vector3(0, 0, GetSpeedRotation());
         speedText.text = Mathf.Floor(playerController.speed).ToString();
