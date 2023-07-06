@@ -1378,7 +1378,7 @@ MonoBehaviour:
     value: 1
   preset:
     overrideState: 1
-    value: 4
+    value: 5
   maximumIterationCount:
     overrideState: 0
     value: 16
@@ -1519,7 +1519,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.346
+    value: 0.376
   smoothness:
     overrideState: 1
     value: 0.2
