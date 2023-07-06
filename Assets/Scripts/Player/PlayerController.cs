@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     // steering and breaking
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
-    private bool nosActive;
+    public static bool nosActive;
     // particles
     [SerializeField] private GameObject nosParticles;
     [SerializeField] private GameObject tireTrailRL;
