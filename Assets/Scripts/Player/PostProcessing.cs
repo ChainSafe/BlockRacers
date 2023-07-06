@@ -5,7 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PostProcessing : MonoBehaviour
 {
-    public static PostProcessing instance;
+    public static PostProcessing Instance { get; private set; }
 
     // Referencing Post Processing Volume attached to Camera
     private PostProcessVolume MainProfile;
@@ -21,7 +21,7 @@ public class PostProcessing : MonoBehaviour
     private void Start()
     {
         // Singleton
-        instance = this;
+        Instance = this;
 
         // Reference our camera object
         MainProfile = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessVolume>();
@@ -50,11 +50,21 @@ public class PostProcessing : MonoBehaviour
         {
             // Calculate the new lerp value based on time and speed
             currentLerpValue = Mathf.Clamp01(currentLerpValue + (Time.deltaTime * lerpSpeed));
+
+            // Rumble the camera a little
+            CameraShake.Instance.TopRig.m_AmplitudeGain = 1f;
+            CameraShake.Instance.MiddleRig.m_AmplitudeGain = 1f;
+            CameraShake.Instance.BottomRig.m_AmplitudeGain = 1f;
         }
         else
         {
             // Reset the lerp value when the button is not held
             currentLerpValue = Mathf.Clamp01(currentLerpValue - (Time.deltaTime * lerpSpeed));
+
+            // Reset our camera rumble
+            CameraShake.Instance.TopRig.m_AmplitudeGain = 0f;
+            CameraShake.Instance.MiddleRig.m_AmplitudeGain = 0f;
+            CameraShake.Instance.BottomRig.m_AmplitudeGain = 0f;
         }
 
         // Adjust the range of the lerp value based on the desired intensity range
