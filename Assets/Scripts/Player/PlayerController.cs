@@ -145,10 +145,11 @@ public class PlayerController : MonoBehaviour
     // nos
     private void HandleNos()
     {
-        if (nosActive)
+        // If we're using and our current boost amount is more than 0
+        if (nosActive && NitrousManager.currentBoost > 0)
         {
             nosParticles.SetActive(true);
-            rigidBody.AddForce(0,0, nosForce);
+            rigidBody.AddForce(transform.forward * nosForce);
         }
         else
         {

@@ -8,13 +8,13 @@ public class UIMainMenu : MonoBehaviour
     {
         // Gets a reference to the ui document so we can access things like buttons
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-        
+
         // Button references so we can use them
         Button RaceButton = root.Q<Button>("RaceButton");
         Button FreeRoamButton = root.Q<Button>("FreeRoamButton");
         Button GarageButton = root.Q<Button>("GarageButton");
         Button QuitButton = root.Q<Button>("QuitButton");
-        
+
         // Button actions
         RaceButton.clicked += () =>
         {
@@ -36,5 +36,11 @@ public class UIMainMenu : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("MenuSelect");
             Application.Quit();
         };
+    }
+
+    // Reins test button. This needs to be deleted after reviewing the 3D Menu
+    public void StartGame()
+    {
+        SceneManager.LoadScene("RaceTrack");
     }
 }
