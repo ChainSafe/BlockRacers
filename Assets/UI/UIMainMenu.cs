@@ -25,6 +25,7 @@ public class UIMainMenu : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("MenuSelect");
             SceneManager.LoadScene("FreeRoam");
+            CountDownSystem.raceStarted = true; ;
         };
         GarageButton.clicked += () =>
         {
@@ -42,5 +43,6 @@ public class UIMainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("RaceTrack");
+        PlayerController.isRacing = true;
     }
 }

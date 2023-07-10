@@ -7,6 +7,8 @@ TagManager:
   - AudioManager
   - GlobalManager
   - NitrousFill
+  - Checkpoint
+  - LapCollider
   layers:
   - Default
   - TransparentFX

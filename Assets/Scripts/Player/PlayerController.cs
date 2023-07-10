@@ -11,13 +11,24 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float maxSpeed = 280f;
     private float speedRatio;
+
     // input
     private float horizontalInput, verticalInput;
     // steering and breaking
+
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
     private bool isDrifting;
+
+    // Static for our nitrous system
     public static bool nosActive;
+
+    // Static to enabled / disable our headlights for the race & freeroam.
+    public static bool useHeadLights;
+
+    // Used for letting the game know if we're racing or in freeroam
+    public static bool isRacing;
+
     // particles
     [SerializeField] private GameObject nosParticles;
     [SerializeField] private GameObject tireTrailRL;
@@ -25,9 +36,11 @@ public class PlayerController : MonoBehaviour
     
     // rigidbody
     [SerializeField] private Rigidbody rigidBody;
-    
-    // Tailights
+
+    // Tailights & Headlights
     [SerializeField] private GameObject tailLights;
+    [SerializeField] private GameObject headLights;
+
 
     // settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
@@ -50,10 +63,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // remove later
-        
+
         // speed derived from wheel speed
         speedRatio = GetSpeedRatio();
-        speed = rearLeftWheelCollider.rpm * rearLeftWheelCollider.radius * 2f * Mathf.PI / 10f;
+
+        // Hey Sneakz, I replaced the old code with the below to more accurately determine speed by converting from m/s to km/h
+        // This fixed the stuttery tacho and also prevents our speed from going into negatives when we reverse.
+        speed = rigidBody.velocity.magnitude * 3.6f;
 
         // nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -61,13 +77,13 @@ public class PlayerController : MonoBehaviour
             if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Play("Nos");
         }
-        
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Play("EngineAccelerate");
         }
-        
+
         // brake lights
         if ((isBreaking) || (isDrifting))
         {
@@ -76,6 +92,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             tailLights.SetActive(false);
+        }
+
+        // head lights
+        if (useHeadLights)
+        {
+            headLights.SetActive(true);
+        }
+        else
+        {
+            headLights.SetActive(false);
         }
     }
 
@@ -89,7 +115,8 @@ public class PlayerController : MonoBehaviour
         HandleTireTrails();
     }
 
-    private void GetInput() {
+    private void GetInput()
+    {
         // steering Input
         horizontalInput = Input.GetAxis("Horizontal");
 
@@ -98,14 +125,14 @@ public class PlayerController : MonoBehaviour
 
         // breaking Input
         isBreaking = Input.GetKey(KeyCode.S);
-        
+
         // drifting Input
         isDrifting = Input.GetKey(KeyCode.Space);
-        
+
         // nos Input
         nosActive = Input.GetKey(KeyCode.LeftShift);
     }
-    
+
     // engine
     private void HandleMotor()
     {
@@ -113,7 +140,7 @@ public class PlayerController : MonoBehaviour
         float input = verticalInput * motorForce;
         
         // if less than max speed
-        if (speed < maxSpeed)
+        if (speed < maxSpeed && CountDownSystem.raceStarted)
         {
             frontLeftWheelCollider.motorTorque = input;
             frontRightWheelCollider.motorTorque = input;
@@ -121,7 +148,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             frontLeftWheelCollider.motorTorque = 0;
-            frontRightWheelCollider.motorTorque = 0;
+            rearLeftWheelCollider.motorTorque = 0;
         }
         
         if (input != 0)
@@ -141,12 +168,13 @@ public class PlayerController : MonoBehaviour
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
         return (speed*gas)/maxSpeed;
     }
-    
+
+
     // nos
     private void HandleNos()
     {
         // If we're using and our current boost amount is more than 0
-        if (nosActive && NitrousManager.currentBoost > 0)
+        if (nosActive && NitrousManager.currentBoost > 0 && CountDownSystem.raceStarted)
         {
             nosParticles.SetActive(true);
             rigidBody.AddForce(transform.forward * nosForce);
