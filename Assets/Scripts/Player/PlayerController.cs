@@ -53,6 +53,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
+    private void Awake()
+    {
+        // Lock our cursor to the game window
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
