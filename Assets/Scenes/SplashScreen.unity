@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1494156065}
-  videoFileName: SplashScreenVideo.mp4
+  videoFileName: SplashScreenVideo.webm
 --- !u!328 &1494156065
 VideoPlayer:
   m_ObjectHideFlags: 0

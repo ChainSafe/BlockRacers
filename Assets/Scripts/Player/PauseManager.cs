@@ -24,7 +24,6 @@ public class PauseManager : MonoBehaviour
     void Pause()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0;
         paused = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -34,7 +33,6 @@ public class PauseManager : MonoBehaviour
     void Unpause()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1;
         paused = false;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");

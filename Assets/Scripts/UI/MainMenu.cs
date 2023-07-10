@@ -33,9 +33,9 @@ public class MainMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
-    public void FreeRoamButton()
+    public void Tutorial()
     {
-        SceneManager.LoadScene("FreeRoam");
+        SceneManager.LoadScene("Tutorial");
         CountDownSystem.raceStarted = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
