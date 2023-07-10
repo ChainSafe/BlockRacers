@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
-    // allows you to call via name
+    // Allows calls via name
     public string name;
-    // the audio clip being played
+    // The audio clip being played
     public AudioClip clip;
 
-    // allows sliders within editor
+    // Allows use of sliders within the editor
     [Range(0f, 1f)]
     public float volume;
     [Range(.1f, 3f)]

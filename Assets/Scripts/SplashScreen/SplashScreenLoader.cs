@@ -5,18 +5,17 @@ using UnityEngine.Video;
 public class SplashScreenLoader : MonoBehaviour
 {
     // video player renderer
-    [SerializeField]
-    private VideoPlayer videoPlayer;
-    // the file name to play
-    [SerializeField]
-    private string videoFileName;
+    [SerializeField] private VideoPlayer videoPlayer;
+    
+    // The file name to play
+    [SerializeField] private string videoFileName;
 
     void Awake()
     {
         // skips to connect screen if on mobile as they can't play videos properly
         if (Application.isMobilePlatform)
         {
-            SceneManager.LoadScene("Connect");
+            SceneManager.LoadScene("MenuScene");
         }
         else
         {
@@ -32,6 +31,6 @@ public class SplashScreenLoader : MonoBehaviour
     void CheckOver(UnityEngine.Video.VideoPlayer videoPlayer)
     {
         // load this scene
-        SceneManager.LoadScene("Connect");
+        SceneManager.LoadScene("MenuScene");
     }
 }

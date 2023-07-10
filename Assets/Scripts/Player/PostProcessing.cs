@@ -16,8 +16,7 @@ public class PostProcessing : MonoBehaviour
     // Variables for our Nitrous function
     public float lerpSpeed = 1f;
     public float currentLerpValue = 0f;
-
-
+    
     private void Start()
     {
         // Singleton
