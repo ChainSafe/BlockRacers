@@ -7,7 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     // Audio
     private AudioManager audioManager;
-    
+    [SerializeField] private AudioSource nosSound;
+    [SerializeField] private AudioSource idleSound;
+    [SerializeField] private AudioSource accelerateSound;
+    [SerializeField] private AudioSource deaccelerateSound;
+    public float idleMaxVolume;
+    public float accelerateMaxVolume;
+    public float accelerateMaxPitch;
+
     // Speed
     public float speed;
     public float maxSpeed = 280f;
@@ -24,10 +31,10 @@ public class PlayerController : MonoBehaviour
     // Static for our nitrous system
     public static bool nosActive;
 
-    // Static to enabled / disable our headlights for the race & freeroam.
+    // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
 
-    // Used for letting the game know if we're racing or in freeroam
+    // Used for letting the game know if we're racing or tutorial
     public static bool isRacing;
 
     // Particles
@@ -41,7 +48,6 @@ public class PlayerController : MonoBehaviour
     // Tailights & headlights
     [SerializeField] private GameObject tailLights;
     [SerializeField] private GameObject headLights;
-
 
     // Settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
@@ -61,31 +67,23 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Start()
-    {
-        // Finds our audio manager and plays idle sound
-        audioManager = FindObjectOfType<AudioManager>();
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("EngineIdle");
-    }
-
     void Update()
     {
         // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
+        
+        // Engine sounds
+        idleSound.volume = Mathf.Lerp(0.1f, idleMaxVolume, speedRatio);
+        accelerateSound.volume = Mathf.Lerp(0.3f, accelerateMaxVolume, speedRatio);
+        accelerateSound.pitch = Mathf.Lerp(0.3f, accelerateMaxPitch, speedRatio);
+        deaccelerateSound.volume = Mathf.Lerp(0.3f, accelerateMaxVolume, speedRatio);
+        deaccelerateSound.pitch = Mathf.Lerp(0.3f, accelerateMaxPitch, speedRatio);
 
         // Nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (audioManager == null) return;
-            FindObjectOfType<AudioManager>().Play("Nos");
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (audioManager == null) return;
-            FindObjectOfType<AudioManager>().Play("EngineAccelerate");
+            nosSound.Play();
         }
 
         // Brake lights
@@ -155,13 +153,34 @@ public class PlayerController : MonoBehaviour
             rearLeftWheelCollider.motorTorque = 0;
         }
         
-        // Engine idle if no input
-        if (input != 0)
+        // Sounds
+        if (input == 0)
         {
-            if (audioManager == null) return;
-            FindObjectOfType<AudioManager>().Pause("EngineIdle");
+            if (!idleSound.isPlaying)
+            {
+                idleSound.Play();
+            }
         }
-        
+        else
+        {
+            if (frontLeftWheelCollider.motorTorque != 0)
+            {
+                if (!accelerateSound.isPlaying)
+                {
+                    idleSound.Pause();
+                    accelerateSound.Play();
+                }
+            }
+            else if (frontLeftWheelCollider.motorTorque == 0)
+            {
+                if (!deaccelerateSound.isPlaying)
+                {
+                    accelerateSound.Pause();
+                    deaccelerateSound.Play();
+                }
+            }
+        }
+
         // Check if braking
         currentbreakForce = isBraking ? breakForce : 0f;
         ApplyBreaking();
