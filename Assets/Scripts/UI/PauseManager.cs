@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,15 +12,14 @@ public class PauseManager : MonoBehaviour
     // Paused bool
     private bool paused;
 
-    void Start()
+    private void Start()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
     }
     
-    
     // Pauses the game
-    void Pause()
+    private void Pause()
     {
         Cursor.lockState =  CursorLockMode.None;
         pauseMenu.SetActive(true);
@@ -32,7 +29,7 @@ public class PauseManager : MonoBehaviour
     }
     
     // Unpauses the game
-    void Unpause()
+    private void Unpause()
     {
         Cursor.lockState =  CursorLockMode.Locked;
         pauseMenu.SetActive(false);
@@ -49,7 +46,7 @@ public class PauseManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
