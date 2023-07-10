@@ -13,6 +13,7 @@ public class NitrousManager : MonoBehaviour
     public static float currentBoost;    // Current boost value
     public Slider boostSlider;           // The UI component
     public Image BoostBar;               // The Fill Image for the slider
+    public Image NOSIcon;                // The sprite representing the NOS 
 
 
     private void Awake()
@@ -30,13 +31,14 @@ public class NitrousManager : MonoBehaviour
     private void Update()
     {
         // Drain NOS when we use it
-        if (PlayerController.nosActive)
+        if (PlayerController.nosActive && CountDownSystem.raceStarted)
         {
             currentBoost -= boostRate * Time.deltaTime;
             currentBoost = Mathf.Clamp(currentBoost, 0f, maxBoost);
 
             // Illuminate our NOS Bar
             BoostBar.color = Color.cyan;
+            NOSIcon.color = Color.cyan;
         }
         // Recharge NOS when it's not in use
         else
@@ -46,6 +48,7 @@ public class NitrousManager : MonoBehaviour
 
             // Make our bar slightly transparent again
             BoostBar.color = new Color(1, 1, 1, 0.4f);
+            NOSIcon.color = new Color(1, 1, 1, 0.4f);
         }
 
         // Update the value of the UI Slider
