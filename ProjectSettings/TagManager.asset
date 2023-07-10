@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - AudioManager
-  - GlobalManager
-  - NitrousFill
-  - Checkpoint
-  - LapCollider
+  tags: []
   layers:
   - Default
   - TransparentFX
