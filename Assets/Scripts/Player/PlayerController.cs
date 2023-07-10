@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput, verticalInput;
     
     // Steering and braking
-    private float currentSteerAngle, currentbreakForce;
+    private float currentSteerAngle, currentbrakeForce;
     private bool isBraking;
     private bool isDrifting;
 
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check if braking
-        currentbreakForce = isBraking ? breakForce : 0f;
+        currentbrakeForce = isBraking ? breakForce : 0f;
         ApplyBraking();
     }
     
@@ -275,10 +275,10 @@ public class PlayerController : MonoBehaviour
     
     // Braking
     private void ApplyBraking() {
-        frontRightWheelCollider.brakeTorque = currentbreakForce;
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearRightWheelCollider.brakeTorque = currentbreakForce;
+        frontRightWheelCollider.brakeTorque = currentbrakeForce;
+        frontLeftWheelCollider.brakeTorque = currentbrakeForce;
+        rearLeftWheelCollider.brakeTorque = currentbrakeForce;
+        rearRightWheelCollider.brakeTorque = currentbrakeForce;
     }
     
     // Steering
