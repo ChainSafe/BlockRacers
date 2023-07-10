@@ -39163,7 +39163,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 1
+  m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -62508,11 +62508,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987456792804106767, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.2233584
+      value: -0.22335838
       objectReference: {fileID: 0}
     - target: {fileID: 2987456792804106767, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.000000014901159
       objectReference: {fileID: 0}
     - target: {fileID: 4400459882140456223, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_Name
@@ -62532,19 +62532,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7125141951398963238, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000015737108
+      value: -0.00000031474215
       objectReference: {fileID: 0}
     - target: {fileID: 7125141951398963238, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000038114497
+      value: -0.0000076228994
       objectReference: {fileID: 0}
     - target: {fileID: 8097185355161265409, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.22331086
+      value: -0.22331084
       objectReference: {fileID: 0}
     - target: {fileID: 8097185355161265409, guid: a6ea45489aa1d7247a7208c7bae79846, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0046081813
+      value: 0.004608166
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
