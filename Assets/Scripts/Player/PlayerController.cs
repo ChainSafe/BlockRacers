@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     
     // Steering and braking
     private float currentSteerAngle, currentbreakForce;
-    private bool isBreaking;
+    private bool isBraking;
     private bool isDrifting;
 
     // Static for our nitrous system
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Brake lights
-        if ((isBreaking) || (isDrifting))
+        if ((isBraking) || (isDrifting))
         {
             tailLights.SetActive(true);
         }
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         // Breaking Input
-        isBreaking = Input.GetKey(KeyCode.S);
+        isBraking = Input.GetKey(KeyCode.S);
 
         // Drifting Input
         isDrifting = Input.GetKey(KeyCode.Space);
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
         }
         
         // Check if braking
-        currentbreakForce = isBreaking ? breakForce : 0f;
+        currentbreakForce = isBraking ? breakForce : 0f;
         ApplyBreaking();
     }
     
@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
-            if ((currentSteerAngle > 25) || (currentSteerAngle < -25) || (isBreaking))
+            if ((currentSteerAngle > 25) || (currentSteerAngle < -25) || (isBraking))
             {
                 tireTrailRL.SetActive(true);
                 tireTrailRR.SetActive(true);
