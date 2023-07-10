@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
-    public void Tutorial()
+    public void TutorialButton()
     {
         SceneManager.LoadScene("Tutorial");
         CountDownSystem.raceStarted = true;

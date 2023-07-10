@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -37,6 +38,15 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
+    
+    // Goes to the main menu
+    public void MainMenuButton()
+    {
+        SceneManager.LoadScene("MenuScene");
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
