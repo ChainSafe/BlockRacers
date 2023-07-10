@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     // audio
     private AudioManager audioManager;
+    
     // speed
     public float speed;
     public float maxSpeed = 280f;
@@ -14,19 +15,19 @@ public class PlayerController : MonoBehaviour
 
     // input
     private float horizontalInput, verticalInput;
-    // steering and breaking
-
+    
+    // steering and braking
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
     private bool isDrifting;
 
-    // Static for our nitrous system
+    // static for our nitrous system
     public static bool nosActive;
 
-    // Static to enabled / disable our headlights for the race & freeroam.
+    // static to enabled / disable our headlights for the race & freeroam.
     public static bool useHeadLights;
 
-    // Used for letting the game know if we're racing or in freeroam
+    // used for letting the game know if we're racing or in freeroam
     public static bool isRacing;
 
     // particles
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // rigidbody
     [SerializeField] private Rigidbody rigidBody;
 
-    // Tailights & Headlights
+    // tailights & headlights
     [SerializeField] private GameObject tailLights;
     [SerializeField] private GameObject headLights;
 
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
     // settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
 
-    // wheel Colliders
+    // wheel colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
     [SerializeField] private WheelCollider rearLeftWheelCollider, rearRightWheelCollider;
 
@@ -55,13 +56,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        // Lock our cursor to the game window
+        // lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Start()
     {
+        // finds our audio manager and plays idle sound
         audioManager = FindObjectOfType<AudioManager>();
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("EngineIdle");
@@ -69,13 +71,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // remove later
-
         // speed derived from wheel speed
         speedRatio = GetSpeedRatio();
-
-        // Hey Sneakz, I replaced the old code with the below to more accurately determine speed by converting from m/s to km/h
-        // This fixed the stuttery tacho and also prevents our speed from going into negatives when we reverse.
         speed = rigidBody.velocity.magnitude * 3.6f;
 
         // nos and brakes
@@ -158,18 +155,19 @@ public class PlayerController : MonoBehaviour
             rearLeftWheelCollider.motorTorque = 0;
         }
         
+        // engine idle if no input
         if (input != 0)
         {
             if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Pause("EngineIdle");
         }
-
-        currentbreakForce = isBreaking ? breakForce : 0f;
         
+        // check braking
+        currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
     }
     
-    // used four sounds
+    // used for engine sounds
     public float GetSpeedRatio()
     {
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
@@ -235,7 +233,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // breaking
+    // braking
     private void ApplyBreaking() {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
