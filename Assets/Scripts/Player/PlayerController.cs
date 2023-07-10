@@ -68,10 +68,10 @@ public class PlayerController : MonoBehaviour
         speed = rigidBody.velocity.magnitude * 3.6f;
 
         // Engine sounds
-        idleSound.volume = Mathf.Lerp(0.3f, 0.3f, speedRatio);
-        accelerateSound.volume = Mathf.Lerp(0.3f, 0.4f, speedRatio);
+        idleSound.volume = Mathf.Lerp(0.25f, 0.25f, speedRatio);
+        accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, speedRatio);
         accelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
-        deaccelerateSound.volume = Mathf.Lerp(0.4f, 0.4f, speedRatio);
+        deaccelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, speedRatio);
         deaccelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
 
         // Nos and brakes
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     // Engine
     private void HandleMotor()
     {
-        // Gets input for accleration
+        // Gets input for acceleration
         float input = verticalInput * motorForce;
         
         // If speed less than max speed, stop motor torque
@@ -161,7 +161,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (!accelerateSound.isPlaying)
                 {
-                    idleSound.Pause();
                     deaccelerateSound.Pause();
                     accelerateSound.Play();
                 }
@@ -178,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
         // Check if braking
         currentbreakForce = isBraking ? breakForce : 0f;
-        ApplyBreaking();
+        ApplyBraking();
     }
     
     // Used for engine sounds
@@ -228,26 +227,54 @@ public class PlayerController : MonoBehaviour
         WheelFrictionCurve sidewaysFrictionFR = frontRightWheelCollider.sidewaysFriction;
         WheelFrictionCurve sidewaysFrictionRL = rearLeftWheelCollider.sidewaysFriction;
         WheelFrictionCurve sidewaysFrictionRR = rearRightWheelCollider.sidewaysFriction;
+        WheelFrictionCurve forwardFrictionFL = frontLeftWheelCollider.forwardFriction;
+        WheelFrictionCurve forwardFrictionFR = frontRightWheelCollider.forwardFriction;
+        WheelFrictionCurve forwardFrictionRL = rearLeftWheelCollider.forwardFriction;
+        WheelFrictionCurve forwardFrictionRR = rearRightWheelCollider.forwardFriction;
         if (isDrifting)
         {
-            sidewaysFrictionFL.extremumSlip = 1;
-            sidewaysFrictionFR.extremumSlip = 1;
-            sidewaysFrictionRL.extremumSlip = 1;
-            sidewaysFrictionRR.extremumSlip = 1;
+            sidewaysFrictionFL.asymptoteValue = 0.5f;
+            sidewaysFrictionFR.asymptoteValue = 0.5f;
+            sidewaysFrictionRL.asymptoteValue = 0.5f;
+            sidewaysFrictionRR.asymptoteValue = 0.5f;
+            forwardFrictionFL.asymptoteValue = 1;
+            forwardFrictionFR.asymptoteValue = 1;
+            forwardFrictionRL.asymptoteValue = 1;
+            forwardFrictionRR.asymptoteValue = 1;
+            sidewaysFrictionFL.stiffness = 0.5f;
+            sidewaysFrictionFR.stiffness = 0.5f;
+            sidewaysFrictionRL.stiffness = 0.5f;
+            sidewaysFrictionRR.stiffness = 0.5f;
+            forwardFrictionFL.stiffness = 0.5f;
+            forwardFrictionFR.stiffness = 0.5f;
+            forwardFrictionRL.stiffness = 0.5f;
+            forwardFrictionRR.stiffness = 0.5f;
             maxSteerAngle = 60;
         }
         else
         {
-            sidewaysFrictionFL.extremumSlip = 0.2f;
-            sidewaysFrictionFR.extremumSlip = 0.2f;
-            sidewaysFrictionRL.extremumSlip = 0.2f;
-            sidewaysFrictionRR.extremumSlip = 0.2f;
+            sidewaysFrictionFL.asymptoteValue = 0.75f;
+            sidewaysFrictionFR.asymptoteValue = 0.75f;
+            sidewaysFrictionRL.asymptoteValue = 0.75f;
+            sidewaysFrictionRR.asymptoteValue = 0.75f;
+            forwardFrictionFL.asymptoteValue = 0.5f;
+            forwardFrictionFR.asymptoteValue = 0.5f;
+            forwardFrictionRL.asymptoteValue = 0.5f;
+            forwardFrictionRR.asymptoteValue = 0.5f;
+            sidewaysFrictionFL.stiffness = 1;
+            sidewaysFrictionFR.stiffness = 1;
+            sidewaysFrictionRL.stiffness = 1;
+            sidewaysFrictionRR.stiffness = 1;
+            forwardFrictionFL.stiffness = 1;
+            forwardFrictionFR.stiffness = 1;
+            forwardFrictionRL.stiffness = 1;
+            forwardFrictionRR.stiffness = 1;
             maxSteerAngle = 40;
         }
     }
     
     // Braking
-    private void ApplyBreaking() {
+    private void ApplyBraking() {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
         rearLeftWheelCollider.brakeTorque = currentbreakForce;
