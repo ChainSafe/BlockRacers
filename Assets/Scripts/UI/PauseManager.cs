@@ -24,6 +24,7 @@ public class PauseManager : MonoBehaviour
     // Pauses the game
     void Pause()
     {
+        Cursor.lockState =  CursorLockMode.None;
         pauseMenu.SetActive(true);
         paused = true;
         if (audioManager == null) return;
@@ -33,6 +34,7 @@ public class PauseManager : MonoBehaviour
     // Unpauses the game
     void Unpause()
     {
+        Cursor.lockState =  CursorLockMode.Locked;
         pauseMenu.SetActive(false);
         paused = false;
         if (audioManager == null) return;
