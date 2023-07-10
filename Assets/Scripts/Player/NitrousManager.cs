@@ -6,24 +6,36 @@ using UnityEngine.UI;
 public class NitrousManager : MonoBehaviour
 {
 
-    public float maxBoost = 100f;        // Maximum boost value
-    public float boostRate = 45f;        // Rate at which boost depletes per second
-    public float rechargeRate = 5f;      // Rate at which boost recharges per second
-
-    public static float currentBoost;    // Current boost value
-    public Slider boostSlider;           // The UI component
-    public Image BoostBar;               // The Fill Image for the slider
-    public Image NOSIcon;                // The sprite representing the NOS 
+    // Maximum boost value
+    [SerializeField] private float maxBoost = 100f;
+    
+    // Rate at which boost depletes per second
+    [SerializeField] private float boostRate = 45f;
+    
+    // Rate at which boost recharges per second
+    [SerializeField] private float rechargeRate = 5f;
+    
+    // Current boost value
+    public static float currentBoost;
+    
+    // The UI component
+    [SerializeField] private Slider boostSlider;
+    
+    // The Fill Image for the slider
+    [SerializeField] private Image BoostBar;
+    
+    // The sprite representing the NOS
+    [SerializeField] private Image NOSIcon; 
 
 
     private void Awake()
     {
         // Ensure we start with full boost
         currentBoost = 100f;
-
+        
         // What's the minimum value
         boostSlider.minValue = 0f;
-
+        
         // What is the max value
         boostSlider.maxValue = maxBoost;
     }

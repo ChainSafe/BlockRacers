@@ -5,65 +5,65 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // audio
+    // Audio
     private AudioManager audioManager;
     
-    // speed
+    // Speed
     public float speed;
     public float maxSpeed = 280f;
     private float speedRatio;
 
-    // input
+    // Input
     private float horizontalInput, verticalInput;
     
-    // steering and braking
+    // Steering and braking
     private float currentSteerAngle, currentbreakForce;
     private bool isBreaking;
     private bool isDrifting;
 
-    // static for our nitrous system
+    // Static for our nitrous system
     public static bool nosActive;
 
-    // static to enabled / disable our headlights for the race & freeroam.
+    // Static to enabled / disable our headlights for the race & freeroam.
     public static bool useHeadLights;
 
-    // used for letting the game know if we're racing or in freeroam
+    // Used for letting the game know if we're racing or in freeroam
     public static bool isRacing;
 
-    // particles
+    // Particles
     [SerializeField] private GameObject nosParticles;
     [SerializeField] private GameObject tireTrailRL;
     [SerializeField] private GameObject tireTrailRR;
     
-    // rigidbody
+    // Rigidbody
     [SerializeField] private Rigidbody rigidBody;
 
-    // tailights & headlights
+    // Tailights & headlights
     [SerializeField] private GameObject tailLights;
     [SerializeField] private GameObject headLights;
 
 
-    // settings
+    // Settings
     [SerializeField] private float motorForce, nosForce, breakForce, maxSteerAngle;
 
-    // wheel colliders
+    // Wheel colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
     [SerializeField] private WheelCollider rearLeftWheelCollider, rearRightWheelCollider;
 
-    // wheels
+    // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
     private void Awake()
     {
-        // lock our cursor to the game window
+        // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Start()
     {
-        // finds our audio manager and plays idle sound
+        // Finds our audio manager and plays idle sound
         audioManager = FindObjectOfType<AudioManager>();
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("EngineIdle");
@@ -71,11 +71,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // speed derived from wheel speed
+        // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
 
-        // nos and brakes
+        // Nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (audioManager == null) return;
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("EngineAccelerate");
         }
 
-        // brake lights
+        // Brake lights
         if ((isBreaking) || (isDrifting))
         {
             tailLights.SetActive(true);
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             tailLights.SetActive(false);
         }
 
-        // head lights
+        // Head lights
         if (useHeadLights)
         {
             headLights.SetActive(true);
@@ -121,29 +121,29 @@ public class PlayerController : MonoBehaviour
 
     private void GetInput()
     {
-        // steering Input
+        // Steering Input
         horizontalInput = Input.GetAxis("Horizontal");
 
-        // acceleration Input
+        // Acceleration Input
         verticalInput = Input.GetAxis("Vertical");
 
-        // breaking Input
+        // Breaking Input
         isBreaking = Input.GetKey(KeyCode.S);
 
-        // drifting Input
+        // Drifting Input
         isDrifting = Input.GetKey(KeyCode.Space);
 
-        // nos Input
+        // Nos Input
         nosActive = Input.GetKey(KeyCode.LeftShift);
     }
 
-    // engine
+    // Engine
     private void HandleMotor()
     {
-        // get input for accleration
+        // Gets input for accleration
         float input = verticalInput * motorForce;
         
-        // if less than max speed
+        // If speed less than max speed, stop motor torqu
         if (speed < maxSpeed && CountDownSystem.raceStarted)
         {
             frontLeftWheelCollider.motorTorque = input;
@@ -155,19 +155,19 @@ public class PlayerController : MonoBehaviour
             rearLeftWheelCollider.motorTorque = 0;
         }
         
-        // engine idle if no input
+        // Engine idle if no input
         if (input != 0)
         {
             if (audioManager == null) return;
             FindObjectOfType<AudioManager>().Pause("EngineIdle");
         }
         
-        // check braking
+        // Check if braking
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
     }
     
-    // used for engine sounds
+    // Used for engine sounds
     public float GetSpeedRatio()
     {
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // nos
+    // Nos
     private void HandleNos()
     {
         // If we're using and our current boost amount is more than 0
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // tire trails
+    // Tire trails
     private void HandleTireTrails()
     {
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // drifting
+    // Drifting
     private void HandleDrift()
     {
         JointSpring suspensionSpringFL = frontLeftWheelCollider.suspensionSpring;
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // braking
+    // Braking
     private void ApplyBreaking() {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
@@ -241,14 +241,14 @@ public class PlayerController : MonoBehaviour
         rearRightWheelCollider.brakeTorque = currentbreakForce;
     }
     
-    // steering
+    // Steering
     private void HandleSteering() {
         currentSteerAngle = maxSteerAngle * horizontalInput;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
     
-    // wheel colliders & transforms
+    // Wheel colliders & transforms
     private void UpdateWheels() {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
         UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform);
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
     }
     
-    // wheel position & rotation
+    // Wheel position & rotation
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform) {
         Vector3 pos;
         Quaternion rot; 

@@ -4,23 +4,20 @@ using UnityEngine.UI;
 
 public class Tachometer : MonoBehaviour
 {
-    // the UI component
-    [SerializeField]
-    private Slider speedSlider;
+    // UI component
+    [SerializeField] private Slider speedSlider;
     
-    // the fill component
-    [SerializeField]
-    private Image speedBar;
+    // Fill component
+    [SerializeField] private Image speedBar;
     
-    // the actual speed metric
-    [SerializeField]
-    private TextMeshProUGUI speedText;
+    // The actual speed metric
+    [SerializeField] private TextMeshProUGUI speedText;
     
-    // the current gear
-    private TextMeshProUGUI currentGear;
+    // Current gear
+    [SerializeField] private TextMeshProUGUI currentGear;
     
-    // player objects
-    public GameObject player;
+    // Player objects
+    [SerializeField] private GameObject player;
     private PlayerController playerController;
 
     private void Awake()
@@ -30,11 +27,11 @@ public class Tachometer : MonoBehaviour
 
     private void Update()
     {
+        // Speed text & slider
         speedText.text = Mathf.Floor(playerController.speed).ToString();
-
         speedSlider.value = playerController.speed;
 
-        // changing our current gear based on speed 
+        // Changing our current gear based on speed 
         if (playerController.speed < 40)
         {
             currentGear.text = "1";
