@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,9 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource idleSound;
     [SerializeField] private AudioSource accelerateSound;
     [SerializeField] private AudioSource deaccelerateSound;
-    public float idleMaxVolume;
-    public float accelerateMaxVolume;
-    public float accelerateMaxPitch;
 
     // Speed
     public float speed;
@@ -67,18 +61,18 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
         // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
-        
+
         // Engine sounds
-        idleSound.volume = Mathf.Lerp(0.1f, idleMaxVolume, speedRatio);
-        accelerateSound.volume = Mathf.Lerp(0.3f, accelerateMaxVolume, speedRatio);
-        accelerateSound.pitch = Mathf.Lerp(0.3f, accelerateMaxPitch, speedRatio);
-        deaccelerateSound.volume = Mathf.Lerp(0.3f, accelerateMaxVolume, speedRatio);
-        deaccelerateSound.pitch = Mathf.Lerp(0.3f, accelerateMaxPitch, speedRatio);
+        idleSound.volume = Mathf.Lerp(0.3f, 0.3f, speedRatio);
+        accelerateSound.volume = Mathf.Lerp(0.3f, 0.4f, speedRatio);
+        accelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
+        deaccelerateSound.volume = Mathf.Lerp(0.4f, 0.4f, speedRatio);
+        deaccelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
 
         // Nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -141,7 +135,7 @@ public class PlayerController : MonoBehaviour
         // Gets input for accleration
         float input = verticalInput * motorForce;
         
-        // If speed less than max speed, stop motor torqu
+        // If speed less than max speed, stop motor torque
         if (speed < maxSpeed && CountDownSystem.raceStarted)
         {
             frontLeftWheelCollider.motorTorque = input;
@@ -152,9 +146,9 @@ public class PlayerController : MonoBehaviour
             frontLeftWheelCollider.motorTorque = 0;
             rearLeftWheelCollider.motorTorque = 0;
         }
-        
+
         // Sounds
-        if (input == 0)
+        if ((input == 0) && (speed == 0))
         {
             if (!idleSound.isPlaying)
             {
@@ -163,15 +157,16 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (frontLeftWheelCollider.motorTorque != 0)
+            if (frontLeftWheelCollider.motorTorque > 0)
             {
                 if (!accelerateSound.isPlaying)
                 {
                     idleSound.Pause();
+                    deaccelerateSound.Pause();
                     accelerateSound.Play();
                 }
             }
-            else if (frontLeftWheelCollider.motorTorque == 0)
+            else
             {
                 if (!deaccelerateSound.isPlaying)
                 {
@@ -192,8 +187,7 @@ public class PlayerController : MonoBehaviour
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
         return (speed*gas)/maxSpeed;
     }
-
-
+    
     // Nos
     private void HandleNos()
     {
@@ -230,24 +224,24 @@ public class PlayerController : MonoBehaviour
     // Drifting
     private void HandleDrift()
     {
-        JointSpring suspensionSpringFL = frontLeftWheelCollider.suspensionSpring;
-        JointSpring suspensionSpringFR = frontRightWheelCollider.suspensionSpring;
-        JointSpring suspensionSpringRL = rearLeftWheelCollider.suspensionSpring;
-        JointSpring suspensionSpringRR = rearRightWheelCollider.suspensionSpring;
+        WheelFrictionCurve sidewaysFrictionFL = frontLeftWheelCollider.sidewaysFriction;
+        WheelFrictionCurve sidewaysFrictionFR = frontRightWheelCollider.sidewaysFriction;
+        WheelFrictionCurve sidewaysFrictionRL = rearLeftWheelCollider.sidewaysFriction;
+        WheelFrictionCurve sidewaysFrictionRR = rearRightWheelCollider.sidewaysFriction;
         if (isDrifting)
         {
-            suspensionSpringFL.damper = 2000;
-            suspensionSpringFR.damper = 2000;
-            suspensionSpringRL.damper = 2000;
-            suspensionSpringRR.damper = 2000;
+            sidewaysFrictionFL.extremumSlip = 1;
+            sidewaysFrictionFR.extremumSlip = 1;
+            sidewaysFrictionRL.extremumSlip = 1;
+            sidewaysFrictionRR.extremumSlip = 1;
             maxSteerAngle = 60;
         }
         else
         {
-            suspensionSpringFL.damper = 1000;
-            suspensionSpringFR.damper = 1000;
-            suspensionSpringRL.damper = 1000;
-            suspensionSpringRR.damper = 1000;
+            sidewaysFrictionFL.extremumSlip = 0.2f;
+            sidewaysFrictionFR.extremumSlip = 0.2f;
+            sidewaysFrictionRL.extremumSlip = 0.2f;
+            sidewaysFrictionRR.extremumSlip = 0.2f;
             maxSteerAngle = 40;
         }
     }

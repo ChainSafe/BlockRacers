@@ -164,7 +164,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32285401018964479}
-  m_LocalRotation: {x: -0.22331086, y: -0.02011017, z: 0.0046081813, w: -0.97452897}
+  m_LocalRotation: {x: -0.22331084, y: -0.02011017, z: 0.004608166, w: -0.97452897}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1044,7 +1044,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 00666331771d43e44bd68041201da1b1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2270,7 +2270,7 @@ Transform:
   - {fileID: 1921471454637797583}
   - {fileID: 3347273087822915198}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!54 &892240045161491238
 Rigidbody:
@@ -2315,8 +2315,8 @@ MonoBehaviour:
   idleSound: {fileID: 7929863519300542558}
   accelerateSound: {fileID: 5318811478880925503}
   deaccelerateSound: {fileID: 1384767319202828962}
-  idleMaxVolume: 1
-  accelerateMaxVolume: 1
+  idleMaxVolume: 0.3
+  accelerateMaxVolume: 0.4
   accelerateMaxPitch: 2
   speed: 0
   maxSpeed: 280
@@ -8129,7 +8129,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7365825483062097780}
-  m_LocalRotation: {x: -0.2233584, y: -0.000000059604638, z: -0, w: -0.9747364}
+  m_LocalRotation: {x: -0.22335838, y: -0.000000059604638, z: -0.000000014901159, w: -0.9747364}
   m_LocalPosition: {x: -0.00000047683716, y: 2.87, z: -4.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
