@@ -98,11 +98,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (engineLevel == 2)
         {
-            maxSpeed = 215f;
+            maxSpeed = 230f;
         }
         else
         {
-            maxSpeed = 250f;
+            maxSpeed = 280f;
         }
         
         if (handlingLevel == 1)
