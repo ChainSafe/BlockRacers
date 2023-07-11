@@ -339,7 +339,8 @@ public class PlayerController : MonoBehaviour
     }
     
     // Steering
-    private void HandleSteering() {
+    private void HandleSteering()
+    {
         currentSteerAngle = maxSteerAngle * horizontalInput;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
