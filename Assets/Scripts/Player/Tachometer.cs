@@ -34,27 +34,33 @@ public class Tachometer : MonoBehaviour
         // Changing our current gear based on speed 
         if (playerController.speed < 40)
         {
-            currentGear.text = "1";
+            playerController.currentGear = 1;
+            currentGear.text = playerController.currentGear.ToString();
         }
         if (playerController.speed > 40 && playerController.speed < 80)
         {
-            currentGear.text = "2";
+            playerController.currentGear = 2;
+            currentGear.text = playerController.currentGear.ToString();
         }
         if (playerController.speed > 80 && playerController.speed < 140)
         {
-            currentGear.text = "3";
+            playerController.currentGear = 3;
+            currentGear.text = playerController.currentGear.ToString();
         }
         if (playerController.speed > 140 && playerController.speed < 190)
         {
-            currentGear.text = "4";
+            playerController.currentGear = 4;
+            currentGear.text = playerController.currentGear.ToString();
         }
         if (playerController.speed > 190 && playerController.speed < 240)
         {
-            currentGear.text = "5";
+            playerController.currentGear = 5;
+            currentGear.text = playerController.currentGear.ToString();
         }
         if (playerController.speed > 240 && playerController.speed < 280)
         {
-            currentGear.text = "6";
+            playerController.currentGear = 6;
+            currentGear.text = playerController.currentGear.ToString();
         }
     }
 

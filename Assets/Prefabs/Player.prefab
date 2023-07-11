@@ -2319,6 +2319,7 @@ MonoBehaviour:
   collisionSound: {fileID: 6291528584868116612}
   speed: 0
   maxSpeed: 280
+  currentGear: 0
   nosParticles: {fileID: 5087590832435049255}
   tireTrailRL: {fileID: 1023952475887302460}
   tireTrailRR: {fileID: 4664376856693064768}
@@ -8173,7 +8174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
   m_LocalRotation: {x: -0.2654852, y: -0.019890655, z: 0.005478479, w: -0.9638942}
-  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
+  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

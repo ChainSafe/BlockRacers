@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     private float currentSteerAngle, currentbrakeForce;
     private bool isBraking;
     private bool isDrifting;
+    
+    // Current gear
+    public int currentGear;
 
     // Static for our nitrous system
     public static bool nosActive;
@@ -82,9 +85,9 @@ public class PlayerController : MonoBehaviour
         // Engine sounds
         idleSound.volume = Mathf.Lerp(0.25f, 0.25f, speedRatio);
         accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, speedRatio);
-        accelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
+        accelerateSound.pitch = Mathf.Lerp(0.3f * currentGear / 2, 2, speedRatio);
         deaccelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, speedRatio);
-        deaccelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
+        deaccelerateSound.pitch = Mathf.Lerp(0.3f * currentGear, 2, speedRatio);
 
         // Nos and brakes
         if (Input.GetKeyDown(KeyCode.LeftShift) && CountDownSystem.raceStarted)
@@ -145,7 +148,8 @@ public class PlayerController : MonoBehaviour
     private void HandleMotor()
     {
         // Gets input for acceleration
-        float input = verticalInput * motorForce;
+        float input = verticalInput * motorForce / currentGear;
+        Debug.Log(input);
         
         // If speed less than max speed, stop motor torque
         if (speed < maxSpeed && CountDownSystem.raceStarted)
