@@ -149,8 +149,7 @@ public class PlayerController : MonoBehaviour
     {
         // Gets input for acceleration
         float input = verticalInput * motorForce / currentGear;
-        Debug.Log(input);
-        
+
         // If speed less than max speed, stop motor torque
         if (speed < maxSpeed && CountDownSystem.raceStarted)
         {
@@ -253,7 +252,7 @@ public class PlayerController : MonoBehaviour
             frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
             rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
             rearRightWheelCollider.sidewaysFriction = sidewaysFrictionRR;
-            currentbrakeForce = 500;
+            currentbrakeForce = 100;
         }
         else
         {
