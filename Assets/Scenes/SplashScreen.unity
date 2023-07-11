@@ -256,6 +256,12 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
+  - name: Bgm2
+    clip: {fileID: 8300000, guid: 297dc3fc2d0b1b14f9cf20934f1dbaf7, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
   - name: MenuSelect
     clip: {fileID: 8300000, guid: 917b06794c4b27246b00e6e2e142f3da, type: 3}
     volume: 0.3
@@ -321,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bbccb9395b7bd4787377bac9edca6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: 
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0

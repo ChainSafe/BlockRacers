@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource idleSound;
     [SerializeField] private AudioSource accelerateSound;
     [SerializeField] private AudioSource deaccelerateSound;
+    [SerializeField] private AudioSource collisionSound;
 
     // Speed
     public float speed;
@@ -56,9 +58,19 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Finds our audio manager
+        audioManager = FindObjectOfType<AudioManager>();
+        
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void Start()
+    {
+        // Changes Bgm
+        audioManager.Pause("Bgm1");
+        audioManager.Play("Bgm2");
     }
 
     private void Update()
@@ -303,5 +315,11 @@ public class PlayerController : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        collisionSound.Pause();
+        collisionSound.Play();
     }
 }

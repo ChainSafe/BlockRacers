@@ -3,17 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class GarageMenu : MonoBehaviour
 {
+    // Global manager
+    private GlobalManager globalManager;
+    
     // Audio
     private AudioManager audioManager;
-
+    
+    // Menu objects
     [SerializeField] private GameObject MenuGarage;
     [SerializeField] private GameObject MenuUpgrade;
     [SerializeField] private GameObject MenuMarket;
     
-    void Start()
+    private void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
+        // Find our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
     
     // Opens the garage menu
@@ -47,7 +53,8 @@ public class GarageMenu : MonoBehaviour
     // Leaves garage and goes to the main menu
     public void MainMenuButton()
     {
-        SceneManager.LoadScene("MenuScene");
+        globalManager.sceneToLoad = "MenuScene";
+        SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
