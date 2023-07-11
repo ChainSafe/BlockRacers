@@ -258,7 +258,7 @@ MonoBehaviour:
     loop: 1
   - name: Bgm2
     clip: {fileID: 8300000, guid: 297dc3fc2d0b1b14f9cf20934f1dbaf7, type: 3}
-    volume: 0.5
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 1
