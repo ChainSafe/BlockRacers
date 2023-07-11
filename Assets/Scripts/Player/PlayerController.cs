@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         deaccelerateSound.pitch = Mathf.Lerp(0.3f, 2, speedRatio);
 
         // Nos and brakes
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && CountDownSystem.raceStarted)
         {
             nosSound.Play();
         }

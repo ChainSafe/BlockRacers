@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
     public void RaceButton()
     {
         PlayerController.isRacing = true;
+        PlayerController.useHeadLights = false;
         SceneManager.LoadScene("RaceTrack");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -37,6 +38,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial");
         CountDownSystem.raceStarted = true;
+        PlayerController.useHeadLights = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
