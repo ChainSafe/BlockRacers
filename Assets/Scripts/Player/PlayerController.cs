@@ -257,6 +257,7 @@ public class PlayerController : MonoBehaviour
             forwardFrictionFR.extremumValue = 0.4f;
             forwardFrictionRL.extremumValue = 0.4f;
             forwardFrictionRR.extremumValue = 0.4f;
+            currentbrakeForce = 1000;
         }
         else
         {
