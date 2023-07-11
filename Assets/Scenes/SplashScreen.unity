@@ -329,6 +329,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: 
   bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  engineLevel: 3
+  handlingLevel: 3
+  nosLevel: 3
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0
