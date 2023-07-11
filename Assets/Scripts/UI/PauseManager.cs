@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    // Global manager
+    private GlobalManager globalManager;
+    
     // Audio
     private AudioManager audioManager;
     
@@ -15,12 +18,14 @@ public class PauseManager : MonoBehaviour
     // Our on-screen race UI to disable when we pause
     public GameObject[] raceUI;
 
-    private void Start()
+    private void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
+        // Find our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
-    
+
     // Pauses the game
     private void Pause()
     {
@@ -58,7 +63,10 @@ public class PauseManager : MonoBehaviour
     // Goes to the main menu
     public void MainMenuButton()
     {
-        SceneManager.LoadScene("MenuScene");
+        audioManager.Pause("Bgm2");
+        audioManager.Play("Bgm1");
+        globalManager.sceneToLoad = "MenuScene";
+        SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

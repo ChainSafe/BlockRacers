@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    // Global Manager
+    private GlobalManager globalManager;
+    
     // Audio
     private AudioManager audioManager;
     
@@ -10,10 +13,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject ConnectMenuItems;
     [SerializeField] private GameObject MainMenuItems;
 
-    void Start()
+    void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
+        // Find our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
 
     // Change later when sdk is in
@@ -29,14 +34,16 @@ public class MainMenu : MonoBehaviour
     {
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
-        SceneManager.LoadScene("RaceTrack");
+        globalManager.sceneToLoad = "RaceTrack";
+        SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
     public void TutorialButton()
     {
-        SceneManager.LoadScene("Tutorial");
+        globalManager.sceneToLoad = "Tutorial";
+        SceneManager.LoadScene("LoadingScreen");
         CountDownSystem.raceStarted = true;
         PlayerController.useHeadLights = true;
         if (audioManager == null) return;
@@ -45,7 +52,8 @@ public class MainMenu : MonoBehaviour
     
     public void GarageButton()
     {
-        SceneManager.LoadScene("Garage");
+        globalManager.sceneToLoad = "Garage";
+        SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
