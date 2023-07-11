@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Global
+    private GlobalManager globalManager;
+
     // Audio
     private AudioManager audioManager;
     [SerializeField] private AudioSource nosSound;
@@ -58,15 +61,26 @@ public class PlayerController : MonoBehaviour
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
+    
+    // Body Material
+    [SerializeField] private GameObject carBody;
+    public Material bodyMaterial;
 
     private void Awake()
     {
+        // Finds our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        // Gets our body material object from the global manager which can be changed via garage/marketplace
+        globalManager.UpdateBodyMaterial();
+        carBody.GetComponent<Renderer>().material = bodyMaterial;
     }
 
     private void Start()
