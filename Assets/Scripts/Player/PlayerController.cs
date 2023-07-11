@@ -245,7 +245,11 @@ public class PlayerController : MonoBehaviour
             sidewaysFrictionFR.extremumValue = 0.2f;
             sidewaysFrictionRL.extremumValue = 0.2f;
             sidewaysFrictionRR.extremumValue = 0.2f;
-            currentbrakeForce = 1000;
+            frontLeftWheelCollider.sidewaysFriction = sidewaysFrictionFL;
+            frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
+            rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
+            rearRightWheelCollider.sidewaysFriction = sidewaysFrictionRR;
+            currentbrakeForce = 500;
         }
         else
         {
@@ -253,6 +257,10 @@ public class PlayerController : MonoBehaviour
             sidewaysFrictionFR.extremumValue = 0.5f;
             sidewaysFrictionRL.extremumValue = 0.5f;
             sidewaysFrictionRR.extremumValue = 0.5f;
+            frontLeftWheelCollider.sidewaysFriction = sidewaysFrictionFL;
+            frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
+            rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
+            rearRightWheelCollider.sidewaysFriction = sidewaysFrictionRR;
         }
     }
     
