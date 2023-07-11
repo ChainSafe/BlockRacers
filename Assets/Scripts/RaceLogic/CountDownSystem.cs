@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class CountDownSystem : MonoBehaviour
 {
-
+    // Our UI for the countdown circles
     public GameObject[] countDownSprites;
 
+    // How long is the countdown
     public float countdownDuration = 3f;
 
+    // Our countdown audio
+    public AudioSource countDownSound;
+
+    // Has the race started? - Used for player input
     public static bool raceStarted;
 
     private void Start()
     {
+        // If we chose to race, we initiate the countdown
         if (PlayerController.isRacing)
         {
             // Prevent player input before the race starts
@@ -24,6 +30,7 @@ public class CountDownSystem : MonoBehaviour
         }
         else
         {
+            // Otherwise if this is the tutorial, we allow users to drive immediately.
             raceStarted = true;
         }
 
@@ -31,6 +38,9 @@ public class CountDownSystem : MonoBehaviour
 
     private IEnumerator StartCountdown()
     {
+        // Start the countdown
+        countDownSound.Play();
+
         countDownSprites[0].SetActive(true);
         yield return new WaitForSeconds(1f);
 

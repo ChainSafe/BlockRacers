@@ -8,9 +8,12 @@ public class PauseManager : MonoBehaviour
     
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
-    
+
     // Paused bool
     private bool paused;
+
+    // Our on-screen race UI to disable when we pause
+    public GameObject[] raceUI;
 
     private void Start()
     {
@@ -21,8 +24,15 @@ public class PauseManager : MonoBehaviour
     // Pauses the game
     private void Pause()
     {
-        Cursor.lockState =  CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         pauseMenu.SetActive(true);
+        
+        foreach(GameObject raceUI in raceUI)
+        {
+            raceUI.SetActive(false);
+        }
+
         paused = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -32,7 +42,14 @@ public class PauseManager : MonoBehaviour
     private void Unpause()
     {
         Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.visible = false;
         pauseMenu.SetActive(false);
+
+        foreach (GameObject raceUI in raceUI)
+        {
+            raceUI.SetActive(true);
+        }
+
         paused = false;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -50,11 +67,11 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!paused)
+            if (!paused && CountDownSystem.raceStarted)
             {
                 Pause();
             }
-            else
+            else if (paused && CountDownSystem.raceStarted)
             {
                 Unpause();
             }
