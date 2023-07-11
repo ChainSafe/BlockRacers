@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0
