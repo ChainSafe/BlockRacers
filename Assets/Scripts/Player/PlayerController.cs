@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
     
     // Current gear
     public int currentGear;
+    
+    // Stats
+    private int engineLevel = 1;
+    private int handlingLevel = 1;
+    private int nosLevel = 1;
 
     // Static for our nitrous system
     public static bool nosActive;
@@ -81,6 +86,50 @@ public class PlayerController : MonoBehaviour
         // Gets our body material object from the global manager which can be changed via garage/marketplace
         globalManager.UpdateBodyMaterial();
         carBody.GetComponent<Renderer>().material = bodyMaterial;
+        
+        // Set our stats
+        engineLevel = globalManager.engineLevel;
+        handlingLevel = globalManager.handlingLevel;
+        nosLevel = globalManager.nosLevel;
+
+        if (engineLevel == 1)
+        {
+            maxSpeed = 180f;
+        }
+        else if (engineLevel == 2)
+        {
+            maxSpeed = 215f;
+        }
+        else
+        {
+            maxSpeed = 250f;
+        }
+        
+        if (handlingLevel == 1)
+        {
+            maxSteerAngle = 40;
+        }
+        else if (handlingLevel == 2)
+        {
+            maxSteerAngle = 50;
+        }
+        else
+        {
+            maxSteerAngle = 60;
+        }
+        
+        if (nosLevel == 1)
+        {
+            NitrousManager.boostRate = 80f;
+        }
+        else if (nosLevel == 2)
+        {
+            NitrousManager.boostRate = 60f;
+        }
+        else
+        {
+            NitrousManager.boostRate = 45f;
+        }
     }
 
     private void Start()
