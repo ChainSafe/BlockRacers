@@ -239,40 +239,20 @@ public class PlayerController : MonoBehaviour
         WheelFrictionCurve sidewaysFrictionFR = frontRightWheelCollider.sidewaysFriction;
         WheelFrictionCurve sidewaysFrictionRL = rearLeftWheelCollider.sidewaysFriction;
         WheelFrictionCurve sidewaysFrictionRR = rearRightWheelCollider.sidewaysFriction;
-        WheelFrictionCurve forwardFrictionFL = frontLeftWheelCollider.forwardFriction;
-        WheelFrictionCurve forwardFrictionFR = frontRightWheelCollider.forwardFriction;
-        WheelFrictionCurve forwardFrictionRL = rearLeftWheelCollider.forwardFriction;
-        WheelFrictionCurve forwardFrictionRR = rearRightWheelCollider.forwardFriction;
         if (isDrifting)
         {
-            sidewaysFrictionFL.stiffness = 2;
-            sidewaysFrictionFR.stiffness = 2;
-            sidewaysFrictionRL.stiffness = 2;
-            sidewaysFrictionRR.stiffness = 2;
-            sidewaysFrictionFL.extremumValue = 0.4f;
-            sidewaysFrictionFR.extremumValue = 0.4f;
-            sidewaysFrictionRL.extremumValue = 0.4f;
-            sidewaysFrictionRR.extremumValue = 0.4f;
-            forwardFrictionFL.extremumValue = 0.4f;
-            forwardFrictionFR.extremumValue = 0.4f;
-            forwardFrictionRL.extremumValue = 0.4f;
-            forwardFrictionRR.extremumValue = 0.4f;
+            sidewaysFrictionFL.extremumValue = 0.2f;
+            sidewaysFrictionFR.extremumValue = 0.2f;
+            sidewaysFrictionRL.extremumValue = 0.2f;
+            sidewaysFrictionRR.extremumValue = 0.2f;
             currentbrakeForce = 1000;
         }
         else
         {
-            sidewaysFrictionFL.stiffness = 4;
-            sidewaysFrictionFR.stiffness = 4;
-            sidewaysFrictionRL.stiffness = 4;
-            sidewaysFrictionRR.stiffness = 4;
-            sidewaysFrictionFL.extremumValue = 0.8f;
-            sidewaysFrictionFR.extremumValue = 0.8f;
-            sidewaysFrictionRL.extremumValue = 0.8f;
-            sidewaysFrictionRR.extremumValue = 0.8f;
-            forwardFrictionFL.extremumValue = 0.25f;
-            forwardFrictionFR.extremumValue = 0.25f;
-            forwardFrictionRL.extremumValue = 0.25f;
-            forwardFrictionRR.extremumValue = 0.25f;
+            sidewaysFrictionFL.extremumValue = 0.5f;
+            sidewaysFrictionFR.extremumValue = 0.5f;
+            sidewaysFrictionRL.extremumValue = 0.5f;
+            sidewaysFrictionRR.extremumValue = 0.5f;
         }
     }
     
