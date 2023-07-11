@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LapSystem : MonoBehaviour
 {
+    // Global Manager
+    private GlobalManager globalManager;
 
     // Logic for the checkpoints and laps
     [SerializeField] public static int checkpointCount;
@@ -16,6 +18,9 @@ public class LapSystem : MonoBehaviour
 
     private void Awake()
     {
+        // Find our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        
         lapCount = 1;
     }
 
@@ -77,7 +82,8 @@ public class LapSystem : MonoBehaviour
                         // Race over logic goes here
                         // Probably some kind of UI, but I can't put it here just yet because MP logic is still required.
                         // Taking us back to the menu just as a temporary game loop
-                        SceneManager.LoadScene("MenuScene");
+                        globalManager.sceneToLoad = "FinishRace";
+                        SceneManager.LoadScene("LoadingScreen");
 
                     }
                 }
