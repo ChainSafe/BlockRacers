@@ -245,43 +245,33 @@ public class PlayerController : MonoBehaviour
         WheelFrictionCurve forwardFrictionRR = rearRightWheelCollider.forwardFriction;
         if (isDrifting)
         {
-            sidewaysFrictionFL.asymptoteValue = 0.5f;
-            sidewaysFrictionFR.asymptoteValue = 0.5f;
-            sidewaysFrictionRL.asymptoteValue = 0.5f;
-            sidewaysFrictionRR.asymptoteValue = 0.5f;
-            forwardFrictionFL.asymptoteValue = 1;
-            forwardFrictionFR.asymptoteValue = 1;
-            forwardFrictionRL.asymptoteValue = 1;
-            forwardFrictionRR.asymptoteValue = 1;
-            sidewaysFrictionFL.stiffness = 0.5f;
-            sidewaysFrictionFR.stiffness = 0.5f;
-            sidewaysFrictionRL.stiffness = 0.5f;
-            sidewaysFrictionRR.stiffness = 0.5f;
-            forwardFrictionFL.stiffness = 0.5f;
-            forwardFrictionFR.stiffness = 0.5f;
-            forwardFrictionRL.stiffness = 0.5f;
-            forwardFrictionRR.stiffness = 0.5f;
-            maxSteerAngle = 60;
+            sidewaysFrictionFL.stiffness = 2;
+            sidewaysFrictionFR.stiffness = 2;
+            sidewaysFrictionRL.stiffness = 2;
+            sidewaysFrictionRR.stiffness = 2;
+            sidewaysFrictionFL.extremumValue = 0.4f;
+            sidewaysFrictionFR.extremumValue = 0.4f;
+            sidewaysFrictionRL.extremumValue = 0.4f;
+            sidewaysFrictionRR.extremumValue = 0.4f;
+            forwardFrictionFL.extremumValue = 0.4f;
+            forwardFrictionFR.extremumValue = 0.4f;
+            forwardFrictionRL.extremumValue = 0.4f;
+            forwardFrictionRR.extremumValue = 0.4f;
         }
         else
         {
-            sidewaysFrictionFL.asymptoteValue = 0.75f;
-            sidewaysFrictionFR.asymptoteValue = 0.75f;
-            sidewaysFrictionRL.asymptoteValue = 0.75f;
-            sidewaysFrictionRR.asymptoteValue = 0.75f;
-            forwardFrictionFL.asymptoteValue = 0.5f;
-            forwardFrictionFR.asymptoteValue = 0.5f;
-            forwardFrictionRL.asymptoteValue = 0.5f;
-            forwardFrictionRR.asymptoteValue = 0.5f;
-            sidewaysFrictionFL.stiffness = 1;
-            sidewaysFrictionFR.stiffness = 1;
-            sidewaysFrictionRL.stiffness = 1;
-            sidewaysFrictionRR.stiffness = 1;
-            forwardFrictionFL.stiffness = 1;
-            forwardFrictionFR.stiffness = 1;
-            forwardFrictionRL.stiffness = 1;
-            forwardFrictionRR.stiffness = 1;
-            maxSteerAngle = 40;
+            sidewaysFrictionFL.stiffness = 4;
+            sidewaysFrictionFR.stiffness = 4;
+            sidewaysFrictionRL.stiffness = 4;
+            sidewaysFrictionRR.stiffness = 4;
+            sidewaysFrictionFL.extremumValue = 0.8f;
+            sidewaysFrictionFR.extremumValue = 0.8f;
+            sidewaysFrictionRL.extremumValue = 0.8f;
+            sidewaysFrictionRR.extremumValue = 0.8f;
+            forwardFrictionFL.extremumValue = 0.25f;
+            forwardFrictionFR.extremumValue = 0.25f;
+            forwardFrictionRL.extremumValue = 0.25f;
+            forwardFrictionRR.extremumValue = 0.25f;
         }
     }
     
