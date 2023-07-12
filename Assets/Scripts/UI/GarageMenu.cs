@@ -29,7 +29,7 @@ public class GarageMenu : MonoBehaviour
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-        // Find our global manager
+        // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
 
@@ -82,7 +82,8 @@ public class GarageMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-
+    
+    // Change colour 1
     public void SelectColour1()
     {
         globalManager.bodyMaterial = redMaterial;
@@ -91,6 +92,7 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
+    // Change colour 2
     public void SelectColour2()
     {
         globalManager.bodyMaterial = blueMaterial;
@@ -99,6 +101,7 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
+    // Change colour 3
     public void SelectColour3()
     {
         globalManager.bodyMaterial = magentaMaterial;
@@ -107,6 +110,7 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
+    // Upgrading engine
     public void PurchaseEngineUpgrade()
     {
         switch (globalManager.engineLevel)
@@ -128,6 +132,7 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
+    // Upgrading handling
     public void PurchaseHandlingUpgrade()
     {
         switch (globalManager.handlingLevel)
@@ -149,6 +154,7 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
+    // Upgrading nos
     public void PurchaseNosUpgrade()
     {
         switch (globalManager.nosLevel)
