@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject nosParticles;
     [SerializeField] private GameObject tireTrailRL;
     [SerializeField] private GameObject tireTrailRR;
+    [SerializeField] private GameObject driftSmoke;
     
     // Rigidbody
     [SerializeField] private Rigidbody rigidBody;
@@ -89,6 +90,29 @@ public class PlayerController : MonoBehaviour
         // Changes Bgm
         audioManager.Pause("Bgm1");
         audioManager.Play("Bgm2");
+    }
+    
+    private void Update()
+    {
+        // Speed derived from wheel speed
+        speedRatio = GetSpeedRatio();
+        speed = rigidBody.velocity.magnitude * 3.6f;
+        
+        // Brake lights
+        tailLights.SetActive(isBraking || isDrifting);
+
+        // Head lights
+        headLights.SetActive(useHeadLights);
+    }
+
+    private void FixedUpdate() {
+        GetInput();
+        HandleMotor();
+        HandleSteering();
+        UpdateWheels();
+        HandleNos();
+        HandleDrift();
+        HandleTireTrails();
     }
 
     private void GetInput()
@@ -162,6 +186,7 @@ public class PlayerController : MonoBehaviour
         {
             tireTrailRL.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
             tireTrailRR.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
+            driftSmoke.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
         }
     }
     
@@ -234,28 +259,5 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         collision = true;
-    }
-    
-    private void Update()
-    {
-        // Speed derived from wheel speed
-        speedRatio = GetSpeedRatio();
-        speed = rigidBody.velocity.magnitude * 3.6f;
-        
-        // Brake lights
-        tailLights.SetActive(isBraking || isDrifting);
-
-        // Head lights
-        headLights.SetActive(useHeadLights);
-    }
-
-    private void FixedUpdate() {
-        GetInput();
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
-        HandleNos();
-        HandleDrift();
-        HandleTireTrails();
     }
 }

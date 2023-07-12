@@ -6,7 +6,7 @@ public class RaceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource nosSound;
     [SerializeField] private AudioSource idleSound;
     [SerializeField] private AudioSource accelerateSound;
-    [SerializeField] private AudioSource deaccelerateSound;
+    [SerializeField] private AudioSource decelerateSound;
     [SerializeField] private AudioSource collisionSound;
     
     // Player controller so we can listen for changes
@@ -18,8 +18,8 @@ public class RaceSoundManager : MonoBehaviour
         idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.speedRatio);
         accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.speedRatio);
         accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.currentGear / 2, 2, playerController.speedRatio);
-        deaccelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.speedRatio);
-        deaccelerateSound.pitch = Mathf.Lerp(0.3f * playerController.currentGear, 2, playerController.speedRatio);
+        decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.speedRatio);
+        decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.currentGear, 2, playerController.speedRatio);
         
         // Sounds
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
@@ -48,7 +48,7 @@ public class RaceSoundManager : MonoBehaviour
             {
                 if (!accelerateSound.isPlaying)
                 {
-                    deaccelerateSound.Pause();
+                    decelerateSound.Pause();
                     accelerateSound.Play();
                 }
 
@@ -57,10 +57,10 @@ public class RaceSoundManager : MonoBehaviour
             default:
             {
                 // Decelerating
-                if (!deaccelerateSound.isPlaying)
+                if (!decelerateSound.isPlaying)
                 {
                     accelerateSound.Pause();
-                    deaccelerateSound.Play();
+                    decelerateSound.Play();
                 }
 
                 break;
