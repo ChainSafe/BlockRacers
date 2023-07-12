@@ -13164,10 +13164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2b8cebf0c0e4b4593cf3b445311880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuGarage: {fileID: 593434782}
-  MenuChangePaint: {fileID: 1848230361}
-  MenuUpgrade: {fileID: 946512449}
-  MenuMarket: {fileID: 423042307}
+  menuGarage: {fileID: 593434782}
+  menuChangePaint: {fileID: 1848230361}
+  menuUpgrade: {fileID: 946512449}
+  menuMarket: {fileID: 423042307}
   engineLevelText: {fileID: 705452680}
   handlingLevelText: {fileID: 270261494}
   nosLevelText: {fileID: 1674179334}
