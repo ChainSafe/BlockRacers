@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-        // Find our global manager
+        // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
 

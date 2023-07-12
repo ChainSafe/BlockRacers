@@ -801,7 +801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBoost: 50
-  boostRate: 20
   rechargeRate: 10
   boostSlider: {fileID: 7593539883280973217}
   BoostBar: {fileID: 5502544613365722719}
@@ -822,7 +821,7 @@ MonoBehaviour:
   speedBar: {fileID: 3879779145140484104}
   speedText: {fileID: 6628287840539262290}
   currentGear: {fileID: 2338497501785153462}
-  player: {fileID: 5401885449677968781}
+  playerController: {fileID: 1588613571638756571}
 --- !u!1 &1695162845665336627
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3347273087822915198}
+  - component: {fileID: 2500789844117605129}
   m_Layer: 0
   m_Name: Sounds
   m_TagString: Untagged
@@ -1001,6 +1001,24 @@ Transform:
   m_Father: {fileID: 6213441614160676758}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2500789844117605129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2573921821257269847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f160ce2bc48d8443aec0cd460774eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nosSound: {fileID: 8866718719660738369}
+  idleSound: {fileID: 7929863519300542558}
+  accelerateSound: {fileID: 5318811478880925503}
+  deaccelerateSound: {fileID: 1384767319202828962}
+  collisionSound: {fileID: 6291528584868116612}
+  playerController: {fileID: 1588613571638756571}
 --- !u!1 &2666499417402198937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,6 +2288,7 @@ Transform:
   - {fileID: 4795013423507843762}
   - {fileID: 1921471454637797583}
   - {fileID: 3347273087822915198}
+  - {fileID: 6527440520813820742}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
@@ -2312,14 +2331,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1c08282db96544d9412b7450b619d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nosSound: {fileID: 8866718719660738369}
-  idleSound: {fileID: 7929863519300542558}
-  accelerateSound: {fileID: 5318811478880925503}
-  deaccelerateSound: {fileID: 1384767319202828962}
-  collisionSound: {fileID: 6291528584868116612}
+  statsManager: {fileID: 0}
   speed: 0
   maxSpeed: 280
+  speedRatio: 0
+  input: 0
   currentGear: 0
+  collision: 0
   nosParticles: {fileID: 5087590832435049255}
   tireTrailRL: {fileID: 1023952475887302460}
   tireTrailRR: {fileID: 4664376856693064768}
@@ -2339,7 +2357,6 @@ MonoBehaviour:
   rearLeftWheelTransform: {fileID: 5264769016699307251}
   rearRightWheelTransform: {fileID: 84209362350970212}
   carBody: {fileID: 7754562469863226432}
-  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
 --- !u!1 &5428867020422820542
 GameObject:
   m_ObjectHideFlags: 0
@@ -7903,6 +7920,52 @@ MonoBehaviour:
   m_AmplitudeGain: 1
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 985.92896, y: 472.6097, z: 518.8794}
+--- !u!1 &6772935173135380926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6527440520813820742}
+  - component: {fileID: 4370881628892079739}
+  m_Layer: 0
+  m_Name: StatsManager
+  m_TagString: StatsManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6527440520813820742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772935173135380926}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 12.349916, y: 537.9877, z: -958.80457}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6213441614160676758}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4370881628892079739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772935173135380926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6927135fe33c39643b31f1b4fe2dd2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  playerController: {fileID: 1588613571638756571}
 --- !u!1 &6776971957730922946
 GameObject:
   m_ObjectHideFlags: 0
@@ -8175,8 +8238,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
-  m_LocalRotation: {x: -0.26449412, y: -0.019896334, z: 0.0054580276, w: -0.9641666}
-  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
+  m_LocalRotation: {x: -0.26449412, y: -0.019896364, z: 0.0054580574, w: -0.9641666}
+  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
