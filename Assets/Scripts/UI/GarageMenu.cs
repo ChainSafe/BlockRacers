@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,13 @@ public class GarageMenu : MonoBehaviour
     private AudioManager audioManager;
     
     // Menu objects
-    [SerializeField] private GameObject MenuGarage;
-    [SerializeField] private GameObject MenuUpgrade;
-    [SerializeField] private GameObject MenuMarket;
+    [SerializeField] private GameObject menuGarage;
+    [SerializeField] private GameObject menuChangePaint;
+    [SerializeField] private GameObject menuUpgrade;
+    [SerializeField] private GameObject menuMarket;
+    [SerializeField] private TextMeshProUGUI engineLevelText;
+    [SerializeField] private TextMeshProUGUI handlingLevelText;
+    [SerializeField] private TextMeshProUGUI nosLevelText;
     
     private void Awake()
     {
@@ -21,13 +26,23 @@ public class GarageMenu : MonoBehaviour
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
-    
+
     // Opens the garage menu
     public void GarageMenuButton()
     {
-        MenuMarket.SetActive(false);
-        MenuUpgrade.SetActive(false);
-        MenuGarage.SetActive(true);
+        menuMarket.SetActive(false);
+        menuUpgrade.SetActive(false);
+        menuChangePaint.SetActive(false);
+        menuGarage.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    // Opens the change car menu
+    public void ChangePaintMenuButton()
+    {
+        menuGarage.SetActive(false);
+        menuChangePaint.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -35,8 +50,11 @@ public class GarageMenu : MonoBehaviour
     // Opens the upgrade menu
     public void UpgradeMenuButton()
     {
-        MenuGarage.SetActive(false);
-        MenuUpgrade.SetActive(true);
+        engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+        handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+        nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+        menuGarage.SetActive(false);
+        menuUpgrade.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -44,8 +62,8 @@ public class GarageMenu : MonoBehaviour
     // Opens the marketplace menu
     public void MarketMenuButton()
     {
-        MenuGarage.SetActive(false);
-        MenuMarket.SetActive(true);
+        menuGarage.SetActive(false);
+        menuMarket.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
