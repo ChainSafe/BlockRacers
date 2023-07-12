@@ -64,11 +64,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
     
-    // Player Input
-    private PlayerInputActions playerInput;
-
     // Body Material
     [SerializeField] private GameObject carBody;
+    
+    // Player Input
+    private PlayerInputActions playerInput;
 
     private void Awake()
     {
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
     }
     
     // Used for engine sounds
-    public float GetSpeedRatio()
+    private float GetSpeedRatio()
     {
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
         return (speed*gas) / maxSpeed;

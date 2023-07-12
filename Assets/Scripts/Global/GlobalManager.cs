@@ -8,8 +8,7 @@ public class GlobalManager : MonoBehaviour
     // String for loading screen
     public string sceneToLoad;
     
-    // Player objects
-    private PlayerController playerController;
+    // Player material
     public Material bodyMaterial;
     
     // Player stats
