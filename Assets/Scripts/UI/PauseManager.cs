@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -14,6 +16,9 @@ public class PauseManager : MonoBehaviour
 
     // Paused bool
     private bool paused;
+    
+    // Player Input
+    private PlayerInputActions playerInput;
 
     // Our on-screen race UI to disable when we pause
     public GameObject[] raceUI;
@@ -22,8 +27,36 @@ public class PauseManager : MonoBehaviour
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
+        
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        
+        // Initialize player input actions
+        playerInput = new PlayerInputActions();
+        playerInput.Game.Pause.performed += OnPauseInput;
+    }
+    
+    private void OnEnable()
+    {
+        playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
+    }
+    
+    // Pause input
+    private void OnPauseInput(InputAction.CallbackContext context)
+    {
+        if (!paused && CountDownSystem.raceStarted)
+        {
+            Pause();
+        }
+        else if (paused && CountDownSystem.raceStarted)
+        {
+            Unpause();
+        }
     }
 
     // Pauses the game
@@ -69,20 +102,5 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!paused && CountDownSystem.raceStarted)
-            {
-                Pause();
-            }
-            else if (paused && CountDownSystem.raceStarted)
-            {
-                Unpause();
-            }
-        }
     }
 }
