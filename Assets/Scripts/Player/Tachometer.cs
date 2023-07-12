@@ -17,13 +17,7 @@ public class Tachometer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentGear;
     
     // Player objects
-    [SerializeField] private GameObject player;
-    private PlayerController playerController;
-
-    private void Awake()
-    {
-        playerController = player.GetComponent<PlayerController>();
-    }
+    [SerializeField] private PlayerController playerController;
 
     private void Update()
     {
@@ -31,37 +25,18 @@ public class Tachometer : MonoBehaviour
         speedText.text = Mathf.Floor(playerController.speed).ToString();
         speedSlider.value = playerController.speed;
 
-        // Changing our current gear based on speed 
-        if (playerController.speed < 40)
+        playerController.currentGear = playerController.speed switch
         {
-            playerController.currentGear = 1;
-            currentGear.text = playerController.currentGear.ToString();
-        }
-        if (playerController.speed > 40 && playerController.speed < 80)
-        {
-            playerController.currentGear = 2;
-            currentGear.text = playerController.currentGear.ToString();
-        }
-        if (playerController.speed > 80 && playerController.speed < 140)
-        {
-            playerController.currentGear = 3;
-            currentGear.text = playerController.currentGear.ToString();
-        }
-        if (playerController.speed > 140 && playerController.speed < 190)
-        {
-            playerController.currentGear = 4;
-            currentGear.text = playerController.currentGear.ToString();
-        }
-        if (playerController.speed > 190 && playerController.speed < 240)
-        {
-            playerController.currentGear = 5;
-            currentGear.text = playerController.currentGear.ToString();
-        }
-        if (playerController.speed > 240 && playerController.speed < 280)
-        {
-            playerController.currentGear = 6;
-            currentGear.text = playerController.currentGear.ToString();
-        }
+            // Changing our current gear based on speed 
+            < 40 => 1,
+            > 40 and < 80 => 2,
+            > 80 and < 140 => 3,
+            > 140 and < 190 => 4,
+            > 190 and < 240 => 5,
+            > 240 and < 280 => 6,
+            _ => playerController.currentGear
+        };
+        currentGear.text = playerController.currentGear.ToString();
     }
 
 
