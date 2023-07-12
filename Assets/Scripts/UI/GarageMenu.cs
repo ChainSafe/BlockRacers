@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GarageMenu : MonoBehaviour
 {
@@ -9,12 +10,17 @@ public class GarageMenu : MonoBehaviour
     
     // Audio
     private AudioManager audioManager;
+
+    public Material redMaterial;
+    public Material blueMaterial;
+    public Material magentaMaterial;
     
     // Menu objects
     [SerializeField] private GameObject menuGarage;
     [SerializeField] private GameObject menuChangePaint;
     [SerializeField] private GameObject menuUpgrade;
     [SerializeField] private GameObject menuMarket;
+    [SerializeField] private GameObject currentPaintImage;
     [SerializeField] private TextMeshProUGUI engineLevelText;
     [SerializeField] private TextMeshProUGUI handlingLevelText;
     [SerializeField] private TextMeshProUGUI nosLevelText;
@@ -73,6 +79,30 @@ public class GarageMenu : MonoBehaviour
     {
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+
+    public void SelectColour1()
+    {
+        globalManager.bodyMaterial = redMaterial;
+        currentPaintImage.GetComponent<Image>().color = Color.red;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    public void SelectColour2()
+    {
+        globalManager.bodyMaterial = blueMaterial;
+        currentPaintImage.GetComponent<Image>().color = Color.blue;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    public void SelectColour3()
+    {
+        globalManager.bodyMaterial = magentaMaterial;
+        currentPaintImage.GetComponent<Image>().color = Color.magenta;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
