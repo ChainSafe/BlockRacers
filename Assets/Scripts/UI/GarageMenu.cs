@@ -94,6 +94,8 @@ public class GarageMenu : MonoBehaviour
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
         }
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
     public void PurchaseHandlingUpgrade()
@@ -113,6 +115,8 @@ public class GarageMenu : MonoBehaviour
                 handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
                 break;
         }
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
     public void PurchaseNosUpgrade()
@@ -132,5 +136,7 @@ public class GarageMenu : MonoBehaviour
                 nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
                 break;
         }
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 }
