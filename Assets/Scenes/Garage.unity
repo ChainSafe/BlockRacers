@@ -5086,9 +5086,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262205}
+      - m_Target: {fileID: 455262207}
         m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PurchaseEngineUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13794,9 +13794,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262205}
+      - m_Target: {fileID: 455262207}
         m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PurchaseNosUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16855,9 +16855,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262205}
+      - m_Target: {fileID: 455262207}
         m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PurchaseHandlingUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
