@@ -76,4 +76,61 @@ public class GarageMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
+
+    public void PurchaseEngineUpgrade()
+    {
+        switch (globalManager.engineLevel)
+        {
+            case 1:
+                globalManager.engineLevel = 2;
+                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                break;
+            case 2:
+                globalManager.engineLevel = 3;
+                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                break;
+            case 3:
+                globalManager.engineLevel = 1;
+                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                break;
+        }
+    }
+    
+    public void PurchaseHandlingUpgrade()
+    {
+        switch (globalManager.handlingLevel)
+        {
+            case 1:
+                globalManager.handlingLevel = 2;
+                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                break;
+            case 2:
+                globalManager.handlingLevel = 3;
+                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                break;
+            case 3:
+                globalManager.handlingLevel = 1;
+                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                break;
+        }
+    }
+    
+    public void PurchaseNosUpgrade()
+    {
+        switch (globalManager.nosLevel)
+        {
+            case 1:
+                globalManager.nosLevel = 2;
+                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                break;
+            case 2:
+                globalManager.nosLevel = 3;
+                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                break;
+            case 3:
+                globalManager.nosLevel = 1;
+                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                break;
+        }
+    }
 }
