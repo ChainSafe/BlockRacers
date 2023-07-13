@@ -2301,7 +2301,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5401885449677968781}
   serializedVersion: 4
-  m_Mass: 600
+  m_Mass: 1200
   m_Drag: 0
   m_AngularDrag: 0.3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2337,6 +2337,9 @@ MonoBehaviour:
   maxSpeed: 280
   speedRatio: 0
   input: 0
+  currentSteerAngle: 0
+  currentbrakeForce: 0
+  isDrifting: 0
   currentGear: 0
   collision: 0
   nosParticles: {fileID: 5087590832435049255}
@@ -8241,7 +8244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
   m_LocalRotation: {x: -0.26735938, y: -0.019879991, z: 0.005517139, w: -0.96337605}
-  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
+  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8324,7 +8327,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7365825483062097780}
-  m_LocalRotation: {x: -0.2220507, y: -0.00005835294, z: 0.000012606381, w: -0.97503513}
+  m_LocalRotation: {x: -0.2220507, y: -0.000058323145, z: 0.000012591481, w: -0.9750352}
   m_LocalPosition: {x: -0.00000047683716, y: 2.8725095, z: -4.7766633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14208,7 +14211,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8740846238439664272}
-  m_LocalRotation: {x: -0.21108006, y: -0.022418551, z: 0.004842528, w: -0.9771997}
+  m_LocalRotation: {x: -0.21108007, y: -0.022418074, z: 0.004842417, w: -0.9771997}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

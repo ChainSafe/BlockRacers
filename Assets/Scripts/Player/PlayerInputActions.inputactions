@@ -189,7 +189,7 @@
                 {
                     "name": "",
                     "id": "9db9e6e2-c023-4c73-8c30-0c44fec978a6",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -298,6 +298,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "66f18e1e-1831-4348-bc61-7d409bb9c6c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "437c989c-815a-4ff5-86e0-bcc5e451a79e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -526,7 +535,7 @@
                 {
                     "name": "",
                     "id": "9be37857-b9b5-4941-a8c8-fa6efbc63464",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -564,6 +573,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8808804-f9bd-4b0f-a82e-6c50139cc967",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1637d3b0-b674-46e5-ad7e-cbf8e359ef85",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

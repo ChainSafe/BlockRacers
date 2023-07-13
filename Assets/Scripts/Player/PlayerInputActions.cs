@@ -211,7 +211,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9db9e6e2-c023-4c73-8c30-0c44fec978a6"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -320,6 +320,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""66f18e1e-1831-4348-bc61-7d409bb9c6c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""437c989c-815a-4ff5-86e0-bcc5e451a79e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -548,7 +557,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9be37857-b9b5-4941-a8c8-fa6efbc63464"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -588,6 +597,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8808804-f9bd-4b0f-a82e-6c50139cc967"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1637d3b0-b674-46e5-ad7e-cbf8e359ef85"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -607,6 +638,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Game_Drift = m_Game.FindAction("Drift", throwIfNotFound: true);
         m_Game_Brake = m_Game.FindAction("Brake", throwIfNotFound: true);
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+        m_Game_Reset = m_Game.FindAction("Reset", throwIfNotFound: true);
         m_Game_Accelerate = m_Game.FindAction("Accelerate", throwIfNotFound: true);
     }
 
@@ -744,6 +776,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Drift;
     private readonly InputAction m_Game_Brake;
     private readonly InputAction m_Game_Pause;
+    private readonly InputAction m_Game_Reset;
     private readonly InputAction m_Game_Accelerate;
     public struct GameActions
     {
@@ -754,6 +787,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Drift => m_Wrapper.m_Game_Drift;
         public InputAction @Brake => m_Wrapper.m_Game_Brake;
         public InputAction @Pause => m_Wrapper.m_Game_Pause;
+        public InputAction @Reset => m_Wrapper.m_Game_Reset;
         public InputAction @Accelerate => m_Wrapper.m_Game_Accelerate;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
@@ -779,6 +813,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Reset.started += instance.OnReset;
+            @Reset.performed += instance.OnReset;
+            @Reset.canceled += instance.OnReset;
             @Accelerate.started += instance.OnAccelerate;
             @Accelerate.performed += instance.OnAccelerate;
             @Accelerate.canceled += instance.OnAccelerate;
@@ -801,6 +838,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Reset.started -= instance.OnReset;
+            @Reset.performed -= instance.OnReset;
+            @Reset.canceled -= instance.OnReset;
             @Accelerate.started -= instance.OnAccelerate;
             @Accelerate.performed -= instance.OnAccelerate;
             @Accelerate.canceled -= instance.OnAccelerate;
@@ -835,6 +875,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDrift(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
         void OnAccelerate(InputAction.CallbackContext context);
     }
 }
