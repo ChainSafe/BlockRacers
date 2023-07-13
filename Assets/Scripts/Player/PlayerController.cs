@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             frontLeftWheelCollider.motorTorque = 0;
-            rearLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
         }
 
         // Check if braking
