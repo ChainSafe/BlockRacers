@@ -143,7 +143,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 1
     public void SelectColour1()
     {
-        globalManager.bodyMaterial = redMaterial;
+        globalManager.nftImage = redMaterial;
         currentPaintImageCar.GetComponent<Image>().color = Color.red;
         currentPaintImagePaint.GetComponent<Image>().color = Color.red;
         lastSelectedColour = Color.red;
@@ -154,7 +154,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 2
     public void SelectColour2()
     {
-        globalManager.bodyMaterial = blueMaterial;
+        globalManager.nftImage = blueMaterial;
         currentPaintImageCar.GetComponent<Image>().color = Color.blue;
         currentPaintImagePaint.GetComponent<Image>().color = Color.blue;
         lastSelectedColour = Color.blue;
@@ -165,7 +165,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 3
     public void SelectColour3()
     {
-        globalManager.bodyMaterial = magentaMaterial;
+        globalManager.nftImage = magentaMaterial;
         currentPaintImageCar.GetComponent<Image>().color = Color.magenta;
         currentPaintImagePaint.GetComponent<Image>().color = Color.magenta;
         lastSelectedColour = Color.magenta;
