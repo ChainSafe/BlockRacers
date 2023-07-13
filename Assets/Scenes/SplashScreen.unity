@@ -327,13 +327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bbccb9395b7bd4787377bac9edca6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsManager: {fileID: 0}
   sceneToLoad: 
   playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
-  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  bodyMaterial: {fileID: 0}
   engineLevel: 3
   handlingLevel: 3
   nosLevel: 3
+  connected: 0
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0

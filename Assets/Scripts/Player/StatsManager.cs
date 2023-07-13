@@ -22,7 +22,7 @@ public class StatsManager : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         
         // Gets our body material object from the global manager which can be changed via garage/marketplace
-        globalManager.UpdateBodyMaterial();
+        bodyMaterial = globalManager.bodyMaterial;
 
         // Set our stats
         engineLevel = globalManager.engineLevel;

@@ -133,7 +133,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 0.5
+    m_MaxSpeed: 0.3
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 90
+    m_MaxSpeed: 60
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -6929,7 +6929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6927135fe33c39643b31f1b4fe2dd2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  bodyMaterial: {fileID: 2100000, guid: b83f4807b4b89da468496f98ca1f8374, type: 2}
   playerController: {fileID: 3596617806288133237}
 --- !u!1 &2663486834983883222
 GameObject:

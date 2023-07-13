@@ -21,8 +21,19 @@ public class MainMenu : MonoBehaviour
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(connectButton);
+        // By passes connection screen if connected
+        if (globalManager.connected)
+        {
+            connectMenuItems.SetActive(false);
+            mainMenuItems.SetActive(true);
+            // Sets our first selected button
+            EventSystem.current.SetSelectedGameObject(tutorialButton);
+        }
+        else
+        {
+            // Sets our first selected button
+            EventSystem.current.SetSelectedGameObject(connectButton);
+        }
     }
 
     // Change later when sdk is in
@@ -32,6 +43,7 @@ public class MainMenu : MonoBehaviour
         mainMenuItems.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(tutorialButton);
+        globalManager.connected = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
