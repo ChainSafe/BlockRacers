@@ -10,16 +10,29 @@ public class GarageMenu : MonoBehaviour
     
     // Audio
     private AudioManager audioManager;
-
+    
+    // Materials
     public Material redMaterial;
     public Material blueMaterial;
     public Material magentaMaterial;
     
+    // Car prefabs
+    public GameObject Car1;
+    public GameObject Car2;
+    public GameObject Car3;
+    
+    // Car Sprites
+    public Sprite car1Sprite;
+    public Sprite car2Sprite;
+    public Sprite car3Sprite;
+    
     // Menu objects
     [SerializeField] private GameObject menuGarage;
+    [SerializeField] private GameObject menuChangeCar;
     [SerializeField] private GameObject menuChangePaint;
     [SerializeField] private GameObject menuUpgrade;
     [SerializeField] private GameObject menuMarket;
+    [SerializeField] private GameObject currentCarImage;
     [SerializeField] private GameObject currentPaintImage;
     [SerializeField] private TextMeshProUGUI engineLevelText;
     [SerializeField] private TextMeshProUGUI handlingLevelText;
@@ -39,15 +52,25 @@ public class GarageMenu : MonoBehaviour
         menuMarket.SetActive(false);
         menuUpgrade.SetActive(false);
         menuChangePaint.SetActive(false);
+        menuChangeCar.SetActive(false);
         menuGarage.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
     // Opens the change car menu
-    public void ChangePaintMenuButton()
+    public void ChangeCarMenuButton()
     {
         menuGarage.SetActive(false);
+        menuChangeCar.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    // Opens the change paint menu
+    public void ChangePaintMenuButton()
+    {
+        menuChangeCar.SetActive(false);
         menuChangePaint.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -79,6 +102,33 @@ public class GarageMenu : MonoBehaviour
     {
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    // Change car 1
+    public void SelectCar1()
+    {
+        globalManager.playerCar = Car1;
+        currentCarImage.GetComponent<Image>().sprite = car1Sprite;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    // Change car 2
+    public void SelectCar2()
+    {
+        globalManager.playerCar = Car2;
+        currentCarImage.GetComponent<Image>().sprite = car2Sprite;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    // Change car 3
+    public void SelectCar3()
+    {
+        globalManager.playerCar = Car3;
+        currentCarImage.GetComponent<Image>().sprite = car3Sprite;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

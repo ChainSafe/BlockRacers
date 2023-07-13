@@ -8,6 +8,9 @@ public class GlobalManager : MonoBehaviour
     // String for loading screen
     public string sceneToLoad;
     
+    // Player car
+    public GameObject playerCar;
+    
     // Player material
     public Material bodyMaterial;
     
@@ -18,6 +21,9 @@ public class GlobalManager : MonoBehaviour
     
     private void Awake()
     {
+        // Locks framerate to 60 FPS
+        Application.targetFrameRate = 60;
+        
         // Makes object global and doesnt destroy it when changing scenes
         DontDestroyOnLoad(this);
     }

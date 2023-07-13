@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsManager: {fileID: 0}
   sceneToLoad: 
+  playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
   engineLevel: 3
   handlingLevel: 3
