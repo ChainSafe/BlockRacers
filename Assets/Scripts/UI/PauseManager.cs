@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +13,9 @@ public class PauseManager : MonoBehaviour
     
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
+    
+    // Buttons
+    [SerializeField] private GameObject firstButton;
 
     // Paused bool
     private bool paused;
@@ -34,6 +37,9 @@ public class PauseManager : MonoBehaviour
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
+        
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
     
     private void OnEnable()
