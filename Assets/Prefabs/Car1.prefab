@@ -78,7 +78,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.012946701
     m_SpeedMode: 0
-    m_MaxSpeed: 2
+    m_MaxSpeed: 0.5
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 90
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -890,13 +890,13 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 0.3
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 0.7
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -961,13 +961,13 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 0.3
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 0.7
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -1889,13 +1889,13 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 0.3
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 0.7
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -2353,9 +2353,9 @@ MonoBehaviour:
   speed: 0
   maxSpeed: 280
   speedRatio: 0
-  motorForce: 2000
+  motorForce: 4000
   nosForce: 10000
-  breakForce: 3000
+  breakForce: 5000
   input: 0
   isDrifting: 0
   currentSteerAngle: 0
@@ -8261,7 +8261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
   m_LocalRotation: {x: -0.26735938, y: -0.019879991, z: 0.005517139, w: -0.96337605}
-  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
+  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9083,13 +9083,13 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 0.3
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 0.7
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -14228,7 +14228,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8740846238439664272}
-  m_LocalRotation: {x: -0.21108007, y: -0.022418074, z: 0.004842417, w: -0.9771997}
+  m_LocalRotation: {x: -0.21108009, y: -0.022418074, z: 0.00484241, w: -0.9771997}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -10,7 +10,7 @@ public class NitrousManager : MonoBehaviour
     [SerializeField] private float maxBoost = 100f;
     
     // Rate at which boost depletes per second
-    public static float boostRate = 45f;
+    public static float boostRate = 20f;
     
     // Rate at which boost recharges per second
     [SerializeField] private float rechargeRate = 5f;

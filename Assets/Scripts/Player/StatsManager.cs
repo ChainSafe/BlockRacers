@@ -53,9 +53,9 @@ public class StatsManager : MonoBehaviour
 
         NitrousManager.boostRate = nosLevel switch
         {
-            1 => 80f,
-            2 => 60f,
-            _ => 45f
+            1 => 60f,
+            2 => 40f,
+            _ => 20f
         };
     }
 }
