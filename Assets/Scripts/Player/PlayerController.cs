@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     public int currentGear;
     
     // Speed
-    [SerializeField] public float speed, maxSpeed, speedRatio;
-    [SerializeField] private float motorForce, nosForce, breakForce;
+    [SerializeField] public float speed, maxSpeed, speedRatio, motorForce;
+    [SerializeField] private float nosForce, breakForce;
     
     // Static for our nitrous system
     public static bool nosActive;
@@ -110,12 +110,12 @@ public class PlayerController : MonoBehaviour
         audioManager.Pause("Bgm1");
         audioManager.Play("Bgm2");
         
+        // Updates our stats
+        statsManager.UpdateStats();
+        
         // Updates body material
         if (statsManager.bodyMaterial == null) return;
         carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
-        
-        // Updates our stats
-        statsManager.UpdateStats();
     }
 
     // used for player movement, call this to enable or disable player input detection

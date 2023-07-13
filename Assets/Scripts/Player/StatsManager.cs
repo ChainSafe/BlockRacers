@@ -43,6 +43,13 @@ public class StatsManager : MonoBehaviour
             2 => 230f,
             _ => 280f
         };
+        
+        playerController.motorForce = engineLevel switch
+        {
+            1 => 3000,
+            2 => 3500,
+            _ => 4000
+        };
 
         playerController.maxSteerAngle = handlingLevel switch
         {
@@ -53,8 +60,8 @@ public class StatsManager : MonoBehaviour
 
         NitrousManager.boostRate = nosLevel switch
         {
-            1 => 60f,
-            2 => 40f,
+            1 => 100f,
+            2 => 60f,
             _ => 20f
         };
     }
