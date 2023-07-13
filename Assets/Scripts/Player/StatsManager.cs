@@ -11,7 +11,7 @@ public class StatsManager : MonoBehaviour
     private int nosLevel;
     
     // Body Material
-    public Material bodyMaterial;
+    public Material nftImage;
     
     // Player objects
     [SerializeField] private PlayerController playerController;
@@ -22,7 +22,7 @@ public class StatsManager : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         
         // Gets our body material object from the global manager which can be changed via garage/marketplace
-        bodyMaterial = globalManager.bodyMaterial;
+        nftImage = globalManager.nftImage;
 
         // Set our stats
         engineLevel = globalManager.engineLevel;

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Rigidbody rigidBody;
 
     // Particles
-    [SerializeField] private GameObject nosParticles, tireTrailRL, tireTrailRR, driftSmoke;
+    [SerializeField] private GameObject nosParticles, tireTrailRL, tireTrailRR, driftSmoke, nftImage;
 
     // Taillights & headlights
     [SerializeField] private GameObject tailLights, headLights;
@@ -91,8 +91,8 @@ public class PlayerController : MonoBehaviour
         statsManager.UpdateStats();
         
         // Updates body material
-        if (statsManager.bodyMaterial == null) return;
-        carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
+        if (statsManager.nftImage == null) return;
+        nftImage.GetComponent<Renderer>().material = statsManager.nftImage;
     }
 
     private void Update()
