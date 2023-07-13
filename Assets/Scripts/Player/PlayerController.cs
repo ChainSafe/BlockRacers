@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     // Static for our nitrous system
     public static bool nosActive;
+    
+    // Reset bool
+    public bool resetActive;
 
     // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
@@ -170,7 +173,7 @@ public class PlayerController : MonoBehaviour
     // Reset input
     private void OnResetInput(InputAction.CallbackContext context)
     {
-        // reset functionality here
+        resetActive = Convert.ToBoolean(context.ReadValue<float>());
     }
 
     private void Update()
