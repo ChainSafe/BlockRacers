@@ -17216,8 +17216,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6144542382917588530}
-  m_LocalRotation: {x: 0.18515036, y: 0.695267, z: -0.1929528, w: 0.6671525}
-  m_LocalPosition: {x: -0.0000038114504, y: 0, z: 0.00000015737123}
+  m_LocalRotation: {x: 0.1851504, y: 0.695267, z: -0.19295284, w: 0.6671525}
+  m_LocalPosition: {x: -0.0000076229007, y: 0, z: 0.00000031474246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18261,6 +18261,7 @@ GameObject:
   - component: {fileID: 2906165551406470285}
   - component: {fileID: 1663538951693009102}
   - component: {fileID: 2535191549253097590}
+  - component: {fileID: 8035305041523537708}
   m_Layer: 0
   m_Name: Car3
   m_TagString: Player
@@ -18336,7 +18337,10 @@ MonoBehaviour:
   nosForce: 10000
   breakForce: 5000
   input: 0
+  horizontalInput: 0
+  verticalInput: 0
   isDrifting: 0
+  isBraking: 0
   currentSteerAngle: 0
   currentBrakeForce: 0
   maxSteerAngle: 60
@@ -18358,6 +18362,19 @@ MonoBehaviour:
   frontRightWheelTransform: {fileID: 1635045156147352965}
   rearLeftWheelTransform: {fileID: 1319258957855906977}
   rearRightWheelTransform: {fileID: 8103887218853798232}
+--- !u!114 &8035305041523537708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7627641450290695623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fe3d00ac4c25d44a7bb90463d7d561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2535191549253097590}
 --- !u!1 &7818618132646739498
 GameObject:
   m_ObjectHideFlags: 0

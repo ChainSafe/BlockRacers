@@ -25,13 +25,12 @@ public class PlayerController : MonoBehaviour
     public static bool nosActive;
 
     // Input
-    public float input;
-    private float horizontalInput, verticalInput;
-    
+    public float input, horizontalInput, verticalInput;
+
     // Steering and braking
     [Header("Steering & Braking")]
     public bool isDrifting;
-    private bool isBraking;
+    public bool isBraking;
     public float currentSteerAngle, currentBrakeForce, maxSteerAngle;
 
     // Reset bool
@@ -66,9 +65,6 @@ public class PlayerController : MonoBehaviour
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
 
-    // Player Input
-    private PlayerInputActions playerInput;
-
     private void Awake()
     {
         // Singleton
@@ -79,25 +75,6 @@ public class PlayerController : MonoBehaviour
         
         // Finds our stats manager
         statsManager = GameObject.FindWithTag("StatsManager").GetComponent<StatsManager>();
-
-        // Initialize player input actions
-        playerInput = new PlayerInputActions();
-        playerInput.Game.Move.started += OnMovementInput;
-        playerInput.Game.Move.canceled += OnMovementInput;
-        playerInput.Game.Move.performed += OnMovementInput;
-        playerInput.Game.Nos.started += OnNosInput;
-        playerInput.Game.Nos.canceled += OnNosInput;
-        playerInput.Game.Nos.performed += OnNosInput;
-        playerInput.Game.Accelerate.started += OnAccelerateInput;
-        playerInput.Game.Accelerate.canceled += OnAccelerateInput;
-        playerInput.Game.Accelerate.performed += OnAccelerateInput;
-        playerInput.Game.Brake.started += OnBrakeInput;
-        playerInput.Game.Brake.canceled += OnBrakeInput;
-        playerInput.Game.Brake.performed += OnBrakeInput;
-        playerInput.Game.Drift.started += OnDriftInput;
-        playerInput.Game.Drift.canceled += OnDriftInput;
-        playerInput.Game.Drift.performed += OnDriftInput;
-        playerInput.Game.Reset.performed += OnResetInput;
 
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
@@ -116,56 +93,6 @@ public class PlayerController : MonoBehaviour
         // Updates body material
         if (statsManager.bodyMaterial == null) return;
         carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
-    }
-
-    // used for player movement, call this to enable or disable player input detection
-    private void OnEnable()
-    {
-        playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Disable();
-    }
-    
-    // Steering input
-    private void OnMovementInput(InputAction.CallbackContext context)
-    {
-        var currentMovementInput = context.ReadValue<Vector2>();
-        horizontalInput = currentMovementInput.x;
-        //verticalInput = currentMovementInput.y;
-    }
-    
-    // Accelerate input
-    private void OnAccelerateInput(InputAction.CallbackContext context)
-    {
-        verticalInput = context.ReadValue<float>();
-    }
-    
-    // Brake input
-    private void OnBrakeInput(InputAction.CallbackContext context)
-    {
-        isBraking = Convert.ToBoolean(context.ReadValue<float>());
-        verticalInput = context.ReadValue<float>() * -1;
-    }
-
-    // Drift input
-    private void OnDriftInput(InputAction.CallbackContext context)
-    {
-        isDrifting = Convert.ToBoolean(context.ReadValue<float>());
-    }
-    
-    // Nos input
-    private void OnNosInput(InputAction.CallbackContext context)
-    {
-        nosActive = Convert.ToBoolean(context.ReadValue<float>());
-    }
-    
-    // Reset input
-    private void OnResetInput(InputAction.CallbackContext context)
-    {
-        resetActive = Convert.ToBoolean(context.ReadValue<float>());
     }
 
     private void Update()
