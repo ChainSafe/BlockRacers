@@ -107,8 +107,8 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.started += OnDriftInput;
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
-        playerInput.Game.Reset.started += OnResetInput;
-        playerInput.Game.Reset.canceled += OnResetInput;
+        // playerInput.Game.Reset.started += OnResetInput;
+        // playerInput.Game.Reset.canceled += OnResetInput;
         playerInput.Game.Reset.performed += OnResetInput;
 
         // Updates our stats
