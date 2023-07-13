@@ -80,9 +80,6 @@ public class PlayerController : MonoBehaviour
         // Finds our stats manager
         statsManager = GameObject.FindWithTag("StatsManager").GetComponent<StatsManager>();
 
-        // Updates body material
-        //carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
-        
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Move.started += OnMovementInput;
@@ -115,6 +112,10 @@ public class PlayerController : MonoBehaviour
         // Changes Bgm
         audioManager.Pause("Bgm1");
         audioManager.Play("Bgm2");
+        
+        // Updates body material
+        if (statsManager.bodyMaterial == null) return;
+        carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
     }
 
     // used for player movement, call this to enable or disable player input detection

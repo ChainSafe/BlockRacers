@@ -20,9 +20,10 @@ public class GarageMenu : MonoBehaviour
 
     // Car Sprites
     public Sprite car1Sprite, car2Sprite, car3Sprite;
+    private Color lastSelectedColour;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImage;
+    [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     
     // Menu buttons
@@ -34,6 +35,8 @@ public class GarageMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        // Set default to red
+        lastSelectedColour = Color.red;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
@@ -57,6 +60,7 @@ public class GarageMenu : MonoBehaviour
     {
         menuGarage.SetActive(false);
         menuChangeCar.SetActive(true);
+        currentPaintImageCar.GetComponent<Image>().color = lastSelectedColour;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(selectCarButton);
         if (audioManager == null) return;
@@ -68,6 +72,7 @@ public class GarageMenu : MonoBehaviour
     {
         menuChangeCar.SetActive(false);
         menuChangePaint.SetActive(true);
+        currentPaintImagePaint.GetComponent<Image>().color = lastSelectedColour;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(selectPaintButton);
         if (audioManager == null) return;
@@ -139,7 +144,9 @@ public class GarageMenu : MonoBehaviour
     public void SelectColour1()
     {
         globalManager.bodyMaterial = redMaterial;
-        currentPaintImage.GetComponent<Image>().color = Color.red;
+        currentPaintImageCar.GetComponent<Image>().color = Color.red;
+        currentPaintImagePaint.GetComponent<Image>().color = Color.red;
+        lastSelectedColour = Color.red;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -148,7 +155,9 @@ public class GarageMenu : MonoBehaviour
     public void SelectColour2()
     {
         globalManager.bodyMaterial = blueMaterial;
-        currentPaintImage.GetComponent<Image>().color = Color.blue;
+        currentPaintImageCar.GetComponent<Image>().color = Color.blue;
+        currentPaintImagePaint.GetComponent<Image>().color = Color.blue;
+        lastSelectedColour = Color.blue;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -157,7 +166,9 @@ public class GarageMenu : MonoBehaviour
     public void SelectColour3()
     {
         globalManager.bodyMaterial = magentaMaterial;
-        currentPaintImage.GetComponent<Image>().color = Color.magenta;
+        currentPaintImageCar.GetComponent<Image>().color = Color.magenta;
+        currentPaintImagePaint.GetComponent<Image>().color = Color.magenta;
+        lastSelectedColour = Color.magenta;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
