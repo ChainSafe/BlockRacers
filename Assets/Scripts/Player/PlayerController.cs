@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         statsManager = GameObject.FindWithTag("StatsManager").GetComponent<StatsManager>();
 
         // Updates body material
-        carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
+        //carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
         
         // Initialize player input actions
         playerInput = new PlayerInputActions();
