@@ -68,16 +68,17 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         pauseMenu.SetActive(true);
-        
-        foreach(GameObject raceUI in raceUI)
-        {
-            raceUI.SetActive(false);
-        }
 
         paused = true;
         
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
+
+        if (raceUI == null) return;
+        foreach(GameObject raceUI in raceUI)
+        {
+            raceUI.SetActive(false);
+        }
         
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -89,13 +90,14 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState =  CursorLockMode.Locked;
         Cursor.visible = false;
         pauseMenu.SetActive(false);
-
+        paused = false;
+        
+        if (raceUI == null) return;
         foreach (GameObject raceUI in raceUI)
         {
             raceUI.SetActive(true);
         }
 
-        paused = false;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
