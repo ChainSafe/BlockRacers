@@ -10,10 +10,11 @@ public class PlayerInput : MonoBehaviour
     private PlayerInputActions playerInput;
     
     // Player controller
-    [SerializeField] private PlayerController playerController;
+    private PlayerController playerController;
 
     private void Awake()
     {
+        playerController = gameObject.GetComponent<PlayerController>();
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Move.started += OnMovementInput;
