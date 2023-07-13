@@ -99,9 +99,6 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
 
-        // Updates our stats
-        statsManager.UpdateStats();
-
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -116,6 +113,9 @@ public class PlayerController : MonoBehaviour
         // Updates body material
         if (statsManager.bodyMaterial == null) return;
         carBody.GetComponent<Renderer>().material = statsManager.bodyMaterial;
+        
+        // Updates our stats
+        statsManager.UpdateStats();
     }
 
     // used for player movement, call this to enable or disable player input detection
