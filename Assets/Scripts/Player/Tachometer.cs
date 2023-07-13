@@ -19,11 +19,18 @@ public class Tachometer : MonoBehaviour
     // Player objects
     [SerializeField] private PlayerController playerController;
 
+    // Smoothing variables
+    [SerializeField] private float targetSpeed;
+    [SerializeField] private const float LerpSpeed = 5f;
+
     private void Update()
     {
-        // Speed text & slider
-        speedText.text = Mathf.Floor(playerController.speed).ToString();
-        speedSlider.value = playerController.speed;
+        // Smoothly update the target speed for our speedo
+        targetSpeed = Mathf.Lerp(targetSpeed, playerController.speed, Time.deltaTime * LerpSpeed);
+
+        // Update speed text & slider with the smoothed speed value
+        speedText.text = Mathf.Floor(targetSpeed).ToString();
+        speedSlider.value = targetSpeed;
 
         playerController.currentGear = playerController.speed switch
         {
@@ -38,6 +45,4 @@ public class Tachometer : MonoBehaviour
         };
         currentGear.text = playerController.currentGear.ToString();
     }
-
-
 }

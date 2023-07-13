@@ -171,9 +171,9 @@ public class PlayerController : MonoBehaviour
     {
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
-            tireTrailRL.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
-            tireTrailRR.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
-            driftSmoke.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
+            tireTrailRL.SetActive(DriftSystem.instance.driftActive || isBraking);
+            tireTrailRR.SetActive(DriftSystem.instance.driftActive || isBraking);
+            driftSmoke.SetActive(DriftSystem.instance.driftActive || isBraking);
         }
     }
     

@@ -22,7 +22,7 @@ public class DriftSystem : MonoBehaviour
     private Rigidbody playerCar;
 
     // Used for the UI
-    private bool driftActive;
+    public bool driftActive;
 
     // Our audiosource
     public AudioSource[] driftUISounds;
