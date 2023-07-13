@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -10,8 +11,7 @@ public class MainMenu : MonoBehaviour
     private AudioManager audioManager;
     
     // Menu items
-    [SerializeField] private GameObject ConnectMenuItems;
-    [SerializeField] private GameObject MainMenuItems;
+    [SerializeField] private GameObject connectMenuItems, mainMenuItems, connectButton, tutorialButton;
 
     void Awake()
     {
@@ -19,13 +19,18 @@ public class MainMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(connectButton);
     }
 
     // Change later when sdk is in
     public void ConnectButton()
     {
-        ConnectMenuItems.SetActive(false);
-        MainMenuItems.SetActive(true);
+        connectMenuItems.SetActive(false);
+        mainMenuItems.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(tutorialButton);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

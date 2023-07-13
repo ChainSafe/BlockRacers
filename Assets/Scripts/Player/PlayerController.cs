@@ -5,34 +5,35 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     // Stats manager
-    public StatsManager statsManager;
+    private StatsManager statsManager;
 
     // Singleton access to the controller
     public static PlayerController instance;
 
     // Audio
     private AudioManager audioManager;
-
+    
+    // Current gear
+    [Header("Speed")]
+    public int currentGear;
+    
     // Speed
-    public float speed;
-    public float maxSpeed = 280f;
-    public float speedRatio;
+    [SerializeField] public float speed, maxSpeed, speedRatio;
+    [SerializeField] private float motorForce, nosForce, breakForce;
+    
+    // Static for our nitrous system
+    public static bool nosActive;
 
     // Input
     public float input;
     private float horizontalInput, verticalInput;
     
     // Steering and braking
-    public float currentSteerAngle, currentbrakeForce;
-    private bool isBraking;
+    [Header("Steering & Braking")]
     public bool isDrifting;
+    private bool isBraking;
+    public float currentSteerAngle, currentBrakeForce, maxSteerAngle;
 
-    // Current gear
-    public int currentGear;
-
-    // Static for our nitrous system
-    public static bool nosActive;
-    
     // Reset bool
     public bool resetActive;
 
@@ -44,35 +45,27 @@ public class PlayerController : MonoBehaviour
 
     // collision bool for sounds
     public bool collision;
-
-    // Particles
-    [SerializeField] private GameObject nosParticles;
-    [SerializeField] private GameObject tireTrailRL;
-    [SerializeField] private GameObject tireTrailRR;
-    [SerializeField] private GameObject driftSmoke;
     
     // Rigidbody
+    [Header("Objects & Particle Effects")]
     [SerializeField] public Rigidbody rigidBody;
 
-    // Tailights & headlights
-    [SerializeField] private GameObject tailLights;
-    [SerializeField] private GameObject headLights;
+    // Particles
+    [SerializeField] private GameObject nosParticles, tireTrailRL, tireTrailRR, driftSmoke;
 
-    // Settings
-    [SerializeField] private float motorForce, nosForce, breakForce;
-    public float maxSteerAngle;
+    // Taillights & headlights
+    [SerializeField] private GameObject tailLights, headLights;
 
-    // Wheel colliders
-    [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
-    [SerializeField] private WheelCollider rearLeftWheelCollider, rearRightWheelCollider;
-
-    // Wheels
-    [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
-    [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
-    
     // Body Material
+    [Header("Wheels & Colliders")]
     [SerializeField] private GameObject carBody;
     
+    // Wheel colliders
+    [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
+
+    // Wheels
+    [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
+
     // Player Input
     private PlayerInputActions playerInput;
 
@@ -107,8 +100,6 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.started += OnDriftInput;
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
-        // playerInput.Game.Reset.started += OnResetInput;
-        // playerInput.Game.Reset.canceled += OnResetInput;
         playerInput.Game.Reset.performed += OnResetInput;
 
         // Updates our stats
@@ -217,12 +208,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check if braking
-        currentbrakeForce = isBraking && frontLeftWheelCollider.motorTorque > 0 ? breakForce : 0f;
+        currentBrakeForce = isBraking && frontLeftWheelCollider.motorTorque > 0 ? breakForce : 0f;
         
         // Brake slightly when idling
         if (input == 0)
         {
-            currentbrakeForce = 100;
+            currentBrakeForce = 100;
         }
         
         // Apply the above
@@ -279,7 +270,7 @@ public class PlayerController : MonoBehaviour
             frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
             rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
             rearRightWheelCollider.sidewaysFriction = sidewaysFrictionRR;
-            currentbrakeForce = 100;
+            currentBrakeForce = 100;
         }
         else
         {
@@ -296,10 +287,10 @@ public class PlayerController : MonoBehaviour
     
     // Braking
     private void ApplyBraking() {
-        frontRightWheelCollider.brakeTorque = currentbrakeForce;
-        frontLeftWheelCollider.brakeTorque = currentbrakeForce;
-        rearLeftWheelCollider.brakeTorque = currentbrakeForce;
-        rearRightWheelCollider.brakeTorque = currentbrakeForce;
+        frontRightWheelCollider.brakeTorque = currentBrakeForce;
+        frontLeftWheelCollider.brakeTorque = currentBrakeForce;
+        rearLeftWheelCollider.brakeTorque = currentBrakeForce;
+        rearRightWheelCollider.brakeTorque = currentBrakeForce;
     }
     
     // Steering

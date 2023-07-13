@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class FinishScreen : MonoBehaviour
@@ -10,6 +9,9 @@ public class FinishScreen : MonoBehaviour
     
     // Audio
     private AudioManager audioManager;
+    
+    // Buttons
+    [SerializeField] private GameObject firstButton;
 
     private void Awake()
     {
@@ -24,6 +26,9 @@ public class FinishScreen : MonoBehaviour
         // Changes Bgm
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
+        
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
     public void MainMenuButton()
     {
