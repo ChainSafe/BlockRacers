@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     // Stats manager
     public StatsManager statsManager;
 
+    // Singleton access to the controller
+    public static PlayerController instance;
+
     // Audio
     private AudioManager audioManager;
 
@@ -20,10 +23,10 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput, verticalInput;
     
     // Steering and braking
-    private float currentSteerAngle, currentbrakeForce;
+    public float currentSteerAngle, currentbrakeForce;
     private bool isBraking;
-    private bool isDrifting;
-    
+    public bool isDrifting;
+
     // Current gear
     public int currentGear;
 
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject driftSmoke;
     
     // Rigidbody
-    [SerializeField] private Rigidbody rigidBody;
+    [SerializeField] public Rigidbody rigidBody;
 
     // Tailights & headlights
     [SerializeField] private GameObject tailLights;
@@ -72,6 +75,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton
+        instance = this;
+
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         
@@ -265,10 +271,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            sidewaysFrictionFL.extremumValue = 0.5f;
-            sidewaysFrictionFR.extremumValue = 0.5f;
-            sidewaysFrictionRL.extremumValue = 0.5f;
-            sidewaysFrictionRR.extremumValue = 0.5f;
+            sidewaysFrictionFL.extremumValue = 0.7f;
+            sidewaysFrictionFR.extremumValue = 0.7f;
+            sidewaysFrictionRL.extremumValue = 0.7f;
+            sidewaysFrictionRR.extremumValue = 0.7f;
             frontLeftWheelCollider.sidewaysFriction = sidewaysFrictionFL;
             frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
             rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
