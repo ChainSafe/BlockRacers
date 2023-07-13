@@ -55,10 +55,6 @@ public class PlayerController : MonoBehaviour
     // Taillights & headlights
     [SerializeField] private GameObject tailLights, headLights;
 
-    // Body Material
-    [Header("Wheels & Colliders")]
-    [SerializeField] private GameObject carBody;
-    
     // Wheel colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
 
