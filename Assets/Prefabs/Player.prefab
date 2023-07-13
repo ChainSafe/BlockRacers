@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29857023706677138}
   m_LocalRotation: {x: -0, y: -0.020631332, z: -0, w: 0.9997872}
-  m_LocalPosition: {x: -0.00000047683716, y: 2.8699906, z: -5.015044}
+  m_LocalPosition: {x: -0.00000047683716, y: 2.8725095, z: -4.7766633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75,7 +75,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_YAxis:
-    Value: 0.13030237
+    Value: 0.012946701
     m_SpeedMode: 0
     m_MaxSpeed: 2
     m_AccelTime: 0.2
@@ -164,7 +164,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32285401018964479}
-  m_LocalRotation: {x: -0.21173516, y: -0.020163385, z: 0.0043693306, w: -0.97710925}
+  m_LocalRotation: {x: -0.22229312, y: -0.02011494, z: 0.0045871795, w: -0.97476155}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -879,11 +879,11 @@ WheelCollider:
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 1
-    m_AsymptoteValue: 0.3
-    m_Stiffness: 12
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 0.7
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -950,11 +950,11 @@ WheelCollider:
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 1
-    m_AsymptoteValue: 0.3
-    m_Stiffness: 12
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 0.7
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 4795013423507843762}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.8699906, z: -5.015044}
+  m_FollowOffset: {x: 0, y: 2.8725095, z: -4.7766633}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -1878,11 +1878,11 @@ WheelCollider:
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 1
-    m_AsymptoteValue: 0.3
-    m_Stiffness: 12
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 0.7
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -7564,7 +7564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.8699906, z: -5.015044}
+  m_FollowOffset: {x: 0, y: 2.8725095, z: -4.7766633}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 0.5
@@ -7837,7 +7837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.8699906, z: -5.015044}
+  m_FollowOffset: {x: 0, y: 2.8725095, z: -4.7766633}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -8240,8 +8240,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
-  m_LocalRotation: {x: -0.2569219, y: -0.019938543, z: 0.0053017843, w: -0.966212}
-  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
+  m_LocalRotation: {x: -0.26735938, y: -0.019879991, z: 0.005517139, w: -0.96337605}
+  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8324,8 +8324,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7365825483062097780}
-  m_LocalRotation: {x: -0.20885599, y: -0.00058835745, z: 0.00012046844, w: -0.9779463}
-  m_LocalPosition: {x: -0.00000047683716, y: 2.8699906, z: -5.015044}
+  m_LocalRotation: {x: -0.2220507, y: -0.00005835294, z: 0.000012606381, w: -0.97503513}
+  m_LocalPosition: {x: -0.00000047683716, y: 2.8725095, z: -4.7766633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8365,7 +8365,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 47.464233
+  field of view: 49.750328
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -8654,7 +8654,7 @@ GameObject:
   - component: {fileID: 2317930219976993492}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9069,11 +9069,11 @@ WheelCollider:
     m_AsymptoteValue: 0.4
     m_Stiffness: 8
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 1
-    m_AsymptoteValue: 0.3
-    m_Stiffness: 12
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 0.7
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -14208,7 +14208,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8740846238439664272}
-  m_LocalRotation: {x: -0.20049636, y: -0.022469196, z: 0.004599638, w: -0.9794259}
+  m_LocalRotation: {x: -0.21108006, y: -0.022418551, z: 0.004842528, w: -0.9771997}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
