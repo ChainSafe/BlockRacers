@@ -304,6 +304,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "437c989c-815a-4ff5-86e0-bcc5e451a79e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Accelerate",
                     "type": "Button",
                     "id": "78cb7563-f08d-47bf-93e3-c7a2cf754d9f",
@@ -564,6 +573,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8808804-f9bd-4b0f-a82e-6c50139cc967",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1637d3b0-b674-46e5-ad7e-cbf8e359ef85",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
