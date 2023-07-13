@@ -37,9 +37,6 @@ public class PauseManager : MonoBehaviour
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
-        
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(firstButton);
     }
     
     private void OnEnable()
@@ -78,6 +75,10 @@ public class PauseManager : MonoBehaviour
         }
 
         paused = true;
+        
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(firstButton);
+        
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

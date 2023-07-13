@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7045272779367262473}
   - component: {fileID: 2168963911847370238}
+  - component: {fileID: 5092617789979584300}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -140,6 +141,22 @@ MonoBehaviour:
   - {fileID: 7571490976455805944}
   - {fileID: 383319824617351552}
   - {fileID: 3049382791836811789}
+--- !u!114 &5092617789979584300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29857023706677138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &32285401018964479
 GameObject:
   m_ObjectHideFlags: 3
@@ -2332,27 +2349,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1c08282db96544d9412b7450b619d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsManager: {fileID: 0}
+  currentGear: 0
   speed: 0
   maxSpeed: 280
   speedRatio: 0
+  motorForce: 2000
+  nosForce: 10000
+  breakForce: 3000
   input: 0
-  currentSteerAngle: 0
-  currentbrakeForce: 0
   isDrifting: 0
-  currentGear: 0
+  currentSteerAngle: 0
+  currentBrakeForce: 0
+  maxSteerAngle: 60
+  resetActive: 0
   collision: 0
+  rigidBody: {fileID: 892240045161491238}
   nosParticles: {fileID: 5087590832435049255}
   tireTrailRL: {fileID: 1023952475887302460}
   tireTrailRR: {fileID: 4664376856693064768}
   driftSmoke: {fileID: 9171181939037418199}
-  rigidBody: {fileID: 892240045161491238}
   tailLights: {fileID: 4828064623576911005}
   headLights: {fileID: 3925288807019028994}
-  motorForce: 2000
-  nosForce: 10000
-  breakForce: 3000
-  maxSteerAngle: 60
+  carBody: {fileID: 7754562469863226432}
   frontLeftWheelCollider: {fileID: 6244789710953200502}
   frontRightWheelCollider: {fileID: 8160940392523512796}
   rearLeftWheelCollider: {fileID: 355845265586989531}
@@ -2361,7 +2379,6 @@ MonoBehaviour:
   frontRightWheelTransform: {fileID: 2415448240707208213}
   rearLeftWheelTransform: {fileID: 5264769016699307251}
   rearRightWheelTransform: {fileID: 84209362350970212}
-  carBody: {fileID: 7754562469863226432}
 --- !u!1 &5428867020422820542
 GameObject:
   m_ObjectHideFlags: 0
@@ -8244,7 +8261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7307502604009207175}
   m_LocalRotation: {x: -0.26735938, y: -0.019879991, z: 0.005517139, w: -0.96337605}
-  m_LocalPosition: {x: -0.00000031474215, y: 0, z: -0.0000076228994}
+  m_LocalPosition: {x: -0.00000015737108, y: 0, z: -0.0000038114497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
