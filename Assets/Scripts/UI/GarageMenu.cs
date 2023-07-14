@@ -41,6 +41,12 @@ public class GarageMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
 
+    public void OnMouseOverButton(GameObject button)
+    {
+        // Sets our selected button to what we've moused over
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
     // Closes other menus & opens the garage menu
     public void GarageMenuButton()
     {

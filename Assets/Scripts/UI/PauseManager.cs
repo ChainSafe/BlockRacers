@@ -49,6 +49,12 @@ public class PauseManager : MonoBehaviour
         playerInput.Disable();
     }
     
+    public void OnMouseOverButton(GameObject button)
+    {
+        // Sets our selected button to what we've moused over
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
     // Pause input
     private void OnPauseInput(InputAction.CallbackContext context)
     {

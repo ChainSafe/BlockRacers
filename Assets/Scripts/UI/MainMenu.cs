@@ -35,6 +35,12 @@ public class MainMenu : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(connectButton);
         }
     }
+    
+    public void OnMouseOverButton(GameObject button)
+    {
+        // Sets our selected button to what we've moused over
+        EventSystem.current.SetSelectedGameObject(button);
+    }
 
     // Change later when sdk is in
     public void ConnectButton()
