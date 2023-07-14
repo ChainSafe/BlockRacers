@@ -169,10 +169,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
-<<<<<<< HEAD
             if (DriftSystem.instance == null) return;
-=======
->>>>>>> main
             tireTrailRL.SetActive(DriftSystem.instance.driftActive || isBraking);
             tireTrailRR.SetActive(DriftSystem.instance.driftActive || isBraking);
             driftSmoke.SetActive(DriftSystem.instance.driftActive || isBraking);
