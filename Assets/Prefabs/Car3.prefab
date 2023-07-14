@@ -6598,7 +6598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6927135fe33c39643b31f1b4fe2dd2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyMaterial: {fileID: 2100000, guid: 92fe621c7b7df204093b23a496bd164e, type: 2}
+  nftImage: {fileID: 0}
   playerController: {fileID: 2535191549253097590}
 --- !u!1 &4040026433134123217
 GameObject:
@@ -6626,7 +6626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4040026433134123217}
   m_LocalRotation: {x: -0.45362562, y: 0.54242414, z: 0.54242414, w: 0.45362538}
-  m_LocalPosition: {x: 0.3, y: -0.117, z: 0.39}
+  m_LocalPosition: {x: 0.34, y: -0.117, z: 0.383}
   m_LocalScale: {x: -2.0906515, y: -2.0906515, z: -2.0906515}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11732,11 +11732,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4830450378255726074}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_LocalRotation: {x: 0.14583206, y: 0.70683646, z: -0.15268026, w: 0.6751325}
 =======
   m_LocalRotation: {x: 0.14583197, y: 0.7068365, z: -0.15268025, w: 0.67513245}
 >>>>>>> Stashed changes
+=======
+  m_LocalRotation: {x: 0.14583182, y: 0.70683736, z: -0.15268046, w: 0.67513156}
+>>>>>>> main
   m_LocalPosition: {x: -0.0000019057252, y: 0, z: 0.000000078685616}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12284,7 +12288,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5884512678864707304}
   m_LocalRotation: {x: -0.49730816, y: 0.5026775, z: 0.5026776, w: 0.49730787}
-  m_LocalPosition: {x: 0.861, y: -0.117, z: 0.39}
+  m_LocalPosition: {x: 0.843, y: -0.117, z: 0.39}
   m_LocalScale: {x: -2.0906515, y: -2.0906515, z: -2.0906515}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17222,6 +17226,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6144542382917588530}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_LocalRotation: {x: 0.1851504, y: 0.695267, z: -0.19295284, w: 0.6671525}
   m_LocalPosition: {x: -0.0000038114504, y: 0, z: 0.00000015737123}
@@ -17229,6 +17234,10 @@ Transform:
   m_LocalRotation: {x: 0.18515036, y: 0.695267, z: -0.1929528, w: 0.6671525}
   m_LocalPosition: {x: -0.0000076229007, y: 0, z: 0.00000031474246}
 >>>>>>> Stashed changes
+=======
+  m_LocalRotation: {x: 0.18515036, y: 0.695267, z: -0.1929528, w: 0.6671525}
+  m_LocalPosition: {x: -0.0000019057252, y: 0, z: 0.000000078685616}
+>>>>>>> main
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17558,7 +17567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6706715741445615052}
   m_LocalRotation: {x: 0.15394136, y: 0.70348394, z: -0.1604286, w: 0.6750372}
-  m_LocalPosition: {x: -0.0000019057252, y: 0, z: 0.000000078685616}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17641,12 +17650,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6836524227012670122}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_LocalRotation: {x: -0.2220507, y: -0.000058323145, z: 0.000012591481, w: -0.9750352}
 =======
   m_LocalRotation: {x: -0.22205068, y: -0.00005835294, z: 0.000012591479, w: -0.97503513}
 >>>>>>> Stashed changes
   m_LocalPosition: {x: -0.00000047683716, y: 2.8725095, z: -4.7766633}
+=======
+  m_LocalRotation: {x: -0.2220507, y: -0.000058412552, z: 0.000012598932, w: -0.9750352}
+  m_LocalPosition: {x: -0.16509344, y: 2.972486, z: -6.4346533}
+>>>>>>> main
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18474,7 +18488,6 @@ MonoBehaviour:
   nftImage: {fileID: 7001660787123555734}
   tailLights: {fileID: 7818618132646739498}
   headLights: {fileID: 1043289443478413280}
-  carBody: {fileID: 4121118562893420540}
   frontLeftWheelCollider: {fileID: 6226942959647400213}
   frontRightWheelCollider: {fileID: 2605544575297172672}
   rearLeftWheelCollider: {fileID: 5812372573614488464}
@@ -19192,7 +19205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &740792394609077550
 Transform:
   m_ObjectHideFlags: 0
