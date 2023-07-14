@@ -78,7 +78,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.012946701
     m_SpeedMode: 0
-    m_MaxSpeed: 0.3
+    m_MaxSpeed: 0.5
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 60
+    m_MaxSpeed: 70
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -839,6 +839,7 @@ MonoBehaviour:
   speedText: {fileID: 6628287840539262290}
   currentGear: {fileID: 2338497501785153462}
   playerController: {fileID: 1588613571638756571}
+  targetSpeed: 0
 --- !u!1 &1695162845665336627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,7 +2482,6 @@ MonoBehaviour:
   nftImage: {fileID: 3928836973414576023}
   tailLights: {fileID: 4828064623576911005}
   headLights: {fileID: 3925288807019028994}
-  carBody: {fileID: 7754562469863226432}
   frontLeftWheelCollider: {fileID: 6244789710953200502}
   frontRightWheelCollider: {fileID: 8160940392523512796}
   rearLeftWheelCollider: {fileID: 355845265586989531}
@@ -8109,7 +8109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6927135fe33c39643b31f1b4fe2dd2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyMaterial: {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  nftImage: {fileID: 0}
   playerController: {fileID: 1588613571638756571}
 --- !u!1 &6776971957730922946
 GameObject:

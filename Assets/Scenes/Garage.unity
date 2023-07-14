@@ -4173,6 +4173,7 @@ GameObject:
   - component: {fileID: 166764113}
   - component: {fileID: 166764112}
   - component: {fileID: 166764111}
+  - component: {fileID: 166764114}
   m_Layer: 5
   m_Name: GarageButton
   m_TagString: Untagged
@@ -4295,6 +4296,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166764109}
   m_CullTransparentMesh: 1
+--- !u!114 &166764114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166764109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 166764109}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &177557584
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,6 +5314,7 @@ GameObject:
   - component: {fileID: 212881460}
   - component: {fileID: 212881459}
   - component: {fileID: 212881458}
+  - component: {fileID: 212881461}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -5406,6 +5437,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212881456}
   m_CullTransparentMesh: 1
+--- !u!114 &212881461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212881456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 212881456}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &216951172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6941,6 +7001,7 @@ GameObject:
   - component: {fileID: 254056274}
   - component: {fileID: 254056273}
   - component: {fileID: 254056272}
+  - component: {fileID: 254056275}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -7063,6 +7124,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254056270}
   m_CullTransparentMesh: 1
+--- !u!114 &254056275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254056270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 254056270}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &258477999
 GameObject:
   m_ObjectHideFlags: 0
@@ -9566,6 +9656,7 @@ GameObject:
   - component: {fileID: 335394070}
   - component: {fileID: 335394069}
   - component: {fileID: 335394068}
+  - component: {fileID: 335394071}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -9688,6 +9779,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335394066}
   m_CullTransparentMesh: 1
+--- !u!114 &335394071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335394066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 335394066}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &335647575
 GameObject:
   m_ObjectHideFlags: 0
@@ -11633,6 +11753,7 @@ GameObject:
   - component: {fileID: 377380455}
   - component: {fileID: 377380454}
   - component: {fileID: 377380453}
+  - component: {fileID: 377380456}
   m_Layer: 5
   m_Name: ChangeCarButton
   m_TagString: Untagged
@@ -11755,6 +11876,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377380451}
   m_CullTransparentMesh: 1
+--- !u!114 &377380456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377380451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 377380451}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &380730648
 GameObject:
   m_ObjectHideFlags: 0
@@ -14592,6 +14742,7 @@ GameObject:
   - component: {fileID: 484722620}
   - component: {fileID: 484722619}
   - component: {fileID: 484722618}
+  - component: {fileID: 484722621}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -14714,6 +14865,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484722616}
   m_CullTransparentMesh: 1
+--- !u!114 &484722621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484722616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 484722616}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &489137518
 GameObject:
   m_ObjectHideFlags: 0
@@ -14726,6 +14906,7 @@ GameObject:
   - component: {fileID: 489137522}
   - component: {fileID: 489137521}
   - component: {fileID: 489137520}
+  - component: {fileID: 489137523}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -14848,6 +15029,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489137518}
   m_CullTransparentMesh: 1
+--- !u!114 &489137523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489137518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 489137518}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &491276775
 GameObject:
   m_ObjectHideFlags: 0
@@ -15238,6 +15448,7 @@ GameObject:
   - component: {fileID: 517365509}
   - component: {fileID: 517365508}
   - component: {fileID: 517365507}
+  - component: {fileID: 517365510}
   m_Layer: 5
   m_Name: GarageButton
   m_TagString: Untagged
@@ -15360,6 +15571,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517365505}
   m_CullTransparentMesh: 1
+--- !u!114 &517365510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517365505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 517365505}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &520498613
 GameObject:
   m_ObjectHideFlags: 0
@@ -15909,6 +16149,7 @@ GameObject:
   - component: {fileID: 530190243}
   - component: {fileID: 530190242}
   - component: {fileID: 530190241}
+  - component: {fileID: 530190244}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -16031,6 +16272,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530190239}
   m_CullTransparentMesh: 1
+--- !u!114 &530190244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530190239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 530190239}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &531489635
 GameObject:
   m_ObjectHideFlags: 0
@@ -18190,6 +18460,7 @@ GameObject:
   - component: {fileID: 604682690}
   - component: {fileID: 604682689}
   - component: {fileID: 604682688}
+  - component: {fileID: 604682691}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -18312,6 +18583,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604682686}
   m_CullTransparentMesh: 1
+--- !u!114 &604682691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604682686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 604682686}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &617187786
 GameObject:
   m_ObjectHideFlags: 0
@@ -28162,6 +28462,7 @@ GameObject:
   - component: {fileID: 914046694}
   - component: {fileID: 914046693}
   - component: {fileID: 914046692}
+  - component: {fileID: 914046695}
   m_Layer: 5
   m_Name: GarageButton
   m_TagString: Untagged
@@ -28284,6 +28585,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914046690}
   m_CullTransparentMesh: 1
+--- !u!114 &914046695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914046690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 914046690}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &915618546
 GameObject:
   m_ObjectHideFlags: 0
@@ -31700,6 +32030,7 @@ GameObject:
   - component: {fileID: 1066307251}
   - component: {fileID: 1066307250}
   - component: {fileID: 1066307249}
+  - component: {fileID: 1066307252}
   m_Layer: 5
   m_Name: MarketplaceButton
   m_TagString: Untagged
@@ -31822,6 +32153,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066307247}
   m_CullTransparentMesh: 1
+--- !u!114 &1066307252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066307247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1066307247}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1068817123
 GameObject:
   m_ObjectHideFlags: 0
@@ -35720,6 +36080,7 @@ GameObject:
   - component: {fileID: 1173318550}
   - component: {fileID: 1173318549}
   - component: {fileID: 1173318551}
+  - component: {fileID: 1173318552}
   m_Layer: 5
   m_Name: CurrentPaint
   m_TagString: Untagged
@@ -35844,6 +36205,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1173318552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173318547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1173318547}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1174468499
 GameObject:
   m_ObjectHideFlags: 0
@@ -38165,6 +38555,7 @@ GameObject:
   - component: {fileID: 1279042521}
   - component: {fileID: 1279042520}
   - component: {fileID: 1279042519}
+  - component: {fileID: 1279042522}
   m_Layer: 5
   m_Name: UpgradeButton
   m_TagString: Untagged
@@ -38287,6 +38678,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279042517}
   m_CullTransparentMesh: 1
+--- !u!114 &1279042522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279042517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1279042517}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1280389982
 GameObject:
   m_ObjectHideFlags: 0
@@ -39559,6 +39979,7 @@ GameObject:
   - component: {fileID: 1343680714}
   - component: {fileID: 1343680713}
   - component: {fileID: 1343680712}
+  - component: {fileID: 1343680715}
   m_Layer: 5
   m_Name: GarageButton
   m_TagString: Untagged
@@ -39681,6 +40102,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343680710}
   m_CullTransparentMesh: 1
+--- !u!114 &1343680715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343680710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1343680710}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1345544857
 GameObject:
   m_ObjectHideFlags: 0
@@ -40225,6 +40675,7 @@ GameObject:
   - component: {fileID: 1360823495}
   - component: {fileID: 1360823494}
   - component: {fileID: 1360823493}
+  - component: {fileID: 1360823496}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -40347,6 +40798,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360823491}
   m_CullTransparentMesh: 1
+--- !u!114 &1360823496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360823491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1360823491}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1370383469
 GameObject:
   m_ObjectHideFlags: 0
@@ -41497,6 +41977,7 @@ GameObject:
   - component: {fileID: 1423376736}
   - component: {fileID: 1423376735}
   - component: {fileID: 1423376734}
+  - component: {fileID: 1423376737}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -41619,6 +42100,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423376732}
   m_CullTransparentMesh: 1
+--- !u!114 &1423376737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423376732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1423376732}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1424170251
 GameObject:
   m_ObjectHideFlags: 0
@@ -42763,6 +43273,7 @@ GameObject:
   - component: {fileID: 1456441539}
   - component: {fileID: 1456441538}
   - component: {fileID: 1456441537}
+  - component: {fileID: 1456441540}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -42885,6 +43396,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456441535}
   m_CullTransparentMesh: 1
+--- !u!114 &1456441540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456441535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1456441535}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1457685782
 GameObject:
   m_ObjectHideFlags: 0
@@ -45242,6 +45782,7 @@ GameObject:
   - component: {fileID: 1526004674}
   - component: {fileID: 1526004673}
   - component: {fileID: 1526004672}
+  - component: {fileID: 1526004675}
   m_Layer: 5
   m_Name: PurchaseButton
   m_TagString: Untagged
@@ -45364,6 +45905,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526004670}
   m_CullTransparentMesh: 1
+--- !u!114 &1526004675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526004670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1526004670}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1530974319
 GameObject:
   m_ObjectHideFlags: 0
@@ -58866,6 +59436,7 @@ GameObject:
   - component: {fileID: 1913014673}
   - component: {fileID: 1913014672}
   - component: {fileID: 1913014671}
+  - component: {fileID: 1913014674}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -58988,6 +59559,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913014669}
   m_CullTransparentMesh: 1
+--- !u!114 &1913014674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913014669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1913014669}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1914160436
 GameObject:
   m_ObjectHideFlags: 0
@@ -59000,6 +59600,7 @@ GameObject:
   - component: {fileID: 1914160440}
   - component: {fileID: 1914160439}
   - component: {fileID: 1914160438}
+  - component: {fileID: 1914160441}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -59122,6 +59723,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914160436}
   m_CullTransparentMesh: 1
+--- !u!114 &1914160441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914160436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 455262207}
+          m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+          m_MethodName: OnMouseOverButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1914160436}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1921581941
 GameObject:
   m_ObjectHideFlags: 0
@@ -64857,7 +65487,6 @@ GameObject:
   - component: {fileID: 2142815196}
   - component: {fileID: 2142815199}
   - component: {fileID: 2142815198}
-  - component: {fileID: 2142815197}
   m_Layer: 5
   m_Name: TitleImage
   m_TagString: Untagged
@@ -64885,50 +65514,6 @@ RectTransform:
   m_AnchoredPosition: {x: -390, y: 220}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2142815197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142815195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 2142815198}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2142815198
 MonoBehaviour:
   m_ObjectHideFlags: 0

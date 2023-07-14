@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -171,9 +169,16 @@ public class PlayerController : MonoBehaviour
     {
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
+<<<<<<< Updated upstream
             tireTrailRL.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
             tireTrailRR.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
             driftSmoke.SetActive(currentSteerAngle > 25 || currentSteerAngle < -25 || isBraking);
+=======
+            if (DriftSystem.instance == null) return;
+            tireTrailRL.SetActive(DriftSystem.instance.driftActive || isBraking);
+            tireTrailRR.SetActive(DriftSystem.instance.driftActive || isBraking);
+            driftSmoke.SetActive(DriftSystem.instance.driftActive || isBraking);
+>>>>>>> Stashed changes
         }
     }
     

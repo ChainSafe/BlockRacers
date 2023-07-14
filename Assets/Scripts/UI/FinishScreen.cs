@@ -30,6 +30,12 @@ public class FinishScreen : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
     }
+    
+    public void OnMouseOverButton(GameObject button)
+    {
+        // Sets our selected button to what we've moused over
+        EventSystem.current.SetSelectedGameObject(button);
+    }
     public void MainMenuButton()
     {
         globalManager.sceneToLoad = "MainMenu";
