@@ -9,7 +9,7 @@ public class GlobalManager : MonoBehaviour
     public GameObject playerCar;
     
     // Player material
-    public Material nftImage;
+    public Texture2D nftSprite;
     
     // Player stats
     public int engineLevel, handlingLevel, nosLevel;

@@ -13,7 +13,7 @@ public class GarageMenu : MonoBehaviour
     private AudioManager audioManager;
     
     // Materials
-    public Material redMaterial, blueMaterial, magentaMaterial;
+    public Texture2D redSprite, blueSprite, magentaSprite;
 
     // Car prefabs
     public GameObject car1, car2, car3;
@@ -149,7 +149,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 1
     public void SelectColour1()
     {
-        globalManager.nftImage = redMaterial;
+        globalManager.nftSprite = redSprite;
         currentPaintImageCar.GetComponent<Image>().color = Color.red;
         currentPaintImagePaint.GetComponent<Image>().color = Color.red;
         lastSelectedColour = Color.red;
@@ -160,7 +160,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 2
     public void SelectColour2()
     {
-        globalManager.nftImage = blueMaterial;
+        globalManager.nftSprite = blueSprite;
         currentPaintImageCar.GetComponent<Image>().color = Color.blue;
         currentPaintImagePaint.GetComponent<Image>().color = Color.blue;
         lastSelectedColour = Color.blue;
@@ -171,7 +171,7 @@ public class GarageMenu : MonoBehaviour
     // Change colour 3
     public void SelectColour3()
     {
-        globalManager.nftImage = magentaMaterial;
+        globalManager.nftSprite = magentaSprite;
         currentPaintImageCar.GetComponent<Image>().color = Color.magenta;
         currentPaintImagePaint.GetComponent<Image>().color = Color.magenta;
         lastSelectedColour = Color.magenta;
