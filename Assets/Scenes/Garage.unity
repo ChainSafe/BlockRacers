@@ -13896,12 +13896,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2b8cebf0c0e4b4593cf3b445311880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redMaterial: {fileID: 2100000, guid: 4cae109c79f934049b1ee8ad6639e25d, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 3f1d2e27462aa7941b35f2810316b3cc, type: 2}
-  magentaMaterial: {fileID: 2100000, guid: c0c3642b2d291ae448e5f49125c60699, type: 2}
+  redSprite: {fileID: 2800000, guid: 317d9237b05d8324883f20e2dd8333bf, type: 3}
+  blueSprite: {fileID: 2800000, guid: cfea234bde7358c42a0ad6d21a453351, type: 3}
+  magentaSprite: {fileID: 2800000, guid: 4ec177addfede0a4d95301d40486c146, type: 3}
   car1: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   car2: {fileID: 8562722798458900322, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
-  car3: {fileID: 7627641450290695623, guid: 9236299c3e1d6474ab318521ecd81cd9, type: 3}
+  car3: {fileID: 8562722798458900322, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
   car1Sprite: {fileID: 21300000, guid: e1d639ff6cef26440abde1351e730103, type: 3}
   car2Sprite: {fileID: 21300000, guid: a088b46a54460674b9cd01f5222fa8d0, type: 3}
   car3Sprite: {fileID: 21300000, guid: 1531e7c4df7941f4f83d1693e50dff74, type: 3}

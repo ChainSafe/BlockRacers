@@ -85,8 +85,8 @@ public class PlayerController : MonoBehaviour
         statsManager.UpdateStats();
         
         // Updates body material
-        if (statsManager.nftImage == null) return;
-        nftImage.GetComponent<Renderer>().material = statsManager.nftImage;
+        if (statsManager.nftMaterial == null) return;
+        nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
     }
 
     private void Update()
