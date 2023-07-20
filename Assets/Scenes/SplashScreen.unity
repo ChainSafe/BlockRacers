@@ -330,9 +330,9 @@ MonoBehaviour:
   sceneToLoad: 
   playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   nftSprite: {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
-  engineLevel: 3
-  handlingLevel: 3
-  nosLevel: 3
+  engineLevel: 1
+  handlingLevel: 1
+  nosLevel: 1
   connected: 0
 --- !u!1 &402067119
 GameObject:
