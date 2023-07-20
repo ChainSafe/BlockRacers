@@ -17,5 +17,23 @@ public class SpawnPlayer : MonoBehaviour
     {
         // Instantiate chosen car
         Instantiate(globalManager.playerCar);
+
+        // If we're racing with the Camaro
+        if (globalManager.playerCar == GarageMenu.instance.car1)
+        {
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
+        }
+
+        // If we're racing with the ford GT
+        if (globalManager.playerCar == GarageMenu.instance.car2)
+        {
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
+        }
+
+        // If we're racing with the ferrari
+        if (globalManager.playerCar == GarageMenu.instance.car3)
+        {
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
+        }
     }
 }

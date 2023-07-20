@@ -10,6 +10,7 @@ TagManager:
   - LapCollider
   - NitrousFill
   - StatsManager
+  - Car
   layers:
   - Default
   - TransparentFX

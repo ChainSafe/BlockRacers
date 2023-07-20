@@ -22,6 +22,9 @@ public class GarageMenu : MonoBehaviour
     public Sprite car1Sprite, car2Sprite, car3Sprite;
     private Color lastSelectedColour;
 
+    // Singleton to access funtions
+    public static GarageMenu instance;
+
     // Menu objects
     [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
@@ -31,6 +34,8 @@ public class GarageMenu : MonoBehaviour
         
     private void Awake()
     {
+        //Singleton
+        instance = this;
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
@@ -45,6 +50,13 @@ public class GarageMenu : MonoBehaviour
     {
         // Sets our selected button to what we've moused over
         EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    // Creating a function I can access from all other scripts for button sounds to prevent referencing the audio manager everywhere
+    public void PlayMenuSelect()
+    {
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     // Closes other menus & opens the garage menu
@@ -152,6 +164,7 @@ public class GarageMenu : MonoBehaviour
         globalManager.nftSprite = redSprite;
         currentPaintImageCar.GetComponent<Image>().color = Color.red;
         currentPaintImagePaint.GetComponent<Image>().color = Color.red;
+        
         lastSelectedColour = Color.red;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");

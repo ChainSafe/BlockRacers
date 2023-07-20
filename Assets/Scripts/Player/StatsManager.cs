@@ -13,10 +13,10 @@ public class StatsManager : MonoBehaviour
     // Body Material
     public Material nftMaterial;
     private Texture2D nftSprite;
-    
+
     // Player objects
     [SerializeField] private PlayerController playerController;
-    
+
     private void Awake()
     {
         // Finds our global manager

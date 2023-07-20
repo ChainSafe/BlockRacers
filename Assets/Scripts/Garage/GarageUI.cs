@@ -11,6 +11,9 @@ public class GarageUI : MonoBehaviour
     // Go to the showroom
     public void ToShowRoom()
     {
+        // Play our menu select audio
+        GarageMenu.instance.PlayMenuSelect();
+
         // Rotate our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
 
@@ -22,6 +25,9 @@ public class GarageUI : MonoBehaviour
     // When we exit the showroom
     public void BackToMenu()
     {
+        // Play our menu select audio
+        GarageMenu.instance.PlayMenuSelect();
+
         // Rotate our camera back
         CameraController.instance.RotateCamera(-95f, 0.5f);
 
@@ -29,6 +35,4 @@ public class GarageUI : MonoBehaviour
 
         ShowroomUI.SetActive(false);
     }
-
-
 }
