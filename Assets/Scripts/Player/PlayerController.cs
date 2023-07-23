@@ -185,10 +185,10 @@ public class PlayerController : MonoBehaviour
         WheelFrictionCurve sidewaysFrictionRR = rearRightWheelCollider.sidewaysFriction;
         if (isDrifting)
         {
-            sidewaysFrictionFL.extremumValue = 0.2f;
-            sidewaysFrictionFR.extremumValue = 0.2f;
-            sidewaysFrictionRL.extremumValue = 0.2f;
-            sidewaysFrictionRR.extremumValue = 0.2f;
+            sidewaysFrictionFL.extremumValue = 0.4f;
+            sidewaysFrictionFR.extremumValue = 0.4f;
+            sidewaysFrictionRL.extremumValue = 0.4f;
+            sidewaysFrictionRR.extremumValue = 0.4f;
             frontLeftWheelCollider.sidewaysFriction = sidewaysFrictionFL;
             frontRightWheelCollider.sidewaysFriction = sidewaysFrictionFR;
             rearLeftWheelCollider.sidewaysFriction = sidewaysFrictionRL;
