@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         // Brake slightly when idling
         if (input == 0)
         {
-            currentBrakeForce = 100;
+            currentBrakeForce = 50;
         }
         
         // Apply the above
