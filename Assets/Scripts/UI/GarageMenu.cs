@@ -22,7 +22,7 @@ public class GarageMenu : MonoBehaviour
     public Sprite car1Sprite, car2Sprite, car3Sprite;
     private Color lastSelectedColour;
 
-    // Singleton to access funtions
+    // Singleton to access functions
     public static GarageMenu instance;
 
     // Menu objects

@@ -17,7 +17,10 @@ public class SpawnPlayer : MonoBehaviour
     {
         // Instantiate chosen car
         Instantiate(globalManager.playerCar);
-
+        
+        // Sanity check to see if the player has entered the garage or not
+        if (GarageMenu.instance == null) return;
+        
         // If we're racing with the Camaro
         if (globalManager.playerCar == GarageMenu.instance.car1)
         {
