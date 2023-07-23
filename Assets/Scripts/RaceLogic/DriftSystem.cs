@@ -118,22 +118,22 @@ public class DriftSystem : MonoBehaviour
     {
         // Change our drift status text based on how well we're doing
         // SetActive is used to trigger our animation everytime we drift
-        if (driftActive && driftScore < 4000)
+        if (driftActive && driftScore < 300)
         {
             driftUISounds[1].Play();
             driftStatusText.text = "good drift";
             driftStatus.SetActive(true);
 
         }
-        if (driftActive && driftScore > 4000 && driftScore < 8000)
+        if (driftActive && driftScore > 300 && driftScore < 500)
         {
             driftStatusText.text = "great drift";
         }
-        if (driftActive && driftScore > 12000 && driftScore < 20000)
+        if (driftActive && driftScore > 500 && driftScore < 750)
         {
             driftStatusText.text = "superb";
         }
-        if (driftActive && driftScore > 20000)
+        if (driftActive && driftScore > 750)
         {
             driftStatusText.text = "insane drift";
         }
