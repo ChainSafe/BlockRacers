@@ -237,7 +237,10 @@ public class PlayerController : MonoBehaviour
         Vector3 pos;
         Quaternion rot; 
         wheelCollider.GetWorldPose(out pos, out rot);
-        wheelTransform.rotation = rot;
+        if (wheelTransform.rotation != rot)
+        {
+            wheelTransform.rotation = Quaternion.Slerp(wheelTransform.rotation, rot, 0.2f);
+        }
         wheelTransform.position = pos;
     }
 
