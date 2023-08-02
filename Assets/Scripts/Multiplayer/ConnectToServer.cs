@@ -29,13 +29,11 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     }
     
     /// <summary>
-    /// Fires once a user is connected to proceeed and let's the user know we're connected
+    /// Fires once a user is connected to proceed and let's the user know we're connected
     /// </summary>
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master Server!");
-        // Once connected we transition to the Server Menu to Join
-        SceneManager.LoadScene("MenuScene");
         connectedToMaster = true;
     }
     
