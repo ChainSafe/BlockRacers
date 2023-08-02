@@ -47,14 +47,12 @@ public class CameraController : MonoBehaviour
     /// <param name="duration">The duration of the rotation</param>
     public void RotateCamera(float rotationAmount, float duration)
     {
-        if (!isRotating)
-        {
-            isRotating = true;
-            initialRotation = cameraToRotate.transform.rotation;
-            targetRotation = Quaternion.Euler(cameraToRotate.transform.eulerAngles + new Vector3(0f, rotationAmount, 0f));
-            rotationTimer = 0f;
-            rotationDuration = duration;
-        }
+        if (isRotating) return;
+        isRotating = true;
+        initialRotation = cameraToRotate.transform.rotation;
+        targetRotation = Quaternion.Euler(cameraToRotate.transform.eulerAngles + new Vector3(0f, rotationAmount, 0f));
+        rotationTimer = 0f;
+        rotationDuration = duration;
     }
     
     /// <summary>
@@ -62,16 +60,13 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (isRotating)
+        if (!isRotating) return;
+        rotationTimer += Time.deltaTime;
+        float t = Mathf.Clamp01(rotationTimer / rotationDuration);
+        cameraToRotate.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
+        if (rotationTimer >= rotationDuration)
         {
-            rotationTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(rotationTimer / rotationDuration);
-            cameraToRotate.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
-
-            if (rotationTimer >= rotationDuration)
-            {
-                isRotating = false;
-            }
+            isRotating = false;
         }
     }
     

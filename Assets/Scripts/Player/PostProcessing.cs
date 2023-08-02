@@ -40,17 +40,17 @@ public class PostProcessing : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // Are we using NOS?
+        // If NOS is being used
         if (Input.GetKeyDown(KeyCode.LeftShift) && CountDownSystem.raceStarted)
         {
             PlayerController.nosActive = true;
         }
-
+        // If NOS isn't being used
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             PlayerController.nosActive = false;
         }
-        // If we are and we have more than 0, then activate our effects
+        // If we are using NOS and we have more than 0, then activate our effects
         if (PlayerController.nosActive && NitrousManager.currentBoost > 0 && CountDownSystem.raceStarted)
         {
             // Calculate the new lerp value based on time and speed

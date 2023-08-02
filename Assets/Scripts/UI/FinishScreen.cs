@@ -27,16 +27,13 @@ public class FinishScreen : MonoBehaviour
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-        
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        
         // Changes Bgm
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
-        
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
     }

@@ -32,10 +32,9 @@ public class LapSystem : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         lapCount = 1;
     }
-
-
+    
     /// <summary>
-    /// When we collide with the object
+    /// When we collide with an object
     /// </summary>
     /// <param name="other">The object we're colliding with</param>
     private void OnTriggerEnter(Collider other)
