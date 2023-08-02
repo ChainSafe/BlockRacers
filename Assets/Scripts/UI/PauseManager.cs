@@ -88,21 +88,20 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     private void Pause()
     {
+        // Unlocks the cursor so the user can select things
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        // Sets our paused bool
         pauseMenu.SetActive(true);
-
         paused = true;
-        
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-
         if (raceUI == null) return;
         foreach(GameObject raceUI in raceUI)
         {
             raceUI.SetActive(false);
         }
-        
+        // Plays pause sound
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -112,17 +111,18 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     private void Unpause()
     {
+        // Locks the cursor so the user can resume playing normally
         Cursor.lockState =  CursorLockMode.Locked;
         Cursor.visible = false;
+        // Sets our paused bool
         pauseMenu.SetActive(false);
         paused = false;
-        
         if (raceUI == null) return;
         foreach (GameObject raceUI in raceUI)
         {
             raceUI.SetActive(true);
         }
-
+        // Plays pause sound
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
