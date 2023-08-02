@@ -11,10 +11,8 @@ public class FinishScreen : MonoBehaviour
     
     // Global Manager
     private GlobalManager globalManager;
-    
     // Audio
     private AudioManager audioManager;
-    
     // Buttons
     [SerializeField] private GameObject firstButton;
 
@@ -22,6 +20,9 @@ public class FinishScreen : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes needed objects, locks our cursor and changes BGM
+    /// </summary>
     private void Awake()
     {
         // Finds our audio manager

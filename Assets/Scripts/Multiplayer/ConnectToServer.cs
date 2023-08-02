@@ -15,11 +15,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     #endregion
 
     #region Methods
-
-    void Start()
+    
+    /// <summary>
+    /// Connects to Photon Master servers to allow multiplayer
+    /// </summary>
+    private void Start()
     {
-        // Connects to Photon Master servers.
-
+        // If we're not connected, connect
         if (!PhotonNetwork.IsConnected)
         {
             PhotonNetwork.ConnectUsingSettings();
@@ -27,13 +29,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     }
     
     /// <summary>
-    /// Fires once a user is connected
+    /// Fires once a user is connected to proceeed and let's the user know we're connected
     /// </summary>
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master Server!");
-
-        SceneManager.LoadScene("MenuScene"); // Once connected we transition to the Server Menu to Join
+        // Once connected we transition to the Server Menu to Join
+        SceneManager.LoadScene("MenuScene");
         connectedToMaster = true;
     }
     

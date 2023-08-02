@@ -22,12 +22,10 @@ public class GarageUI : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
         // Rotate our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
-
+        // Changes menu displays
         MenuItems.SetActive(false);
-
         ShowroomUI.SetActive(true);
     }
 
@@ -38,12 +36,10 @@ public class GarageUI : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
         // Rotate our camera back
         CameraController.instance.RotateCamera(-95f, 0.5f);
-
+        // Changes menu displays
         MenuItems.SetActive(true);
-
         ShowroomUI.SetActive(false);
     }
 
@@ -54,7 +50,7 @@ public class GarageUI : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
+        // Changes menu displays
         UpgradeMenu.SetActive(true);
         ShowroomUI.SetActive(false);
     }
@@ -66,7 +62,7 @@ public class GarageUI : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
+        // Changes menu displays
         UpgradeMenu.SetActive(false);
         ShowroomUI.SetActive(true);
     }

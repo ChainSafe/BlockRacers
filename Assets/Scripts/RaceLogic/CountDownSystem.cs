@@ -11,13 +11,10 @@ public class CountDownSystem : MonoBehaviour
     
     // Our UI for the countdown circles
     public GameObject[] countDownSprites;
-
     // How long is the countdown
     public float countdownDuration = 3f;
-
     // Our countdown audio
     public AudioSource countDownSound;
-
     // Has the race started? - Used for player input
     public static bool raceStarted;
 
@@ -46,32 +43,24 @@ public class CountDownSystem : MonoBehaviour
 
     private IEnumerator StartCountdown()
     {
-        // Start the countdown
+        // Starts the countdown and displays each change
         countDownSound.Play();
-
         countDownSprites[0].SetActive(true);
         yield return new WaitForSeconds(1f);
-
         countDownSprites[1].SetActive(true);
         yield return new WaitForSeconds(1f);
-
         countDownSprites[2].SetActive(true);
         yield return new WaitForSeconds(1f);
-
         // Turn our lights green
         foreach (GameObject sprite in countDownSprites)
         {
             sprite.GetComponent<Image>().color = Color.green;
         }
-
         // Start the race and enable player input here
         raceStarted = true;
-
         // Start our timer
         TimerSystem.instance.StartTimer();
-
         yield return new WaitForSeconds(1f);
-
         // Remove our lights UI 
         foreach (GameObject sprite in countDownSprites)
         {

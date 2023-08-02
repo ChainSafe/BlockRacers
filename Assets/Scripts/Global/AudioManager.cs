@@ -16,8 +16,11 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Methods
-
-    void Awake()
+    
+    /// <summary>
+    /// Initializes instance and sounds
+    /// </summary>
+    private void Awake()
     {
         // Bind the audio manager to this scripts instance
         if (instance == null)
@@ -32,6 +35,7 @@ public class AudioManager : MonoBehaviour
         }
         // Makes object global and doesnt destroy it when changing scenes
         DontDestroyOnLoad(gameObject);
+        // Initializes sound params for each sound
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -42,7 +46,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         // Plays bgm when initialized
         Play("Bgm1");

@@ -15,7 +15,10 @@ public class LoadScreen : MonoBehaviour
 
     #region Methods
     
-    void Awake()
+    /// <summary>
+    /// Finds our global manager so we can set the scene to load later
+    /// </summary>
+    private void Awake()
     {
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }

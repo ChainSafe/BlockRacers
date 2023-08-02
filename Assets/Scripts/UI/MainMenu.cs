@@ -13,10 +13,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     
     // Global Manager
     private GlobalManager globalManager;
-
     // Audio
     private AudioManager audioManager;
-
     // Menu items
     [SerializeField] private GameObject connectMenuItems, mainMenuItems, connectButton, tutorialButton;
 
@@ -24,14 +22,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     #region Methods
 
+    /// <summary>
+    /// Initializes objects and checks if we're connected
+    /// </summary>
     void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-
         // By passes connection screen if connected
         if (globalManager.connected)
         {
@@ -46,10 +45,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
             EventSystem.current.SetSelectedGameObject(connectButton);
         }
     }
-
+    
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button">The button being moused over</param>
     public void OnMouseOverButton(GameObject button)
     {
-        // Sets our selected button to what we've moused over
         EventSystem.current.SetSelectedGameObject(button);
     }
 
@@ -95,7 +97,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         // The Official Room Options
         RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 7200 };
-
         PhotonNetwork.JoinOrCreateRoom("Tutorial", roomOps, TypedLobby.Default);
     }
 
@@ -130,7 +131,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// PHOTON LOBBY CONFIGURATION ENDS /////
     /////////////////////////////////////////
 
-
+    /// <summary>
+    /// Takes the user to the garage
+    /// </summary>
     public void GarageButton()
     {
         globalManager.sceneToLoad = "Garage";
@@ -138,7 +141,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-
+    
+    /// <summary>
+    /// Quits the game
+    /// </summary>
     public void QuitButton()
     {
         if (audioManager == null) return;

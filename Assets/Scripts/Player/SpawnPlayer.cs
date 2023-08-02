@@ -10,16 +10,22 @@ public class SpawnPlayer : MonoBehaviour
     // Global manager
     private GlobalManager globalManager;
 
+    #endregion
+    
+    #region Methods
+    
+    /// <summary>
+    /// Initializes needed objects
+    /// </summary>
     private void Awake()
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
     
-    #endregion
-
-    #region Methods
-    
+    /// <summary>
+    /// Sets vinyls based on chosen car
+    /// </summary>
     private void Start()
     {
         // Instantiate chosen car
@@ -34,13 +40,11 @@ public class SpawnPlayer : MonoBehaviour
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
         }
-
         // If we're racing with the ford GT
         if (globalManager.playerCar == GarageMenu.instance.car2)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
         }
-
         // If we're racing with the ferrari
         if (globalManager.playerCar == GarageMenu.instance.car3)
         {

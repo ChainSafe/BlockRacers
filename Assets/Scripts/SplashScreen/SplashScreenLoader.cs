@@ -9,9 +9,8 @@ public class SplashScreenLoader : MonoBehaviour
 {
     #region Fields
 
-    // video player renderer
+    // Video player renderer
     [SerializeField] private VideoPlayer videoPlayer;
-    
     // The file name to play
     [SerializeField] private string videoFileName;
 
@@ -19,9 +18,11 @@ public class SplashScreenLoader : MonoBehaviour
 
     #region Methods
     
-    void Awake()
+    /// <summary>
+    /// Skips to connect screen if on mobile as they can't play videos properly
+    /// </summary>
+    private void Awake()
     {
-        // skips to connect screen if on mobile as they can't play videos properly
         if (Application.isMobilePlatform)
         {
             SceneManager.LoadScene("MenuScene");
@@ -36,8 +37,11 @@ public class SplashScreenLoader : MonoBehaviour
         }
     }
     
-    // loads connect scene after video has finished playing
-    void CheckOver(UnityEngine.Video.VideoPlayer videoPlayer)
+    /// <summary>
+    /// Loads connect scene after video has finished playing
+    /// </summary>
+    /// <param name="videoPlayer">The video renderer being used to play the video</param>
+    private void CheckOver(VideoPlayer videoPlayer)
     {
         // load this scene
         SceneManager.LoadScene("MenuScene");

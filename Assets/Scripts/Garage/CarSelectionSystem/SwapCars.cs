@@ -46,8 +46,10 @@ public class SwapCars : MonoBehaviour
 
     #region Methods
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Initializes needed objects
+    /// </summary>
+    private void Start()
     {
         // Singleton
         instance = this;
@@ -58,10 +60,12 @@ public class SwapCars : MonoBehaviour
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
     }
-
+    
+    /// <summary>
+    /// Checks for arrow key input navigation
+    /// </summary>
     private void Update()
     {
-        // Add support for left and right arrow keys as well
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             PreviousCar();
@@ -130,7 +134,6 @@ public class SwapCars : MonoBehaviour
 
                 // Actively select this car
                 GarageMenu.instance.SelectCar3();
-
                 break;
         }
 
