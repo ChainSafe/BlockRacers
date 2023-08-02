@@ -1,7 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages our car engine $ collision sounds
+/// </summary>
 public class RaceSoundManager : MonoBehaviour
 {
+    #region Fields
+
     // Audio objects
     [SerializeField] private AudioSource nosSound;
     [SerializeField] private AudioSource idleSound;
@@ -12,14 +17,18 @@ public class RaceSoundManager : MonoBehaviour
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
     
+    #endregion
+
+    #region Methods
+    
     void Update()
     {
         // Engine sounds
-        idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.speedRatio);
-        accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.speedRatio);
-        accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.currentGear / 2, 2, playerController.speedRatio);
-        decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.speedRatio);
-        decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.currentGear, 2, playerController.speedRatio);
+        idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.SpeedRatio);
+        accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
+        accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
+        decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
+        decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear, 2, playerController.SpeedRatio);
         
         // Sounds
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
@@ -34,7 +43,7 @@ public class RaceSoundManager : MonoBehaviour
         switch (playerController.input)
         {
             // Idle
-            case 0 when (playerController.speed == 0):
+            case 0 when (playerController.Speed == 0):
             {
                 if (!idleSound.isPlaying)
                 {
@@ -73,4 +82,6 @@ public class RaceSoundManager : MonoBehaviour
         collisionSound.Pause();
         collisionSound.Play();
     }
+    
+    #endregion
 }

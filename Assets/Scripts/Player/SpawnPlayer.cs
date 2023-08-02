@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages spawning our players when the race starts
+/// </summary>
 public class SpawnPlayer : MonoBehaviour
 {
+    #region Fields
+    
     // Global manager
     private GlobalManager globalManager;
 
@@ -12,7 +15,11 @@ public class SpawnPlayer : MonoBehaviour
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
+    
+    #endregion
 
+    #region Methods
+    
     private void Start()
     {
         // Instantiate chosen car
@@ -40,4 +47,6 @@ public class SpawnPlayer : MonoBehaviour
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
         }
     }
+    
+    #endregion
 }

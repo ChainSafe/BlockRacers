@@ -2,14 +2,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
+/// <summary>
+/// Loads the splash screen
+/// </summary>
 public class SplashScreenLoader : MonoBehaviour
 {
+    #region Fields
+
     // video player renderer
     [SerializeField] private VideoPlayer videoPlayer;
     
     // The file name to play
     [SerializeField] private string videoFileName;
 
+    #endregion
+
+    #region Methods
+    
     void Awake()
     {
         // skips to connect screen if on mobile as they can't play videos properly
@@ -33,4 +42,6 @@ public class SplashScreenLoader : MonoBehaviour
         // load this scene
         SceneManager.LoadScene("MenuScene");
     }
+
+    #endregion
 }

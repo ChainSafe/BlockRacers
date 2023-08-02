@@ -2,8 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages our Tachometer
+/// </summary>
 public class Tachometer : MonoBehaviour
 {
+    #region Fields
+    
     // UI component
     [SerializeField] private Slider speedSlider;
     
@@ -23,16 +28,20 @@ public class Tachometer : MonoBehaviour
     [SerializeField] private float targetSpeed;
     [SerializeField] private const float LerpSpeed = 5f;
 
+    #endregion
+
+    #region Methods
+    
     private void Update()
     {
         // Smoothly update the target speed for our speedo
-        targetSpeed = Mathf.Lerp(targetSpeed, playerController.speed, Time.deltaTime * LerpSpeed);
+        targetSpeed = Mathf.Lerp(targetSpeed, playerController.Speed, Time.deltaTime * LerpSpeed);
 
         // Update speed text & slider with the smoothed speed value
         speedText.text = Mathf.Floor(targetSpeed).ToString();
         speedSlider.value = targetSpeed;
 
-        playerController.currentGear = playerController.speed switch
+        playerController.CurrentGear = playerController.Speed switch
         {
             // Changing our current gear based on speed 
             < 40 => 1,
@@ -41,8 +50,10 @@ public class Tachometer : MonoBehaviour
             > 140 and < 190 => 4,
             > 190 and < 240 => 5,
             > 240 and < 280 => 6,
-            _ => playerController.currentGear
+            _ => playerController.CurrentGear
         };
-        currentGear.text = playerController.currentGear.ToString();
+        currentGear.text = playerController.CurrentGear.ToString();
     }
+    
+    #endregion
 }

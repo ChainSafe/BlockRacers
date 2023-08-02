@@ -2,8 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Loads the finish screen once the race is over
+/// </summary>
 public class FinishScreen : MonoBehaviour
 {
+    #region Fields
+    
     // Global Manager
     private GlobalManager globalManager;
     
@@ -13,6 +18,10 @@ public class FinishScreen : MonoBehaviour
     // Buttons
     [SerializeField] private GameObject firstButton;
 
+    #endregion
+
+    #region Methods
+    
     private void Awake()
     {
         // Finds our audio manager
@@ -31,14 +40,23 @@ public class FinishScreen : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstButton);
     }
     
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
     public void OnMouseOverButton(GameObject button)
     {
-        // Sets our selected button to what we've moused over
         EventSystem.current.SetSelectedGameObject(button);
     }
+    
+    /// <summary>
+    /// Our main menu button
+    /// </summary>
     public void MainMenuButton()
     {
         globalManager.sceneToLoad = "MainMenu";
         SceneManager.LoadScene("LoadingScreen");
     }
+    
+    #endregion
 }

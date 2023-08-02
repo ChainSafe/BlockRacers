@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the users camera
+/// </summary>
 public class CameraController : MonoBehaviour
 {
+    #region Fields
+
     public Camera cameraToRotate; // Reference to the camera you want to rotate
     public Vector3 desiredRotation; // Desired rotation for the camera
     private Quaternion initialRotation; // Initial rotation of the camera
@@ -14,7 +17,10 @@ public class CameraController : MonoBehaviour
 
     public static CameraController instance;    
 
-    // Start is called before the first frame update
+    #endregion
+
+    #region Methods
+    
     void Start()
     {
         instance = this;
@@ -24,7 +30,11 @@ public class CameraController : MonoBehaviour
         isRotating = false;
     }
 
-    // Rotate the camera with specified rotation amount and duration
+    /// <summary>
+    /// Rotate the camera with specified rotation amount and duration
+    /// </summary>
+    /// <param name="rotationAmount">The amount to rotate the camera by</param>
+    /// <param name="duration">The duration of the rotation</param>
     public void RotateCamera(float rotationAmount, float duration)
     {
         if (!isRotating)
@@ -36,8 +46,7 @@ public class CameraController : MonoBehaviour
             rotationDuration = duration;
         }
     }
-
-    // Update is called once per frame
+    
     private void Update()
     {
         if (isRotating)
@@ -52,4 +61,6 @@ public class CameraController : MonoBehaviour
             }
         }
     }
+    
+    #endregion
 }

@@ -1,10 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the countdown system when races are started
+/// </summary>
 public class CountDownSystem : MonoBehaviour
 {
+    #region Fields
+    
     // Our UI for the countdown circles
     public GameObject[] countDownSprites;
 
@@ -17,6 +21,10 @@ public class CountDownSystem : MonoBehaviour
     // Has the race started? - Used for player input
     public static bool raceStarted;
 
+    #endregion
+
+    #region Methods
+    
     private void Start()
     {
         // If we chose to race, we initiate the countdown
@@ -70,4 +78,6 @@ public class CountDownSystem : MonoBehaviour
             sprite.SetActive(false);
         }
     }
+    
+    #endregion
 }

@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// The timer system used in conjunction with the lap system
+/// </summary>
 public class TimerSystem : MonoBehaviour
 {
+    #region Fields
+    
     // Timer logic
     private float elapsedTime = 0f;
     private bool isTimerRunning = false;
@@ -16,31 +19,43 @@ public class TimerSystem : MonoBehaviour
     // Singleton
     public static TimerSystem instance;
 
+    #endregion
+
+    #region Methods
+    
     private void Awake()
     {
         instance = this;
     }
 
-    // Start the timer
+    /// <summary>
+    /// Starts the timer
+    /// </summary>
     public void StartTimer()
     {
         isTimerRunning = true;
         elapsedTime = 0f;
     }
 
-    // Stop the timer
+    /// <summary>
+    /// Stops the timer
+    /// </summary>
     public void StopTimer()
     {
         isTimerRunning = false;
     }
 
-    // Reset the timer
+    /// <summary>
+    /// Resets the timer
+    /// </summary>
     public void ResetTimer()
     {
         elapsedTime = 0f;
     }
 
-    // Show our split time
+    /// <summary>
+    /// Shows the user's split time
+    /// </summary>
     public void ShowSplitTime()
     {
         elapsedTime += Time.deltaTime;
@@ -52,13 +67,14 @@ public class TimerSystem : MonoBehaviour
         Invoke(nameof(HideSplitTime), 5f);
     }
 
-    // Hide our split time
+    /// <summary>
+    /// Hides the user's split time
+    /// </summary>
     public void HideSplitTime()
     {
         splitTimeText.text = "";
     }
-
-
+    
     private void Update()
     {
         if (isTimerRunning)
@@ -71,4 +87,6 @@ public class TimerSystem : MonoBehaviour
             LapTimeText.text = timeString;
         }
     }
+    
+    #endregion
 }

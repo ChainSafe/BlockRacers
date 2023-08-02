@@ -3,8 +3,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Pause manager functionality
+/// </summary>
 public class PauseManager : MonoBehaviour
 {
+    #region Fields
+
     // Global manager
     private GlobalManager globalManager;
     
@@ -26,6 +31,10 @@ public class PauseManager : MonoBehaviour
     // Our on-screen race UI to disable when we pause
     public GameObject[] raceUI;
 
+    #endregion
+
+    #region Methods
+
     private void Awake()
     {
         // Finds our audio manager
@@ -39,23 +48,35 @@ public class PauseManager : MonoBehaviour
         playerInput.Game.Pause.performed += OnPauseInput;
     }
     
+    /// <summary>
+    /// Enables player input
+    /// </summary>
     private void OnEnable()
     {
         playerInput.Enable();
     }
-
+    
+    /// <summary>
+    /// Disables player input
+    /// </summary>
     private void OnDisable()
     {
         playerInput.Disable();
     }
     
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
     public void OnMouseOverButton(GameObject button)
     {
-        // Sets our selected button to what we've moused over
         EventSystem.current.SetSelectedGameObject(button);
     }
     
-    // Pause input
+    /// <summary>
+    /// Pause input
+    /// </summary>
+    /// <param name="context"></param>
     private void OnPauseInput(InputAction.CallbackContext context)
     {
         if (!paused && CountDownSystem.raceStarted)
@@ -68,7 +89,9 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    // Pauses the game
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
     private void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -90,7 +113,9 @@ public class PauseManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
-    // Unpauses the game
+    /// <summary>
+    /// Unpauses the game
+    /// </summary>
     private void Unpause()
     {
         Cursor.lockState =  CursorLockMode.Locked;
@@ -108,7 +133,9 @@ public class PauseManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
-    // Goes to the main menu
+    /// <summary>
+    /// Goes to the main menu
+    /// </summary>
     public void MainMenuButton()
     {
         audioManager.Pause("Bgm2");
@@ -118,4 +145,6 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
+    
+    #endregion
 }

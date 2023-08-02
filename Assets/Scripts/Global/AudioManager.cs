@@ -1,13 +1,21 @@
-using UnityEngine.Audio; // needed when working with sounds
+// needed when working with sounds
+using UnityEngine.Audio;
 using System;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    #region Fields
+    
+    // Instance of audio manager
+    private static AudioManager instance;
+    
     // Array of game sounds
     public Sound[] sounds;
-    // Instance of audio manager
-    public static AudioManager instance;
+
+    #endregion
+
+    #region Methods
 
     void Awake()
     {
@@ -36,11 +44,14 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Plays bgm when called
+        // Plays bgm when initialized
         Play("Bgm1");
     }
 
-    // Plays a sound
+    /// <summary>
+    /// Plays a sound when called
+    /// </summary>
+    /// <param name="name">The name of the sound being called</param>
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -49,7 +60,10 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
     
-    // Pauses a sound
+    /// <summary>
+    /// Pauses a sound when called
+    /// </summary>
+    /// <param name="name">The name of the sound being called</param>
     public void Pause(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -57,4 +71,6 @@ public class AudioManager : MonoBehaviour
             return;
         s.source.Pause();
     }
+    
+    #endregion
 }

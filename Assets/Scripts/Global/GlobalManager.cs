@@ -1,7 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Keeps track of our NFT variables
+/// </summary>
 public class GlobalManager : MonoBehaviour
 {
+    #region Fields
+    
     // String for loading screen
     public string sceneToLoad;
     
@@ -16,6 +21,10 @@ public class GlobalManager : MonoBehaviour
     
     // Connected bool
     public bool connected;
+    
+    #endregion
+
+    #region Methods
 
     private void Awake()
     {
@@ -25,4 +34,6 @@ public class GlobalManager : MonoBehaviour
         // Makes object global and doesnt destroy it when changing scenes
         DontDestroyOnLoad(this);
     }
+    
+    #endregion
 }

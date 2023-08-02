@@ -1,13 +1,20 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Connects the users to the multiplayer server
+/// </summary>
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    #region Fields
+    
     // Are we connected to the master server?
     public static bool connectedToMaster;
+    
+    #endregion
+
+    #region Methods
 
     void Start()
     {
@@ -18,7 +25,10 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
     }
-
+    
+    /// <summary>
+    /// Fires once a user is connected
+    /// </summary>
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master Server!");
@@ -26,4 +36,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("MenuScene"); // Once connected we transition to the Server Menu to Join
         connectedToMaster = true;
     }
+    
+    #endregion
 }

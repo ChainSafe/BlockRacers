@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
+/// <summary>
+/// Post processing manager to make things look aesthetically pleasing
+/// </summary>
 public class PostProcessing : MonoBehaviour
 {
+    #region Fields
+    
     public static PostProcessing Instance { get; private set; }
 
     // Referencing Post Processing Volume attached to Camera
@@ -17,6 +20,10 @@ public class PostProcessing : MonoBehaviour
     public float lerpSpeed = 1f;
     public float currentLerpValue = 0f;
     
+    #endregion
+
+    #region Methods
+
     private void Start()
     {
         // Singleton
@@ -73,6 +80,5 @@ public class PostProcessing : MonoBehaviour
         Nitrous.intensity.value = intensity;
     }
 
-
-
+    #endregion
 }

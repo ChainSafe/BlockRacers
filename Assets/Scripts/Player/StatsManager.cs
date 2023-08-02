@@ -1,7 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the stats for our chosen NFT
+/// </summary>
 public class StatsManager : MonoBehaviour
 {
+    #region Fields
+
     // Global
     private GlobalManager globalManager;
     
@@ -16,6 +21,10 @@ public class StatsManager : MonoBehaviour
 
     // Player objects
     [SerializeField] private PlayerController playerController;
+
+    #endregion
+
+    #region Methods
 
     private void Awake()
     {
@@ -40,21 +49,21 @@ public class StatsManager : MonoBehaviour
 
         if (playerController == null) return;
 
-        playerController.maxSpeed = engineLevel switch
+        playerController.MaxSpeed = engineLevel switch
         {
             1 => 180f,
             2 => 230f,
             _ => 280f
         };
         
-        playerController.motorForce = engineLevel switch
+        playerController.MotorForce = engineLevel switch
         {
             1 => 3500,
             2 => 4000,
             _ => 4500
         };
 
-        playerController.maxSteerAngle = handlingLevel switch
+        playerController.MaxSteerAngle = handlingLevel switch
         {
             1 => 40,
             2 => 45,
@@ -68,4 +77,6 @@ public class StatsManager : MonoBehaviour
             _ => 20f
         };
     }
+    
+    #endregion
 }
