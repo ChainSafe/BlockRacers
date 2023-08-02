@@ -9,6 +9,10 @@ public class LapSystem : MonoBehaviour
 {
     #region Fields
     
+    // Our UI
+    public TextMeshProUGUI lapCountText;
+    // Our checkpoint colliders
+    public GameObject[] checkPoints;
     // Our final lap reminder
     public GameObject LapReminder;
     // Logic for the checkpoints and laps
@@ -29,11 +33,6 @@ public class LapSystem : MonoBehaviour
         lapCount = 1;
     }
 
-    // Our UI
-    public TextMeshProUGUI lapCountText;
-
-    // Our checkpoint colliders
-    public GameObject[] checkPoints;
 
     /// <summary>
     /// When we collide with the object
