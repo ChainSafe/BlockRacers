@@ -14,9 +14,11 @@ public class RotationScript : MonoBehaviour
 
     #region Methods
 
+    /// <summary>
+    /// Rotates the platform around the Y-axis based on the rotation speed
+    /// </summary>
     private void Update()
     {
-        // Rotate the platform around the Y-axis based on the rotation speed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
     
