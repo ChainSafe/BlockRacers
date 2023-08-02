@@ -39,21 +39,18 @@ public class PauseManager : MonoBehaviour
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
     }
-    
+
     /// <summary>
-    /// Enables player input
+    /// Goes to the main menu
     /// </summary>
-    private void OnEnable()
+    public void MainMenuButton()
     {
-        playerInput.Enable();
-    }
-    
-    /// <summary>
-    /// Disables player input
-    /// </summary>
-    private void OnDisable()
-    {
-        playerInput.Disable();
+        audioManager.Pause("Bgm2");
+        audioManager.Play("Bgm1");
+        globalManager.sceneToLoad = "MenuScene";
+        SceneManager.LoadScene("LoadingScreen");
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
     
     /// <summary>
@@ -126,17 +123,20 @@ public class PauseManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Goes to the main menu
+    /// Enables player input
     /// </summary>
-    public void MainMenuButton()
+    private void OnEnable()
     {
-        audioManager.Pause("Bgm2");
-        audioManager.Play("Bgm1");
-        globalManager.sceneToLoad = "MenuScene";
-        SceneManager.LoadScene("LoadingScreen");
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        playerInput.Enable();
     }
     
+    /// <summary>
+    /// Disables player input
+    /// </summary>
+    private void OnDisable()
+    {
+        playerInput.Disable();
+    }
+
     #endregion
 }

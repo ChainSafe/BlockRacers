@@ -34,6 +34,9 @@ public class DriftSystem : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes our objects and fields
+    /// </summary>
     private void Start()
     {
         // Find our car object
@@ -46,16 +49,6 @@ public class DriftSystem : MonoBehaviour
         Invoke(nameof(EnableDriftAudio), 3f);
     }
 
-    private void Update()
-    {
-        // Update our score rate
-        UpdateScoreRate();
-        // Update our status text
-        UpdateDriftStatus();
-        // Update our drift score
-        UpdateScore();
-    }
-    
     /// <summary>
     /// Updates the users drift score
     /// </summary>
@@ -147,6 +140,19 @@ public class DriftSystem : MonoBehaviour
     private void EnableDriftAudio()
     {
         activateDriftSound = true;
+    }
+    
+    /// <summary>
+    /// Keeps the scripts functions running throughout the game
+    /// </summary>
+    private void Update()
+    {
+        // Update our score rate
+        UpdateScoreRate();
+        // Update our status text
+        UpdateDriftStatus();
+        // Update our drift score
+        UpdateScore();
     }
     
     #endregion

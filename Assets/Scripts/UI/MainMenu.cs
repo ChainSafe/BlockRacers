@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// <summary>
     /// Initializes objects and checks if we're connected
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();

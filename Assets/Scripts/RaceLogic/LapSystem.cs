@@ -26,6 +26,9 @@ public class LapSystem : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes our objects and fields
+    /// </summary>
     private void Awake()
     {
         // Find our global manager
