@@ -1,17 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Player input manager
+/// </summary>
 public class PlayerInput : MonoBehaviour
 {
+    #region Fields
+    
     // Player Input
     private PlayerInputActions playerInput;
     
     // Player controller
     private PlayerController playerController;
 
+    #endregion
+
+    #region Methods
+    
     private void Awake()
     {
         playerController = gameObject.GetComponent<PlayerController>();
@@ -35,18 +42,26 @@ public class PlayerInput : MonoBehaviour
         playerInput.Game.Reset.performed += OnResetInput;
     }
     
-    // used for player movement, call this to enable or disable player input detection
+    /// <summary>
+    /// Used for player movement, call this to enable input detection
+    /// </summary>
     private void OnEnable()
     {
         playerInput.Enable();
     }
-
+    
+    /// <summary>
+    /// Used for player movement, call this to disable input detection
+    /// </summary>
     private void OnDisable()
     {
         playerInput.Disable();
     }
     
-    // Steering input
+    /// <summary>
+    /// Steering input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnMovementInput(InputAction.CallbackContext context)
     {
         var currentMovementInput = context.ReadValue<Vector2>();
@@ -54,34 +69,51 @@ public class PlayerInput : MonoBehaviour
         //verticalInput = currentMovementInput.y;
     }
     
-    // Accelerate input
+    /// <summary>
+    /// Acceleration input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnAccelerateInput(InputAction.CallbackContext context)
     {
         playerController.verticalInput = context.ReadValue<float>();
     }
     
-    // Brake input
+    /// <summary>
+    /// Brake input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnBrakeInput(InputAction.CallbackContext context)
     {
-        playerController.isBraking = Convert.ToBoolean(context.ReadValue<float>());
+        playerController.IsBraking = Convert.ToBoolean(context.ReadValue<float>());
         playerController.verticalInput = context.ReadValue<float>() * -1;
     }
 
-    // Drift input
+    /// <summary>
+    /// Drift input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnDriftInput(InputAction.CallbackContext context)
     {
-        playerController.isDrifting = Convert.ToBoolean(context.ReadValue<float>());
+        playerController.IsDrifting = Convert.ToBoolean(context.ReadValue<float>());
     }
     
-    // Nos input
+    /// <summary>
+    /// Nos input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnNosInput(InputAction.CallbackContext context)
     {
         PlayerController.nosActive = Convert.ToBoolean(context.ReadValue<float>());
     }
     
-    // Reset input
+    /// <summary>
+    /// Reset input
+    /// </summary>
+    /// <param name="context">context</param>
     private void OnResetInput(InputAction.CallbackContext context)
     {
         playerController.resetActive = Convert.ToBoolean(context.ReadValue<float>());
     }
+    
+    #endregion
 }

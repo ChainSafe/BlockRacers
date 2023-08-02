@@ -1,11 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages the lap system, used when a user completes a lap
+/// </summary>
 public class LapSystem : MonoBehaviour
 {
+    #region Fields
+    
     // Global Manager
     private GlobalManager globalManager;
 
@@ -16,6 +19,10 @@ public class LapSystem : MonoBehaviour
     // Our final lap reminder
     public GameObject LapReminder;
 
+    #endregion
+
+    #region Methods
+    
     private void Awake()
     {
         // Find our global manager
@@ -96,4 +103,5 @@ public class LapSystem : MonoBehaviour
         }
     }
 
+    #endregion
 }

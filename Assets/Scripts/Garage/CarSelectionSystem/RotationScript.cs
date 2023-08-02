@@ -1,17 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rotates the showroom platform to make the car display aesthetically pleasing
+/// </summary>
 public class RotationScript : MonoBehaviour
 {
-    // This small script rotates the showroom platform
-
+    #region Fields
+    
     // The speed at which the platform rotates
-    public float rotationSpeed = 10f; 
+    private float rotationSpeed = 10f;
+    
+    #endregion
+
+    #region Methods
 
     public void Update()
     {
         // Rotate the platform around the Y-axis based on the rotation speed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
+    
+    #endregion
 }

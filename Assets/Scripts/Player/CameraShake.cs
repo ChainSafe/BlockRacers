@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/// <summary>
+/// Shakes the camera for dramatic effect
+/// </summary>
 public class CameraShake : MonoBehaviour
 {
+    #region Fields
+
     // Singleton
     public static CameraShake Instance;
 
@@ -16,12 +19,15 @@ public class CameraShake : MonoBehaviour
     public CinemachineBasicMultiChannelPerlin MiddleRig;
     public CinemachineBasicMultiChannelPerlin BottomRig;
 
+    #endregion
 
+    #region Methods
+    
     public void Start()
     {
         Instance = this;
 
-        // Get the CinemachineBasicMultiChannelPerlin component from the FreeLook camera
+        // Gets the CinemachineBasicMultiChannelPerlin component from the FreeLook camera
         TopRig = freeLookCamera.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         MiddleRig = freeLookCamera.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         BottomRig = freeLookCamera.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -32,4 +38,6 @@ public class CameraShake : MonoBehaviour
 
     // You can access the noise (shake) by using the following:
     // CameraShake.Instance.{RigNameHere}.m_AmplitudeGain = {IntensityFloat};
+    
+    #endregion
 }

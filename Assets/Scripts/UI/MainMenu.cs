@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Main menu functionality
+/// </summary>
 public class MainMenu : MonoBehaviourPunCallbacks
 {
+    #region Fields
+    
     // Global Manager
     private GlobalManager globalManager;
 
@@ -14,6 +19,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     // Menu items
     [SerializeField] private GameObject connectMenuItems, mainMenuItems, connectButton, tutorialButton;
+
+    #endregion
+
+    #region Methods
 
     void Awake()
     {
@@ -136,7 +145,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
         FindObjectOfType<AudioManager>().Play("MenuSelect");
         Application.Quit();
     }
-
-
-
+    
+    #endregion
 }

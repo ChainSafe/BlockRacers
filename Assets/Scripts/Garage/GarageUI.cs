@@ -1,16 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
+/// <summary>
+/// Handles the UI for the garage
+/// </summary>
 public class GarageUI : MonoBehaviour
 {
+    #region Fields
+    
     public GameObject MenuItems;
     public GameObject ShowroomUI;
     public GameObject UpgradeMenu;
 
-    // Go to the showroom
-    public void ToShowRoom()
+    #endregion
+
+    #region Methods
+    
+    /// <summary>
+    /// Takes the user to the showroom
+    /// </summary>
+    private void ToShowRoom()
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
@@ -23,7 +31,9 @@ public class GarageUI : MonoBehaviour
         ShowroomUI.SetActive(true);
     }
 
-    // When we exit the showroom
+    /// <summary>
+    /// Exits the showroom and goes back to menu
+    /// </summary>
     public void BackToMenu()
     {
         // Play our menu select audio
@@ -37,7 +47,9 @@ public class GarageUI : MonoBehaviour
         ShowroomUI.SetActive(false);
     }
 
-    // When the player wants to upgrade their car
+    /// <summary>
+    /// Opens the car upgrade menu for the player
+    /// </summary>
     public void OpenUpgrades()
     {
         // Play our menu select audio
@@ -47,7 +59,9 @@ public class GarageUI : MonoBehaviour
         ShowroomUI.SetActive(false);
     }
 
-    // When the player closes the upgrade menu
+    /// <summary>
+    /// Closes the car upgrade menu for the player
+    /// </summary>
     public void CloseUpgrades()
     {
         // Play our menu select audio
@@ -56,4 +70,6 @@ public class GarageUI : MonoBehaviour
         UpgradeMenu.SetActive(false);
         ShowroomUI.SetActive(true);
     }
+    
+    #endregion
 }

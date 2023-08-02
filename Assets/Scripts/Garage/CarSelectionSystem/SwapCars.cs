@@ -1,11 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+///  Changes the users chosen car
+/// </summary>
 public class SwapCars : MonoBehaviour
 {
+    #region Fields
+    
     // Array of prefabs to swap between
     public GameObject[] prefabs;
 
@@ -37,7 +40,11 @@ public class SwapCars : MonoBehaviour
     public GameObject camaro;
 
     // Singleton
-    public static SwapCars instance;    
+    public static SwapCars instance;
+    
+    #endregion
+
+    #region Methods
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +71,10 @@ public class SwapCars : MonoBehaviour
             NextCar();
         }
     }
-
+    
+    /// <summary>
+    /// Changes to the next car in the list
+    /// </summary>
     public void NextCar()
     {
         // Play our menu select audio
@@ -125,7 +135,10 @@ public class SwapCars : MonoBehaviour
         }
 
     }
-
+    
+    /// <summary>
+    /// Changes to the previous car in the list
+    /// </summary>
     public void PreviousCar()
     {
         // Play our menu select audio
@@ -190,50 +203,55 @@ public class SwapCars : MonoBehaviour
                 break;
         }
     }
-
-    // Change the livery for each car based on the options available for each
+    
+    /// <summary>
+    /// Changes the livery for each car based on the options available for each
+    /// </summary>
     public void ChangeLivery()
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
 
-        if (currentPrefabIndex == 0)
+        switch (currentPrefabIndex)
         {
-            currentLiveryIndex++;
-
-            if (currentLiveryIndex > 3)
+            case 0:
             {
-                currentLiveryIndex = 0;
+                currentLiveryIndex++;
+
+                if (currentLiveryIndex > 3)
+                {
+                    currentLiveryIndex = 0;
+                }
+
+                currentPrefab.GetComponentInChildren<MeshRenderer>().material = camaroLivery[currentLiveryIndex];
+                break;
             }
-
-            currentPrefab.GetComponentInChildren<MeshRenderer>().material = camaroLivery[currentLiveryIndex];
-        }
-
-        if (currentPrefabIndex == 1)
-        {
-            currentLiveryIndex++;
-
-            if (currentLiveryIndex > 3)
+            case 1:
             {
-                currentLiveryIndex = 0;
+                currentLiveryIndex++;
+
+                if (currentLiveryIndex > 3)
+                {
+                    currentLiveryIndex = 0;
+                }
+
+                currentPrefab.GetComponentInChildren<MeshRenderer>().material = fordGTLivery[currentLiveryIndex];
+                break;
             }
-
-            currentPrefab.GetComponentInChildren<MeshRenderer>().material = fordGTLivery[currentLiveryIndex];
-
-            
-        }
-        if (currentPrefabIndex == 2)
-        {
-            currentLiveryIndex++;
-
-            if (currentLiveryIndex > 3)
+            case 2:
             {
-                currentLiveryIndex = 0;
-            }
+                currentLiveryIndex++;
 
-            currentPrefab.GetComponentInChildren<MeshRenderer>().material = ferrariLivery[currentLiveryIndex];
+                if (currentLiveryIndex > 3)
+                {
+                    currentLiveryIndex = 0;
+                }
+
+                currentPrefab.GetComponentInChildren<MeshRenderer>().material = ferrariLivery[currentLiveryIndex];
+                break;
+            }
         }
     }
-
-
+    
+    #endregion
 }

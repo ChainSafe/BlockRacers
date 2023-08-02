@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
 
+/// <summary>
+/// Manages the drift system also displays text & score
+/// </summary>
 public class DriftSystem : MonoBehaviour
 {
+    #region Fields
+    
     // Our current drift score
     private int driftScore = 0;
 
@@ -36,6 +38,10 @@ public class DriftSystem : MonoBehaviour
     // Singleton for access to drifting system
     public static DriftSystem instance;
 
+    #endregion
+
+    #region Methods
+    
     private void Start()
     {
         // Find our car object
@@ -61,7 +67,10 @@ public class DriftSystem : MonoBehaviour
         // Update our drift score
         UpdateScore();
     }
-
+    
+    /// <summary>
+    /// Updates the users drift score
+    /// </summary>
     private void UpdateScore()
     {
         float carAngle = Vector3.Angle(playerCar.velocity, playerCar.transform.forward);
@@ -85,38 +94,39 @@ public class DriftSystem : MonoBehaviour
             driftScoreText.text = "";
         }
     }
-
-
-
-
+    
+    /// <summary>
+    /// Increments the users scoringRate based on how fast we're going
+    /// </summary>
     public void UpdateScoreRate()
     {
-        // Increment our scoringRate based on how fast we're going
-        if (PlayerController.instance.speed < 20)
+        if (PlayerController.instance.Speed < 20)
         {
             scoringRate = 0;
         }
-        if (PlayerController.instance.speed > 20 && PlayerController.instance.speed < 80)
+        if (PlayerController.instance.Speed > 20 && PlayerController.instance.Speed < 80)
         {
             scoringRate = 1;
         }
-        if (PlayerController.instance.speed > 80 && PlayerController.instance.speed < 120)
+        if (PlayerController.instance.Speed > 80 && PlayerController.instance.Speed < 120)
         {
             scoringRate = 2;
         }
-        if (PlayerController.instance.speed > 120 && PlayerController.instance.speed < 180)
+        if (PlayerController.instance.Speed > 120 && PlayerController.instance.Speed < 180)
         {
             scoringRate = 3;
         }
-        if (PlayerController.instance.speed > 180)
+        if (PlayerController.instance.Speed > 180)
         {
             scoringRate = 4;
         }
     }
-
+    
+    /// <summary>
+    /// Changes the user's drift status text based on how well they're doing
+    /// </summary>
     public void UpdateDriftStatus()
     {
-        // Change our drift status text based on how well we're doing
         // SetActive is used to trigger our animation everytime we drift
         if (driftActive && driftScore < 300)
         {
@@ -143,9 +153,14 @@ public class DriftSystem : MonoBehaviour
             driftStatus.SetActive(false);
         }
     }
-
+    
+    /// <summary>
+    /// Enables drift audio
+    /// </summary>
     public void EnableDriftAudio()
     {
         activateDriftSound = true;
     }
+    
+    #endregion
 }

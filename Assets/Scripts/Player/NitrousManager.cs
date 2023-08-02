@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages NOS display
+/// </summary>
 public class NitrousManager : MonoBehaviour
 {
-
+    #region Fields
+    
     // Maximum boost value
     [SerializeField] private float maxBoost = 100f;
     
@@ -27,7 +29,10 @@ public class NitrousManager : MonoBehaviour
     // The sprite representing the NOS
     [SerializeField] private Image NOSIcon; 
 
+    #endregion
 
+    #region Methods
+    
     private void Awake()
     {
         // Ensure we start with full boost
@@ -66,4 +71,6 @@ public class NitrousManager : MonoBehaviour
         // Update the value of the UI Slider
         boostSlider.value = currentBoost;
     }
+    
+    #endregion
 }

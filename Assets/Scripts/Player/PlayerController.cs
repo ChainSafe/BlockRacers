@@ -1,7 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Player controls and functions
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
+    #region Fields
+    
     // Stats manager
     private StatsManager statsManager;
 
@@ -12,12 +17,10 @@ public class PlayerController : MonoBehaviour
     private AudioManager audioManager;
     
     // Current gear
-    [Header("Speed")]
-    public int currentGear;
+    private int currentGear;
     
     // Speed
-    [SerializeField] public float speed, maxSpeed, speedRatio, motorForce;
-    [SerializeField] private float nosForce, breakForce;
+    private float speed, maxSpeed, speedRatio, motorForce, nosForce, breakForce;
     
     // Static for our nitrous system
     public static bool nosActive;
@@ -26,10 +29,8 @@ public class PlayerController : MonoBehaviour
     public float input, horizontalInput, verticalInput;
 
     // Steering and braking
-    [Header("Steering & Braking")]
-    public bool isDrifting;
-    public bool isBraking;
-    public float currentSteerAngle, currentBrakeForce, maxSteerAngle;
+    private bool isDrifting, isBraking;
+    private float currentSteerAngle, currentBrakeForce, maxSteerAngle;
 
     // Reset bool
     public bool resetActive;
@@ -58,6 +59,84 @@ public class PlayerController : MonoBehaviour
 
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
+    
+    #endregion
+
+    #region Properties
+    
+    /// <summary>
+    /// The current gear being used
+    /// </summary>
+    public int CurrentGear
+    {
+        get => currentGear;
+        set => currentGear = value;
+    }
+    
+    /// <summary>
+    /// Speed of the car
+    /// </summary>
+    public float Speed
+    {
+        get => speed;
+    }
+    
+    /// <summary>
+    /// Max speed of the car
+    /// </summary>
+    public float MaxSpeed
+    {
+        get => maxSpeed;
+        set => maxSpeed = value;
+    }
+    
+    /// <summary>
+    /// Speed ratio used for sounds
+    /// </summary>
+    public float SpeedRatio
+    {
+        get => speedRatio;
+    }
+    
+    /// <summary>
+    /// Motor force of the cars engine
+    /// </summary>
+    public float MotorForce
+    {
+        get => motorForce;
+        set => motorForce = value;
+    }
+    
+    /// <summary>
+    /// Steering angle of the car
+    /// </summary>
+    public float MaxSteerAngle
+    {
+        get => maxSteerAngle;
+        set => maxSteerAngle = value;
+    }
+    
+    /// <summary>
+    /// Checks if we're currently drifting
+    /// </summary>
+    public bool IsDrifting
+    {
+        get => isDrifting;
+        set => isDrifting = value;
+    }
+    
+    /// <summary>
+    /// Checks if we're currently braking
+    /// </summary>
+    public bool IsBraking
+    {
+        get => isBraking;
+        set => isBraking = value;
+    }
+
+    #endregion
+
+    #region Methods
 
     private void Awake()
     {
@@ -249,4 +328,6 @@ public class PlayerController : MonoBehaviour
     {
         collision = true;
     }
+    
+    #endregion
 }

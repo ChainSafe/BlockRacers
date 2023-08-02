@@ -4,8 +4,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Handles the garage menu functions
+/// </summary>
 public class GarageMenu : MonoBehaviour
 {
+    #region Fields
+    
     // Global manager
     private GlobalManager globalManager;
 
@@ -38,6 +43,10 @@ public class GarageMenu : MonoBehaviour
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton;
 
+    #endregion
+
+    #region Methods
+    
     private void Awake()
     {
         // Singleton
@@ -62,7 +71,9 @@ public class GarageMenu : MonoBehaviour
         descriptionText.text = (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
     }
 
-    // Purchase manager for upgrades
+    /// <summary>
+    /// Purchase manager for upgrades
+    /// </summary>
     public void PurchaseUpgrade()
     {
         // Play our menu select audio
@@ -84,14 +95,19 @@ public class GarageMenu : MonoBehaviour
                 break;
         }
     }
-
+    
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
     public void OnMouseOverButton(GameObject button)
     {
-        // Sets our selected button to what we've moused over
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // Creating a function I can access from all other scripts for button sounds to prevent referencing the audio manager everywhere
+    /// <summary>
+    /// A function to be accessed from all other scripts for button sounds to prevent referencing the audio manager everywhere
+    /// </summary>
     public void PlayMenuSelect()
     {
         if (audioManager == null) return;
@@ -112,7 +128,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Opens the change car menu
+    /// <summary>
+    /// Opens the change car menu
+    /// </summary>
     public void ChangeCarMenuButton()
     {
         menuGarage.SetActive(false);
@@ -124,7 +142,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Opens the change paint menu
+    /// <summary>
+    /// Opens the change paint menu
+    /// </summary>
     public void ChangePaintMenuButton()
     {
         menuChangeCar.SetActive(false);
@@ -134,7 +154,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Opens the upgrade menu
+    /// <summary>
+    /// Opens the upgrade menu
+    /// </summary>
     public void UpgradeMenuButton()
     {
         engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
@@ -146,7 +168,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Opens the marketplace menu
+    /// <summary>
+    /// Opens the marketplace menu
+    /// </summary>
     public void MarketMenuButton()
     {
         menuGarage.SetActive(false);
@@ -157,7 +181,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Leaves garage and goes to the main menu
+    /// <summary>
+    /// Leaves garage and goes to the main menu
+    /// </summary>
     public void MainMenuButton()
     {
         globalManager.sceneToLoad = "MenuScene";
@@ -166,7 +192,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change car 1
+    /// <summary>
+    /// Change to car 1
+    /// </summary>
     public void SelectCar1()
     {
         globalManager.playerCar = car1;
@@ -175,7 +203,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change car 2
+    /// <summary>
+    /// Changes to car 2
+    /// </summary>
     public void SelectCar2()
     {
         globalManager.playerCar = car2;
@@ -184,7 +214,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change car 3
+    /// <summary>
+    ///  Changes car 3
+    /// </summary>
     public void SelectCar3()
     {
         globalManager.playerCar = car3;
@@ -193,7 +225,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change colour 1
+    /// <summary>
+    /// Changes colour 1
+    /// </summary>
     public void SelectColour1()
     {
         globalManager.nftSprite = redSprite;
@@ -205,7 +239,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change colour 2
+    /// <summary>
+    /// Changes colour 2
+    /// </summary>
     public void SelectColour2()
     {
         globalManager.nftSprite = blueSprite;
@@ -216,7 +252,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Change colour 3
+    /// <summary>
+    /// Changes colour 3
+    /// </summary>
     public void SelectColour3()
     {
         globalManager.nftSprite = magentaSprite;
@@ -227,7 +265,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Upgrading engine
+    /// <summary>
+    /// Upgrades car engine
+    /// </summary>
     public void PurchaseEngineUpgrade()
     {
         switch (globalManager.engineLevel)
@@ -249,7 +289,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Upgrading handling
+    /// <summary>
+    /// Upgrades car handling
+    /// </summary>
     public void PurchaseHandlingUpgrade()
     {
         switch (globalManager.handlingLevel)
@@ -271,7 +313,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Upgrading nos
+    /// <summary>
+    /// Upgrades car NOS
+    /// </summary>
     public void PurchaseNosUpgrade()
     {
         switch (globalManager.nosLevel)
@@ -293,7 +337,9 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // Selecting the engine upgrade
+    /// <summary>
+    /// Selects the engine upgrade
+    /// </summary>
     public void SelectEngineUpgrade()
     {
         // Play our menu select audio
@@ -306,7 +352,9 @@ public class GarageMenu : MonoBehaviour
     }
 
 
-    // Selecting the handling upgrade
+    /// <summary>
+    /// Selects the handling upgrade
+    /// </summary>
     public void SelectHandlingUpgrade()
     {
         // Play our menu select audio
@@ -318,7 +366,9 @@ public class GarageMenu : MonoBehaviour
         // You can change a cost variable here to display how much an upgrade costs if required
     }
 
-    // Selecting the nos upgrade
+    /// <summary>
+    /// Selects the NOS upgrade
+    /// </summary>
     public void SelectNOSUpgrade()
     {
         // Play our menu select audio
@@ -330,4 +380,5 @@ public class GarageMenu : MonoBehaviour
         // You can change a cost variable here to display how much an upgrade costs if required
     }
 
+    #endregion
 }
