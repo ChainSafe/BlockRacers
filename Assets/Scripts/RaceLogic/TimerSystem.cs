@@ -11,11 +11,9 @@ public class TimerSystem : MonoBehaviour
     // Timer logic
     private float elapsedTime = 0f;
     private bool isTimerRunning = false;
-
     // UI Elements
     public TextMeshProUGUI LapTimeText;
     public TextMeshProUGUI splitTimeText;
-
     // Singleton
     public static TimerSystem instance;
 
@@ -23,6 +21,9 @@ public class TimerSystem : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes our instance
+    /// </summary>
     private void Awake()
     {
         instance = this;
@@ -75,6 +76,9 @@ public class TimerSystem : MonoBehaviour
         splitTimeText.text = "";
     }
     
+    /// <summary>
+    /// Checks if the start timer is running and displays it
+    /// </summary>
     private void Update()
     {
         if (isTimerRunning)

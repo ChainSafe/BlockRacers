@@ -27,7 +27,6 @@ public class LapSystem : MonoBehaviour
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        
         lapCount = 1;
     }
 
@@ -37,7 +36,10 @@ public class LapSystem : MonoBehaviour
     // Our checkpoint colliders
     public GameObject[] checkPoints;
 
-    // When we collide with the object
+    /// <summary>
+    /// When we collide with the object
+    /// </summary>
+    /// <param name="other">The object we're colliding with</param>
     private void OnTriggerEnter(Collider other)
     {
         // If it's the local player
@@ -48,10 +50,8 @@ public class LapSystem : MonoBehaviour
             {
                 // Show our split time
                 TimerSystem.instance.ShowSplitTime();
-
                 // Increase our checkpoint count
                 checkpointCount++;
-
                 // Disable the checkpoint so that players can't cheat
                 this.gameObject.SetActive(false);
             }
@@ -63,16 +63,12 @@ public class LapSystem : MonoBehaviour
                 {
                     // Increase our lap count
                     lapCount++;
-
                     // Reset our timer
                     TimerSystem.instance.ResetTimer();
-
                     // Show our lap count on the UI
                     lapCountText.text = lapCount.ToString();
-
                     // Reset our checkpoint count
                     checkpointCount = 0;
-
                     // Re-enable all our checkpoints
                     foreach (GameObject checkpoint in checkPoints)
                     {

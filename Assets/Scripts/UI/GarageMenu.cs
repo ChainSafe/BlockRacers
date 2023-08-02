@@ -13,33 +13,24 @@ public class GarageMenu : MonoBehaviour
     
     // Global manager
     private GlobalManager globalManager;
-
     // Audio
     private AudioManager audioManager;
-
     // Materials
     public Texture2D redSprite, blueSprite, magentaSprite;
-
     // Car prefabs
     public GameObject car1, car2, car3;
-
     // Our upgrade menu objects
     public int upgradeIndex = 0;
     public GameObject purchaseButton;
     public TextMeshProUGUI descriptionText;
-
-
     // Car Sprites
     public Sprite car1Sprite, car2Sprite, car3Sprite;
     private Color lastSelectedColour;
-
     // Singleton to access functions
     public static GarageMenu instance;
-
     // Menu objects
     [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
-
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton;
 
@@ -47,6 +38,9 @@ public class GarageMenu : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes objects and sets our default colour
+    /// </summary>
     private void Awake()
     {
         // Singleton
@@ -60,13 +54,14 @@ public class GarageMenu : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
-
+    
+    /// <summary>
+    /// Sets description and purchase button functionality
+    /// </summary>
     private void Update()
     {
         // If no upgrade is selected, we don't want the purchase button to show.
         purchaseButton.SetActive(upgradeIndex >= 1);
-
-
         // We also want to set the description based on what upgrade is selected
         descriptionText.text = (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
     }
@@ -344,14 +339,12 @@ public class GarageMenu : MonoBehaviour
     {
         // Play our menu select audio
         PlayMenuSelect();
-
+        // Sets index and displays description of upgrade
         upgradeIndex = 1;
         descriptionText.text = "upgrading your engine will improve your acceleration and top speed";
-
         // You can change a cost variable here to display how much an upgrade costs if required
     }
-
-
+    
     /// <summary>
     /// Selects the handling upgrade
     /// </summary>
@@ -359,10 +352,9 @@ public class GarageMenu : MonoBehaviour
     {
         // Play our menu select audio
         PlayMenuSelect();
-
+        // Sets index and displays description of upgrade
         upgradeIndex = 2;
         descriptionText.text = "upgrading your handling will improve the agility of your car and ability to hold a drift";
-
         // You can change a cost variable here to display how much an upgrade costs if required
     }
 
@@ -373,10 +365,9 @@ public class GarageMenu : MonoBehaviour
     {
         // Play our menu select audio
         PlayMenuSelect();
-
+        // Sets index and displays description of upgrade
         upgradeIndex = 3;
         descriptionText.text = "upgrading your boost will allow it to drain slower and recharge faster";
-
         // You can change a cost variable here to display how much an upgrade costs if required
     }
 

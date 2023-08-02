@@ -11,7 +11,6 @@ public class PlayerInput : MonoBehaviour
     
     // Player Input
     private PlayerInputActions playerInput;
-    
     // Player controller
     private PlayerController playerController;
 

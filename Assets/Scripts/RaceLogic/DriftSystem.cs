@@ -10,31 +10,23 @@ public class DriftSystem : MonoBehaviour
     
     // Our current drift score
     private int driftScore = 0;
-
     // Adjust this value based on how fast you want the score to increase
     public int scoringRate = 1;
-
     // Adjust this value to set the minimum angle for a valid drift
     public float driftAngleThreshold = 30f;
-
     // Adjust this value to set the minimum angular velocity for a valid drift
     public float angularVelocityThreshold = 0.1f;
-
     // Our player Rigidbody
     private Rigidbody playerCar;
-
     // Used for the UI
     public bool driftActive;
-
     // Our audiosource
     public AudioSource[] driftUISounds;
     private bool activateDriftSound;
-
     // Our drift UI
     public GameObject driftStatus;
     public TextMeshProUGUI driftScoreText;
     public TextMeshProUGUI driftStatusText;
-
     // Singleton for access to drifting system
     public static DriftSystem instance;
 
@@ -46,10 +38,8 @@ public class DriftSystem : MonoBehaviour
     {
         // Find our car object
         playerCar = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-
         // Singleton
         instance = this;
-
         // For some reason, the drift audio doesn't work when I drift, but only when I don't, so I swapped logic, and for some reason now it works
         // when I'm drifting, by saying it should play when I'm not drifting, it's strange and this probably needs to be checked.
         activateDriftSound = false;
@@ -60,10 +50,8 @@ public class DriftSystem : MonoBehaviour
     {
         // Update our score rate
         UpdateScoreRate();
-
         // Update our status text
         UpdateDriftStatus();
-
         // Update our drift score
         UpdateScore();
     }
@@ -98,7 +86,7 @@ public class DriftSystem : MonoBehaviour
     /// <summary>
     /// Increments the users scoringRate based on how fast we're going
     /// </summary>
-    public void UpdateScoreRate()
+    private void UpdateScoreRate()
     {
         if (PlayerController.instance.Speed < 20)
         {
@@ -125,7 +113,7 @@ public class DriftSystem : MonoBehaviour
     /// <summary>
     /// Changes the user's drift status text based on how well they're doing
     /// </summary>
-    public void UpdateDriftStatus()
+    private void UpdateDriftStatus()
     {
         // SetActive is used to trigger our animation everytime we drift
         if (driftActive && driftScore < 300)
@@ -157,7 +145,7 @@ public class DriftSystem : MonoBehaviour
     /// <summary>
     /// Enables drift audio
     /// </summary>
-    public void EnableDriftAudio()
+    private void EnableDriftAudio()
     {
         activateDriftSound = true;
     }

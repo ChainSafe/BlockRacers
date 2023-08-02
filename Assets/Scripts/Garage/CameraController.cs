@@ -6,14 +6,21 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     #region Fields
-
-    public Camera cameraToRotate; // Reference to the camera you want to rotate
-    public Vector3 desiredRotation; // Desired rotation for the camera
-    private Quaternion initialRotation; // Initial rotation of the camera
-    private Quaternion targetRotation; // Target rotation of the camera
-    private float rotationTimer; // Timer for tracking the rotation progress
-    private bool isRotating; // Flag to check if rotation is in progress
-    public float rotationDuration; // The duration of the rotation in seconds
+    
+    // Reference to the camera you want to rotate
+    public Camera cameraToRotate;
+    // Desired rotation for the camera
+    public Vector3 desiredRotation;
+    // Initial rotation of the camera
+    private Quaternion initialRotation;
+    // Target rotation of the camera
+    private Quaternion targetRotation;
+    // Timer for tracking the rotation progress
+    private float rotationTimer;
+    // Flag to check if rotation is in progress
+    private bool isRotating;
+    // The duration of the rotation in seconds
+    public float rotationDuration;
 
     public static CameraController instance;    
 
@@ -21,7 +28,10 @@ public class CameraController : MonoBehaviour
 
     #region Methods
     
-    void Start()
+    /// <summary>
+    ///  Initializes objects, sets our instance and rotation of camera
+    /// </summary>
+    private void Start()
     {
         instance = this;
         initialRotation = Quaternion.Euler(0f, -45f, 0f);
@@ -47,6 +57,9 @@ public class CameraController : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Checks if the camera is rotating and adjusts accordingly
+    /// </summary>
     private void Update()
     {
         if (isRotating)

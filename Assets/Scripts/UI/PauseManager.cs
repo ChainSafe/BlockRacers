@@ -12,22 +12,16 @@ public class PauseManager : MonoBehaviour
 
     // Global manager
     private GlobalManager globalManager;
-    
     // Audio
     private AudioManager audioManager;
-    
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
-    
     // Buttons
     [SerializeField] private GameObject firstButton;
-
     // Paused bool
     private bool paused;
-    
     // Player Input
     private PlayerInputActions playerInput;
-
     // Our on-screen race UI to disable when we pause
     public GameObject[] raceUI;
 

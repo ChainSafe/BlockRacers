@@ -11,19 +11,14 @@ public class Tachometer : MonoBehaviour
     
     // UI component
     [SerializeField] private Slider speedSlider;
-    
     // Fill component
     [SerializeField] private Image speedBar;
-    
     // The actual speed metric
     [SerializeField] private TextMeshProUGUI speedText;
-    
     // Current gear
     [SerializeField] private TextMeshProUGUI currentGear;
-    
     // Player objects
     [SerializeField] private PlayerController playerController;
-
     // Smoothing variables
     [SerializeField] private float targetSpeed;
     [SerializeField] private const float LerpSpeed = 5f;
@@ -32,15 +27,17 @@ public class Tachometer : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Manages displayed speed and gear
+    /// </summary>
     private void Update()
     {
-        // Smoothly update the target speed for our speedo
+        // Smoothly update the target speed for our tachometer
         targetSpeed = Mathf.Lerp(targetSpeed, playerController.Speed, Time.deltaTime * LerpSpeed);
-
         // Update speed text & slider with the smoothed speed value
         speedText.text = Mathf.Floor(targetSpeed).ToString();
         speedSlider.value = targetSpeed;
-
+        // Changes gear based on speed
         playerController.CurrentGear = playerController.Speed switch
         {
             // Changing our current gear based on speed 
@@ -52,6 +49,7 @@ public class Tachometer : MonoBehaviour
             > 240 and < 280 => 6,
             _ => playerController.CurrentGear
         };
+        // Displays our current gear
         currentGear.text = playerController.CurrentGear.ToString();
     }
     

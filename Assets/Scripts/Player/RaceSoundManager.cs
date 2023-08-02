@@ -13,7 +13,6 @@ public class RaceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource accelerateSound;
     [SerializeField] private AudioSource decelerateSound;
     [SerializeField] private AudioSource collisionSound;
-    
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
     
@@ -21,7 +20,10 @@ public class RaceSoundManager : MonoBehaviour
 
     #region Methods
     
-    void Update()
+    /// <summary>
+    /// Handles various sounds based on input and speed
+    /// </summary>
+    private void Update()
     {
         // Engine sounds
         idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.SpeedRatio);
@@ -30,7 +32,7 @@ public class RaceSoundManager : MonoBehaviour
         decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
         decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear, 2, playerController.SpeedRatio);
         
-        // Sounds
+        // Nos sound based on input
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
         {
             // Nos
@@ -39,7 +41,7 @@ public class RaceSoundManager : MonoBehaviour
                 nosSound.Play();
             }
         }
-
+        // Engine sound based on input
         switch (playerController.input)
         {
             // Idle
@@ -75,8 +77,7 @@ public class RaceSoundManager : MonoBehaviour
                 break;
             }
         }
-        
-        // Collisions
+        // Collision sound based on collisions
         if (!playerController.collision) return;
         playerController.collision = false;
         collisionSound.Pause();

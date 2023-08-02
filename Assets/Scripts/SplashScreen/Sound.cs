@@ -11,7 +11,6 @@ public class Sound
     public string name;
     // The audio clip being played
     public AudioClip clip;
-
     // Allows use of sliders within the editor
     [Range(0f, 1f)]
     public float volume;

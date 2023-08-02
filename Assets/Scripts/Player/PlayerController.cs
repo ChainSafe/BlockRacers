@@ -9,54 +9,38 @@ public class PlayerController : MonoBehaviour
     
     // Stats manager
     private StatsManager statsManager;
-
     // Singleton access to the controller
     public static PlayerController instance;
-
     // Audio
     private AudioManager audioManager;
-    
     // Current gear
     private int currentGear;
-    
     // Speed
     private float speed, maxSpeed, speedRatio, motorForce, nosForce, breakForce;
-    
     // Static for our nitrous system
     public static bool nosActive;
-
     // Input
     public float input, horizontalInput, verticalInput;
-
     // Steering and braking
     private bool isDrifting, isBraking;
     private float currentSteerAngle, currentBrakeForce, maxSteerAngle;
-
     // Reset bool
     public bool resetActive;
-
     // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
-
     // Used for letting the game know if we're racing or tutorial
     public static bool isRacing;
-
     // collision bool for sounds
     public bool collision;
-    
     // Rigidbody
     [Header("Objects & Particle Effects")]
     [SerializeField] public Rigidbody rigidBody;
-
     // Particles
     [SerializeField] private GameObject nosParticles, tireTrailRL, tireTrailRR, driftSmoke, nftImage;
-
     // Taillights & headlights
     [SerializeField] private GameObject tailLights, headLights;
-
     // Wheel colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
-
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
     
@@ -137,18 +121,18 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Methods
-
+    
+    /// <summary>
+    /// Initializes instance and needed objects
+    /// </summary>
     private void Awake()
     {
         // Singleton
         instance = this;
-
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-        
         // Finds our stats manager
         statsManager = GameObject.FindWithTag("StatsManager").GetComponent<StatsManager>();
-
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -159,28 +143,30 @@ public class PlayerController : MonoBehaviour
         // Changes Bgm
         audioManager.Pause("Bgm1");
         audioManager.Play("Bgm2");
-        
         // Updates our stats
         statsManager.UpdateStats();
-        
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
     }
-
+    
+    /// <summary>
+    /// Tracks speed ratio and car lights
+    /// </summary>
     private void Update()
     {
         // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
-        
         // Brake lights
         tailLights.SetActive(isBraking || isDrifting);
-
         // Head lights
         headLights.SetActive(useHeadLights);
     }
-
+    
+    /// <summary>
+    /// Tracks needed vehicle functions
+    /// </summary>
     private void FixedUpdate() {
         HandleMotor();
         HandleSteering();
@@ -190,12 +176,13 @@ public class PlayerController : MonoBehaviour
         HandleTireTrails();
     }
 
-    // Engine
+    /// <summary>
+    /// Engine power determined via input
+    /// </summary>
     private void HandleMotor()
     {
         // Gets input for acceleration
         input = verticalInput * motorForce / currentGear;
-
         // If speed less than max speed, add input to motor torque
         if (speed < maxSpeed && CountDownSystem.raceStarted)
         {
@@ -207,28 +194,30 @@ public class PlayerController : MonoBehaviour
             frontLeftWheelCollider.motorTorque = 0;
             frontRightWheelCollider.motorTorque = 0;
         }
-
         // Check if braking
         currentBrakeForce = isBraking && frontLeftWheelCollider.motorTorque > 0 ? breakForce : 0f;
-        
         // Brake slightly when idling
         if (input == 0)
         {
             currentBrakeForce = 50;
         }
-        
         // Apply the above
         ApplyBraking();
     }
     
-    // Used for engine sounds
+    /// <summary>
+    /// Used for engine sounds
+    /// </summary>
+    /// <returns></returns>
     private float GetSpeedRatio()
     {
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
         return (speed*gas) / maxSpeed;
     }
     
-    // Nos
+    /// <summary>
+    /// Emits Nos particles and applies force if nos active
+    /// </summary>
     private void HandleNos()
     {
         // If we're using nos and our current boost amount is more than 0
@@ -243,9 +232,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // Tire trails and smoke
+    /// <summary>
+    /// Tire trails and smoke
+    /// </summary>
     private void HandleTireTrails()
     {
+        // Checks if both wheels are grounded & if we're drifting or braking
         if (rearLeftWheelCollider.isGrounded && rearRightWheelCollider.isGrounded)
         {
             if (DriftSystem.instance == null) return;
@@ -255,7 +247,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // Drifting
+    /// <summary>
+    /// Handles drift friction when enabled
+    /// </summary>
     private void HandleDrift()
     {
         WheelFrictionCurve sidewaysFrictionFL = frontLeftWheelCollider.sidewaysFriction;
@@ -287,7 +281,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // Braking
+    /// <summary>
+    /// Applies braking when active
+    /// </summary>
     private void ApplyBraking() {
         frontRightWheelCollider.brakeTorque = currentBrakeForce;
         frontLeftWheelCollider.brakeTorque = currentBrakeForce;
@@ -295,7 +291,9 @@ public class PlayerController : MonoBehaviour
         rearRightWheelCollider.brakeTorque = currentBrakeForce;
     }
     
-    // Steering
+    /// <summary>
+    /// Vehicle steering
+    /// </summary>
     private void HandleSteering()
     {
         currentSteerAngle = maxSteerAngle * horizontalInput;
@@ -303,7 +301,9 @@ public class PlayerController : MonoBehaviour
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
     
-    // Wheel colliders & transforms
+    /// <summary>
+    /// Wheel colliders & transforms
+    /// </summary>
     private void UpdateWheels() {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
         UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform);
@@ -311,7 +311,11 @@ public class PlayerController : MonoBehaviour
         UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
     }
     
-    // Wheel position & rotation
+    /// <summary>
+    /// Wheel position & rotation
+    /// </summary>
+    /// <param name="wheelCollider">The collider of the wheel</param>
+    /// <param name="wheelTransform">The transform of the wheel</param>
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform) {
         Vector3 pos;
         Quaternion rot; 
@@ -323,7 +327,10 @@ public class PlayerController : MonoBehaviour
         wheelTransform.position = pos;
     }
 
-    // Bool for collision sound
+    /// <summary>
+    /// Used to enable collision sound
+    /// </summary>
+    /// <param name="other">The other object we're colliding with</param>
     private void OnCollisionEnter(Collision other)
     {
         collision = true;
