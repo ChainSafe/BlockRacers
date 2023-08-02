@@ -7,11 +7,10 @@ public class AudioManager : MonoBehaviour
 {
     #region Fields
     
-    // Instance of audio manager
-    private static AudioManager instance;
-    
     // Array of game sounds
     public Sound[] sounds;
+    // Instance of audio manager
+    private static AudioManager instance;
 
     #endregion
 

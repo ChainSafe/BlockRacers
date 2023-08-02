@@ -9,38 +9,30 @@ public class SwapCars : MonoBehaviour
 {
     #region Fields
     
+    // Singleton
+    public static SwapCars instance;
+    // Index of the currently active prefab & livery
+    public static int currentLiveryIndex = 0;
+    public int currentPrefabIndex = 0;
     // Array of prefabs to swap between
     public GameObject[] prefabs;
-
-    // Index of the currently active prefab & livery
-    public int currentPrefabIndex = 0;
-    public static int currentLiveryIndex = 0;
-
-    // Reference to the currently instantiated prefab
-    private GameObject currentPrefab;
-
-    // Set the spawnpoint 
-    private Vector3 spawnPoint = new Vector3(89.17f, 0.4f, -9.7f);
-
     // Our UI elements for the showroom
     public TextMeshProUGUI carName;
     public Slider engineSlider;
     public Slider handlingSlider;
     public Slider boostSlider;
-
     // Our available colours for each model
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
     public Material[] ferrariLivery;
-
-    // Reference the global manager
-    private GlobalManager globalManager;
-
     // Reference our 3 playable prefabs
     public GameObject camaro;
-
-    // Singleton
-    public static SwapCars instance;
+    // Reference to the currently instantiated prefab
+    private GameObject currentPrefab;
+    // Set the spawnpoint 
+    private Vector3 spawnPoint = new Vector3(89.17f, 0.4f, -9.7f);
+    // Reference the global manager
+    private GlobalManager globalManager;
     
     #endregion
 

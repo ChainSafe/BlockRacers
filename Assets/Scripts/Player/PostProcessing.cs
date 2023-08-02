@@ -8,14 +8,15 @@ public class PostProcessing : MonoBehaviour
 {
     #region Fields
     
+    // Singleton
     public static PostProcessing Instance { get; private set; }
-    // Referencing Post Processing Volume attached to Camera
-    private PostProcessVolume MainProfile;
     // Referencing Effect attached to PP Profile
     public ChromaticAberration Nitrous;
     // Variables for our Nitrous function
     public float lerpSpeed = 1f;
     public float currentLerpValue = 0f;
+    // Referencing Post Processing Volume attached to Camera
+    private PostProcessVolume MainProfile;
     
     #endregion
 

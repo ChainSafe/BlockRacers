@@ -64,7 +64,7 @@ public class PlayerInput : MonoBehaviour
     private void OnMovementInput(InputAction.CallbackContext context)
     {
         var currentMovementInput = context.ReadValue<Vector2>();
-        playerController.horizontalInput = currentMovementInput.x;
+        playerController.HorizontalInput = currentMovementInput.x;
         //verticalInput = currentMovementInput.y;
     }
     
@@ -74,7 +74,7 @@ public class PlayerInput : MonoBehaviour
     /// <param name="context">context</param>
     private void OnAccelerateInput(InputAction.CallbackContext context)
     {
-        playerController.verticalInput = context.ReadValue<float>();
+        playerController.VerticalInput = context.ReadValue<float>();
     }
     
     /// <summary>
@@ -84,7 +84,7 @@ public class PlayerInput : MonoBehaviour
     private void OnBrakeInput(InputAction.CallbackContext context)
     {
         playerController.IsBraking = Convert.ToBoolean(context.ReadValue<float>());
-        playerController.verticalInput = context.ReadValue<float>() * -1;
+        playerController.VerticalInput = context.ReadValue<float>() * -1;
     }
 
     /// <summary>
