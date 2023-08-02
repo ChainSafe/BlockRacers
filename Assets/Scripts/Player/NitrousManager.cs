@@ -8,14 +8,14 @@ public class NitrousManager : MonoBehaviour
 {
     #region Fields
     
-    // Maximum boost value
-    [SerializeField] private float maxBoost = 100f;
     // Rate at which boost depletes per second
     public static float boostRate = 20f;
-    // Rate at which boost recharges per second
-    [SerializeField] private float rechargeRate = 5f;
     // Current boost value
     public static float currentBoost;
+    // Maximum boost value
+    [SerializeField] private float maxBoost = 100f;
+    // Rate at which boost recharges per second
+    [SerializeField] private float rechargeRate = 5f;
     // The UI component
     [SerializeField] private Slider boostSlider;
     // The Fill Image for the slider

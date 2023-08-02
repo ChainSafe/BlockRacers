@@ -42,7 +42,7 @@ public class RaceSoundManager : MonoBehaviour
             }
         }
         // Engine sound based on input
-        switch (playerController.input)
+        switch (playerController.Input)
         {
             // Idle
             case 0 when (playerController.Speed == 0):

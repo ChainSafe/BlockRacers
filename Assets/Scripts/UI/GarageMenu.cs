@@ -11,10 +11,8 @@ public class GarageMenu : MonoBehaviour
 {
     #region Fields
     
-    // Global manager
-    private GlobalManager globalManager;
-    // Audio
-    private AudioManager audioManager;
+    // Singleton to access functions
+    public static GarageMenu instance;
     // Materials
     public Texture2D redSprite, blueSprite, magentaSprite;
     // Car prefabs
@@ -25,14 +23,16 @@ public class GarageMenu : MonoBehaviour
     public TextMeshProUGUI descriptionText;
     // Car Sprites
     public Sprite car1Sprite, car2Sprite, car3Sprite;
+    // Audio
+    private AudioManager audioManager;
     private Color lastSelectedColour;
-    // Singleton to access functions
-    public static GarageMenu instance;
     // Menu objects
     [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton;
+    // Global manager
+    private GlobalManager globalManager;
 
     #endregion
 

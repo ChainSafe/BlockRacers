@@ -7,10 +7,14 @@ public class CameraController : MonoBehaviour
 {
     #region Fields
     
+    // Singleton
+    public static CameraController instance;    
     // Reference to the camera you want to rotate
     public Camera cameraToRotate;
     // Desired rotation for the camera
     public Vector3 desiredRotation;
+    // The duration of the rotation in seconds
+    public float rotationDuration;
     // Initial rotation of the camera
     private Quaternion initialRotation;
     // Target rotation of the camera
@@ -19,10 +23,6 @@ public class CameraController : MonoBehaviour
     private float rotationTimer;
     // Flag to check if rotation is in progress
     private bool isRotating;
-    // The duration of the rotation in seconds
-    public float rotationDuration;
-
-    public static CameraController instance;    
 
     #endregion
 

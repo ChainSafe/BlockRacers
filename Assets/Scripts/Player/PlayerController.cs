@@ -7,31 +7,31 @@ public class PlayerController : MonoBehaviour
 {
     #region Fields
     
-    // Stats manager
-    private StatsManager statsManager;
     // Singleton access to the controller
     public static PlayerController instance;
+    // Static to enabled / disable our headlights for the race & tutorial
+    public static bool useHeadLights;
+    // Used for letting the game know if we're racing or tutorial
+    public static bool isRacing;
+    // Static for our nitrous system
+    public static bool nosActive;
+    // Reset bool
+    public bool resetActive;
+    // collision bool for sounds
+    public bool collision;
+    // Stats manager
+    private StatsManager statsManager;
     // Audio
     private AudioManager audioManager;
     // Current gear
     private int currentGear;
     // Speed
     private float speed, maxSpeed, speedRatio, motorForce, nosForce, breakForce;
-    // Static for our nitrous system
-    public static bool nosActive;
     // Input
-    public float input, horizontalInput, verticalInput;
+    private float input, horizontalInput, verticalInput;
     // Steering and braking
     private bool isDrifting, isBraking;
     private float currentSteerAngle, currentBrakeForce, maxSteerAngle;
-    // Reset bool
-    public bool resetActive;
-    // Static to enabled / disable our headlights for the race & tutorial
-    public static bool useHeadLights;
-    // Used for letting the game know if we're racing or tutorial
-    public static bool isRacing;
-    // collision bool for sounds
-    public bool collision;
     // Rigidbody
     [Header("Objects & Particle Effects")]
     [SerializeField] public Rigidbody rigidBody;
@@ -98,6 +98,33 @@ public class PlayerController : MonoBehaviour
     {
         get => maxSteerAngle;
         set => maxSteerAngle = value;
+    }
+    
+    /// <summary>
+    /// Input
+    /// </summary>
+    public float Input
+    {
+        get => input;
+        set => input = value;
+    }
+    
+    /// <summary>
+    /// Horizontal Input
+    /// </summary>
+    public float HorizontalInput
+    {
+        get => horizontalInput;
+        set => horizontalInput = value;
+    }
+    
+    /// <summary>
+    /// Vertical Input
+    /// </summary>
+    public float VerticalInput
+    {
+        get => verticalInput;
+        set => verticalInput = value;
     }
     
     /// <summary>

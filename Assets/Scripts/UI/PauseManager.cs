@@ -10,8 +10,8 @@ public class PauseManager : MonoBehaviour
 {
     #region Fields
 
-    // Global manager
-    private GlobalManager globalManager;
+    // Our on-screen race UI to disable when we pause
+    public GameObject[] raceUI;
     // Audio
     private AudioManager audioManager;
     // Pause menu
@@ -22,8 +22,8 @@ public class PauseManager : MonoBehaviour
     private bool paused;
     // Player Input
     private PlayerInputActions playerInput;
-    // Our on-screen race UI to disable when we pause
-    public GameObject[] raceUI;
+    // Global manager
+    private GlobalManager globalManager;
 
     #endregion
 

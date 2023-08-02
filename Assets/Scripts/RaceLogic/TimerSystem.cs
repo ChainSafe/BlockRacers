@@ -8,14 +8,14 @@ public class TimerSystem : MonoBehaviour
 {
     #region Fields
     
-    // Timer logic
-    private float elapsedTime = 0f;
-    private bool isTimerRunning = false;
+    // Singleton
+    public static TimerSystem instance;
     // UI Elements
     public TextMeshProUGUI LapTimeText;
     public TextMeshProUGUI splitTimeText;
-    // Singleton
-    public static TimerSystem instance;
+    // Timer logic
+    private float elapsedTime = 0f;
+    private bool isTimerRunning = false;
 
     #endregion
 

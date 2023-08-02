@@ -8,27 +8,27 @@ public class DriftSystem : MonoBehaviour
 {
     #region Fields
     
-    // Our current drift score
-    private int driftScore = 0;
+    // Singleton for access to drifting system
+    public static DriftSystem instance;
+    // Used for the UI
+    public bool driftActive;
+    // Our audiosource
+    public AudioSource[] driftUISounds;
+    // Our drift UI
+    public GameObject driftStatus;
+    public TextMeshProUGUI driftScoreText;
+    public TextMeshProUGUI driftStatusText;
     // Adjust this value based on how fast you want the score to increase
     public int scoringRate = 1;
     // Adjust this value to set the minimum angle for a valid drift
     public float driftAngleThreshold = 30f;
     // Adjust this value to set the minimum angular velocity for a valid drift
     public float angularVelocityThreshold = 0.1f;
+    // Our current drift score
+    private int driftScore = 0;
     // Our player Rigidbody
     private Rigidbody playerCar;
-    // Used for the UI
-    public bool driftActive;
-    // Our audiosource
-    public AudioSource[] driftUISounds;
     private bool activateDriftSound;
-    // Our drift UI
-    public GameObject driftStatus;
-    public TextMeshProUGUI driftScoreText;
-    public TextMeshProUGUI driftStatusText;
-    // Singleton for access to drifting system
-    public static DriftSystem instance;
 
     #endregion
 
