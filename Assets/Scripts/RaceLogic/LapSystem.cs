@@ -9,10 +9,10 @@ public class LapSystem : MonoBehaviour
 {
     #region Fields
     
-    // Logic for the checkpoints and laps
-    [SerializeField] private static int checkpointCount;
     // Our final lap reminder
     public GameObject LapReminder;
+    // Logic for the checkpoints and laps
+    [SerializeField] private static int checkpointCount;
     // Lap count
     [SerializeField] private int lapCount;
     // Global Manager
