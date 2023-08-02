@@ -102,6 +102,16 @@ public class PauseManager : MonoBehaviour
     }
     
     /// <summary>
+    /// Toggles fullscreen mode
+    /// </summary>
+    public void FullScreenButton()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+
+    /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
     /// <param name="button"></param>
