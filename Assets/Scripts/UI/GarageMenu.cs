@@ -54,17 +54,6 @@ public class GarageMenu : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
-    
-    /// <summary>
-    /// Sets description and purchase button functionality
-    /// </summary>
-    private void Update()
-    {
-        // If no upgrade is selected, we don't want the purchase button to show.
-        purchaseButton.SetActive(upgradeIndex >= 1);
-        // We also want to set the description based on what upgrade is selected
-        descriptionText.text = (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
-    }
 
     /// <summary>
     /// Purchase manager for upgrades
@@ -369,6 +358,17 @@ public class GarageMenu : MonoBehaviour
         upgradeIndex = 3;
         descriptionText.text = "upgrading your boost will allow it to drain slower and recharge faster";
         // You can change a cost variable here to display how much an upgrade costs if required
+    }
+    
+    /// <summary>
+    /// Sets description and purchase button functionality
+    /// </summary>
+    private void Update()
+    {
+        // If no upgrade is selected, we don't want the purchase button to show.
+        purchaseButton.SetActive(upgradeIndex >= 1);
+        // We also want to set the description based on what upgrade is selected
+        descriptionText.text = (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
     }
 
     #endregion

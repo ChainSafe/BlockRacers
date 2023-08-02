@@ -52,22 +52,7 @@ public class SwapCars : MonoBehaviour
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
     }
-    
-    /// <summary>
-    /// Checks for arrow key input navigation
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            PreviousCar();
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            NextCar();
-        }
-    }
-    
+
     /// <summary>
     /// Changes to the next car in the list
     /// </summary>
@@ -245,6 +230,21 @@ public class SwapCars : MonoBehaviour
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = ferrariLivery[currentLiveryIndex];
                 break;
             }
+        }
+    }
+    
+    /// <summary>
+    /// Checks for arrow key input navigation
+    /// </summary>
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PreviousCar();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            NextCar();
         }
     }
     

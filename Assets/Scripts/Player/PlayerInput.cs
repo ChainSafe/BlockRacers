@@ -40,23 +40,7 @@ public class PlayerInput : MonoBehaviour
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
     }
-    
-    /// <summary>
-    /// Used for player movement, call this to enable input detection
-    /// </summary>
-    private void OnEnable()
-    {
-        playerInput.Enable();
-    }
-    
-    /// <summary>
-    /// Used for player movement, call this to disable input detection
-    /// </summary>
-    private void OnDisable()
-    {
-        playerInput.Disable();
-    }
-    
+
     /// <summary>
     /// Steering input
     /// </summary>
@@ -112,6 +96,22 @@ public class PlayerInput : MonoBehaviour
     private void OnResetInput(InputAction.CallbackContext context)
     {
         playerController.resetActive = Convert.ToBoolean(context.ReadValue<float>());
+    }
+    
+    /// <summary>
+    /// Used for player movement, call this to enable input detection
+    /// </summary>
+    private void OnEnable()
+    {
+        playerInput.Enable();
+    }
+    
+    /// <summary>
+    /// Used for player movement, call this to disable input detection
+    /// </summary>
+    private void OnDisable()
+    {
+        playerInput.Disable();
     }
     
     #endregion

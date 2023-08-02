@@ -176,32 +176,6 @@ public class PlayerController : MonoBehaviour
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
     }
-    
-    /// <summary>
-    /// Tracks speed ratio and car lights
-    /// </summary>
-    private void Update()
-    {
-        // Speed derived from wheel speed
-        speedRatio = GetSpeedRatio();
-        speed = rigidBody.velocity.magnitude * 3.6f;
-        // Brake lights
-        tailLights.SetActive(isBraking || isDrifting);
-        // Head lights
-        headLights.SetActive(useHeadLights);
-    }
-    
-    /// <summary>
-    /// Tracks needed vehicle functions
-    /// </summary>
-    private void FixedUpdate() {
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
-        HandleNos();
-        HandleDrift();
-        HandleTireTrails();
-    }
 
     /// <summary>
     /// Engine power determined via input
@@ -361,6 +335,32 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         collision = true;
+    }
+    
+    /// <summary>
+    /// Tracks speed ratio and car lights
+    /// </summary>
+    private void Update()
+    {
+        // Speed derived from wheel speed
+        speedRatio = GetSpeedRatio();
+        speed = rigidBody.velocity.magnitude * 3.6f;
+        // Brake lights
+        tailLights.SetActive(isBraking || isDrifting);
+        // Head lights
+        headLights.SetActive(useHeadLights);
+    }
+    
+    /// <summary>
+    /// Tracks needed vehicle functions
+    /// </summary>
+    private void FixedUpdate() {
+        HandleMotor();
+        HandleSteering();
+        UpdateWheels();
+        HandleNos();
+        HandleDrift();
+        HandleTireTrails();
     }
     
     #endregion
