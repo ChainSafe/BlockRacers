@@ -33,10 +33,8 @@ public class PauseManager : MonoBehaviour
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
-        
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
