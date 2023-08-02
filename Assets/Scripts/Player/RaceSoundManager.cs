@@ -51,7 +51,6 @@ public class RaceSoundManager : MonoBehaviour
                 {
                     idleSound.Play();
                 }
-
                 break;
             }
             // Accelerating
@@ -62,7 +61,6 @@ public class RaceSoundManager : MonoBehaviour
                     decelerateSound.Pause();
                     accelerateSound.Play();
                 }
-
                 break;
             }
             default:
@@ -73,7 +71,6 @@ public class RaceSoundManager : MonoBehaviour
                     accelerateSound.Pause();
                     decelerateSound.Play();
                 }
-
                 break;
             }
         }

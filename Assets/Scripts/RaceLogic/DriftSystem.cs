@@ -121,7 +121,6 @@ public class DriftSystem : MonoBehaviour
             driftUISounds[1].Play();
             driftStatusText.text = "good drift";
             driftStatus.SetActive(true);
-
         }
         if (driftActive && driftScore > 300 && driftScore < 500)
         {

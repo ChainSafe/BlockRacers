@@ -29,7 +29,6 @@ public class CountDownSystem : MonoBehaviour
         {
             // Prevent player input before the race starts
             raceStarted = false;
-
             // Start our countdown
             StartCoroutine(StartCountdown());
         }

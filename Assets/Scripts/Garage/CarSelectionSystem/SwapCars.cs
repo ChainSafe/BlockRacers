@@ -45,10 +45,8 @@ public class SwapCars : MonoBehaviour
     {
         // Singleton
         instance = this;
-
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
     }
@@ -75,20 +73,17 @@ public class SwapCars : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
         // Destroy the current prefab
         Destroy(currentPrefab);
-
         // Increment the index to switch to the next prefab
         currentPrefabIndex++;
         if (currentPrefabIndex >= prefabs.Length)
         {
             currentPrefabIndex = 0;
         }
-
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
-
+        
         // Logic for handling the car stats and other UI information
         // Array Index is as follows: 
         // 0 = Chevrolet Camaro (Nitro Nova GTL)
@@ -103,27 +98,22 @@ public class SwapCars : MonoBehaviour
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar1();
                 break;
-
             case 1:
                 carName.text = "Turbo Storm GT";
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar2();
                 break;
-
             case 2:
                 carName.text = "Star Stream S6";
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar3();
                 break;
@@ -138,10 +128,8 @@ public class SwapCars : MonoBehaviour
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
-
         // Destroy the current prefab
         Destroy(currentPrefab);
-
         // Decrement the index to switch to the next prefab  
         if (currentPrefabIndex > 0)
         {
@@ -151,7 +139,6 @@ public class SwapCars : MonoBehaviour
         {
             currentPrefabIndex = 2;
         }
-
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
 
@@ -169,10 +156,8 @@ public class SwapCars : MonoBehaviour
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar1();
-
                 break;
 
             case 1:
@@ -180,10 +165,8 @@ public class SwapCars : MonoBehaviour
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar2();
-
                 break;
 
             case 2:
@@ -191,10 +174,8 @@ public class SwapCars : MonoBehaviour
                 engineSlider.value = globalManager.engineLevel;
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
-
                 // Actively select this car
                 GarageMenu.instance.SelectCar3();
-
                 break;
         }
     }
@@ -212,36 +193,30 @@ public class SwapCars : MonoBehaviour
             case 0:
             {
                 currentLiveryIndex++;
-
                 if (currentLiveryIndex > 3)
                 {
                     currentLiveryIndex = 0;
                 }
-
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = camaroLivery[currentLiveryIndex];
                 break;
             }
             case 1:
             {
                 currentLiveryIndex++;
-
                 if (currentLiveryIndex > 3)
                 {
                     currentLiveryIndex = 0;
                 }
-
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = fordGTLivery[currentLiveryIndex];
                 break;
             }
             case 2:
             {
                 currentLiveryIndex++;
-
                 if (currentLiveryIndex > 3)
                 {
                     currentLiveryIndex = 0;
                 }
-
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = ferrariLivery[currentLiveryIndex];
                 break;
             }
