@@ -16,6 +16,10 @@ public class PauseManager : MonoBehaviour
     private AudioManager audioManager;
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
+    // Options menu
+    [SerializeField] private GameObject optionsMenu;
+    // Controls menu
+    [SerializeField] private GameObject controlsMenu;
     // Buttons
     [SerializeField] private GameObject firstButton;
     // Paused bool
@@ -49,6 +53,50 @@ public class PauseManager : MonoBehaviour
         audioManager.Play("Bgm1");
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Opens the controls menu
+    /// </summary>
+    public void OpenControlsButton()
+    {
+        pauseMenu.SetActive(false);
+        controlsMenu.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Closes the controls menu
+    /// </summary>
+    public void CloseControlsButton()
+    {
+        controlsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Opens the options menu
+    /// </summary>
+    public void OpenOptionsButton()
+    {
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Closes the options menu
+    /// </summary>
+    public void CloseOptionsButton()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
