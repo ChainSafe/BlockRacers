@@ -1,4 +1,6 @@
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Player controls and functions
@@ -43,6 +45,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
+    // Photon
+    [SerializeField] private PhotonView PV;
+    [SerializeField] private PhotonTransformView PVTransformView;
+    [SerializeField] private PhotonRigidbodyView PVRigidBody;
+    [SerializeField] private GameObject LapCanvas;
+    private string sceneName;
     
     #endregion
 
@@ -163,6 +171,12 @@ public class PlayerController : MonoBehaviour
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        // Disables photon components if we're in the tutorial as it bugs out
+        sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName != "Tutorial") return;
+        PVTransformView.enabled = false;
+        PVRigidBody.enabled = false;
+        LapCanvas.SetActive(false);
     }
 
     private void Start()

@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Audio
     private AudioManager audioManager;
     // Menu items
-    [SerializeField] private GameObject connectMenuItems, mainMenuItems, connectButton, tutorialButton;
+    [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, connectButton, tutorialButton, oneVsOneButton;
 
     #endregion
 
@@ -34,8 +34,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // By passes connection screen if connected
         if (globalManager.connected)
         {
-            connectMenuItems.SetActive(false);
-            mainMenuItems.SetActive(true);
+            connectMenu.SetActive(false);
+            mainMenu.SetActive(true);
             // Sets our first selected button
             EventSystem.current.SetSelectedGameObject(tutorialButton);
         }
@@ -58,49 +58,36 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Change later when sdk is in
     public void ConnectButton()
     {
-        connectMenuItems.SetActive(false);
-        mainMenuItems.SetActive(true);
+        connectMenu.SetActive(false);
+        mainMenu.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(tutorialButton);
         globalManager.connected = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-
-    /////////////////////////////////////////
-    /// PHOTON LOBBY CONFIGURATION STARTS ///
-    /////////////////////////////////////////
-
-    // This will somehow need to be merged with the Photon.LoadScene method and the function below..
+    
     public void RaceButton()
     {
-        PlayerController.isRacing = true;
-        PlayerController.useHeadLights = false;
-        globalManager.sceneToLoad = "RaceTrack";
-        SceneManager.LoadScene("LoadingScreen");
+        mainMenu.SetActive(false);
+        raceMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // The lobby configuration for our race. Needs to be merged with the above RaceButton Function
-    public void JoinRace()
+    public void RaceMenuBackButton()
     {
-        // The Official Room Options
-        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 7200 };
-
-        PhotonNetwork.JoinOrCreateRoom("RaceLobby", roomOps, TypedLobby.Default);
+        raceMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(tutorialButton);
+        globalManager.connected = true;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-
-
-    // The lobby configuration for our tutorial. We can keep this single player if you want though. 
-    public void JoinTutorial()
-    {
-        // The Official Room Options
-        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 7200 };
-        PhotonNetwork.JoinOrCreateRoom("Tutorial", roomOps, TypedLobby.Default);
-    }
-
-    // This will somehow need to be merged with the Photon.LoadScene method and the function above..
+    
     public void TutorialButton()
     {
         globalManager.sceneToLoad = "Tutorial";
@@ -111,18 +98,51 @@ public class MainMenu : MonoBehaviourPunCallbacks
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    // If we joined the room successfully, the scene changes based on the lobby we join.
+    /////////////////////////////////////////
+    /// PHOTON LOBBY CONFIGURATION STARTS ///
+    /////////////////////////////////////////
+
+    // This will somehow need to be merged with the Photon.LoadScene method and the function below..
+    
+    public void RaceMenu1v1Button()
+    {
+        // The Official Room Options for 1v1
+        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 7200 };
+        PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1", roomOps, TypedLobby.Default);
+    }
+    
+    public void RaceMenu5ManButton()
+    {
+        // The Official Room Options for 5 man races
+        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 7200 };
+        PhotonNetwork.JoinOrCreateRoom("RaceLobby5Man", roomOps, TypedLobby.Default);
+    }
+
+    // If we joined the room successfully, the scene changes based on the lobby we join
+    // 1v1 & 5 man config duplicated whilst building
     public override void OnJoinedRoom() 
     {
+        // Sets our current room
         Room currentRoom = PhotonNetwork.CurrentRoom;
-
-        if (currentRoom.Name == "RaceLobby")
+        // 1v1 config
+        if (PhotonNetwork.CurrentRoom.Name == "RaceLobby1v1")
         {
-            PhotonNetwork.LoadLevel("RaceTrack");
+            // Set to start race for now whilst we build functionality for photon
+            PlayerController.isRacing = true;
+            PlayerController.useHeadLights = false;
+            if (audioManager == null) return;
+            FindObjectOfType<AudioManager>().Play("MenuSelect");
+            PhotonNetwork.LoadLevel("RaceTrack");   
         }
-        else if (currentRoom.Name == "Tutorial")
+        // 5man config
+        else if (PhotonNetwork.CurrentRoom.Name == "RaceLobby5Man")
         {
-            PhotonNetwork.LoadLevel("Tutorial");
+            // Set to start race for now whilst we build functionality for photon
+            PlayerController.isRacing = true;
+            PlayerController.useHeadLights = false;
+            if (audioManager == null) return;
+            FindObjectOfType<AudioManager>().Play("MenuSelect");
+            PhotonNetwork.LoadLevel("RaceTrack"); 
         }
     }
 

@@ -12382,6 +12382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632948596464ca149962be9496cce141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cars:
+  - {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
+  spawnPoints:
+  - {fileID: 380616572}
 --- !u!1 &380696292
 GameObject:
   m_ObjectHideFlags: 0
@@ -26616,7 +26620,6 @@ GameObject:
   - component: {fileID: 821454112}
   - component: {fileID: 821454111}
   - component: {fileID: 821454110}
-  - component: {fileID: 821454109}
   m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
@@ -26639,33 +26642,6 @@ Transform:
   m_Father: {fileID: 1140184001}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &821454109
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821454107}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &821454110
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -40370,7 +40346,6 @@ GameObject:
   - component: {fileID: 1236235761}
   - component: {fileID: 1236235760}
   - component: {fileID: 1236235759}
-  - component: {fileID: 1236235758}
   m_Layer: 0
   m_Name: Cone (1)
   m_TagString: Untagged
@@ -40393,33 +40368,6 @@ Transform:
   m_Father: {fileID: 1140184001}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1236235758
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236235756}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &1236235759
 MeshCollider:
   m_ObjectHideFlags: 0
