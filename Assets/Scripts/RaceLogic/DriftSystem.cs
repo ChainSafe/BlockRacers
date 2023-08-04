@@ -27,7 +27,7 @@ public class DriftSystem : MonoBehaviour
     // Our current drift score
     private int driftScore = 0;
     // Our player Rigidbody
-    private Rigidbody playerCar;
+    [SerializeField]private Rigidbody playerCar;
     private bool activateDriftSound;
 
     #endregion
@@ -40,7 +40,7 @@ public class DriftSystem : MonoBehaviour
     private void Start()
     {
         // Find our car object
-        playerCar = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        playerCar = gameObject.GetComponentInParent<Rigidbody>();
         // Singleton
         instance = this;
         // For some reason, the drift audio doesn't work when I drift, but only when I don't, so I swapped logic, and for some reason now it works
