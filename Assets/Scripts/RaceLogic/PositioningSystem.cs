@@ -3,18 +3,24 @@ using UnityEngine;
 
 public class PositioningSystem : MonoBehaviour
 {
+    #region Fields
+    
+    // WARNING -----------------------------------
+    // change later to be photon multiplayer car prefabs
+    [SerializeField] private GameObject carPrefab;
     [SerializeField] private GameObject checkPoint;
     [SerializeField] private GameObject checkPointHolder;
     [SerializeField] private GameObject[] cars;
     [SerializeField] private Transform[] checkPointPositions;
     [SerializeField] private GameObject[] checkPointForEachCar;
-    // WARNING -----------------------------------
-    // change later to be photon multiplayer car prefabs
-    [SerializeField] private GameObject carPrefab;
     private int totalCars;
     private int totalCheckPoints;
     private int position;
 
+    #endregion
+
+    #region Methods
+    
     /// <summary>
     /// Initialize objects
     /// </summary>
@@ -138,4 +144,6 @@ public class PositioningSystem : MonoBehaviour
         // Updates our position text
         cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
     }
+
+    #endregion
 }
