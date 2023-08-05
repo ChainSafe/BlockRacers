@@ -13,14 +13,14 @@ public class GarageMenu : MonoBehaviour
     
     // Singleton to access functions
     public static GarageMenu instance;
+    // Car prefabs
+    public GameObject car1, car2, car3;
     // Audio
     private AudioManager audioManager;
     // Global manager
     private GlobalManager globalManager;
     // Last selected colour
     private Color lastSelectedColour;
-    // Car prefabs
-    public GameObject car1, car2, car3;
     // Our upgrade menu objects
     private int upgradeIndex = 0;
     // Materials
