@@ -29,7 +29,7 @@ public class GarageMenu : MonoBehaviour
     // Car Sprites
     [SerializeField] private Sprite car1Sprite, car2Sprite, car3Sprite;
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuChangeNft, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
+    [SerializeField] private GameObject menuGarage, menuChangeCar, menuUpgrade, menuChangeNft, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton, purchaseButton;
@@ -103,7 +103,6 @@ public class GarageMenu : MonoBehaviour
     {
         menuMarket.SetActive(false);
         menuUpgrade.SetActive(false);
-        menuChangePaint.SetActive(false);
         menuChangeCar.SetActive(false);
         menuGarage.SetActive(true);
         // Sets our first selected button
@@ -122,18 +121,6 @@ public class GarageMenu : MonoBehaviour
         currentPaintImageCar.GetComponent<Image>().color = lastSelectedColour;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(selectCarButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Opens the change paint menu
-    /// </summary>
-    public void ChangePaintMenuButton()
-    {
-        menuChangeCar.SetActive(false);
-        menuChangePaint.SetActive(true);
-        currentPaintImagePaint.GetComponent<Image>().color = lastSelectedColour;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

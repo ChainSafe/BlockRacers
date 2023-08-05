@@ -14661,7 +14661,6 @@ MonoBehaviour:
   car3Sprite: {fileID: 21300000, guid: 1531e7c4df7941f4f83d1693e50dff74, type: 3}
   menuGarage: {fileID: 593434782}
   menuChangeCar: {fileID: 919907643}
-  menuChangePaint: {fileID: 0}
   menuUpgrade: {fileID: 946512449}
   menuChangeNft: {fileID: 1658341960}
   menuMarket: {fileID: 423042307}
@@ -15335,7 +15334,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 455262208}
         m_TargetAssemblyTypeName: GarageUI, Assembly-CSharp
         m_MethodName: OpenUpgrades
         m_Mode: 1
@@ -43718,9 +43717,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GarageUI, Assembly-CSharp
-        m_MethodName: OpenUpgrades
+      - m_Target: {fileID: 455262207}
+        m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+        m_MethodName: NftMenuButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
