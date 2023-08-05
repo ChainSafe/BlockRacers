@@ -7,9 +7,9 @@ public class GarageUI : MonoBehaviour
 {
     #region Fields
     
-    public GameObject MenuItems;
-    public GameObject ShowroomUI;
-    public GameObject UpgradeMenu;
+    [SerializeField] private GameObject MenuItems;
+    [SerializeField] private GameObject ShowroomUI;
+    [SerializeField] private GameObject UpgradeMenu;
 
     #endregion
 
