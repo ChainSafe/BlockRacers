@@ -239,7 +239,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-
+    
+    /// <summary>
+    /// Updates players in room and checks if we're ready to race
+    /// </summary>
     private void Update()
     {
         if (!PhotonNetwork.InRoom) return;
