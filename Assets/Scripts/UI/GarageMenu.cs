@@ -13,26 +13,26 @@ public class GarageMenu : MonoBehaviour
     
     // Singleton to access functions
     public static GarageMenu instance;
-    // Materials
-    public Texture2D redSprite, blueSprite, magentaSprite;
+    // Audio
+    private AudioManager audioManager;
+    // Global manager
+    private GlobalManager globalManager;
+    // Last selected colour
+    private Color lastSelectedColour;
     // Car prefabs
     public GameObject car1, car2, car3;
     // Our upgrade menu objects
-    public int upgradeIndex = 0;
-    public GameObject purchaseButton;
-    public TextMeshProUGUI descriptionText;
+    private int upgradeIndex = 0;
+    // Materials
+    [SerializeField] private Texture2D redSprite, blueSprite, magentaSprite;
+    [SerializeField] private TextMeshProUGUI descriptionText;
     // Car Sprites
-    public Sprite car1Sprite, car2Sprite, car3Sprite;
-    // Audio
-    private AudioManager audioManager;
-    private Color lastSelectedColour;
+    [SerializeField] private Sprite car1Sprite, car2Sprite, car3Sprite;
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
+    [SerializeField] private GameObject menuGarage, menuChangeCar, menuChangePaint, menuUpgrade, menuChangeNft, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     // Menu buttons
-    [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton;
-    // Global manager
-    private GlobalManager globalManager;
+    [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton, purchaseButton;
 
     #endregion
 
@@ -53,6 +53,24 @@ public class GarageMenu : MonoBehaviour
         lastSelectedColour = Color.red;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
+    }
+    
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
+    /// A function to be accessed from all other scripts for button sounds to prevent referencing the audio manager everywhere
+    /// </summary>
+    public void PlayMenuSelect()
+    {
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     /// <summary>
@@ -78,24 +96,6 @@ public class GarageMenu : MonoBehaviour
                 PurchaseNosUpgrade();
                 break;
         }
-    }
-    
-    /// <summary>
-    /// Sets our selected button to what we've moused over
-    /// </summary>
-    /// <param name="button"></param>
-    public void OnMouseOverButton(GameObject button)
-    {
-        EventSystem.current.SetSelectedGameObject(button);
-    }
-
-    /// <summary>
-    /// A function to be accessed from all other scripts for button sounds to prevent referencing the audio manager everywhere
-    /// </summary>
-    public void PlayMenuSelect()
-    {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     // Closes other menus & opens the garage menu
@@ -148,6 +148,17 @@ public class GarageMenu : MonoBehaviour
         nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
         menuGarage.SetActive(false);
         menuUpgrade.SetActive(true);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Opens the nft menu
+    /// </summary>
+    public void NftMenuButton()
+    {
+        menuGarage.SetActive(false);
+        menuChangeNft.SetActive(true);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

@@ -31,6 +31,15 @@ public class VerifyMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
     /// Verifies user owner ship of a wallet address
     /// </summary>
     public void Verify()

@@ -31,6 +31,15 @@ public class VoucherMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
     /// Generates a voucher to be used to almost anything
     /// </summary>
     public void GenerateVoucher()
