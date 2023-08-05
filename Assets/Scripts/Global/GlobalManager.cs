@@ -17,6 +17,11 @@ public class GlobalManager : MonoBehaviour
     public int engineLevel, handlingLevel, nosLevel;
     // Connected bool
     public bool connected;
+    // Race won bool for wagering
+    public bool raceWon;
+    // Bool to check if wagering is active or not
+    public bool wagering;
+    public bool wagerAccepted;
     
     #endregion
 
