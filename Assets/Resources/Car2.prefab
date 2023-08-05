@@ -9602,7 +9602,7 @@ GameObject:
   - component: {fileID: 5142251240708567037}
   - component: {fileID: 1111871690406208186}
   m_Layer: 5
-  m_Name: LapTitle
+  m_Name: LapCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9620,6 +9620,7 @@ RectTransform:
   m_LocalScale: {x: 1.2682426, y: 1.2682426, z: 1.2682426}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1902512269869864834}
   - {fileID: 5426448698881710582}
   - {fileID: 1120289454300477909}
   - {fileID: 5213526062792840999}
@@ -11608,7 +11609,7 @@ MonoBehaviour:
   scoringRate: 1
   driftAngleThreshold: 20
   angularVelocityThreshold: 0.01
-  playerCar: {fileID: 0}
+  playerCar: {fileID: 1057638535305188938}
 --- !u!1 &4134692920801049738
 GameObject:
   m_ObjectHideFlags: 0
@@ -14027,6 +14028,56 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &5621259615647960062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1902512269869864834}
+  - component: {fileID: 143439060998082346}
+  m_Layer: 5
+  m_Name: LapSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1902512269869864834
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5621259615647960062}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3220895312259122282}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &143439060998082346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5621259615647960062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 3596617806288133237}
 --- !u!1 &5622205035729315038
 GameObject:
   m_ObjectHideFlags: 0
@@ -28090,7 +28141,8 @@ MonoBehaviour:
   PV: {fileID: 998699689225104954}
   PVTransformView: {fileID: 5459080129973006870}
   PVRigidBody: {fileID: 3897692608368124408}
-  LapCanvas: {fileID: 2880676153313690704}
+  lapCanvas: {fileID: 2880676153313690704}
+  lapCountText: {fileID: 4479042368607263063}
 --- !u!114 &3369994398039113402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28142,7 +28194,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!114 &3897692608368124408
 MonoBehaviour:
   m_ObjectHideFlags: 0

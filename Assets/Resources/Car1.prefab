@@ -181,7 +181,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32285401018964479}
-  m_LocalRotation: {x: -0.22717534, y: -0.020091757, z: 0.00468792, w: -0.97363526}
+  m_LocalRotation: {x: -0.22717537, y: -0.02009167, z: 0.0046879207, w: -0.9736353}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2293,6 +2293,52 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &1877673796342107467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3504994138329838497}
+  - component: {fileID: 6244643882201091213}
+  m_Layer: 0
+  m_Name: LapTimer
+  m_TagString: LapTimerText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3504994138329838497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877673796342107467}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -53.117043, y: -862.9235, z: -277.56284}
+  m_LocalScale: {x: 0.7884927, y: 0.7884927, z: 0.7884927}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7125583350594033224}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6244643882201091213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877673796342107467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da0a03a47691e941a7b906cdac6c173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LapTimeText: {fileID: 1589098388084168379}
+  splitTimeText: {fileID: 4226621287415067219}
 --- !u!1 &1914938568152144963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2351,7 @@ GameObject:
   - component: {fileID: 7988234974224790974}
   - component: {fileID: 5647445846239410054}
   m_Layer: 5
-  m_Name: LapTitle
+  m_Name: LapCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2323,9 +2369,11 @@ RectTransform:
   m_LocalScale: {x: 1.2682426, y: 1.2682426, z: 1.2682426}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3846311238400294330}
   - {fileID: 8948926799721584453}
   - {fileID: 8295407968755353929}
   - {fileID: 5652217608848285772}
+  - {fileID: 3504994138329838497}
   m_Father: {fileID: 5840653781752345055}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3746,6 +3794,56 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3551329634955519413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3846311238400294330}
+  - component: {fileID: 8488840944007644101}
+  m_Layer: 5
+  m_Name: LapSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3846311238400294330
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551329634955519413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7125583350594033224}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8488840944007644101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551329634955519413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 1588613571638756571}
 --- !u!1 &3594665737670526026
 GameObject:
   m_ObjectHideFlags: 0
@@ -7745,7 +7843,8 @@ MonoBehaviour:
   PV: {fileID: 5544638753545221456}
   PVTransformView: {fileID: 3436975106239572037}
   PVRigidBody: {fileID: 2295405580879405016}
-  LapCanvas: {fileID: 1914938568152144963}
+  lapCanvas: {fileID: 1914938568152144963}
+  lapCountText: {fileID: 1033441131213463883}
 --- !u!114 &4683793240789542278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7797,7 +7896,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!114 &2295405580879405016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7811,7 +7910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
+  m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5428867020422820542
@@ -13038,7 +13137,7 @@ GameObject:
   - component: {fileID: 1033441131213463883}
   m_Layer: 5
   m_Name: LapCount
-  m_TagString: Untagged
+  m_TagString: LapCountText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13746,7 +13845,7 @@ MonoBehaviour:
   scoringRate: 1
   driftAngleThreshold: 20
   angularVelocityThreshold: 0.01
-  playerCar: {fileID: 0}
+  playerCar: {fileID: 892240045161491238}
 --- !u!1 &6381367142054084089
 GameObject:
   m_ObjectHideFlags: 0
@@ -17304,7 +17403,7 @@ GameObject:
   - component: {fileID: 3453253199851986412}
   m_Layer: 5
   m_Name: FinalLapReminder
-  m_TagString: Untagged
+  m_TagString: FinalLapReminder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -6,11 +6,16 @@ TagManager:
   tags:
   - AudioManager
   - GlobalManager
-  - Checkpoint
   - LapCollider
   - NitrousFill
   - StatsManager
   - Car
+  - Checkpoint1
+  - Checkpoint2
+  - Checkpoint3
+  - LapCountText
+  - LapTimerText
+  - FinalLapReminder
   layers:
   - Default
   - TransparentFX

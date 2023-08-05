@@ -9,18 +9,14 @@ public class LapSystem : MonoBehaviour
 {
     #region Fields
     
-    // Our UI
-    public TextMeshProUGUI lapCountText;
-    // Our checkpoint colliders
-    public GameObject[] checkPoints;
-    // Our final lap reminder
-    public GameObject LapReminder;
     // Logic for the checkpoints and laps
-    [SerializeField] private static int checkpointCount;
-    // Lap count
-    [SerializeField] private int lapCount;
-    // Global Manager
+    private static int checkpointCount;
+    // Our checkpoint colliders
+    private GameObject[] checkPoints;
+    // Global manager
     private GlobalManager globalManager;
+    // Player controller
+    [SerializeField] private PlayerController playerController;
 
     #endregion
 
@@ -33,7 +29,10 @@ public class LapSystem : MonoBehaviour
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        lapCount = 1;
+        checkPoints[0] = GameObject.FindWithTag("Checkpoint1");
+        checkPoints[1] = GameObject.FindWithTag("Checkpoint2");
+        checkPoints[2] = GameObject.FindWithTag("Checkpoint3");
+        playerController.LapCount = 1;
     }
     
     /// <summary>
@@ -46,27 +45,27 @@ public class LapSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // If we collide with a checkpoint..
-            if (this.gameObject.tag == "Checkpoint")
+            if (gameObject == checkPoints[0] || gameObject == checkPoints[1] || gameObject == checkPoints[2])
             {
                 // Show our split time
                 TimerSystem.instance.ShowSplitTime();
                 // Increase our checkpoint count
                 checkpointCount++;
                 // Disable the checkpoint so that players can't cheat
-                this.gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
             // If we collide with the finish line..
-            if (this.gameObject.tag == "LapCollider")
+            if (gameObject.tag == "LapCollider")
             {
                 // If we have all three checkpoints
                 if (checkpointCount > 2)
                 {
                     // Increase our lap count
-                    lapCount++;
+                    playerController.LapCount++;
                     // Reset our timer
                     TimerSystem.instance.ResetTimer();
                     // Show our lap count on the UI
-                    lapCountText.text = lapCount.ToString();
+                    playerController.lapCountText.text = playerController.LapCount.ToString();
                     // Reset our checkpoint count
                     checkpointCount = 0;
                     // Re-enable all our checkpoints
@@ -75,12 +74,12 @@ public class LapSystem : MonoBehaviour
                         checkpoint.SetActive(true);
                     }
                     // Let the player know it's their final lap..
-                    if (lapCount > 2)
+                    if (playerController.LapCount > 2)
                     {
-                        LapReminder.SetActive(true);
+                        GameObject.FindWithTag("FinalLapReminder").SetActive(true);
                     }
                     // When we've completed all three laps..
-                    if (lapCount > 3)
+                    if (playerController.LapCount > 3)
                     {
                         // Race over logic goes here
                         // Probably some kind of UI, but I can't put it here just yet because MP logic is still required.

@@ -1,4 +1,5 @@
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,11 +50,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
-    [SerializeField] private GameObject LapCanvas;
+    // Lap config
+    [SerializeField] private GameObject lapCanvas;
+    // Lap config
+    public TextMeshProUGUI lapCountText;
+    private int lapCount;
 
     #endregion
 
     #region Properties
+    
+    /// <summary>
+    /// The current lap
+    /// </summary>
+    public int LapCount
+    {
+        get => lapCount;
+        set => lapCount = value;
+    }
     
     /// <summary>
     /// The current gear being used
@@ -174,7 +188,7 @@ public class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
         PVTransformView.enabled = false;
         PVRigidBody.enabled = false;
-        LapCanvas.SetActive(false);
+        lapCanvas.SetActive(false);
     }
 
     private void Start()
