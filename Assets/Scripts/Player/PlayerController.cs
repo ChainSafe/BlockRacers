@@ -202,6 +202,9 @@ public class PlayerController : MonoBehaviour
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
+        // WARNING ``````````````````````
+        // Set car layer, car1 L6, car 2 L7, car3 L8, car4 L9, car5 L10, change later to for photon
+        //gameObject.layer = 6;
     }
 
     /// <summary>

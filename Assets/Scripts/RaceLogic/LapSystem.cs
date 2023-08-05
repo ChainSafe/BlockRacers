@@ -11,10 +11,6 @@ public class LapSystem : MonoBehaviour
     
     // Placement for race
     private int placement;
-    // Logic for the checkpoints and laps
-    private static int checkpointCount;
-    // Our checkpoint colliders
-    private GameObject[] checkPoints;
     // Global manager
     private GlobalManager globalManager;
     // Player controller
@@ -31,9 +27,6 @@ public class LapSystem : MonoBehaviour
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        checkPoints[0] = GameObject.FindWithTag("Checkpoint1");
-        checkPoints[1] = GameObject.FindWithTag("Checkpoint2");
-        checkPoints[2] = GameObject.FindWithTag("Checkpoint3");
         playerController.LapCount = 1;
     }
     
@@ -46,21 +39,11 @@ public class LapSystem : MonoBehaviour
         // If it's the local player
         if (other.CompareTag("Player"))
         {
-            // If we collide with a checkpoint..
-            if (gameObject == checkPoints[0] || gameObject == checkPoints[1] || gameObject == checkPoints[2])
-            {
-                // Show our split time
-                TimerSystem.instance.ShowSplitTime();
-                // Increase our checkpoint count
-                checkpointCount++;
-                // Disable the checkpoint so that players can't cheat
-                gameObject.SetActive(false);
-            }
             // If we collide with the finish line..
             if (gameObject.tag == "LapCollider")
             {
-                // If we have all three checkpoints
-                if (checkpointCount > 2)
+                // If we have passed all check points
+                if (playerController.GetComponent<CheckPointManager>().CheckPointCrossed > playerController.GetComponent<CheckPointManager>().CheckPointCrossed - 1)
                 {
                     // Increase our lap count
                     playerController.LapCount++;
@@ -68,13 +51,8 @@ public class LapSystem : MonoBehaviour
                     TimerSystem.instance.ResetTimer();
                     // Show our lap count on the UI
                     playerController.lapCountText.text = playerController.LapCount.ToString();
-                    // Reset our checkpoint count
-                    checkpointCount = 0;
                     // Re-enable all our checkpoints
-                    foreach (GameObject checkpoint in checkPoints)
-                    {
-                        checkpoint.SetActive(true);
-                    }
+                    playerController.GetComponent<PositioningSystem>().SetCheckPoints();
                     // Let the player know it's their final lap..
                     if (playerController.LapCount > 2)
                     {

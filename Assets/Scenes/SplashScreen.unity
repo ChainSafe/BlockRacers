@@ -329,11 +329,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: 
   playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
-  nftSprite: {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
+  nftSprite: {fileID: 2800000, guid: faf906343c4cd8f4091e10992def1b05, type: 3}
   engineLevel: 1
   handlingLevel: 1
   nosLevel: 1
   connected: 0
+  raceWon: 0
+  wagering: 0
+  wagerAccepted: 0
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0
