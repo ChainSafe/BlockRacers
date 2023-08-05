@@ -31,6 +31,15 @@ public class CustomCallMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
     /// Reads a variable from a contract
     /// </summary>
     public void ReadContract()

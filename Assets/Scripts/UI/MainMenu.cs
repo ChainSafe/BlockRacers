@@ -72,22 +72,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
-    /// <summary>
-    /// Used to mint free game tokens
-    /// </summary>
-    public void MintTokensButton()
-    {
-        // Mint token functionality here
-    }
-    
-    /// <summary>
-    /// Used to open the faucet for gas tokens
-    /// </summary>
-    public void GasTokensButton()
-    {
-        Application.OpenURL("https://cronos.org/faucet");
-    }
 
     /// <summary>
     /// Opens the tutorial area

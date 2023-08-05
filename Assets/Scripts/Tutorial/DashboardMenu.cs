@@ -31,6 +31,15 @@ public class DashboardMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
     /// Opens the Chainsafe gaming dashboard
     /// </summary>
     public void OpenDashboard()

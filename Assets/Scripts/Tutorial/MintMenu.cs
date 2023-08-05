@@ -31,6 +31,15 @@ public class MintMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
     /// Mints custom tokens to the users address
     /// </summary>
     public void MintCustomTokens()
@@ -44,6 +53,7 @@ public class MintMenu : MonoBehaviour
     /// </summary>
     public void OpenGasFaucetPage()
     {
+        Application.OpenURL("https://cronos.org/faucet");
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

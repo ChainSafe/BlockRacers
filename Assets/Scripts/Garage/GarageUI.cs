@@ -56,7 +56,7 @@ public class GarageUI : MonoBehaviour
     /// <summary>
     /// Takes the user to the showroom
     /// </summary>
-    private void ToShowRoom()
+    public void ToShowRoom()
     {
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();

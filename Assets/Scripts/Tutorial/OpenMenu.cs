@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Opens a chosen menu for the tutorial
+/// </summary>
 public class OpenMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Fields
+    
+    [SerializeField] private GameObject menuToOpen;
+
+    #endregion
+
+    #region Methods
+    
+    /// <summary>
+    /// Opens a menu on collision for the user to learn about the SDK
+    /// </summary>
+    /// <param name="other"></param>
+    public void OnTriggerEnter(Collider other)
     {
-        
+        menuToOpen.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
