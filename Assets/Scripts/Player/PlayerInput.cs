@@ -18,6 +18,9 @@ public class PlayerInput : MonoBehaviour
 
     #region Methods
     
+    /// <summary>
+    /// Initializes our input actions and listens, needed for the new input system
+    /// </summary>
     private void Awake()
     {
         playerController = gameObject.GetComponent<PlayerController>();
@@ -49,7 +52,6 @@ public class PlayerInput : MonoBehaviour
     {
         var currentMovementInput = context.ReadValue<Vector2>();
         playerController.HorizontalInput = currentMovementInput.x;
-        //verticalInput = currentMovementInput.y;
     }
     
     /// <summary>

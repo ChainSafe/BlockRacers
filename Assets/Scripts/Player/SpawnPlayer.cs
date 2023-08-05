@@ -12,8 +12,6 @@ public class SpawnPlayer : MonoBehaviour
     
     // Global manager
     private GlobalManager globalManager;
-    private string sceneName;
-    [SerializeField] private GameObject[] cars;
     [SerializeField] private GameObject[] spawnPoints;
 
     #endregion
@@ -27,8 +25,6 @@ public class SpawnPlayer : MonoBehaviour
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        // Sets our scene name
-        sceneName = SceneManager.GetActiveScene().name;
     }
     
     /// <summary>
@@ -37,14 +33,14 @@ public class SpawnPlayer : MonoBehaviour
     private void Start()
     {
         // Instantiate chosen car if we're in the tutorial
-        if (sceneName.ToString() == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             Instantiate(globalManager.playerCar);
         }
         else
         {
             // Instantiate our multiplayer prefab
-            PhotonNetwork.Instantiate(cars[0].name, new Vector3(spawnPoints[0].transform.position.x, spawnPoints[0].transform.position.y, spawnPoints[0].transform.position.z), spawnPoints[0].transform.rotation, 0);
+            PhotonNetwork.Instantiate(globalManager.playerCar.name, new Vector3(spawnPoints[0].transform.position.x, spawnPoints[0].transform.position.y, spawnPoints[0].transform.position.z), spawnPoints[0].transform.rotation, 0);
         }
         
         // Sanity check to see if the player has entered the garage or not
