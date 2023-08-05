@@ -19357,7 +19357,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 455262207}
         m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
         m_MethodName: PurchaseUpgrade
         m_Mode: 1
