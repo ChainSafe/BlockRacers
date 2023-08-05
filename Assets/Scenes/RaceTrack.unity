@@ -1950,10 +1950,9 @@ GameObject:
   m_Component:
   - component: {fileID: 375088500}
   - component: {fileID: 375088501}
-  - component: {fileID: 375088502}
   m_Layer: 0
   m_Name: Checkpoint_2
-  m_TagString: Checkpoint
+  m_TagString: Checkpoint2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1994,22 +1993,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 7.4110193, z: 16.31819}
   m_Center: {x: 0.00013074756, y: 2.1352067, z: -22.11464}
---- !u!114 &375088502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 375088499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lapCountText: {fileID: 778229091}
-  checkPoints: []
-  LapReminder: {fileID: 882956726}
-  lapCount: 0
 --- !u!1 &417991755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3634,8 +3617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632948596464ca149962be9496cce141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cars:
-  - {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   spawnPoints:
   - {fileID: 639753095}
 --- !u!4 &639753097
@@ -7185,7 +7166,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1299288602}
   - component: {fileID: 1299288603}
-  - component: {fileID: 1299288604}
   m_Layer: 0
   m_Name: LapCollider
   m_TagString: LapCollider
@@ -7229,25 +7209,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 820.8776, y: 75.34107, z: 312.94305}
   m_Center: {x: 11.801603, y: -37.176754, z: 155.97162}
---- !u!114 &1299288604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299288601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lapCountText: {fileID: 778229091}
-  checkPoints:
-  - {fileID: 1872624204}
-  - {fileID: 375088499}
-  - {fileID: 1939846558}
-  LapReminder: {fileID: 882956726}
-  lapCount: 0
 --- !u!1 &1309674503
 GameObject:
   m_ObjectHideFlags: 0
@@ -8173,7 +8134,6 @@ Transform:
   m_Children:
   - {fileID: 2036016664088769174}
   - {fileID: 204971268}
-  - {fileID: 1669945831}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9559,52 +9519,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3167341960811067226, guid: a5f0802d837f7d14491582a0f6eb36de, type: 3}
   m_PrefabInstance: {fileID: 1643902812}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1669945830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1669945831}
-  - component: {fileID: 1669945832}
-  m_Layer: 0
-  m_Name: LapTimer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1669945831
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669945830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1392180969}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1669945832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669945830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da0a03a47691e941a7b906cdac6c173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LapTimeText: {fileID: 1348360003}
-  splitTimeText: {fileID: 2045237773}
 --- !u!1 &1694287055
 GameObject:
   m_ObjectHideFlags: 0
@@ -10698,10 +10612,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1872624205}
   - component: {fileID: 1872624206}
-  - component: {fileID: 1872624207}
   m_Layer: 0
   m_Name: Checkpoint_1
-  m_TagString: Checkpoint
+  m_TagString: Checkpoint1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10742,22 +10655,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 7.4110193, z: 58.032486}
   m_Center: {x: 0.000012585787, y: 2.1352067, z: -16.865868}
---- !u!114 &1872624207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872624204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lapCountText: {fileID: 778229091}
-  checkPoints: []
-  LapReminder: {fileID: 882956726}
-  lapCount: 0
 --- !u!1 &1878954135
 GameObject:
   m_ObjectHideFlags: 0
@@ -11069,10 +10966,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1939846559}
   - component: {fileID: 1939846560}
-  - component: {fileID: 1939846561}
   m_Layer: 0
   m_Name: Checkpoint_3
-  m_TagString: Checkpoint
+  m_TagString: Checkpoint3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11113,22 +11009,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 7.4110193, z: 22.024986}
   m_Center: {x: 0.00018647748, y: 2.1352067, z: -21.637688}
---- !u!114 &1939846561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939846558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c6ef90b0821104eb43c69ad95028b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lapCountText: {fileID: 778229091}
-  checkPoints: []
-  LapReminder: {fileID: 882956726}
-  lapCount: 0
 --- !u!1 &1944335876
 GameObject:
   m_ObjectHideFlags: 0
