@@ -76,7 +76,7 @@ public class LapSystem : MonoBehaviour
                     // Let the player know it's their final lap..
                     if (playerController.LapCount > 2)
                     {
-                        GameObject.FindWithTag("FinalLapReminder").SetActive(true);
+                        playerController.finalLapReminder.SetActive(true);
                     }
                     // When we've completed all three laps..
                     if (playerController.LapCount > 3)

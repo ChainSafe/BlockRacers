@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject lapCanvas;
     // Lap config
     public TextMeshProUGUI lapCountText;
+    public GameObject finalLapReminder;
     private int lapCount;
 
     #endregion

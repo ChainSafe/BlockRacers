@@ -181,7 +181,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32285401018964479}
-  m_LocalRotation: {x: -0.22717537, y: -0.02009167, z: 0.0046879207, w: -0.9736353}
+  m_LocalRotation: {x: -0.22717534, y: -0.020091757, z: 0.00468792, w: -0.97363526}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2305,7 +2305,7 @@ GameObject:
   - component: {fileID: 6244643882201091213}
   m_Layer: 0
   m_Name: LapTimer
-  m_TagString: LapTimerText
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2370,6 +2370,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3846311238400294330}
+  - {fileID: 8986811762536642094}
   - {fileID: 8948926799721584453}
   - {fileID: 8295407968755353929}
   - {fileID: 5652217608848285772}
@@ -2512,7 +2513,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3823424061995588582}
-  - {fileID: 8986811762536642094}
   - {fileID: 2337137502999472217}
   - {fileID: 7125583350594033224}
   - {fileID: 3039248745300411344}
@@ -7845,6 +7845,7 @@ MonoBehaviour:
   PVRigidBody: {fileID: 2295405580879405016}
   lapCanvas: {fileID: 1914938568152144963}
   lapCountText: {fileID: 1033441131213463883}
+  finalLapReminder: {fileID: 8441534457674155751}
 --- !u!114 &4683793240789542278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8015,16 +8016,16 @@ RectTransform:
   m_GameObject: {fileID: 5442764758512749347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7884927, y: 0.7884927, z: 0.7884927}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8341241015474974674}
-  m_Father: {fileID: 5840653781752345055}
+  m_Father: {fileID: 7125583350594033224}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.000036, y: -217.99998}
+  m_AnchoredPosition: {x: 641.0451, y: -562.3283}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5642127471603282933
@@ -17403,7 +17404,7 @@ GameObject:
   - component: {fileID: 3453253199851986412}
   m_Layer: 5
   m_Name: FinalLapReminder
-  m_TagString: FinalLapReminder
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
