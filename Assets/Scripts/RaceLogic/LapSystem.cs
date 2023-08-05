@@ -9,6 +9,8 @@ public class LapSystem : MonoBehaviour
 {
     #region Fields
     
+    // Placement for race
+    private int placement;
     // Logic for the checkpoints and laps
     private static int checkpointCount;
     // Our checkpoint colliders
@@ -81,9 +83,12 @@ public class LapSystem : MonoBehaviour
                     // When we've completed all three laps..
                     if (playerController.LapCount > 3)
                     {
-                        // Race over logic goes here
-                        // Probably some kind of UI, but I can't put it here just yet because MP logic is still required.
-                        // Taking us back to the menu just as a temporary game loop
+                        // If we're first enable the global bool for claims
+                        if (placement == 1 && globalManager.wagering)
+                        {
+                            globalManager.raceWon = true;
+                        }
+                        // Race over logic
                         globalManager.sceneToLoad = "FinishRace";
                         SceneManager.LoadScene("LoadingScreen");
 

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,7 @@ public class FinishScreen : MonoBehaviour
     // Audio
     private AudioManager audioManager;
     // Buttons
-    [SerializeField] private GameObject firstButton;
+    [SerializeField] private GameObject menuButton, claimButton;
 
     #endregion
 
@@ -25,6 +26,8 @@ public class FinishScreen : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Stops scene sync
+        PhotonNetwork.AutomaticallySyncScene = false;
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
@@ -35,7 +38,16 @@ public class FinishScreen : MonoBehaviour
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
         // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(firstButton);
+        EventSystem.current.SetSelectedGameObject(menuButton);
+        PhotonNetwork.LeaveRoom();
+        // Enables the claim button if we've won
+        if (globalManager.raceWon && globalManager.wagering)
+        {
+            claimButton.SetActive(true);
+        }
+        // Resets our race won and wagering bools for the next match
+        globalManager.raceWon = false;
+        globalManager.wagering = false;
     }
     
     /// <summary>
@@ -45,6 +57,12 @@ public class FinishScreen : MonoBehaviour
     public void OnMouseOverButton(GameObject button)
     {
         EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void ClaimWinnings()
+    {
+        // Claim functionality goes here
+        Debug.Log("Claiming Winnings! Congratulations!");
     }
     
     /// <summary>
