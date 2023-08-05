@@ -50,8 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
     [SerializeField] private GameObject LapCanvas;
-    private string sceneName;
-    
+
     #endregion
 
     #region Properties
@@ -172,8 +171,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         // Disables photon components if we're in the tutorial as it bugs out
-        sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName != "Tutorial") return;
+        if (SceneManager.GetActiveScene().name != "Tutorial") return;
         PVTransformView.enabled = false;
         PVRigidBody.enabled = false;
         LapCanvas.SetActive(false);
@@ -299,7 +297,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Applies braking when active
     /// </summary>
-    private void ApplyBraking() {
+    private void ApplyBraking()
+    {
         frontRightWheelCollider.brakeTorque = currentBrakeForce;
         frontLeftWheelCollider.brakeTorque = currentBrakeForce;
         rearLeftWheelCollider.brakeTorque = currentBrakeForce;
@@ -319,7 +318,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Wheel colliders & transforms
     /// </summary>
-    private void UpdateWheels() {
+    private void UpdateWheels()
+    {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
         UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform);
         UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
@@ -331,7 +331,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="wheelCollider">The collider of the wheel</param>
     /// <param name="wheelTransform">The transform of the wheel</param>
-    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform) {
+    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    {
         Vector3 pos;
         Quaternion rot; 
         wheelCollider.GetWorldPose(out pos, out rot);
@@ -368,7 +369,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Tracks needed vehicle functions
     /// </summary>
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         HandleMotor();
         HandleSteering();
         UpdateWheels();

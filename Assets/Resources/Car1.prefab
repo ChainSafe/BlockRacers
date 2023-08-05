@@ -2552,10 +2552,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raceUI: []
-  pauseMenu: {fileID: 0}
-  optionsMenu: {fileID: 0}
-  controlsMenu: {fileID: 0}
-  firstButton: {fileID: 0}
+  pauseMenu: {fileID: 1190415732329656208}
+  optionsMenu: {fileID: 1293724546853226020}
+  controlsMenu: {fileID: 6634732500733574105}
+  firstButton: {fileID: 3457150667017925828}
 --- !u!1 &2067525711362593205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7758,6 +7758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fe3d00ac4c25d44a7bb90463d7d561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 1588613571638756571}
 --- !u!114 &5544638753545221456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7811,7 +7812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
+  m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5428867020422820542

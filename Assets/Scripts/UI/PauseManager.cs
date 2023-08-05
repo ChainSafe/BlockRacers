@@ -43,6 +43,75 @@ public class PauseManager : MonoBehaviour
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
     }
+    
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button"></param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+    
+    /// <summary>
+    /// Pause input
+    /// </summary>
+    /// <param name="context"></param>
+    private void OnPauseInput(InputAction.CallbackContext context)
+    {
+        if (!paused && CountDownSystem.raceStarted)
+        {
+            Pause();
+        }
+        else if (paused && CountDownSystem.raceStarted)
+        {
+            Unpause();
+        }
+    }
+
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
+    private void Pause()
+    {
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(firstButton);
+        // Unlocks the cursor so the user can select things
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        // Sets our paused bool
+        pauseMenu.SetActive(true);
+        paused = true;
+        if (raceUI == null) return;
+        foreach(GameObject raceUI in raceUI)
+        {
+            raceUI.SetActive(false);
+        }
+        // Plays pause sound
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Unpauses the game
+    /// </summary>
+    private void Unpause()
+    {
+        // Locks the cursor so the user can resume playing normally
+        Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.visible = false;
+        // Sets our paused bool
+        pauseMenu.SetActive(false);
+        paused = false;
+        if (raceUI == null) return;
+        foreach (GameObject raceUI in raceUI)
+        {
+            raceUI.SetActive(true);
+        }
+        // Plays pause sound
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
 
     /// <summary>
     /// Goes to the main menu
@@ -111,75 +180,6 @@ public class PauseManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
-    /// <summary>
-    /// Sets our selected button to what we've moused over
-    /// </summary>
-    /// <param name="button"></param>
-    public void OnMouseOverButton(GameObject button)
-    {
-        EventSystem.current.SetSelectedGameObject(button);
-    }
-    
-    /// <summary>
-    /// Pause input
-    /// </summary>
-    /// <param name="context"></param>
-    private void OnPauseInput(InputAction.CallbackContext context)
-    {
-        if (!paused && CountDownSystem.raceStarted)
-        {
-            Pause();
-        }
-        else if (paused && CountDownSystem.raceStarted)
-        {
-            Unpause();
-        }
-    }
-
-    /// <summary>
-    /// Pauses the game
-    /// </summary>
-    private void Pause()
-    {
-        // Unlocks the cursor so the user can select things
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        // Sets our paused bool
-        pauseMenu.SetActive(true);
-        paused = true;
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(firstButton);
-        if (raceUI == null) return;
-        foreach(GameObject raceUI in raceUI)
-        {
-            raceUI.SetActive(false);
-        }
-        // Plays pause sound
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-    
-    /// <summary>
-    /// Unpauses the game
-    /// </summary>
-    private void Unpause()
-    {
-        // Locks the cursor so the user can resume playing normally
-        Cursor.lockState =  CursorLockMode.Locked;
-        Cursor.visible = false;
-        // Sets our paused bool
-        pauseMenu.SetActive(false);
-        paused = false;
-        if (raceUI == null) return;
-        foreach (GameObject raceUI in raceUI)
-        {
-            raceUI.SetActive(true);
-        }
-        // Plays pause sound
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-    
     /// <summary>
     /// Enables player input
     /// </summary>
