@@ -19,20 +19,14 @@ public class GarageMenu : MonoBehaviour
     private AudioManager audioManager;
     // Global manager
     private GlobalManager globalManager;
-    // Last selected colour
-    private Color lastSelectedColour;
     // Our upgrade menu objects
-    private int upgradeIndex = 0;
-    // Materials
-    [SerializeField] private Texture2D redSprite, blueSprite, magentaSprite;
+    private int upgradeIndex;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    // Car Sprites
-    [SerializeField] private Sprite car1Sprite, car2Sprite, car3Sprite;
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuChangeCar, menuUpgrade, menuChangeNft, menuMarket, currentCarImage, currentPaintImageCar, currentPaintImagePaint;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket;
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     // Menu buttons
-    [SerializeField] private GameObject changeCarButton, selectCarButton, selectItemButton, purchaseButton;
+    [SerializeField] private GameObject changeCarButton, selectItemButton, purchaseButton;
 
     #endregion
 
@@ -49,8 +43,6 @@ public class GarageMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        // Set default to red
-        lastSelectedColour = Color.red;
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
@@ -65,7 +57,7 @@ public class GarageMenu : MonoBehaviour
     }
     
     /// <summary>
-    /// A function to be accessed from all other scripts for button sounds to prevent referencing the audio manager everywhere
+    /// A function to plat the menu selection sound
     /// </summary>
     public void PlayMenuSelect()
     {
@@ -73,14 +65,133 @@ public class GarageMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
+    // Closes other menus & opens the garage menu
+    public void GarageMenuButton()
+    {
+        if (menuShowRoom.activeSelf)
+        {
+            Debug.Log("Showroom active");
+            // Rotate our camera back
+            CameraController.instance.RotateCamera(-95f, 0.5f);
+        }
+        menuMarket.SetActive(false);
+        menuUpgrade.SetActive(false);
+        menuShowRoom.SetActive(false);
+        menuGarage.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(changeCarButton);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Opens the car upgrade menu for the player
+    /// </summary>
+    public void OpenUpgrades()
+    {
+        // Changes menu displays
+        menuUpgrade.SetActive(true);
+        menuShowRoom.SetActive(false);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Closes the car upgrade menu for the player
+    /// </summary>
+    public void CloseUpgrades()
+    {
+        // Changes menu displays
+        menuUpgrade.SetActive(false);
+        menuShowRoom.SetActive(true);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+    
+    /// <summary>
+    /// Takes the user to the showroom
+    /// </summary>
+    public void ToShowRoom()
+    {
+        // Rotate our camera to the showroom cars
+        CameraController.instance.RotateCamera(95f, 0.5f);
+        // Changes menu displays
+        menuGarage.SetActive(false);
+        menuShowRoom.SetActive(true);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+    
+    /// <summary>
+    /// Opens the nft menu
+    /// </summary>
+    public void NftMenuButton()
+    {
+        menuGarage.SetActive(false);
+        menuChangeNft.SetActive(true);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Opens the marketplace menu
+    /// </summary>
+    public void MarketMenuButton()
+    {
+        menuGarage.SetActive(false);
+        menuMarket.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(selectItemButton);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Leaves garage and goes to the main menu
+    /// </summary>
+    public void MainMenuButton()
+    {
+        globalManager.sceneToLoad = "MenuScene";
+        SceneManager.LoadScene("LoadingScreen");
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Change to car 1
+    /// </summary>
+    public void SelectCar1()
+    {
+        globalManager.playerCar = car1;
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    /// Changes to car 2
+    /// </summary>
+    public void SelectCar2()
+    {
+        globalManager.playerCar = car2;
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    /// <summary>
+    ///  Changes car 3
+    /// </summary>
+    public void SelectCar3()
+    {
+        globalManager.playerCar = car3;
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+    
     /// <summary>
     /// Purchase manager for upgrades
     /// </summary>
     public void PurchaseUpgrade()
     {
-        // Play our menu select audio
-        PlayMenuSelect();
-
         // Based on which upgrade is currently selected, we invoke the required method
         switch (upgradeIndex)
         {
@@ -96,161 +207,53 @@ public class GarageMenu : MonoBehaviour
                 PurchaseNosUpgrade();
                 break;
         }
-    }
-
-    // Closes other menus & opens the garage menu
-    public void GarageMenuButton()
-    {
-        menuMarket.SetActive(false);
-        menuUpgrade.SetActive(false);
-        menuChangeCar.SetActive(false);
-        menuGarage.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(changeCarButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Play our menu select audio
+        PlayMenuSelect();
     }
 
     /// <summary>
-    /// Opens the change car menu
+    /// Selects the engine upgrade
     /// </summary>
-    public void ChangeCarMenuButton()
+    public void SelectEngineUpgrade()
     {
-        menuGarage.SetActive(false);
-        menuChangeCar.SetActive(true);
-        currentPaintImageCar.GetComponent<Image>().color = lastSelectedColour;
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(selectCarButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Opens the upgrade menu
-    /// </summary>
-    public void UpgradeMenuButton()
-    {
-        engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
-        handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
-        nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
-        menuGarage.SetActive(false);
-        menuUpgrade.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Sets index and displays description of upgrade
+        upgradeIndex = 1;
+        descriptionText.text = "upgrading your engine will improve your acceleration and top speed";
+        // You can change a cost variable here to display how much an upgrade costs if required
+        // Play our menu select audio
+        PlayMenuSelect();
     }
     
     /// <summary>
-    /// Opens the nft menu
+    /// Selects the handling upgrade
     /// </summary>
-    public void NftMenuButton()
+    public void SelectHandlingUpgrade()
     {
-        menuGarage.SetActive(false);
-        menuChangeNft.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Sets index and displays description of upgrade
+        upgradeIndex = 2;
+        descriptionText.text = "upgrading your handling will improve the agility of your car and ability to hold a drift";
+        // You can change a cost variable here to display how much an upgrade costs if required
+        // Play our menu select audio
+        PlayMenuSelect();
     }
 
     /// <summary>
-    /// Opens the marketplace menu
+    /// Selects the NOS upgrade
     /// </summary>
-    public void MarketMenuButton()
+    public void SelectNOSUpgrade()
     {
-        menuGarage.SetActive(false);
-        menuMarket.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(selectItemButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Sets index and displays description of upgrade
+        upgradeIndex = 3;
+        descriptionText.text = "upgrading your boost will allow it to drain slower and recharge faster";
+        // You can change a cost variable here to display how much an upgrade costs if required
+        // Play our menu select audio
+        PlayMenuSelect();
     }
-
-    /// <summary>
-    /// Leaves garage and goes to the main menu
-    /// </summary>
-    public void MainMenuButton()
-    {
-        globalManager.sceneToLoad = "MenuScene";
-        SceneManager.LoadScene("LoadingScreen");
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Change to car 1
-    /// </summary>
-    public void SelectCar1()
-    {
-        globalManager.playerCar = car1;
-        currentCarImage.GetComponent<Image>().sprite = car1Sprite;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Changes to car 2
-    /// </summary>
-    public void SelectCar2()
-    {
-        globalManager.playerCar = car2;
-        currentCarImage.GetComponent<Image>().sprite = car2Sprite;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    ///  Changes car 3
-    /// </summary>
-    public void SelectCar3()
-    {
-        globalManager.playerCar = car3;
-        currentCarImage.GetComponent<Image>().sprite = car3Sprite;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Changes colour 1
-    /// </summary>
-    public void SelectColour1()
-    {
-        globalManager.nftSprite = redSprite;
-        currentPaintImageCar.GetComponent<Image>().color = Color.red;
-        currentPaintImagePaint.GetComponent<Image>().color = Color.red;
-
-        lastSelectedColour = Color.red;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Changes colour 2
-    /// </summary>
-    public void SelectColour2()
-    {
-        globalManager.nftSprite = blueSprite;
-        currentPaintImageCar.GetComponent<Image>().color = Color.blue;
-        currentPaintImagePaint.GetComponent<Image>().color = Color.blue;
-        lastSelectedColour = Color.blue;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Changes colour 3
-    /// </summary>
-    public void SelectColour3()
-    {
-        globalManager.nftSprite = magentaSprite;
-        currentPaintImageCar.GetComponent<Image>().color = Color.magenta;
-        currentPaintImagePaint.GetComponent<Image>().color = Color.magenta;
-        lastSelectedColour = Color.magenta;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
+    
     /// <summary>
     /// Upgrades car engine
     /// </summary>
-    public void PurchaseEngineUpgrade()
+    private void PurchaseEngineUpgrade()
     {
         switch (globalManager.engineLevel)
         {
@@ -267,14 +270,14 @@ public class GarageMenu : MonoBehaviour
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
         }
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Play our menu select audio
+        PlayMenuSelect();
     }
 
     /// <summary>
     /// Upgrades car handling
     /// </summary>
-    public void PurchaseHandlingUpgrade()
+    private void PurchaseHandlingUpgrade()
     {
         switch (globalManager.handlingLevel)
         {
@@ -291,14 +294,14 @@ public class GarageMenu : MonoBehaviour
                 handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
                 break;
         }
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        // Play our menu select audio
+        PlayMenuSelect();
     }
 
     /// <summary>
     /// Upgrades car NOS
     /// </summary>
-    public void PurchaseNosUpgrade()
+    private void PurchaseNosUpgrade()
     {
         switch (globalManager.nosLevel)
         {
@@ -317,45 +320,6 @@ public class GarageMenu : MonoBehaviour
         }
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-
-    /// <summary>
-    /// Selects the engine upgrade
-    /// </summary>
-    public void SelectEngineUpgrade()
-    {
-        // Play our menu select audio
-        PlayMenuSelect();
-        // Sets index and displays description of upgrade
-        upgradeIndex = 1;
-        descriptionText.text = "upgrading your engine will improve your acceleration and top speed";
-        // You can change a cost variable here to display how much an upgrade costs if required
-    }
-    
-    /// <summary>
-    /// Selects the handling upgrade
-    /// </summary>
-    public void SelectHandlingUpgrade()
-    {
-        // Play our menu select audio
-        PlayMenuSelect();
-        // Sets index and displays description of upgrade
-        upgradeIndex = 2;
-        descriptionText.text = "upgrading your handling will improve the agility of your car and ability to hold a drift";
-        // You can change a cost variable here to display how much an upgrade costs if required
-    }
-
-    /// <summary>
-    /// Selects the NOS upgrade
-    /// </summary>
-    public void SelectNOSUpgrade()
-    {
-        // Play our menu select audio
-        PlayMenuSelect();
-        // Sets index and displays description of upgrade
-        upgradeIndex = 3;
-        descriptionText.text = "upgrading your boost will allow it to drain slower and recharge faster";
-        // You can change a cost variable here to display how much an upgrade costs if required
     }
     
     /// <summary>
