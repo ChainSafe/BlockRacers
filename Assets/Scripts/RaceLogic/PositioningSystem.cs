@@ -68,6 +68,18 @@ public class PositioningSystem : MonoBehaviour
             checkPointForEachCar[i].tag = checkPointForEachCar[i].name;
         }
     }
+    
+    /// <summary>
+    /// Resets our checkpoints on lap complete
+    /// </summary>
+    public void ResetCheckPoints(int carNumber)
+    {
+        Debug.Log("Resetting checkpoints");
+        // Updates position of checkpoint
+        checkPointForEachCar[carNumber].transform.position = checkPointPositions[0].transform.position;
+        // Updates rotation of checkpoint
+        checkPointForEachCar[carNumber].transform.rotation = checkPointPositions[0].transform.rotation;
+    }
 
     /// <summary>
     /// Updates our checkpoints as they are collected

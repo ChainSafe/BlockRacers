@@ -46,8 +46,6 @@ public class LapSystem : MonoBehaviour
             TimerSystem.instance.ResetTimer();
             // Show our lap count on the UI
             playerController.lapCountText.text = playerController.LapCount.ToString();
-            // Reset all of our checkpoints
-            playerController.GetComponent<PositioningSystem>().SetCheckPoints();
             // Let the player know it's their final lap..
             if (playerController.LapCount > 2)
             {
