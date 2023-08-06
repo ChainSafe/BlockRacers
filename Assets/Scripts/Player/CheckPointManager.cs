@@ -6,7 +6,7 @@ public class CheckPointManager : MonoBehaviour
 {
     #region Fields
     // DEBUG SERIALIZE--------------------
-    [SerializeField] private int checkPointCrossed = 0;
+    [SerializeField] private int checkPointCrossed;
     private int carNumber;
     private int carPosition;
     private PositioningSystem positioningSystem;
@@ -62,11 +62,9 @@ public class CheckPointManager : MonoBehaviour
     /// <param name="other">The checkpoint's collider</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CheckPoint"))
-        {
-            checkPointCrossed += 1;
-            positioningSystem.CarCollectedCheckPoint(carNumber, checkPointCrossed);
-        }
+        if (!other.gameObject.CompareTag("CheckPoint"+carNumber)) return;
+        checkPointCrossed += 1;
+        positioningSystem.CarCollectedCheckPoint(carNumber, checkPointCrossed);
     }
 
     #endregion

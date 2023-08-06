@@ -17,9 +17,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Audio
     private AudioManager audioManager;
     // Menu items
-    [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, wagerMenu, searchingMenu, connectButton, tutorialButton, oneVsOneButton, searchingBackButton;
+    [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, wagerMenu, searchingMenu, connectButton, tutorialButton, oneVsOneButton, searchingBackButton, connectingText;
     // Players text for multiplayer
     [SerializeField] private TextMeshProUGUI playersReadyNumberText;
+    // PHOTON - Are we connected to the master server?
+    public static bool connectedToMaster;
 
     #endregion
 
@@ -60,7 +62,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     }
 
     /// <summary>
-    /// Connects the user to the photon server
+    /// Connects a users wallet to the game
     /// </summary>
     public void ConnectButton()
     {
@@ -85,20 +87,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
-    /// <summary>
-    /// Opens the race menu
-    /// </summary>
-    public void RaceButton()
-    {
-        mainMenu.SetActive(false);
-        raceMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-    
+
     /// <summary>
     /// Opens the wager menu
     /// </summary>
@@ -135,20 +124,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
-    /// <summary>
-    /// Takes the user from the race menu to the main menu
-    /// </summary>
-    public void RaceMenuBackButton()
-    {
-        raceMenu.SetActive(false);
-        mainMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(tutorialButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
-    
+
     /// <summary>
     /// Takes the user from the searching menu to the race menu
     /// </summary>
@@ -176,6 +152,61 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /////////////////////////////////////////
     /// PHOTON LOBBY CONFIGURATION STARTS ///
     /////////////////////////////////////////
+    
+    /// <summary>
+    /// Opens the race menu and connects to photon for multiplayer
+    /// </summary>
+    public void RaceButton()
+    {
+        // PHOTON If we're not connected to photon, connect
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+            // Activates connecting text
+            connectingText.SetActive(true);
+        }
+        else
+        {
+            // Opens race menu
+            raceMenu.SetActive(true);
+            // Sets our first selected button
+            EventSystem.current.SetSelectedGameObject(oneVsOneButton);
+        }
+        // Closes the menu to stop duplicate connections
+        mainMenu.SetActive(false);
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// PHOTON Fires once a user is connected to proceed and let's the user know we're connected
+    /// </summary>
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected To Master Server!");
+        connectedToMaster = true;
+        // Deactivates connecting text
+        connectingText.SetActive(false);
+        // Opens race menu
+        raceMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
+    }
+    
+    /// <summary>
+    /// Takes the user from the race menu to the main menu and disconnects from photon
+    /// </summary>
+    public void RaceMenuBackButton()
+    {
+        raceMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(tutorialButton);
+        // Disconnects from photon
+        PhotonNetwork.Disconnect();
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
     
     /// <summary>
     /// Lets the user create or search for a 1v1 room

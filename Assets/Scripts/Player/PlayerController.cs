@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
-    // Lap config
+    // Lap canvas
     [SerializeField] private GameObject lapCanvas;
     // Lap config
     public TextMeshProUGUI lapCountText;

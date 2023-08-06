@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 65019266}
   m_Layer: 0
   m_Name: CheckPoint17
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -389,8 +389,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1073267834}
-  - {fileID: 1224572735}
   - {fileID: 860473769}
+  - {fileID: 1224572735}
   - {fileID: 1420666313}
   - {fileID: 265390856}
   - {fileID: 665303550}
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 265390857}
   m_Layer: 0
   m_Name: CheckPoint5
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 287263727}
   m_Layer: 0
   m_Name: CheckPoint14
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -690,7 +690,7 @@ GameObject:
   - component: {fileID: 303061077}
   m_Layer: 0
   m_Name: CheckPoint13
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 405792146}
   m_Layer: 0
   m_Name: CheckPoint11
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 419964596}
   m_Layer: 0
   m_Name: CheckPoint12
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 583072113}
   m_Layer: 0
   m_Name: CheckPoint8
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1425,7 +1425,7 @@ GameObject:
   - component: {fileID: 665303551}
   m_Layer: 0
   m_Name: CheckPoint6
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1572,7 +1572,7 @@ GameObject:
   - component: {fileID: 752707279}
   m_Layer: 0
   m_Name: CheckPoint10
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 794117870}
   m_Layer: 0
   m_Name: CheckPoint25
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2002,8 +2002,8 @@ GameObject:
   - component: {fileID: 860473769}
   - component: {fileID: 860473770}
   m_Layer: 0
-  m_Name: CheckPoint3
-  m_TagString: LapCollider
+  m_Name: CheckPoint2
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2373,7 +2373,7 @@ GameObject:
   - component: {fileID: 1073267835}
   m_Layer: 0
   m_Name: CheckPoint1
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2426,7 +2426,7 @@ GameObject:
   - component: {fileID: 1137534700}
   m_Layer: 0
   m_Name: CheckPoint20
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2479,7 +2479,7 @@ GameObject:
   - component: {fileID: 1156007858}
   m_Layer: 0
   m_Name: CheckPoint18
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2532,7 +2532,7 @@ GameObject:
   - component: {fileID: 1187523769}
   m_Layer: 0
   m_Name: CheckPoint23
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2585,7 +2585,7 @@ GameObject:
   - component: {fileID: 1198915738}
   m_Layer: 0
   m_Name: CheckPoint9
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2638,7 +2638,7 @@ GameObject:
   - component: {fileID: 1206488910}
   m_Layer: 0
   m_Name: CheckPoint16
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2795,8 +2795,8 @@ GameObject:
   - component: {fileID: 1224572735}
   - component: {fileID: 1224572736}
   m_Layer: 0
-  m_Name: CheckPoint2
-  m_TagString: LapCollider
+  m_Name: CheckPoint3
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2978,9 +2978,6 @@ MonoBehaviour:
   - {fileID: 120799480}
   - {fileID: 1966733122}
   - {fileID: 2118294183}
-  car1: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
-  car2: {fileID: 8562722798458900322, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
-  car3: {fileID: 8562722798458900322, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
 --- !u!1 &1299288601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3124,7 +3121,7 @@ GameObject:
   - component: {fileID: 1341860443}
   m_Layer: 0
   m_Name: CheckPoint24
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3177,7 +3174,7 @@ GameObject:
   - component: {fileID: 1349804450}
   m_Layer: 0
   m_Name: CheckPoint19
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3360,7 +3357,7 @@ GameObject:
   - component: {fileID: 1420666314}
   m_Layer: 0
   m_Name: CheckPoint4
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3413,7 +3410,7 @@ GameObject:
   - component: {fileID: 1441933297}
   m_Layer: 0
   m_Name: CheckPoint21
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3466,7 +3463,7 @@ GameObject:
   - component: {fileID: 1463028455}
   m_Layer: 0
   m_Name: CheckPoint7
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3995,7 +3992,7 @@ GameObject:
   - component: {fileID: 1750459072}
   m_Layer: 0
   m_Name: CheckPoint22
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4204,7 +4201,7 @@ GameObject:
   - component: {fileID: 1874549615}
   m_Layer: 0
   m_Name: CheckPoint15
-  m_TagString: LapCollider
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

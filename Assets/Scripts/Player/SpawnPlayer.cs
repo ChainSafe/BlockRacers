@@ -13,8 +13,6 @@ public class SpawnPlayer : MonoBehaviour
     private GlobalManager globalManager;
     // Spawn points for each player
     [SerializeField] private GameObject[] spawnPoints;
-    // Car prefabs
-    [SerializeField] private GameObject car1, car2, car3;
 
     #endregion
     
@@ -45,21 +43,21 @@ public class SpawnPlayer : MonoBehaviour
             // i need to change this so it picks a spawn point based on what is taken and whether or not its 1v1 or 5man later
             //PhotonNetwork.Instantiate(globalManager.playerCar.name, new Vector3(spawnPoints[0].transform.position.x, spawnPoints[0].transform.position.y, spawnPoints[0].transform.position.z), spawnPoints[0].transform.rotation, 0);
             // DEBUG ------------------------------------------
-            Instantiate(globalManager.playerCar);
+            Instantiate(globalManager.playerCar, spawnPoints[0].transform.position, spawnPoints[0].transform.rotation);
         }
 
         // If we're racing with the Camaro
-        if (globalManager.playerCar == car1)
+        if (globalManager.playerCar == SwapCars.instance.car1)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
         }
         // If we're racing with the ford GT
-        if (globalManager.playerCar == car2)
+        if (globalManager.playerCar == SwapCars.instance.car2)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
         }
         // If we're racing with the ferrari
-        if (globalManager.playerCar == car3)
+        if (globalManager.playerCar == SwapCars.instance.car3)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
         }
