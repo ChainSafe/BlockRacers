@@ -25,8 +25,6 @@ public class SwapCars : MonoBehaviour
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
     public Material[] ferrariLivery;
-    // Reference our 3 playable prefabs
-    public GameObject camaro;
     // Reference to the currently instantiated prefab
     private GameObject currentPrefab;
     // Set the spawnpoint 
@@ -56,8 +54,6 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void NextCar()
     {
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
         // Destroy the current prefab
         Destroy(currentPrefab);
         // Increment the index to switch to the next prefab
@@ -103,7 +99,8 @@ public class SwapCars : MonoBehaviour
                 GarageMenu.instance.SelectCar3();
                 break;
         }
-
+        // Play our menu select audio
+        GarageMenu.instance.PlayMenuSelect();
     }
     
     /// <summary>
@@ -111,8 +108,6 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void PreviousCar()
     {
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
         // Destroy the current prefab
         Destroy(currentPrefab);
         // Decrement the index to switch to the next prefab  
@@ -163,6 +158,8 @@ public class SwapCars : MonoBehaviour
                 GarageMenu.instance.SelectCar3();
                 break;
         }
+        // Play our menu select audio
+        GarageMenu.instance.PlayMenuSelect();
     }
     
     /// <summary>
@@ -170,9 +167,6 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void ChangeLivery()
     {
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
-
         switch (currentPrefabIndex)
         {
             case 0:
@@ -206,6 +200,8 @@ public class SwapCars : MonoBehaviour
                 break;
             }
         }
+        // Play our menu select audio
+        GarageMenu.instance.PlayMenuSelect();
     }
     
     /// <summary>
