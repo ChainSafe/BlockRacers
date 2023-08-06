@@ -11,7 +11,10 @@ public class SpawnPlayer : MonoBehaviour
     
     // Global manager
     private GlobalManager globalManager;
+    // Spawn points for each player
     [SerializeField] private GameObject[] spawnPoints;
+    // Car prefabs
+    [SerializeField] private GameObject car1, car2, car3;
 
     #endregion
     
@@ -44,23 +47,19 @@ public class SpawnPlayer : MonoBehaviour
             // DEBUG ------------------------------------------
             Instantiate(globalManager.playerCar);
         }
-        
-        // Sanity check to see if the player has entered the garage or not
-        // This breaks the vinyls from loading in
-        //if (GarageMenu.instance == null) return;
-        
+
         // If we're racing with the Camaro
-        if (globalManager.playerCar == GarageMenu.instance.car1)
+        if (globalManager.playerCar == car1)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
         }
         // If we're racing with the ford GT
-        if (globalManager.playerCar == GarageMenu.instance.car2)
+        if (globalManager.playerCar == car2)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
         }
         // If we're racing with the ferrari
-        if (globalManager.playerCar == GarageMenu.instance.car3)
+        if (globalManager.playerCar == car3)
         {
             GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
         }

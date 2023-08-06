@@ -32,7 +32,6 @@ public class StatsManager : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Gets our body material object from the global manager which can be changed via garage/marketplace
         nftSprite = globalManager.nftSprite;
-        Debug.Log("Creating material from: " + nftSprite);
         nftMaterial.SetTexture("_MainTex", nftSprite);
         // Set our stats
         engineLevel = globalManager.engineLevel;

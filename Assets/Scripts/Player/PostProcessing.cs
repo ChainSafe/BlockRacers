@@ -25,7 +25,7 @@ public class PostProcessing : MonoBehaviour
     /// <summary>
     /// Sets our instance and applies the post processing profile to our camera
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         // Singleton
         Instance = this;

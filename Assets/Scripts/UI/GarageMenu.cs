@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -13,8 +12,6 @@ public class GarageMenu : MonoBehaviour
     
     // Singleton to access functions
     public static GarageMenu instance;
-    // Car prefabs
-    public GameObject car1, car2, car3;
     // Audio
     private AudioManager audioManager;
     // Global manager
@@ -27,6 +24,8 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectItemButton, purchaseButton;
+    // NFT sprites
+    [SerializeField] private Texture2D Nft1, Nft2, Nft3;
 
     #endregion
 
@@ -70,13 +69,13 @@ public class GarageMenu : MonoBehaviour
     {
         if (menuShowRoom.activeSelf)
         {
-            Debug.Log("Showroom active");
             // Rotate our camera back
             CameraController.instance.RotateCamera(-95f, 0.5f);
         }
         menuMarket.SetActive(false);
         menuUpgrade.SetActive(false);
         menuShowRoom.SetActive(false);
+        menuChangeNft.SetActive(false);
         menuGarage.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
@@ -87,8 +86,10 @@ public class GarageMenu : MonoBehaviour
     /// <summary>
     /// Opens the car upgrade menu for the player
     /// </summary>
-    public void OpenUpgrades()
+    public void UpgradesMenuButton()
     {
+        // Rotate our camera back
+        CameraController.instance.RotateCamera(-95f, 0.5f);
         // Changes menu displays
         menuUpgrade.SetActive(true);
         menuShowRoom.SetActive(false);
@@ -97,21 +98,9 @@ public class GarageMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Closes the car upgrade menu for the player
-    /// </summary>
-    public void CloseUpgrades()
-    {
-        // Changes menu displays
-        menuUpgrade.SetActive(false);
-        menuShowRoom.SetActive(true);
-        // Play our menu select audio
-        PlayMenuSelect();
-    }
-    
-    /// <summary>
     /// Takes the user to the showroom
     /// </summary>
-    public void ToShowRoom()
+    public void ShowRoomMenuButton()
     {
         // Rotate our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
@@ -127,6 +116,8 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void NftMenuButton()
     {
+        // Rotate our camera back
+        CameraController.instance.RotateCamera(-95f, 0.5f);
         menuGarage.SetActive(false);
         menuChangeNft.SetActive(true);
         // Play our menu select audio
@@ -138,6 +129,8 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void MarketMenuButton()
     {
+        // Rotate our camera back
+        CameraController.instance.RotateCamera(-95f, 0.5f);
         menuGarage.SetActive(false);
         menuMarket.SetActive(true);
         // Sets our first selected button
@@ -158,31 +151,31 @@ public class GarageMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Change to car 1
+    /// Changes to NFT 1
     /// </summary>
-    public void SelectCar1()
+    public void SelectNft1()
     {
-        globalManager.playerCar = car1;
+        globalManager.nftSprite = Nft1;
         // Play our menu select audio
         PlayMenuSelect();
     }
 
     /// <summary>
-    /// Changes to car 2
+    /// Changes to NFT 2
     /// </summary>
-    public void SelectCar2()
+    public void SelectNft2()
     {
-        globalManager.playerCar = car2;
+        globalManager.nftSprite = Nft2;
         // Play our menu select audio
         PlayMenuSelect();
     }
 
     /// <summary>
-    ///  Changes car 3
+    /// Changes to NFT 3
     /// </summary>
-    public void SelectCar3()
+    public void SelectNft3()
     {
-        globalManager.playerCar = car3;
+        globalManager.nftSprite = Nft3;
         // Play our menu select audio
         PlayMenuSelect();
     }
