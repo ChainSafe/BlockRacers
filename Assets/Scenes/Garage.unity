@@ -13744,6 +13744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 423042308}
+  - component: {fileID: 423042309}
   m_Layer: 5
   m_Name: MarketMenu
   m_TagString: Untagged
@@ -13775,6 +13776,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 130}
   m_SizeDelta: {x: 1450, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &423042309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423042307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720b694365af57e4d89b3c549b301e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &429318189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14250,9 +14263,6 @@ MonoBehaviour:
   changeCarButton: {fileID: 377380451}
   selectItemButton: {fileID: 335394066}
   purchaseButton: {fileID: 604682686}
-  Nft1: {fileID: 2800000, guid: faf906343c4cd8f4091e10992def1b05, type: 3}
-  Nft2: {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
-  Nft3: {fileID: 2800000, guid: f199752ef46802a40b15199661a65695, type: 3}
 --- !u!1 &460868661
 GameObject:
   m_ObjectHideFlags: 0
@@ -51024,6 +51034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1658341961}
+  - component: {fileID: 1658341962}
   m_Layer: 5
   m_Name: ChangeNFTMenu
   m_TagString: Untagged
@@ -51055,6 +51066,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 130}
   m_SizeDelta: {x: 1450, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1658341962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658341960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffdb236a9c5626409bada4487cea3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Nft1: {fileID: 2800000, guid: faf906343c4cd8f4091e10992def1b05, type: 3}
+  Nft2: {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
+  Nft3: {fileID: 2800000, guid: f199752ef46802a40b15199661a65695, type: 3}
 --- !u!1 &1659975453
 GameObject:
   m_ObjectHideFlags: 0
@@ -58609,8 +58635,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262207}
-        m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+      - m_Target: {fileID: 1658341962}
+        m_TargetAssemblyTypeName: NftMenu, Assembly-CSharp
         m_MethodName: SelectNft1
         m_Mode: 1
         m_Arguments:
@@ -61572,8 +61598,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262207}
-        m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+      - m_Target: {fileID: 1658341962}
+        m_TargetAssemblyTypeName: NftMenu, Assembly-CSharp
         m_MethodName: SelectNft3
         m_Mode: 1
         m_Arguments:
@@ -62167,8 +62193,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 455262207}
-        m_TargetAssemblyTypeName: GarageMenu, Assembly-CSharp
+      - m_Target: {fileID: 1658341962}
+        m_TargetAssemblyTypeName: NftMenu, Assembly-CSharp
         m_MethodName: SelectNft2
         m_Mode: 1
         m_Arguments:
