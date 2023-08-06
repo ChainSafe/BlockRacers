@@ -6,6 +6,7 @@ public class PositioningSystem : MonoBehaviour
 {
     #region Fields
     
+    public int totalCheckPoints;
     // WARNING -----------------------------------
     // change later to be photon multiplayer car prefabs, currently only works with camaro
     [SerializeField] private GameObject car1, car2, car3;
@@ -15,7 +16,6 @@ public class PositioningSystem : MonoBehaviour
     [SerializeField] private Transform[] checkPointPositions;
     [SerializeField] private GameObject[] checkPointForEachCar;
     private int totalCars;
-    private int totalCheckPoints;
     private int position;
 
     #endregion
@@ -68,7 +68,7 @@ public class PositioningSystem : MonoBehaviour
             checkPointForEachCar[i].tag = checkPointForEachCar[i].name;
         }
     }
-    
+
     /// <summary>
     /// Updates our checkpoints as they are collected
     /// </summary>
@@ -81,8 +81,6 @@ public class PositioningSystem : MonoBehaviour
         // Updates rotation of checkpoint
         checkPointForEachCar[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
         ComparePositions(carNumber);
-        // Show our split time
-        TimerSystem.instance.ShowSplitTime();
     }
     
     /// <summary>
