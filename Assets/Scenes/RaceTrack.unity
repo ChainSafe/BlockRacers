@@ -2978,6 +2978,9 @@ MonoBehaviour:
   - {fileID: 120799480}
   - {fileID: 1966733122}
   - {fileID: 2118294183}
+  car1: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
+  car2: {fileID: 8562722798458900322, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
+  car3: {fileID: 8562722798458900322, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
 --- !u!1 &1299288601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,12 +3264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56340f346270e4e4d8f992a21f36bf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carPrefab: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   checkPoint: {fileID: 2324650567781094810, guid: 075433e213ec7084ab8f15f7964e7248, type: 3}
   checkPointHolder: {fileID: 204971267}
   cars: []
   checkPointPositions: []
   checkPointForEachCar: []
-  carPrefab: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
 --- !u!1001 &1392850812
 PrefabInstance:
   m_ObjectHideFlags: 0

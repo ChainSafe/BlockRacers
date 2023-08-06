@@ -12,8 +12,8 @@ public class SwapCars : MonoBehaviour
     // Singleton
     public static SwapCars instance;
     // Index of the currently active prefab & livery
-    public static int currentLiveryIndex = 0;
-    public int currentPrefabIndex = 0;
+    public static int currentLiveryIndex ;
+    public int currentPrefabIndex;
     // Array of prefabs to swap between
     public GameObject[] prefabs;
     // Our UI elements for the showroom
@@ -25,6 +25,8 @@ public class SwapCars : MonoBehaviour
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
     public Material[] ferrariLivery;
+    // Car prefabs
+    public GameObject car1, car2, car3;
     // Reference to the currently instantiated prefab
     private GameObject currentPrefab;
     // Set the spawnpoint 
@@ -80,7 +82,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar1();
+                globalManager.playerCar = car1;
                 break;
             case 1:
                 carName.text = "Turbo Storm GT";
@@ -88,7 +90,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar2();
+                globalManager.playerCar = car2;
                 break;
             case 2:
                 carName.text = "Star Stream S6";
@@ -96,7 +98,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar3();
+                globalManager.playerCar = car3;
                 break;
         }
         // Play our menu select audio
@@ -137,7 +139,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar1();
+                globalManager.playerCar = car1;
                 break;
 
             case 1:
@@ -146,7 +148,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar2();
+                globalManager.playerCar = car2;
                 break;
 
             case 2:
@@ -155,7 +157,7 @@ public class SwapCars : MonoBehaviour
                 handlingSlider.value = globalManager.handlingLevel;
                 boostSlider.value = globalManager.nosLevel;
                 // Actively select this car
-                GarageMenu.instance.SelectCar3();
+                globalManager.playerCar = car3;
                 break;
         }
         // Play our menu select audio
