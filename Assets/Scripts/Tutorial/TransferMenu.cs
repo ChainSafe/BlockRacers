@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,10 @@ public class TransferMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
+    // Input field
+    [SerializeField] private TMP_InputField inputField;
+    // Address to send to
+    private string walletAddress;
     // First button
     [SerializeField] private GameObject firstButton;
     
@@ -44,6 +49,7 @@ public class TransferMenu : MonoBehaviour
     /// </summary>
     public void Transfer()
     {
+        walletAddress = inputField.text;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
