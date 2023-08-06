@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -55,7 +56,10 @@ public class PlayerController : MonoBehaviour
     // Lap config
     public TextMeshProUGUI lapCountText;
     public GameObject finalLapReminder;
+    [SerializeField] private LapSystem lapSystem;
     private int lapCount;
+    // Last checkpoint for reset
+    [SerializeField] private Transform lastCheckPoint;
 
     #endregion
 
@@ -69,7 +73,7 @@ public class PlayerController : MonoBehaviour
         get => lapCount;
         set => lapCount = value;
     }
-    
+
     /// <summary>
     /// The current gear being used
     /// </summary>
@@ -185,10 +189,14 @@ public class PlayerController : MonoBehaviour
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        // Disables photon components if we're in the tutorial as it bugs out
+        // Disables photon components in editor & tutorial
+        if ((Application.isEditor) || (!PhotonNetwork.IsConnected))
+        {
+            PVRigidBody.enabled = false;
+            PVTransformView.enabled = false;
+        }
+        // Disables lap canvas in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
-        PVTransformView.enabled = false;
-        PVRigidBody.enabled = false;
         lapCanvas.SetActive(false);
     }
 
@@ -202,9 +210,6 @@ public class PlayerController : MonoBehaviour
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
-        // WARNING ``````````````````````
-        // Set car layer, car1 L6, car 2 L7, car3 L8, car4 L9, car5 L10, change later to for photon
-        //gameObject.layer = 6;
     }
 
     /// <summary>
@@ -371,6 +376,38 @@ public class PlayerController : MonoBehaviour
     }
     
     /// <summary>
+    /// Sets our last checkpoint for resets in case we flip over
+    /// </summary>
+    /// <param name="other">The other object's trigger we're colliding with</param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag($"CheckPoint{GetComponent<CheckPointManager>().CarNumber}"))
+        {
+            lastCheckPoint = other.transform;
+        }
+        
+        if (other.CompareTag("LapCollider"))
+        {
+            lapSystem.LapComplete();
+        }
+    }
+    
+    /// <summary>
+    /// Reset position to last checkpoint
+    /// </summary>
+    private void ResetPosition()
+    {
+        if (resetActive)
+        {
+            resetActive = false;
+            if (lastCheckPoint == null) return;
+            // Raises the car slightly so it drops in to avoid spawning into another car
+            transform.position = lastCheckPoint.transform.localPosition;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+    }
+
+    /// <summary>
     /// Tracks speed ratio and car lights
     /// </summary>
     private void Update()
@@ -395,6 +432,7 @@ public class PlayerController : MonoBehaviour
         HandleNos();
         HandleDrift();
         HandleTireTrails();
+        ResetPosition();
     }
     
     #endregion
