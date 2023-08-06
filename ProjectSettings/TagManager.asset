@@ -10,8 +10,13 @@ TagManager:
   - NitrousFill
   - StatsManager
   - Car
+  - CarBody
   - LapCountText
   - CheckPoint
+  - CheckPoint0
+  - CheckPoint1
+  - CheckPoint2
+  - CheckPoint3
   layers:
   - Default
   - TransparentFX

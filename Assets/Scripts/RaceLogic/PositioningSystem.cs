@@ -1,3 +1,4 @@
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class PositioningSystem : MonoBehaviour
     #region Fields
     
     // WARNING -----------------------------------
-    // change later to be photon multiplayer car prefabs
+    // change later to be photon multiplayer car prefabs, currently only works with camaro
     [SerializeField] private GameObject carPrefab;
     [SerializeField] private GameObject checkPoint;
     [SerializeField] private GameObject checkPointHolder;
@@ -26,9 +27,8 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     void Start()
     {
-        // WARNING ------------------------------
-        // Sets array length, do this automatically later by players in room
-        cars = new GameObject[2];
+        // Sets array length by amount of players in room
+        cars = new GameObject[PhotonNetwork.CurrentRoom.PlayerCount];
         // Add cars to array
         for (int i = 0; i < cars.Length; i++)
         {
@@ -64,8 +64,8 @@ public class PositioningSystem : MonoBehaviour
             checkPointForEachCar[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
             // Gives each checkpoint a proper name as it's instantiated for each car
             checkPointForEachCar[i].name = $"CheckPoint{i}";
-            // Takes our layers into account and assigns the checkpoints to each layer accordingly so each car has a separate system
-            checkPointForEachCar[i].tag =  checkPointForEachCar[i].name;
+            // Assigns tags for each checkpoint
+            checkPointForEachCar[i].tag = checkPointForEachCar[i].name;
         }
     }
     
@@ -124,7 +124,7 @@ public class PositioningSystem : MonoBehaviour
                 carInFront.GetComponent<CheckPointManager>().CarPosition = carInFrontPos + 1;
             }
             // Updates our position text
-            cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
+            UpdatePositionText();
         }
     }
     
@@ -142,6 +142,14 @@ public class PositioningSystem : MonoBehaviour
             cars[i].GetComponent<CheckPointManager>().CarNumber = i + 1;
         }
         // Updates our position text
+        UpdatePositionText();
+    }
+    
+    /// <summary>
+    /// Updates our position text
+    /// </summary>
+    private void UpdatePositionText()
+    {
         cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
     }
 
