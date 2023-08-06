@@ -64,6 +64,7 @@ public class PostProcessing : MonoBehaviour
         {
             // Reset the lerp value when the button is not held
             currentLerpValue = Mathf.Clamp01(currentLerpValue - (Time.deltaTime * lerpSpeed));
+            if (CameraShake.Instance == null) return;
             // Reset our camera rumble
             CameraShake.Instance.TopRig.m_AmplitudeGain = 0f;
             CameraShake.Instance.MiddleRig.m_AmplitudeGain = 0f;
