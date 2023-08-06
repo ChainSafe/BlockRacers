@@ -28229,13 +28229,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2957347143135703428}
-  - component: {fileID: 1057638535305188938}
+  - component: {fileID: 8818387644260634748}
   - component: {fileID: 3596617806288133237}
+  - component: {fileID: 1057638535305188938}
   - component: {fileID: 3369994398039113402}
   - component: {fileID: 998699689225104954}
   - component: {fileID: 5459080129973006870}
   - component: {fileID: 3897692608368124408}
-  - component: {fileID: 8818387644260634748}
   m_Layer: 0
   m_Name: Car2
   m_TagString: Player
@@ -28265,33 +28265,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1057638535305188938
-Rigidbody:
+--- !u!114 &8818387644260634748
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8562722798458900322}
-  serializedVersion: 4
-  m_Mass: 1200
-  m_Drag: 0
-  m_AngularDrag: 0.3
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 0
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0816f713758cfa644bbc8fd5c1a49a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkPointCrossed: 0
+  positionText: {fileID: 4919419492653158448}
 --- !u!114 &3596617806288133237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28328,6 +28315,33 @@ MonoBehaviour:
   lapCanvas: {fileID: 2880676153313690704}
   lapCountText: {fileID: 4479042368607263063}
   finalLapReminder: {fileID: 2694795826802833776}
+--- !u!54 &1057638535305188938
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562722798458900322}
+  serializedVersion: 4
+  m_Mass: 1200
+  m_Drag: 0
+  m_AngularDrag: 0.3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &3369994398039113402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28396,17 +28410,3 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &8818387644260634748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562722798458900322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0816f713758cfa644bbc8fd5c1a49a4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkPointCrossed: 0
-  positionText: {fileID: 4919419492653158448}
