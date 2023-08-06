@@ -8,7 +8,7 @@ public class PositioningSystem : MonoBehaviour
     
     // WARNING -----------------------------------
     // change later to be photon multiplayer car prefabs, currently only works with camaro
-    [SerializeField] private GameObject carPrefab;
+    [SerializeField] private GameObject car1, car2, car3;
     [SerializeField] private GameObject checkPoint;
     [SerializeField] private GameObject checkPointHolder;
     [SerializeField] private GameObject[] cars;
@@ -25,14 +25,14 @@ public class PositioningSystem : MonoBehaviour
     /// <summary>
     /// Initialize objects
     /// </summary>
-    void Start()
+    private void Start()
     {
         // Sets array length by amount of players in room
         cars = new GameObject[PhotonNetwork.CurrentRoom.PlayerCount];
         // Add cars to array
         for (int i = 0; i < cars.Length; i++)
         {
-            cars[i] = carPrefab;
+            cars[i] = car1;
         }
         // Number of total cars
         totalCars = cars.Length;
