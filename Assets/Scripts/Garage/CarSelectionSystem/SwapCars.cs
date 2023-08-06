@@ -12,15 +12,13 @@ public class SwapCars : MonoBehaviour
     // Singleton
     public static SwapCars instance;
     // Index of the currently active prefab & livery
-    public static int currentLiveryIndex ;
+    public static int currentLiveryIndex;
     public int currentPrefabIndex;
     // Array of prefabs to swap between
     public GameObject[] prefabs;
     // Our UI elements for the showroom
     public TextMeshProUGUI carName;
-    public Slider engineSlider;
-    public Slider handlingSlider;
-    public Slider boostSlider;
+    public Slider engineSlider, handlingSlider, boostSlider;
     // Our available colours for each model
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
