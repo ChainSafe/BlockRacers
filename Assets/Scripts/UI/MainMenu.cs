@@ -120,6 +120,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public override void OnConnectedToMaster()
     {
+        // Syncs Photon to ensure scenes are all loaded correctly
+        PhotonNetwork.AutomaticallySyncScene = true;
         Debug.Log("Connected To Master Server!");
         connectedToMaster = true;
         // Deactivates connecting text
@@ -287,6 +289,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
             globalManager.username = usernameInput.text;
         }
     }
+
+    private void LoadRaceTrack()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Loads level
+            PhotonNetwork.LoadLevel("RaceTrack");
+        }
+    }
     
     /// <summary>
     /// Updates players in room and checks if we're ready to race
@@ -302,8 +313,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
-                    // Loads level
-                    PhotonNetwork.LoadLevel("RaceTrack");
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        // Loads level
+                        Invoke("LoadRaceTrack", 3);
+                    }
                 }
                 break;
             }
@@ -316,8 +330,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
                     wagerMenu.SetActive(true);
                     if (globalManager.wagerAccepted)
                     {
-                        // Loads level
-                        PhotonNetwork.LoadLevel("RaceTrack");
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            // Loads level
+                            Invoke("LoadRaceTrack", 3);
+                        }
                     }
                 }
                 break;
@@ -327,8 +344,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 5)
                 {
-                    // Loads level
-                    PhotonNetwork.LoadLevel("RaceTrack");
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        // Loads level
+                        Invoke("LoadRaceTrack", 3);
+                    }
                 }
                 break;
             }
