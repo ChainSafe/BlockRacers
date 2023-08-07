@@ -217,6 +217,22 @@ public class PositioningSystem : MonoBehaviour
     {
         cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
     }
+    
+    /// <summary>
+    /// Finds our photon view component
+    /// </summary>
+    private void Update()
+    {
+        if (!playerController.GetComponent<PhotonView>().IsMine)
+        {
+            Debug.Log("Finding our Player!");
+            playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            if (playerController.GetComponent<PhotonView>().IsMine)
+            {
+                Debug.Log("Player found!");
+            }
+        }
+    }
 
     #endregion
 }

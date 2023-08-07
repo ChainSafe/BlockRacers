@@ -196,14 +196,13 @@ public class PlayerController : MonoBehaviour
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        // Disables photon components in editor & tutorial
-        if ((Application.isEditor) || (!PhotonNetwork.IsConnected))
+        // Disables photon components in tutorial
+        if (!PhotonNetwork.IsConnected)
         {
             PVRigidBody.enabled = false;
             PVTransformView.enabled = false;
         }
-
-        if (PhotonNetwork.IsConnected)
+        else
         {
             userName.SetActive(true);
             userName.GetComponent<TextMesh>().text = globalManager.username;
