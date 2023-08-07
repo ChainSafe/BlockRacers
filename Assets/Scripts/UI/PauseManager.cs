@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -118,6 +119,10 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     public void MainMenuButton()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
         globalManager.sceneToLoad = "MenuScene";

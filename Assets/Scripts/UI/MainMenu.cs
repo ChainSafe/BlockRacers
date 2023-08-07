@@ -42,7 +42,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // By passes connection screen if connected
         if (globalManager.connected)
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
             connectMenu.SetActive(false);
             mainMenu.SetActive(true);
             // Sets our first selected button
@@ -303,11 +302,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
-                    // Master loads to ensure sync
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        PhotonNetwork.LoadLevel("RaceTrack");
-                    }
+                    // Loads level
+                    PhotonNetwork.LoadLevel("RaceTrack");
                 }
                 break;
             }
@@ -320,11 +316,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
                     wagerMenu.SetActive(true);
                     if (globalManager.wagerAccepted)
                     {
-                        // Master loads to ensure sync
-                        if (PhotonNetwork.IsMasterClient)
-                        {
-                            PhotonNetwork.LoadLevel("RaceTrack");
-                        }
+                        // Loads level
+                        PhotonNetwork.LoadLevel("RaceTrack");
                     }
                 }
                 break;
@@ -334,11 +327,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 5)
                 {
-                    // Master loads to ensure sync
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        PhotonNetwork.LoadLevel("RaceTrack");
-                    }
+                    // Loads level
+                    PhotonNetwork.LoadLevel("RaceTrack");
                 }
                 break;
             }

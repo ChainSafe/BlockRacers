@@ -25,6 +25,11 @@ public class SpawnPlayer : MonoBehaviour
     {
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        if (PhotonNetwork.IsConnected)
+        {
+            // Syncs photon to ensure scenes are all loaded correctly
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
     }
     
     /// <summary>
