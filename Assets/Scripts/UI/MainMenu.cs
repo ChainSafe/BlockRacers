@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // PHOTON - Username
     [SerializeField] private TMP_InputField usernameInput;
     private string userName;
+    private bool loadingLevel;
 
     #endregion
 
@@ -315,8 +316,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 {
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        // Loads level
-                        Invoke("LoadRaceTrack", 3);
+                        if (!loadingLevel)
+                        {
+                            loadingLevel = true;
+                            // Loads level
+                            Invoke("LoadRaceTrack", 3);
+                        }
                     }
                 }
                 break;
@@ -332,8 +337,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
                     {
                         if (PhotonNetwork.IsMasterClient)
                         {
-                            // Loads level
-                            Invoke("LoadRaceTrack", 3);
+                            if (!loadingLevel)
+                            {
+                                loadingLevel = true;
+                                // Loads level
+                                Invoke("LoadRaceTrack", 3);
+                            }
                         }
                     }
                 }
@@ -346,8 +355,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 {
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        // Loads level
-                        Invoke("LoadRaceTrack", 3);
+                        if (!loadingLevel)
+                        {
+                            loadingLevel = true;
+                            // Loads level
+                            Invoke("LoadRaceTrack", 3);
+                        }
                     }
                 }
                 break;
