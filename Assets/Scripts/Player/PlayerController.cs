@@ -1,6 +1,7 @@
 using System;
 using Photon.Pun;
 using TMPro;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     
     // Singleton access to the controller
     public static PlayerController instance;
+    // Global manager
+    private GlobalManager globalManager;
     // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
     // Used for letting the game know if we're racing or tutorial
@@ -60,6 +63,8 @@ public class PlayerController : MonoBehaviour
     private int lapCount;
     // Last checkpoint for reset
     [SerializeField] private Transform lastCheckPoint;
+    // Username
+    [SerializeField] private GameObject userName;
 
     #endregion
 
@@ -182,6 +187,8 @@ public class PlayerController : MonoBehaviour
     {
         // Singleton
         instance = this;
+        // Finds our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our stats manager
@@ -194,6 +201,12 @@ public class PlayerController : MonoBehaviour
         {
             PVRigidBody.enabled = false;
             PVTransformView.enabled = false;
+        }
+
+        if (PhotonNetwork.IsConnected)
+        {
+            userName.SetActive(true);
+            userName.GetComponent<TextMesh>().text = globalManager.username;
         }
         // Disables lap canvas in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
