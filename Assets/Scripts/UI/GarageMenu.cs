@@ -82,25 +82,11 @@ public class GarageMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Opens the car upgrade menu for the player
-    /// </summary>
-    public void UpgradesMenuButton()
-    {
-        // Rotate our camera back
-        CameraController.instance.RotateCamera(-95f, 0.5f);
-        // Changes menu displays
-        menuUpgrade.SetActive(true);
-        menuShowRoom.SetActive(false);
-        // Play our menu select audio
-        PlayMenuSelect();
-    }
-
-    /// <summary>
     /// Takes the user to the showroom
     /// </summary>
     public void ShowRoomMenuButton()
     {
-        // Rotate our camera to the showroom cars
+        // Rotates our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
         // Changes menu displays
         menuGarage.SetActive(false);
@@ -110,13 +96,28 @@ public class GarageMenu : MonoBehaviour
     }
     
     /// <summary>
+    /// Opens the car upgrade menu for the player
+    /// </summary>
+    public void UpgradesMenuButton()
+    {
+        // Rotates our camera back
+        CameraController.instance.RotateCamera(-95f, 0.5f);
+        // Changes menu displays
+        menuUpgrade.SetActive(true);
+        menuShowRoom.SetActive(false);
+        // Play our menu select audio
+        PlayMenuSelect();
+    }
+
+    
+    /// <summary>
     /// Opens the nft menu
     /// </summary>
     public void NftMenuButton()
     {
-        // Rotate our camera back
+        // Rotates our camera back
         CameraController.instance.RotateCamera(-95f, 0.5f);
-        menuGarage.SetActive(false);
+        menuShowRoom.SetActive(false);
         menuChangeNft.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
@@ -127,8 +128,6 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void MarketMenuButton()
     {
-        // Rotate our camera back
-        CameraController.instance.RotateCamera(-95f, 0.5f);
         menuGarage.SetActive(false);
         menuMarket.SetActive(true);
         // Sets our first selected button
