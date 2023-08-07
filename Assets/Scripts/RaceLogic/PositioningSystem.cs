@@ -14,9 +14,13 @@ public class PositioningSystem : MonoBehaviour
     [SerializeField] private GameObject checkPointHolder;
     [SerializeField] private GameObject[] cars;
     [SerializeField] private Transform[] checkPointPositions;
-    [SerializeField] private GameObject[] checkPointForEachCar;
+    [SerializeField] private GameObject[] checkPointForEachCarLap1;
+    [SerializeField] private GameObject[] checkPointForEachCarLap2;
+    [SerializeField] private GameObject[] checkPointForEachCarLap3;
     private int totalCars;
     private int position;
+    // Debug
+    [SerializeField] private PlayerController playerController;
 
     #endregion
 
@@ -27,6 +31,7 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         // Sets array length by amount of players in room
         cars = new GameObject[PhotonNetwork.CurrentRoom.PlayerCount];
         // Add cars to array
@@ -57,41 +62,91 @@ public class PositioningSystem : MonoBehaviour
             checkPointPositions[i] = checkPointHolder.transform.GetChild(i).transform;
         }
         // Initialize check point for each car array
-        checkPointForEachCar = new GameObject[totalCars];
+        checkPointForEachCarLap1 = new GameObject[totalCars];
+        checkPointForEachCarLap2 = new GameObject[totalCars];
+        checkPointForEachCarLap3 = new GameObject[totalCars];
         for (int i = 0; i < totalCars; i++)
         {
             // Instantiate the initial check point for each car
-            checkPointForEachCar[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            checkPointForEachCarLap1[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            // Instantiate the initial check point for each car
+            checkPointForEachCarLap2[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            // Instantiate the initial check point for each car
+            checkPointForEachCarLap3[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
             // Gives each checkpoint a proper name as it's instantiated for each car
-            checkPointForEachCar[i].name = $"CheckPoint{i}";
+            checkPointForEachCarLap1[i].name = $"CheckPoint{i}";
             // Assigns tags for each checkpoint
-            checkPointForEachCar[i].tag = checkPointForEachCar[i].name;
+            checkPointForEachCarLap1[i].tag = checkPointForEachCarLap1[i].name;
+            // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap2[i].name = $"CheckPoint{i}";
+            // Assigns tags for each checkpoint
+            checkPointForEachCarLap2[i].tag = checkPointForEachCarLap2[i].name;
+            // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap3[i].name = $"CheckPoint{i}";
+            // Assigns tags for each checkpoint
+            checkPointForEachCarLap3[i].tag = checkPointForEachCarLap3[i].name;
+            checkPointForEachCarLap2[i].SetActive(false);
+            checkPointForEachCarLap3[i].SetActive(false);
         }
     }
     
     /// <summary>
-    /// Resets our checkpoints on lap complete
+    /// Deactivates previous lap checkpoints and enables the next
     /// </summary>
-    public void ResetCheckPoints(int carNumber)
+    public void ResetCheckPoints()
     {
         Debug.Log("Resetting checkpoints");
-        // Updates position of checkpoint
-        checkPointForEachCar[carNumber].transform.position = checkPointPositions[0].transform.position;
-        // Updates rotation of checkpoint
-        checkPointForEachCar[carNumber].transform.rotation = checkPointPositions[0].transform.rotation;
+        // Resets our checkpoint counter
+        playerController.GetComponent<CheckPointManager>().CheckPointCrossed = 0;
+        // If we're on lap 2
+        if (playerController.LapCount == 2)
+        {
+            for (int i = 0; i < totalCars; i++)
+            {
+                checkPointForEachCarLap1[i].SetActive(false);
+                checkPointForEachCarLap2[i].SetActive(true);
+            }
+        }
+        else
+        {
+            // If we're on lap 3
+            for (int i = 0; i < totalCars; i++)
+            {
+                checkPointForEachCarLap2[i].SetActive(false);
+                checkPointForEachCarLap3[i].SetActive(true);
+            }
+        }
     }
 
     /// <summary>
-    /// Updates our checkpoints as they are collected
+    /// Updates our checkpoints as they are collected based on lap
     /// </summary>
     /// <param name="carNumber">Unique identifier for each car</param>
     /// <param name="checkPointNumber">The checkpoint number we're passing through</param>
     public void CarCollectedCheckPoint(int carNumber, int checkPointNumber)
     {
-        // Updates position of checkpoint
-        checkPointForEachCar[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
-        // Updates rotation of checkpoint
-        checkPointForEachCar[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+        switch (playerController.LapCount)
+        {
+            case 1:
+                // Updates position of checkpoint
+                checkPointForEachCarLap1[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                // Updates rotation of checkpoint
+                checkPointForEachCarLap1[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                break;
+            case 2:
+                // Updates position of checkpoint
+                checkPointForEachCarLap2[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                // Updates rotation of checkpoint
+                checkPointForEachCarLap2[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                break;
+            default:
+                // Updates position of checkpoint
+                checkPointForEachCarLap3[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                // Updates rotation of checkpoint
+                checkPointForEachCarLap3[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                break;
+        }
+
         ComparePositions(carNumber);
     }
     

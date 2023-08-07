@@ -9,6 +9,8 @@ public class GlobalManager : MonoBehaviour
     
     // String for loading screen
     public string sceneToLoad;
+    // Username for user
+    public string username;
     // Player car
     public GameObject playerCar;
     // Player material

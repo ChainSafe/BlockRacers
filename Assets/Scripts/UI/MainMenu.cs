@@ -22,6 +22,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField] private TextMeshProUGUI playersReadyNumberText;
     // PHOTON - Are we connected to the master server?
     public static bool connectedToMaster;
+    // PHOTON - Username
+    [SerializeField] private TMP_InputField usernameInput;
+    private string userName;
 
     #endregion
 
@@ -154,6 +157,30 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /////////////////////////////////////////
     
     /// <summary>
+    /// Sets the users username, a default one is chosen if none is present
+    /// </summary>
+    private void SetUsername()
+    {
+        if (usernameInput.text == null)
+        {
+            // Sets a random username is none is chosen
+            int rand = Random.Range(1, 6);
+            globalManager.username = rand switch
+            {
+                1 => "Gary",
+                2 => "MoonCake",
+                3 => "Avocado",
+                4 => "Kevin",
+                _ => "Hue"
+            };
+        }
+        else
+        {
+            globalManager.username = usernameInput.text;
+        }
+    }
+    
+    /// <summary>
     /// Opens the race menu and connects to photon for multiplayer
     /// </summary>
     public void RaceButton()
@@ -246,6 +273,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public override void OnJoinedRoom() 
     {
+        // Sets our username
+        SetUsername();
         // Sets our players ready text to 1 as we join
         playersReadyNumberText.text = "1";
         // Sets race config

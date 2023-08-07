@@ -66,11 +66,12 @@ public class FinishScreen : MonoBehaviour
     }
     
     /// <summary>
-    /// Our main menu button
+    /// Our main menu button, disconnects us from photon
     /// </summary>
     public void MainMenuButton()
     {
-        globalManager.sceneToLoad = "MainMenu";
+        PhotonNetwork.Disconnect();
+        globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
     }
     
