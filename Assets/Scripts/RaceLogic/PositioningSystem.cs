@@ -224,14 +224,12 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!playerController.GetComponent<PhotonView>().IsMine)
+        if (playerController.GetComponent<PhotonView>().IsMine) return;
+        Debug.Log("Finding our Player!");
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if (playerController.GetComponent<PhotonView>().IsMine)
         {
-            Debug.Log("Finding our Player!");
-            playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-            if (playerController.GetComponent<PhotonView>().IsMine)
-            {
-                Debug.Log("Player found!");
-            }
+            Debug.Log("Player found!");
         }
     }
 
