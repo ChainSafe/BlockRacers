@@ -29150,6 +29150,8 @@ MonoBehaviour:
   oneVsOneButton: {fileID: 721319632}
   searchingBackButton: {fileID: 1514615728}
   connectingText: {fileID: 132432707}
+  backButtonNormalRace: {fileID: 1514615728}
+  backButtonWager: {fileID: 796653582}
   playersReadyNumberText: {fileID: 295882402}
   usernameInput: {fileID: 758297919}
 --- !u!33 &923354009742070

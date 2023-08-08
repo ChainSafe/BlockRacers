@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     private AudioManager audioManager;
     // Menu items
     [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, wagerMenu, searchingMenu, connectButton, tutorialButton, oneVsOneButton, searchingBackButton, connectingText;
+    // Back buttons
+    [SerializeField] private GameObject backButtonNormalRace, backButtonWager; 
     // Players text for multiplayer
     [SerializeField] private TextMeshProUGUI playersReadyNumberText;
     // PHOTON - Are we connected to the master server?
@@ -140,6 +142,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         // Sets our username
         SetUsername();
+        Debug.Log($"Player Index {PhotonNetwork.LocalPlayer.ActorNumber}");
         // Sets our players ready text to 1 as we join
         playersReadyNumberText.text = "1";
         // Sets race config
@@ -290,7 +293,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
             globalManager.username = usernameInput.text;
         }
     }
-
+    
+    /// <summary>
+    /// Loads teh race track for everyone
+    /// </summary>
     private void LoadRaceTrack()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -299,7 +305,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("RaceTrack");
         }
     }
-    
+
     /// <summary>
     /// Updates players in room and checks if we're ready to race
     /// </summary>
@@ -319,6 +325,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                         if (!loadingLevel)
                         {
                             loadingLevel = true;
+                            backButtonNormalRace.SetActive(false);
                             // Loads level
                             Invoke("LoadRaceTrack", 3);
                         }
@@ -340,6 +347,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                             if (!loadingLevel)
                             {
                                 loadingLevel = true;
+                                backButtonWager.SetActive(false);
                                 // Loads level
                                 Invoke("LoadRaceTrack", 3);
                             }
@@ -358,6 +366,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                         if (!loadingLevel)
                         {
                             loadingLevel = true;
+                            backButtonNormalRace.SetActive(false);
                             // Loads level
                             Invoke("LoadRaceTrack", 3);
                         }
