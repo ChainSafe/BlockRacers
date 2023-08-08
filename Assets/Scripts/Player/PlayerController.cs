@@ -201,6 +201,7 @@ public class PlayerController : MonoBehaviour
         {
             PVRigidBody.enabled = false;
             PVTransformView.enabled = false;
+            lapCanvas.SetActive(false);
         }
         else
         {
