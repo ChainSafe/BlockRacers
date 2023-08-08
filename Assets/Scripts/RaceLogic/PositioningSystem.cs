@@ -215,6 +215,7 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     private void UpdatePositionText()
     {
+        if (!playerController.GetComponent<PhotonView>().IsMine) return;
         cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
     }
     
