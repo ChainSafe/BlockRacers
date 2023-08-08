@@ -203,15 +203,16 @@ public class PlayerController : MonoBehaviour
         {
             PVRigidBody.enabled = false;
             PVTransformView.enabled = false;
+            canvas.SetActive(true);
         }
         else
         {
             // disables photon objects that don't belong to us
             if (!PV.IsMine)
             {
-                Destroy(canvas);
-                Destroy(gameObject.GetComponent<PlayerController>());
+                Destroy(this);
             }
+            canvas.SetActive(true);
             userName.SetActive(true);
             userName.GetComponent<TextMesh>().text = globalManager.username;
         }
