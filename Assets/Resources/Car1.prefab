@@ -1197,7 +1197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822695956863933068}
   m_LocalRotation: {x: -0.062137462, y: -0, z: -0.000000005587935, w: -0.9980677}
-  m_LocalPosition: {x: -0.0000009536743, y: 3, z: -8.0009365}
+  m_LocalPosition: {x: -0.0000009536743, y: 3, z: -8.001284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8786,6 +8786,7 @@ MonoBehaviour:
   PV: {fileID: 5544638753545221456}
   PVTransformView: {fileID: 3436975106239572037}
   PVRigidBody: {fileID: 2295405580879405016}
+  canvas: {fileID: 1978859128370519883}
   lapCanvas: {fileID: 1914938568152144963}
   lapCountText: {fileID: 1033441131213463883}
   finalLapReminder: {fileID: 8441534457674155751}
@@ -18818,7 +18819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8506320140313270951}
   m_LocalRotation: {x: -0.062137462, y: -0, z: -0.000000005587935, w: -0.9980677}
-  m_LocalPosition: {x: -0.0000009536743, y: 3, z: -8.0009365}
+  m_LocalPosition: {x: -0.0000009536743, y: 3, z: -8.001284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

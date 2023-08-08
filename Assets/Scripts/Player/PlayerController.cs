@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
+    // Canvas
+    [SerializeField] private GameObject canvas;
     // Lap canvas
     [SerializeField] private GameObject lapCanvas;
     // Lap config
@@ -207,7 +209,8 @@ public class PlayerController : MonoBehaviour
             // disables photon objects that don't belong to us
             if (!PV.IsMine)
             {
-                lapCanvas.SetActive(false);
+                Destroy(canvas);
+                Destroy(gameObject.GetComponent<PlayerController>());
             }
             userName.SetActive(true);
             userName.GetComponent<TextMesh>().text = globalManager.username;
@@ -429,7 +432,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!PV.IsMine) return;
         // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
@@ -444,7 +446,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (!PV.IsMine) return;
         HandleMotor();
         HandleSteering();
         UpdateWheels();
