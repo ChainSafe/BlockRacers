@@ -204,6 +204,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            // disables photon objects that don't belong to us
+            if (!PV.IsMine)
+            {
+                lapCanvas.SetActive(false);
+            }
             userName.SetActive(true);
             userName.GetComponent<TextMesh>().text = globalManager.username;
         }
@@ -424,6 +429,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (!PV.IsMine) return;
         // Speed derived from wheel speed
         speedRatio = GetSpeedRatio();
         speed = rigidBody.velocity.magnitude * 3.6f;
@@ -438,6 +444,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        if (!PV.IsMine) return;
         HandleMotor();
         HandleSteering();
         UpdateWheels();
