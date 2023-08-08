@@ -40,8 +40,7 @@ public class SpawnPlayer : MonoBehaviour
         else
         {
             // Instantiate our multiplayer prefab
-            // i need to change this so it picks a spawn point based on what is taken and whether or not its 1v1 or 5man later
-            PhotonNetwork.Instantiate(globalManager.playerCar.name, new Vector3(spawnPoints[0].transform.position.x, spawnPoints[0].transform.position.y, spawnPoints[0].transform.position.z), spawnPoints[0].transform.rotation, 0);
+            PhotonNetwork.Instantiate(globalManager.playerCar.name, new Vector3(spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.x, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.y, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.z), spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.rotation, 0);
         }
 
         // If we're racing with the Camaro

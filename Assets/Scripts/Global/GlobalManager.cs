@@ -24,7 +24,8 @@ public class GlobalManager : MonoBehaviour
     // Bool to check if wagering is active or not
     public bool wagering;
     public bool wagerAccepted;
-    
+    public int wagerAmount;
+
     #endregion
 
     #region Methods

@@ -2,6 +2,9 @@ using System;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Checkpoint manager for positioning
+/// </summary>
 public class CheckPointManager : MonoBehaviour
 {
     #region Fields

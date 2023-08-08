@@ -3,6 +3,9 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Manages Audio
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     #region Fields

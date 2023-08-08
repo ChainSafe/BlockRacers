@@ -42,6 +42,10 @@ MonoBehaviour:
   - RpcClearBuffer
   - RpcNonServerOwnedTeleportFromServer
   - RpcTeleport
+  - SendPlayerIndexes
+  - RPCWager
+  - RPCWagerAccept
+  - RPCWagerSet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

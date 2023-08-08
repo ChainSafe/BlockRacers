@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An example of how Chainsafe's SDK voucher functionality works
+/// </summary>
 public class VoucherMenu : MonoBehaviour
 {
     #region Fields

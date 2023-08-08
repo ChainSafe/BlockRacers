@@ -48,6 +48,7 @@ public class FinishScreen : MonoBehaviour
         // Resets our race won and wagering bools for the next match
         globalManager.raceWon = false;
         globalManager.wagering = false;
+        globalManager.wagerAccepted = false;
     }
     
     /// <summary>
@@ -63,6 +64,7 @@ public class FinishScreen : MonoBehaviour
     {
         // Claim functionality goes here
         Debug.Log("Claiming Winnings! Congratulations!");
+        globalManager.wagerAmount = 0;
     }
     
     /// <summary>
