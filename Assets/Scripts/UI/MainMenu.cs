@@ -295,7 +295,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     }
     
     /// <summary>
-    /// Loads teh race track for everyone
+    /// Loads the race track for everyone
     /// </summary>
     private void LoadRaceTrack()
     {

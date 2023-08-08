@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Allows the user to mint tokens
+/// </summary>
 public class MintMenu : MonoBehaviour
 {
     #region Fields

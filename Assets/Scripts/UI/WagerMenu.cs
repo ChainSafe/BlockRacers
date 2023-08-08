@@ -2,6 +2,9 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// An example of how wagering tokens would work
+/// </summary>
 public class WagerMenu : MonoBehaviourPunCallbacks
 {
     #region Fields

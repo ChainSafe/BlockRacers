@@ -1,7 +1,9 @@
 using Photon.Pun;
-using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manages our cars position for multiplayer races
+/// </summary>
 public class PositioningSystem : MonoBehaviour
 {
     #region Fields

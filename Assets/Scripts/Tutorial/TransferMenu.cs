@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An example of how to transfer tokens using Chainsafe's SDK
+/// </summary>
 public class TransferMenu : MonoBehaviour
 {
     #region Fields

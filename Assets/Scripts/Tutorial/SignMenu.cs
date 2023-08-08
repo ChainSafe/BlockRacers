@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An example of how Chainsafe's SDK sign functionality works
+/// </summary>
 public class SignMenu : MonoBehaviour
 {
     #region Fields
