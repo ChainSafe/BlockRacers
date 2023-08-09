@@ -203,27 +203,21 @@ public class PlayerController : MonoBehaviour
         {
             PVRigidBody.enabled = false;
             PVTransformView.enabled = false;
+            lapCanvas.SetActive(false);
             canvas.SetActive(true);
+            tachometer.SetActive(true);
         }
         else
         {
-            // disables photon objects that don't belong to us
-            if (!PV.IsMine)
-            {
-                Destroy(this);
-                Destroy(tachometer);
-            }
-            else
+            // Enables our canvas if we're connected
+            if (PV.IsMine)
             {
                 canvas.SetActive(true);
                 tachometer.SetActive(true);
-                userName.SetActive(true);
                 userName.GetComponent<TextMesh>().text = globalManager.username;
             }
+            userName.SetActive(true);
         }
-        // Disables lap canvas in tutorial
-        if (SceneManager.GetActiveScene().name != "Tutorial") return;
-        lapCanvas.SetActive(false);
     }
 
     private void Start()

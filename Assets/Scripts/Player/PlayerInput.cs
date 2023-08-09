@@ -1,4 +1,5 @@
 using System;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     // Player Input
     private PlayerInputActions playerInput;
     // Player controller
-    private PlayerController playerController;
+    [SerializeField] private PlayerController playerController;
 
     #endregion
 
@@ -23,7 +24,6 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        playerController = gameObject.GetComponent<PlayerController>();
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Move.started += OnMovementInput;
@@ -115,6 +115,14 @@ public class PlayerInput : MonoBehaviour
     {
         playerInput.Disable();
     }
-    
+
+    private void Update()
+    {
+        if (!playerController.GetComponent<PhotonView>().IsMine)
+        {
+            Destroy(this);
+        }
+    }
+
     #endregion
 }
