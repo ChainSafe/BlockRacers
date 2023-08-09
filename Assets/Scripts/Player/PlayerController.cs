@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     // Username
     [SerializeField] private GameObject userName;
     // Cameras
-    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject staticCamera;
     [SerializeField] private GameObject freeLookCamera;
     // Player Input
     private PlayerInputActions playerInput;
@@ -220,9 +220,11 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
+        // Disables input
+        OnDisable();
         // Disables photon components in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
-        camera.SetActive(true);
+        staticCamera.SetActive(true);
         freeLookCamera.SetActive(true);
         canvas.SetActive(true);
         lapCanvas.SetActive(true);
@@ -246,17 +248,18 @@ public class PlayerController : MonoBehaviour
             // Enables our canvas if we're connected
             if (PV.IsMine)
             {
-                camera.SetActive(true);
+                staticCamera.SetActive(true);
                 freeLookCamera.SetActive(true);
                 canvas.SetActive(true);
                 lapCanvas.SetActive(true);
                 tachometer.SetActive(true);
                 driftSystem.gameObject.SetActive(true);
-                userName.GetComponent<TextMesh>().text = globalManager.username;
+                userName.GetComponent<TextMesh>().text = PhotonNetwork.NickName;
             }
             else
             {
-                Destroy(camera);
+                userName.GetComponent<TextMesh>().text = PV.Owner.NickName;
+                Destroy(staticCamera);
                 Destroy(freeLookCamera);
                 Destroy(canvas);
                 Destroy(lapCanvas);
@@ -265,6 +268,8 @@ public class PlayerController : MonoBehaviour
             }
             userName.SetActive(true);
         }
+        // Enables input
+        OnEnable();
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;

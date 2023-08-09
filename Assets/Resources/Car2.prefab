@@ -28964,7 +28964,7 @@ MonoBehaviour:
   driftSystem: {fileID: 5623106561966345855}
   lastCheckPoint: {fileID: 0}
   userName: {fileID: 74244932846886740}
-  camera: {fileID: 4536713376200338806}
+  staticCamera: {fileID: 4536713376200338806}
   freeLookCamera: {fileID: 315163244000211858}
 --- !u!54 &1057638535305188938
 Rigidbody:

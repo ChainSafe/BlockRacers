@@ -187,6 +187,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void RaceMenuBackButton()
     {
+        wagerMenu.SetActive(false);
         raceMenu.SetActive(false);
         mainMenu.SetActive(true);
         // Sets our first selected button
@@ -279,7 +280,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             // Sets a random username is none is chosen
             int rand = Random.Range(1, 6);
-            globalManager.username = rand switch
+            PhotonNetwork.LocalPlayer.NickName = rand switch
             {
                 1 => "Gary",
                 2 => "MoonCake",
@@ -290,7 +291,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
         else
         {
-            globalManager.username = usernameInput.text;
+            // Sets our user name to what we have chosen
+            PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
         }
     }
     

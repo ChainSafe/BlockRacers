@@ -8209,7 +8209,7 @@ MonoBehaviour:
   driftSystem: {fileID: 5186119143413400714}
   lastCheckPoint: {fileID: 0}
   userName: {fileID: 269449940400512142}
-  camera: {fileID: 7365825483062097780}
+  staticCamera: {fileID: 7365825483062097780}
   freeLookCamera: {fileID: 29857023706677138}
 --- !u!54 &892240045161491238
 Rigidbody:
