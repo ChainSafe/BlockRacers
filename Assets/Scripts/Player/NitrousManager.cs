@@ -63,9 +63,6 @@ public class NitrousManager : MonoBehaviour
             NOSIcon.color = Color.cyan;
             currentBoost += rechargeRate * Time.deltaTime;
             currentBoost = Mathf.Clamp(currentBoost, 0f, maxBoost);
-            // Make our bar slightly transparent again (i think this looks better lit up)
-            //BoostBar.color = new Color(1, 1, 1, 0.4f);
-            //NOSIcon.color = new Color(1, 1, 1, 0.4f);
         }
         // Update the value of the UI Slider
         boostSlider.value = currentBoost;

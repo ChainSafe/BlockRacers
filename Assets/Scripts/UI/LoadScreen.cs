@@ -38,4 +38,4 @@ public class LoadScreen : MonoBehaviour
         SceneManager.LoadScene(globalManager.sceneToLoad);
     }
 }
-    #endregion
+#endregion

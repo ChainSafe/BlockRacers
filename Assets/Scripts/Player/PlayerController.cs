@@ -1,7 +1,5 @@
-using System;
 using Photon.Pun;
 using TMPro;
-using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -212,9 +210,12 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(this);
             }
-            canvas.SetActive(true);
-            userName.SetActive(true);
-            userName.GetComponent<TextMesh>().text = globalManager.username;
+            else
+            {
+                canvas.SetActive(true);
+                userName.SetActive(true);
+                userName.GetComponent<TextMesh>().text = globalManager.username;
+            }
         }
         // Disables lap canvas in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
@@ -433,13 +434,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // Speed derived from wheel speed
-        speedRatio = GetSpeedRatio();
-        speed = rigidBody.velocity.magnitude * 3.6f;
-        // Brake lights
-        tailLights.SetActive(isBraking || isDrifting);
-        // Head lights
-        headLights.SetActive(useHeadLights);
+        if ((!PhotonNetwork.IsConnected) || (PV.IsMine))
+        {
+            // Speed derived from wheel speed
+            speedRatio = GetSpeedRatio();
+            speed = rigidBody.velocity.magnitude * 3.6f;
+            // Brake lights
+            tailLights.SetActive(isBraking || isDrifting);
+            // Head lights
+            headLights.SetActive(useHeadLights);
+        }
     }
     
     /// <summary>
@@ -447,13 +451,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
-        HandleNos();
-        HandleDrift();
-        HandleTireTrails();
-        ResetPosition();
+        if ((!PhotonNetwork.IsConnected) || (PV.IsMine))
+        {
+            HandleMotor();
+            HandleSteering();
+            UpdateWheels();
+            HandleNos();
+            HandleDrift();
+            HandleTireTrails();
+            ResetPosition();
+        }
     }
     
     #endregion
