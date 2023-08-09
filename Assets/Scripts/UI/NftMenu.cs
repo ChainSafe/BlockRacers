@@ -1,4 +1,8 @@
+using System.Net.Mime;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using Image = UnityEngine.UIElements.Image;
 
 /// <summary>
 /// NFT object functionality for the car
@@ -9,6 +13,10 @@ public class NftMenu : MonoBehaviour
     
     // Global manager
     private GlobalManager globalManager;
+    // The base prefab we're using to dispaly nfts
+    [SerializeField] private GameObject nftPrefab;
+    // Our nft object array
+    [SerializeField] private Texture2D[] nfts;
     // NFT sprites
     [SerializeField] private Texture2D Nft1, Nft2, Nft3;
 
@@ -23,6 +31,27 @@ public class NftMenu : MonoBehaviour
     {
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        // Initialize array by size
+        nfts = new Texture2D[1];
+        // Add cars to array
+        for (int i = 0; i < nfts.Length; i++)
+        {
+            nfts[i] = Nft1;
+        }
+        // Populates the prefabs
+        PopulatePrefab(nftPrefab);
+    }
+    
+    /// <summary>
+    /// Spawns and populates our nft prefab base with images
+    /// </summary>
+    private void PopulatePrefab(GameObject nftPrefab)
+    {
+        foreach (Texture2D nftImage in nfts)
+        {
+            GameObject image = GameObject.Find("Image");
+            image.GetComponent<Image>().sprite = nftImage.GetComponent<Image>().sprite;
+        }
     }
 
     /// <summary>
