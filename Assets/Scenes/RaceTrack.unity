@@ -3265,11 +3265,14 @@ MonoBehaviour:
   car1: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   car2: {fileID: 8562722798458900322, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
   car3: {fileID: 8562722798458900322, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
-  checkPoint: {fileID: 2324650567781094810, guid: 075433e213ec7084ab8f15f7964e7248, type: 3}
+  checkPoint: {fileID: 7872560855583400713, guid: 075433e213ec7084ab8f15f7964e7248, type: 3}
   checkPointHolder: {fileID: 204971267}
   cars: []
   checkPointPositions: []
-  checkPointForEachCar: []
+  checkPointForEachCarLap1: []
+  checkPointForEachCarLap2: []
+  checkPointForEachCarLap3: []
+  playerController: {fileID: 0}
 --- !u!1001 &1392850812
 PrefabInstance:
   m_ObjectHideFlags: 0
