@@ -1,11 +1,9 @@
-using System.Net.Mime;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Image = UnityEngine.UIElements.Image;
 
 /// <summary>
-/// NFT object functionality for the car
+/// NFT object functionality for the car ---Work in progress
 /// </summary>
 public class NftMenu : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class NftMenu : MonoBehaviour
     
     // Global manager
     private GlobalManager globalManager;
-    // The base prefab we're using to dispaly nfts
+    // The base prefab we're using to display nfts
     [SerializeField] private GameObject nftPrefab;
     // Our nft object array
     [SerializeField] private Texture2D[] nfts;
