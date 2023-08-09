@@ -52,9 +52,8 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         }
         // Chain call here to set wager
         Debug.Log($"Wager set at: {wagerAmount}");
-        // Change this later to check both ends have accepted
-        globalManager.wagerAccepted = true;
-        photonView.RPC("RPCWagerSet", RpcTarget.All, wagerAmount);
+        globalManager.wagerAmount = wagerAmount;
+        photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount);
     }
     
     /// <summary>
@@ -62,8 +61,11 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void AcceptWager()
     {
+        // Set wagering to true
+        globalManager.wagering = true;
         globalManager.wagerAccepted = true;
-        photonView.RPC("RPCWagerAccept", RpcTarget.All);
+        globalManager.wagerAmount = wagerAmount;
+        photonView.RPC("RPCWagerAccept", RpcTarget.Others);
     }
     
     /// <summary>
