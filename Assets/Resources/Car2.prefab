@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7734083658645630630
 Transform:
   m_ObjectHideFlags: 0
@@ -1332,7 +1332,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -200.1, y: -5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3535,7 +3535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5763763088946978758
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3675,7 +3675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &955657366029754002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9704,7 +9704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3220895312259122282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11798,7 +11798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1451951782573093213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12417,7 +12417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3570629476711300820
 Transform:
   m_ObjectHideFlags: 0
@@ -20413,7 +20413,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 79, y: -585}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -28874,7 +28874,6 @@ GameObject:
   - component: {fileID: 8818387644260634748}
   - component: {fileID: 3596617806288133237}
   - component: {fileID: 1057638535305188938}
-  - component: {fileID: 3369994398039113402}
   - component: {fileID: 998699689225104954}
   - component: {fileID: 5459080129973006870}
   - component: {fileID: 3897692608368124408}
@@ -28961,8 +28960,11 @@ MonoBehaviour:
   lapCountText: {fileID: 4479042368607263063}
   finalLapReminder: {fileID: 2694795826802833776}
   lapSystem: {fileID: 143439060998082346}
+  driftSystem: {fileID: 5623106561966345855}
   lastCheckPoint: {fileID: 0}
   userName: {fileID: 74244932846886740}
+  camera: {fileID: 4536713376200338806}
+  freeLookCamera: {fileID: 315163244000211858}
 --- !u!54 &1057638535305188938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28990,19 +28992,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3369994398039113402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562722798458900322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fe3d00ac4c25d44a7bb90463d7d561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 3596617806288133237}
 --- !u!114 &998699689225104954
 MonoBehaviour:
   m_ObjectHideFlags: 0

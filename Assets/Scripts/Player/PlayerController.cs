@@ -1,6 +1,8 @@
+using System;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -62,11 +64,17 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI lapCountText;
     public GameObject finalLapReminder;
     [SerializeField] private LapSystem lapSystem;
+    [SerializeField] private DriftSystem driftSystem;
     private int lapCount;
     // Last checkpoint for reset
     [SerializeField] private Transform lastCheckPoint;
     // Username
     [SerializeField] private GameObject userName;
+    // Cameras
+    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject freeLookCamera;
+    // Player Input
+    private PlayerInputActions playerInput;
 
     #endregion
 
@@ -198,8 +206,32 @@ public class PlayerController : MonoBehaviour
         // Lock our cursor to the game window
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        // Initialize player input actions
+        playerInput = new PlayerInputActions();
+        playerInput.Game.Move.started += OnMovementInput;
+        playerInput.Game.Move.canceled += OnMovementInput;
+        playerInput.Game.Move.performed += OnMovementInput;
+        playerInput.Game.Nos.started += OnNosInput;
+        playerInput.Game.Nos.canceled += OnNosInput;
+        playerInput.Game.Nos.performed += OnNosInput;
+        playerInput.Game.Accelerate.started += OnAccelerateInput;
+        playerInput.Game.Accelerate.canceled += OnAccelerateInput;
+        playerInput.Game.Accelerate.performed += OnAccelerateInput;
+        playerInput.Game.Brake.started += OnBrakeInput;
+        playerInput.Game.Brake.canceled += OnBrakeInput;
+        playerInput.Game.Brake.performed += OnBrakeInput;
+        playerInput.Game.Drift.started += OnDriftInput;
+        playerInput.Game.Drift.canceled += OnDriftInput;
+        playerInput.Game.Drift.performed += OnDriftInput;
+        playerInput.Game.Reset.performed += OnResetInput;
         // Disables photon components in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
+        camera.SetActive(true);
+        freeLookCamera.SetActive(true);
+        canvas.SetActive(true);
+        lapCanvas.SetActive(true);
+        tachometer.SetActive(true);
+        driftSystem.gameObject.SetActive(true);
         PVRigidBody.enabled = false;
         PVTransformView.enabled = false;
         lapCanvas.SetActive(false);
@@ -218,16 +250,22 @@ public class PlayerController : MonoBehaviour
             // Enables our canvas if we're connected
             if (PV.IsMine)
             {
+                camera.SetActive(true);
+                freeLookCamera.SetActive(true);
+                canvas.SetActive(true);
+                lapCanvas.SetActive(true);
+                tachometer.SetActive(true);
+                driftSystem.gameObject.SetActive(true);
                 userName.GetComponent<TextMesh>().text = globalManager.username;
             }
             else
             {
+                Destroy(camera);
+                Destroy(freeLookCamera);
                 Destroy(canvas);
                 Destroy(lapCanvas);
                 Destroy(tachometer);
-                Destroy(GetComponent<PlayerController>().gameObject);
-                //Destroy(GetComponent<PlayerInput>().gameObject);
-                Destroy(GetComponent<Camera>().gameObject);
+                Destroy(driftSystem);
             }
             userName.SetActive(true);
         }
@@ -235,6 +273,82 @@ public class PlayerController : MonoBehaviour
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
     }
+
+    #region Inputs
+
+    /// <summary>
+    /// Steering input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnMovementInput(InputAction.CallbackContext context)
+    {
+        var currentMovementInput = context.ReadValue<Vector2>();
+        HorizontalInput = currentMovementInput.x;
+    }
+    
+    /// <summary>
+    /// Acceleration input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnAccelerateInput(InputAction.CallbackContext context)
+    {
+        VerticalInput = context.ReadValue<float>();
+    }
+    
+    /// <summary>
+    /// Brake input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnBrakeInput(InputAction.CallbackContext context)
+    {
+        IsBraking = Convert.ToBoolean(context.ReadValue<float>());
+        VerticalInput = context.ReadValue<float>() * -1;
+    }
+
+    /// <summary>
+    /// Drift input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnDriftInput(InputAction.CallbackContext context)
+    {
+        IsDrifting = Convert.ToBoolean(context.ReadValue<float>());
+    }
+    
+    /// <summary>
+    /// Nos input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnNosInput(InputAction.CallbackContext context)
+    {
+        nosActive = Convert.ToBoolean(context.ReadValue<float>());
+    }
+    
+    /// <summary>
+    /// Reset input
+    /// </summary>
+    /// <param name="context">context</param>
+    private void OnResetInput(InputAction.CallbackContext context)
+    {
+        resetActive = Convert.ToBoolean(context.ReadValue<float>());
+    }
+    
+    /// <summary>
+    /// Used for player movement, call this to enable input detection
+    /// </summary>
+    private void OnEnable()
+    {
+        playerInput.Enable();
+    }
+    
+    /// <summary>
+    /// Used for player movement, call this to disable input detection
+    /// </summary>
+    private void OnDisable()
+    {
+        playerInput.Disable();
+    }
+
+    #endregion
 
     /// <summary>
     /// Engine power determined via input
@@ -436,13 +550,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // Speed derived from wheel speed
-        speedRatio = GetSpeedRatio();
-        speed = rigidBody.velocity.magnitude * 3.6f;
-        // Brake lights
-        tailLights.SetActive(isBraking || isDrifting);
-        // Head lights
-        headLights.SetActive(useHeadLights);
+        if (PV.IsMine || !PhotonNetwork.IsConnected)
+        {
+            // Speed derived from wheel speed
+            speedRatio = GetSpeedRatio();
+            speed = rigidBody.velocity.magnitude * 3.6f;
+            // Brake lights
+            tailLights.SetActive(isBraking || isDrifting);
+            // Head lights
+            headLights.SetActive(useHeadLights);
+        }
     }
     
     /// <summary>
@@ -450,13 +567,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
-        HandleNos();
-        HandleDrift();
-        HandleTireTrails();
-        ResetPosition();
+        if (PV.IsMine || !PhotonNetwork.IsConnected)
+        {
+            HandleMotor();
+            HandleSteering();
+            UpdateWheels();
+            HandleNos();
+            HandleDrift();
+            HandleTireTrails();
+            ResetPosition();
+        }
     }
     
     #endregion
