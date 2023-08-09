@@ -23,6 +23,8 @@ public class GlobalManager : MonoBehaviour
     public bool wagering;
     public bool wagerAccepted;
     public int wagerAmount;
+    // Private key for the auth wallet 0x0d9566FcE2513cBD388DCD7749a873900033401C
+    public string ERC20PrivateKey = "a78313605b1ded96c3f2c991b8cbe883924035f4e338fe9f5a860429c2777b2f";
 
     #endregion
 

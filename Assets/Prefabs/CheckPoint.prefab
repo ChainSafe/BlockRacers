@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2324650567781094810
+--- !u!1 &7872560855583400713
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6219196966406662145}
-  - component: {fileID: 7084975413458645973}
+  - component: {fileID: 7190633124791916428}
+  - component: {fileID: 4413633567655549423}
   m_Layer: 0
   m_Name: CheckPoint
   m_TagString: CheckPoint
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6219196966406662145
+--- !u!4 &7190633124791916428
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2324650567781094810}
+  m_GameObject: {fileID: 7872560855583400713}
   m_LocalRotation: {x: -0.4986924, y: -0.5013042, z: -0.5013042, w: 0.4986924}
   m_LocalPosition: {x: -133.1, y: 59.2, z: 328.02}
   m_LocalScale: {x: 0.044084277, y: 0.025400002, z: 0.0254}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -50.299}
---- !u!65 &7084975413458645973
+--- !u!65 &4413633567655549423
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2324650567781094810}
+  m_GameObject: {fileID: 7872560855583400713}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
