@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        if (!playerController.PV.IsMine) return;
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Move.started += OnMovementInput;

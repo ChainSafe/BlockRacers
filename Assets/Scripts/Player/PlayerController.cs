@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
     // Photon
-    [SerializeField] private PhotonView PV;
+    [SerializeField] public PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
     // Canvas
@@ -215,6 +215,11 @@ public class PlayerController : MonoBehaviour
                 canvas.SetActive(true);
                 tachometer.SetActive(true);
                 userName.GetComponent<TextMesh>().text = globalManager.username;
+            }
+            else
+            {
+                Destroy(GetComponentInChildren<PlayerInput>().gameObject);
+                Destroy(GetComponentInChildren<Camera>().gameObject);
             }
             userName.SetActive(true);
         }
