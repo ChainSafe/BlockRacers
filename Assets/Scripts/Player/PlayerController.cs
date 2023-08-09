@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
 {
     #region Fields
     
-    // Singleton access to the controller
-    public static PlayerController instance;
     // Global manager
     private GlobalManager globalManager;
     // Static to enabled / disable our headlights for the race & tutorial
@@ -195,8 +193,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // Singleton
-        instance = this;
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Finds our audio manager

@@ -11845,6 +11845,7 @@ MonoBehaviour:
   scoringRate: 1
   driftAngleThreshold: 20
   angularVelocityThreshold: 0.01
+  playerController: {fileID: 3596617806288133237}
   playerCar: {fileID: 1057638535305188938}
 --- !u!1 &4134692920801049738
 GameObject:
