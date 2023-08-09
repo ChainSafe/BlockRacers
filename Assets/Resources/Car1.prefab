@@ -181,7 +181,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32285401018964479}
-  m_LocalRotation: {x: -0.22717537, y: -0.02009167, z: 0.0046879207, w: -0.9736353}
+  m_LocalRotation: {x: -0.22717534, y: -0.020091757, z: 0.00468792, w: -0.97363526}
   m_LocalPosition: {x: -0.00000007868554, y: 0, z: -0.0000019057248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2257,12 +2257,12 @@ GameObject:
   - component: {fileID: 7633634913164433560}
   - component: {fileID: 8530020032441573765}
   m_Layer: 0
-  m_Name: Tacometer
+  m_Name: Tachometer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1921471454637797583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8182,6 +8182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resetActive: 0
   collision: 0
+  tachometer: {fileID: 1663513770767763704}
   rigidBody: {fileID: 892240045161491238}
   nosParticles: {fileID: 5087590832435049255}
   tireTrailRL: {fileID: 1023952475887302460}
@@ -8338,7 +8339,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -200.1, y: -5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23525,7 +23526,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 79, y: -585}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}

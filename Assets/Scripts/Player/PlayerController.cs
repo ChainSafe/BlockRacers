@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private StatsManager statsManager;
     // Audio
     private AudioManager audioManager;
+    // Tachometer
+    [SerializeField] private GameObject tachometer;
     // Current gear
     private int currentGear;
     // Speed
@@ -209,10 +211,12 @@ public class PlayerController : MonoBehaviour
             if (!PV.IsMine)
             {
                 Destroy(this);
+                Destroy(tachometer);
             }
             else
             {
                 canvas.SetActive(true);
+                tachometer.SetActive(true);
                 userName.SetActive(true);
                 userName.GetComponent<TextMesh>().text = globalManager.username;
             }
