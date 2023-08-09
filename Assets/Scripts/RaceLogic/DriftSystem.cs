@@ -26,8 +26,10 @@ public class DriftSystem : MonoBehaviour
     public float angularVelocityThreshold = 0.1f;
     // Our current drift score
     private int driftScore = 0;
+    // Our player controller
+    [SerializeField] private PlayerController playerController;
     // Our player Rigidbody
-    [SerializeField]private Rigidbody playerCar;
+    [SerializeField] private Rigidbody playerCar;
     private bool activateDriftSound;
 
     #endregion
@@ -79,23 +81,23 @@ public class DriftSystem : MonoBehaviour
     /// </summary>
     private void UpdateScoreRate()
     {
-        if (PlayerController.instance.Speed < 20)
+        if (playerController.Speed < 20)
         {
             scoringRate = 0;
         }
-        if (PlayerController.instance.Speed > 20 && PlayerController.instance.Speed < 80)
+        if (playerController.Speed > 20 && playerController.Speed < 80)
         {
             scoringRate = 1;
         }
-        if (PlayerController.instance.Speed > 80 && PlayerController.instance.Speed < 120)
+        if (playerController.Speed > 80 && playerController.Speed < 120)
         {
             scoringRate = 2;
         }
-        if (PlayerController.instance.Speed > 120 && PlayerController.instance.Speed < 180)
+        if (playerController.Speed > 120 && playerController.Speed < 180)
         {
             scoringRate = 3;
         }
-        if (PlayerController.instance.Speed > 180)
+        if (playerController.Speed > 180)
         {
             scoringRate = 4;
         }
