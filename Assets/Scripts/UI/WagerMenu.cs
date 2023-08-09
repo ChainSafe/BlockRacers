@@ -73,11 +73,8 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     private void RPCWagerSet(int wagerAmount)
     {
         globalManager.wagerAmount = wagerAmount;
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            acceptWagerButton.SetActive(true);
-            wagerText.text = $"WAGER: {wagerAmount}";
-        }
+        acceptWagerButton.SetActive(true);
+        wagerText.text = $"WAGER: {wagerAmount}";
     }
     
     /// <summary>
