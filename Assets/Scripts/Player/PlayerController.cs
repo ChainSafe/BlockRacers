@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     // Wheels
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
     // Photon
-    [SerializeField] public PhotonView PV;
+    [SerializeField] private PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
     // Canvas
@@ -199,30 +199,10 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         // Disables photon components in tutorial
-        if (!PhotonNetwork.IsConnected)
-        {
-            PVRigidBody.enabled = false;
-            PVTransformView.enabled = false;
-            lapCanvas.SetActive(false);
-            canvas.SetActive(true);
-            tachometer.SetActive(true);
-        }
-        else
-        {
-            // Enables our canvas if we're connected
-            if (PV.IsMine)
-            {
-                canvas.SetActive(true);
-                tachometer.SetActive(true);
-                userName.GetComponent<TextMesh>().text = globalManager.username;
-            }
-            else
-            {
-                Destroy(GetComponentInChildren<PlayerInput>().gameObject);
-                Destroy(GetComponentInChildren<Camera>().gameObject);
-            }
-            userName.SetActive(true);
-        }
+        if (SceneManager.GetActiveScene().name != "Tutorial") return;
+        PVRigidBody.enabled = false;
+        PVTransformView.enabled = false;
+        lapCanvas.SetActive(false);
     }
 
     private void Start()
@@ -232,6 +212,25 @@ public class PlayerController : MonoBehaviour
         audioManager.Play("Bgm2");
         // Updates our stats
         statsManager.UpdateStats();
+        // Disables photon components in tutorial
+        if (PhotonNetwork.IsConnected)
+        {
+            // Enables our canvas if we're connected
+            if (PV.IsMine)
+            {
+                userName.GetComponent<TextMesh>().text = globalManager.username;
+            }
+            else
+            {
+                Destroy(canvas);
+                Destroy(lapCanvas);
+                Destroy(tachometer);
+                Destroy(GetComponent<PlayerController>().gameObject);
+                //Destroy(GetComponent<PlayerInput>().gameObject);
+                Destroy(GetComponent<Camera>().gameObject);
+            }
+            userName.SetActive(true);
+        }
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
@@ -437,16 +436,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if ((!PhotonNetwork.IsConnected) || (PV.IsMine))
-        {
-            // Speed derived from wheel speed
-            speedRatio = GetSpeedRatio();
-            speed = rigidBody.velocity.magnitude * 3.6f;
-            // Brake lights
-            tailLights.SetActive(isBraking || isDrifting);
-            // Head lights
-            headLights.SetActive(useHeadLights);
-        }
+        // Speed derived from wheel speed
+        speedRatio = GetSpeedRatio();
+        speed = rigidBody.velocity.magnitude * 3.6f;
+        // Brake lights
+        tailLights.SetActive(isBraking || isDrifting);
+        // Head lights
+        headLights.SetActive(useHeadLights);
     }
     
     /// <summary>
@@ -454,16 +450,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if ((!PhotonNetwork.IsConnected) || (PV.IsMine))
-        {
-            HandleMotor();
-            HandleSteering();
-            UpdateWheels();
-            HandleNos();
-            HandleDrift();
-            HandleTireTrails();
-            ResetPosition();
-        }
+        HandleMotor();
+        HandleSteering();
+        UpdateWheels();
+        HandleNos();
+        HandleDrift();
+        HandleTireTrails();
+        ResetPosition();
     }
     
     #endregion
