@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+  username: 
   playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   nftSprite: {fileID: 2800000, guid: faf906343c4cd8f4091e10992def1b05, type: 3}
   engineLevel: 1
@@ -720,8 +721,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 3
+  far clip plane: 500
   field of view: 60
   orthographic: 0
   orthographic size: 5

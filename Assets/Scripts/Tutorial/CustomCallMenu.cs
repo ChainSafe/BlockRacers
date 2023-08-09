@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Custom call SDK functions
+/// </summary>
 public class CustomCallMenu : MonoBehaviour
 {
     #region Fields

@@ -1,7 +1,9 @@
 using Photon.Pun;
-using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manages our cars position for multiplayer races
+/// </summary>
 public class PositioningSystem : MonoBehaviour
 {
     #region Fields
@@ -215,6 +217,7 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     private void UpdatePositionText()
     {
+        if (!playerController.GetComponent<PhotonView>().IsMine) return;
         cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
     }
     
@@ -223,14 +226,12 @@ public class PositioningSystem : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!playerController.GetComponent<PhotonView>().IsMine)
+        if (playerController.GetComponent<PhotonView>().IsMine) return;
+        Debug.Log("Finding our Player!");
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if (playerController.GetComponent<PhotonView>().IsMine)
         {
-            Debug.Log("Finding our Player!");
-            playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-            if (playerController.GetComponent<PhotonView>().IsMine)
-            {
-                Debug.Log("Player found!");
-            }
+            Debug.Log("Player found!");
         }
     }
 

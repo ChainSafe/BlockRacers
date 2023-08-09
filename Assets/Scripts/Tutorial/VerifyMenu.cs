@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An example of how Chainsafe's SDK verify functionality works
+/// </summary>
 public class VerifyMenu : MonoBehaviour
 {
     #region Fields

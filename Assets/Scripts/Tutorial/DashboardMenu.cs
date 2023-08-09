@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Allows the user to go to the Chainsafe dashboard
+/// </summary>
 public class DashboardMenu : MonoBehaviour
 {
     #region Fields

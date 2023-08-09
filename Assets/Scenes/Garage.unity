@@ -30835,6 +30835,7 @@ GameObject:
   - component: {fileID: 1042185632}
   - component: {fileID: 1042185631}
   - component: {fileID: 1042185637}
+  - component: {fileID: 1042185638}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -30870,7 +30871,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042185630}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -30979,8 +30980,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
+  near clip plane: 3
+  far clip plane: 500
   field of view: 49.999996
   orthographic: 0
   orthographic size: 10
@@ -31029,6 +31030,18 @@ MonoBehaviour:
   cameraToRotate: {fileID: 1042185635}
   desiredRotation: {x: 0, y: 45, z: 0}
   rotationDuration: 2
+--- !u!114 &1042185638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042185630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801ca778d4288334f81b4d195fc5fcd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1043262508
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Allows the user to open up Chainsafe's documentation
+/// </summary>
 public class DocsMenu : MonoBehaviour
 {
     #region Fields
