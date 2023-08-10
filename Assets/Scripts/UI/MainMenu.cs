@@ -12,21 +12,41 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviourPunCallbacks
 {
     #region Fields
-    
+
     // Global Manager
     private GlobalManager globalManager;
+
     // Audio
     private AudioManager audioManager;
+
     // Menu items
-    [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, wagerMenu, searchingMenu, connectButton, tutorialButton, oneVsOneButton, searchingBackButton, connectingText;
+    [SerializeField] private GameObject connectMenu,
+        mainMenu,
+        raceMenu,
+        wagerMenu,
+        searchingMenu,
+        connectButton,
+        tutorialButton,
+        oneVsOneButton,
+        searchingBackButton,
+        connectingText;
+
     // Back buttons
-    [SerializeField] private GameObject backButtonNormalRace, backButtonWager, playersWagerReadyObj, playersReady2Obj, playersReady5Obj; 
+    [SerializeField] private GameObject backButtonNormalRace,
+        backButtonWager,
+        playersWagerReadyObj,
+        playersReady2Obj,
+        playersReady5Obj;
+
     // Players text for multiplayer
     [SerializeField] private TextMeshProUGUI playersReadyNumberText;
+
     // Players names arrays for multiplayer
     [SerializeField] private TextMeshProUGUI[] playerWagerNames, player2v2Names, player5v5Names;
+
     // PHOTON - Are we connected to the master server?
     public static bool connectedToMaster;
+
     // PHOTON - Username
     [SerializeField] private TMP_InputField usernameInput;
     private string userName;
@@ -59,7 +79,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             EventSystem.current.SetSelectedGameObject(connectButton);
         }
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -106,7 +126,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Quits the game
     /// </summary>
@@ -135,14 +155,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(oneVsOneButton);
     }
-    
+
     /// <summary>
     /// If we joined the room successfully, the scene changes based on the lobby we join
     /// </summary>
-    public override void OnJoinedRoom() 
+    public override void OnJoinedRoom()
     {
         // Instantiates username prefab
-        PhotonNetwork.Instantiate("LobbyUserName", new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, 0);
+        PhotonNetwork.Instantiate("LobbyUserName",
+            new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, 0);
         // Sets our username
         SetUsername();
         // Sets our players ready text to 1 as we join
@@ -187,6 +208,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // Sets our first selected button
             EventSystem.current.SetSelectedGameObject(oneVsOneButton);
         }
+
         // Closes the menu to stop duplicate connections
         mainMenu.SetActive(false);
         if (audioManager == null) return;
@@ -212,7 +234,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Lets the user create or search for a 1v1 room
     /// </summary>
@@ -223,7 +245,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
         PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1", roomOps, TypedLobby.Default);
     }
-    
+
     /// <summary>
     /// Lets the user create or search for a 1v1 room
     /// </summary>
@@ -234,7 +256,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
         PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1Wager", roomOps, TypedLobby.Default);
     }
-    
+
     /// <summary>
     /// Lets the user create or search for 5 man a room
     /// </summary>
@@ -258,7 +280,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Opens the searching menu
     /// </summary>
@@ -290,7 +312,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Sets the users username, a default one is chosen if none is present
     /// </summary>
@@ -328,7 +350,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             }
         }
     }
-    
+
     /// <summary>
     /// Loads the race track for everyone
     /// </summary>
@@ -361,6 +383,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 {
                     player2v2Names[i].text = LobbyUserName[i].Owner.NickName;
                 }
+
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -374,6 +397,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                         }
                     }
                 }
+
                 break;
             }
             // 1v1 wager config
@@ -387,6 +411,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 {
                     playerWagerNames[i].text = LobbyUserName[i].Owner.NickName;
                 }
+
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     searchingMenu.SetActive(false);
@@ -405,6 +430,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                         }
                     }
                 }
+
                 break;
             }
             // 5man config
@@ -418,6 +444,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 {
                     player5v5Names[i].text = LobbyUserName[i].Owner.NickName;
                 }
+
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 5)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -431,11 +458,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
                         }
                     }
                 }
+
                 break;
             }
         }
     }
-    
+
     /// <summary>
     /// Resets the user names for each player in the lobby
     /// </summary>
@@ -445,18 +473,18 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             player.text = "";
         }
-        
+
         foreach (var player in player2v2Names)
         {
             player.text = "";
         }
-        
+
         foreach (var player in player5v5Names)
         {
             player.text = "";
         }
     }
-    
+
     /// <summary>
     /// Closes username objects
     /// </summary>

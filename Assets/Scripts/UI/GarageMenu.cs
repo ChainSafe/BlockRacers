@@ -9,26 +9,33 @@ using UnityEngine.EventSystems;
 public class GarageMenu : MonoBehaviour
 {
     #region Fields
-    
+
     // Singleton to access functions
     public static GarageMenu instance;
+
     // Audio
     private AudioManager audioManager;
+
     // Global manager
     private GlobalManager globalManager;
+
     // Our upgrade menu objects
     private int upgradeIndex;
+
     [SerializeField] private TextMeshProUGUI descriptionText;
+
     // Menu objects
     [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket;
+
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
+
     // Menu buttons
     [SerializeField] private GameObject changeCarButton, selectItemButton, purchaseButton;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes objects
     /// </summary>
@@ -43,7 +50,7 @@ public class GarageMenu : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -52,7 +59,7 @@ public class GarageMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
+
     /// <summary>
     /// A function to play the menu selection sound
     /// </summary>
@@ -70,6 +77,7 @@ public class GarageMenu : MonoBehaviour
             // Rotate our camera back
             CameraController.instance.RotateCamera(-95f, 0.5f);
         }
+
         menuMarket.SetActive(false);
         menuUpgrade.SetActive(false);
         menuShowRoom.SetActive(false);
@@ -94,7 +102,7 @@ public class GarageMenu : MonoBehaviour
         // Play our menu select audio
         PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Opens the car upgrade menu for the player
     /// </summary>
@@ -109,7 +117,7 @@ public class GarageMenu : MonoBehaviour
         PlayMenuSelect();
     }
 
-    
+
     /// <summary>
     /// Opens the nft menu
     /// </summary>
@@ -165,6 +173,7 @@ public class GarageMenu : MonoBehaviour
                 PurchaseNosUpgrade();
                 break;
         }
+
         // Play our menu select audio
         PlayMenuSelect();
     }
@@ -181,7 +190,7 @@ public class GarageMenu : MonoBehaviour
         // Play our menu select audio
         PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Selects the handling upgrade
     /// </summary>
@@ -189,7 +198,8 @@ public class GarageMenu : MonoBehaviour
     {
         // Sets index and displays description of upgrade
         upgradeIndex = 2;
-        descriptionText.text = "upgrading your handling will improve the agility of your car and ability to hold a drift";
+        descriptionText.text =
+            "upgrading your handling will improve the agility of your car and ability to hold a drift";
         // You can change a cost variable here to display how much an upgrade costs if required
         // Play our menu select audio
         PlayMenuSelect();
@@ -207,7 +217,7 @@ public class GarageMenu : MonoBehaviour
         // Play our menu select audio
         PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Upgrades car engine
     /// </summary>
@@ -228,6 +238,7 @@ public class GarageMenu : MonoBehaviour
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
         }
+
         // Play our menu select audio
         PlayMenuSelect();
     }
@@ -252,6 +263,7 @@ public class GarageMenu : MonoBehaviour
                 handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
                 break;
         }
+
         // Play our menu select audio
         PlayMenuSelect();
     }
@@ -276,10 +288,11 @@ public class GarageMenu : MonoBehaviour
                 nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
                 break;
         }
+
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Sets description and purchase button functionality
     /// </summary>
@@ -288,7 +301,8 @@ public class GarageMenu : MonoBehaviour
         // If no upgrade is selected, we don't want the purchase button to show.
         purchaseButton.SetActive(upgradeIndex >= 1);
         // We also want to set the description based on what upgrade is selected
-        descriptionText.text = (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
+        descriptionText.text =
+            (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
     }
 
     #endregion

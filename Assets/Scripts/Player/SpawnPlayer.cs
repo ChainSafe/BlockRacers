@@ -8,16 +8,17 @@ using UnityEngine.SceneManagement;
 public class SpawnPlayer : MonoBehaviour
 {
     #region Fields
-    
+
     // Global manager
     private GlobalManager globalManager;
+
     // Spawn points for each player
     [SerializeField] private GameObject[] spawnPoints;
 
     #endregion
-    
+
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects
     /// </summary>
@@ -26,7 +27,7 @@ public class SpawnPlayer : MonoBehaviour
         // Find our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
-    
+
     /// <summary>
     /// Sets vinyls based on chosen car
     /// </summary>
@@ -40,25 +41,34 @@ public class SpawnPlayer : MonoBehaviour
         else
         {
             // Instantiate our multiplayer prefab
-            PhotonNetwork.Instantiate(globalManager.playerCar.name, new Vector3(spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.x, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.y, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.position.z), spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber -1].transform.rotation, 0);
+            PhotonNetwork.Instantiate(globalManager.playerCar.name,
+                new Vector3(spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position.x,
+                    spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position.y,
+                    spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position.z),
+                spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.rotation, 0);
         }
 
         // If we're racing with the Camaro
         if (globalManager.playerCar == SwapCars.instance.car1)
         {
-            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material =
+                SwapCars.instance.camaroLivery[SwapCars.currentLiveryIndex];
         }
+
         // If we're racing with the ford GT
         if (globalManager.playerCar == SwapCars.instance.car2)
         {
-            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material =
+                SwapCars.instance.fordGTLivery[SwapCars.currentLiveryIndex];
         }
+
         // If we're racing with the ferrari
         if (globalManager.playerCar == SwapCars.instance.car3)
         {
-            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material = SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
+            GameObject.Find("CarBody").GetComponent<MeshRenderer>().material =
+                SwapCars.instance.ferrariLivery[SwapCars.currentLiveryIndex];
         }
     }
-    
+
     #endregion
 }

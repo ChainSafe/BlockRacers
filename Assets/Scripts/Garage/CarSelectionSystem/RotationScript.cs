@@ -6,10 +6,10 @@ using UnityEngine;
 public class RotationScript : MonoBehaviour
 {
     #region Fields
-    
+
     // The speed at which the platform rotates
     private float rotationSpeed = 10f;
-    
+
     #endregion
 
     #region Methods
@@ -21,6 +21,6 @@ public class RotationScript : MonoBehaviour
     {
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
-    
+
     #endregion
 }

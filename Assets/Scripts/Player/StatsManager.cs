@@ -9,20 +9,25 @@ public class StatsManager : MonoBehaviour
 
     // Global
     private GlobalManager globalManager;
+
     // Stats
     private int engineLevel;
     private int handlingLevel;
+
     private int nosLevel;
+
     // Body Material
     public Material nftMaterial;
+
     private Texture2D nftSprite;
+
     // Player objects
     [SerializeField] private PlayerController playerController;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects and sets our levels based on our selected NFT
     /// </summary>
@@ -38,7 +43,7 @@ public class StatsManager : MonoBehaviour
         handlingLevel = globalManager.handlingLevel;
         nosLevel = globalManager.nosLevel;
     }
-    
+
     /// <summary>
     /// Updates our stats based on our chosen NFT
     /// </summary>
@@ -76,6 +81,6 @@ public class StatsManager : MonoBehaviour
             _ => 20f
         };
     }
-    
+
     #endregion
 }

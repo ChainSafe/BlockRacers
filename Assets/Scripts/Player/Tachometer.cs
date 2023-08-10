@@ -8,17 +8,22 @@ using UnityEngine.UI;
 public class Tachometer : MonoBehaviour
 {
     #region Fields
-    
+
     // UI component
     [SerializeField] private Slider speedSlider;
+
     // Fill component
     [SerializeField] private Image speedBar;
+
     // The actual speed metric
     [SerializeField] private TextMeshProUGUI speedText;
+
     // Current gear
     [SerializeField] private TextMeshProUGUI currentGear;
+
     // Player objects
     [SerializeField] private PlayerController playerController;
+
     // Smoothing variables
     [SerializeField] private float targetSpeed;
     [SerializeField] private const float LerpSpeed = 5f;
@@ -26,7 +31,7 @@ public class Tachometer : MonoBehaviour
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Manages displayed speed and gear
     /// </summary>
@@ -52,6 +57,6 @@ public class Tachometer : MonoBehaviour
         // Displays our current gear
         currentGear.text = playerController.CurrentGear.ToString();
     }
-    
+
     #endregion
 }

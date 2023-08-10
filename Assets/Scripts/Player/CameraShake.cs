@@ -10,8 +10,10 @@ public class CameraShake : MonoBehaviour
 
     // Singleton
     public static CameraShake Instance;
+
     // Reference to your Cinemachine FreeLook camera
     public CinemachineFreeLook freeLookCamera;
+
     // Reference to CinemachineBasicMultiChannelPerlin component
     public CinemachineBasicMultiChannelPerlin TopRig;
     public CinemachineBasicMultiChannelPerlin MiddleRig;
@@ -20,7 +22,7 @@ public class CameraShake : MonoBehaviour
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes the instance and the rigs for the camera
     /// </summary>
@@ -32,10 +34,11 @@ public class CameraShake : MonoBehaviour
         MiddleRig = freeLookCamera.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         BottomRig = freeLookCamera.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         // Assign the CinemachineBasicMultiChannelPerlin component to the appropriate channel
-        freeLookCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(0f, 0f, 0f);
+        freeLookCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset =
+            new Vector3(0f, 0f, 0f);
     }
     // You can access the noise (shake) by using the following:
     // CameraShake.Instance.{RigNameHere}.m_AmplitudeGain = {IntensityFloat};
-    
+
     #endregion
 }

@@ -6,28 +6,35 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     #region Fields
-    
+
     // Singleton
-    public static CameraController instance;    
+    public static CameraController instance;
+
     // Reference to the camera you want to rotate
     public Camera cameraToRotate;
+
     // Desired rotation for the camera
     public Vector3 desiredRotation;
+
     // The duration of the rotation in seconds
     public float rotationDuration;
+
     // Initial rotation of the camera
     private Quaternion initialRotation;
+
     // Target rotation of the camera
     private Quaternion targetRotation;
+
     // Timer for tracking the rotation progress
     private float rotationTimer;
+
     // Flag to check if rotation is in progress
     private bool isRotating;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     ///  Initializes objects, sets our instance and rotation of camera
     /// </summary>
@@ -54,7 +61,7 @@ public class CameraController : MonoBehaviour
         rotationTimer = 0f;
         rotationDuration = duration;
     }
-    
+
     /// <summary>
     /// Checks if the camera is rotating and adjusts accordingly
     /// </summary>
@@ -69,6 +76,6 @@ public class CameraController : MonoBehaviour
             isRotating = false;
         }
     }
-    
+
     #endregion
 }

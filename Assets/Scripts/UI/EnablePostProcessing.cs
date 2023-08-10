@@ -4,10 +4,10 @@ using UnityEngine.Rendering.PostProcessing;
 public class EnablePostProcessing : MonoBehaviour
 {
     #region Fields
-    
+
     // Post processing
     private PostProcessVolume volume;
-    
+
     #endregion
 
     #region Methods
@@ -20,5 +20,4 @@ public class EnablePostProcessing : MonoBehaviour
     }
 
     #endregion
-
 }

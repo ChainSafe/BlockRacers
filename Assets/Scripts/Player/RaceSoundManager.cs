@@ -14,15 +14,17 @@ public class RaceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource decelerateSound;
     [SerializeField] private AudioSource collisionSound;
     [SerializeField] private AudioSource driftCounterSound;
+
     [SerializeField] private AudioSource driftEndSound;
+
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
     private bool driftEnded;
-    
+
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Handles various sounds based on input and speed
     /// </summary>
@@ -34,7 +36,7 @@ public class RaceSoundManager : MonoBehaviour
         accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
         decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
         decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear, 2, playerController.SpeedRatio);
-        
+
         // Nos sound based on input
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
         {
@@ -44,6 +46,7 @@ public class RaceSoundManager : MonoBehaviour
                 nosSound.Play();
             }
         }
+
         // Engine sound based on input
         switch (playerController.Input)
         {
@@ -54,6 +57,7 @@ public class RaceSoundManager : MonoBehaviour
                 {
                     idleSound.Play();
                 }
+
                 break;
             }
             // Accelerating
@@ -64,6 +68,7 @@ public class RaceSoundManager : MonoBehaviour
                     decelerateSound.Pause();
                     accelerateSound.Play();
                 }
+
                 break;
             }
             default:
@@ -74,10 +79,11 @@ public class RaceSoundManager : MonoBehaviour
                     accelerateSound.Pause();
                     decelerateSound.Play();
                 }
+
                 break;
             }
         }
-        
+
         // Drift sounds (reversed for some reason)
         if (!DriftSystem.instance.driftActive)
         {
@@ -87,7 +93,7 @@ public class RaceSoundManager : MonoBehaviour
         {
             driftEnded = true;
         }
-        
+
         if (driftEnded)
         {
             driftEnded = false;
@@ -100,6 +106,6 @@ public class RaceSoundManager : MonoBehaviour
         collisionSound.Pause();
         collisionSound.Play();
     }
-    
+
     #endregion
 }
