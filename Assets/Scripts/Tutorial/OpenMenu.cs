@@ -6,13 +6,13 @@ using UnityEngine;
 public class OpenMenu : MonoBehaviour
 {
     #region Fields
-    
+
     [SerializeField] private GameObject menuToOpen;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Opens a menu on collision for the user to learn about the SDK
     /// </summary>

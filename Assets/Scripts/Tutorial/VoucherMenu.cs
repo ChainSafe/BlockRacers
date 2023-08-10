@@ -10,13 +10,14 @@ public class VoucherMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
+
     // First button
     [SerializeField] private GameObject firstButton;
-    
+
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects
     /// </summary>
@@ -32,7 +33,7 @@ public class VoucherMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -41,7 +42,7 @@ public class VoucherMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
+
     /// <summary>
     /// Generates a voucher to be used to almost anything
     /// </summary>
@@ -50,7 +51,7 @@ public class VoucherMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Redeems the generated voucher
     /// </summary>
@@ -59,19 +60,19 @@ public class VoucherMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Closes the menu and gives input control back to the user
     /// </summary>
     public void CloseMenu()
     {
         // Locks the cursor so the user can resume playing normally
-        Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     #endregion
 }

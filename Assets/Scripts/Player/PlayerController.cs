@@ -84,6 +84,9 @@ public class PlayerController : MonoBehaviour
     // Canvas
     [SerializeField] private GameObject canvas;
 
+    // Controls pop up
+    [SerializeField] private GameObject controlsPopUp;
+
     // Race end text
     [SerializeField] private GameObject raceEndingText;
 
@@ -96,6 +99,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LapSystem lapSystem;
     [SerializeField] private DriftSystem driftSystem;
 
+    // Lap count
     private int lapCount;
 
     // Last checkpoint for reset
@@ -261,6 +265,8 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Reset.performed += OnResetInput;
         // Disables input
         OnDisable();
+        // Shows controls menu
+        controlsPopUp.SetActive(true);
         // Disables photon components in tutorial
         if (SceneManager.GetActiveScene().name != "Tutorial") return;
         staticCamera.SetActive(true);
@@ -281,6 +287,7 @@ public class PlayerController : MonoBehaviour
         audioManager.Play("Bgm2");
         // Updates our stats
         statsManager.UpdateStats();
+        Invoke(nameof(HideControls), 5);
         // Disables photon components in tutorial
         if (PhotonNetwork.IsConnected)
         {
@@ -392,6 +399,11 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         playerInput.Disable();
+    }
+
+    private void HideControls()
+    {
+        controlsPopUp.SetActive(false);
     }
 
     #endregion
