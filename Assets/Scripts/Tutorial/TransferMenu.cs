@@ -11,17 +11,20 @@ public class TransferMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
+
     // Input field
     [SerializeField] private TMP_InputField inputField;
+
     // Address to send to
     private string walletAddress;
+
     // First button
     [SerializeField] private GameObject firstButton;
-    
+
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects
     /// </summary>
@@ -37,7 +40,7 @@ public class TransferMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -46,7 +49,7 @@ public class TransferMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
+
     /// <summary>
     /// Transfers custom tokens to an address
     /// </summary>
@@ -56,19 +59,19 @@ public class TransferMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Closes the menu and gives input control back to the user
     /// </summary>
     public void CloseMenu()
     {
         // Locks the cursor so the user can resume playing normally
-        Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     #endregion
 }

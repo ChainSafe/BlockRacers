@@ -10,13 +10,14 @@ public class DashboardMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
+
     // First button
     [SerializeField] private GameObject firstButton;
-    
+
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects
     /// </summary>
@@ -32,7 +33,7 @@ public class DashboardMenu : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -41,7 +42,7 @@ public class DashboardMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
+
     /// <summary>
     /// Opens the Chainsafe gaming dashboard
     /// </summary>
@@ -57,12 +58,12 @@ public class DashboardMenu : MonoBehaviour
     public void CloseMenu()
     {
         // Locks the cursor so the user can resume playing normally
-        Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     #endregion
 }
