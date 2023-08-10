@@ -33,6 +33,7 @@ public class PositioningSystem : MonoBehaviourPun
     /// </summary>
     private void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         // Sets array length by amount of players in room
         cars = new GameObject[PhotonNetwork.CurrentRoom.PlayerCount];
