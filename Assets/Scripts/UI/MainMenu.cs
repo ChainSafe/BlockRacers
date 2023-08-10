@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -116,10 +117,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         Application.Quit();
     }
 
-    /////////////////////////////////////////
-    /// PHOTON LOBBY CONFIGURATION STARTS ///
-    /////////////////////////////////////////
-    
+    #region Photon
+
     /// <summary>
     /// PHOTON Fires once a user is connected to proceed and let's the user know we're connected
     /// </summary>
@@ -168,7 +167,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Opens the race menu and connects to photon for multiplayer
     /// </summary>
@@ -354,6 +353,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 1v1 config
             case "RaceLobby1v1":
             {
+                // Finds our photon lobby objects
                 PhotonView[] LobbyUserName = FindObjectsOfType<PhotonView>();
                 // Set player names
                 playersReady2Obj.SetActive(true);
@@ -379,11 +379,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 1v1 wager config
             case "RaceLobby1v1Wager":
             {
+                // Finds our photon lobby objects
+                PhotonView[] LobbyUserName = FindObjectsOfType<PhotonView>();
                 // Set player names
                 playersWagerReadyObj.SetActive(true);
                 for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                    playerWagerNames[i].text = gameObject.GetComponent<PhotonView>().Owner.NickName;
+                    playerWagerNames[i].text = LobbyUserName[i].Owner.NickName;
                 }
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
@@ -408,11 +410,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 5man config
             case "RaceLobby5Man":
             {
+                // Finds our photon lobby objects
+                PhotonView[] LobbyUserName = FindObjectsOfType<PhotonView>();
                 // Set player names
                 playersReady5Obj.SetActive(true);
                 for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                    player5v5Names[i].text = gameObject.GetComponent<PhotonView>().Owner.NickName;
+                    player5v5Names[i].text = LobbyUserName[i].Owner.NickName;
                 }
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 5)
                 {
@@ -463,9 +467,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         playersWagerReadyObj.SetActive(false);
     }
 
-    /////////////////////////////////////////
-    /// PHOTON LOBBY CONFIGURATION ENDS /////
-    /////////////////////////////////////////
+    #endregion
 
     #endregion
 }
