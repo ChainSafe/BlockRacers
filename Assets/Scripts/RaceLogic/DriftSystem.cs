@@ -22,7 +22,7 @@ public class DriftSystem : MonoBehaviour
     // Adjust this value to set the minimum angular velocity for a valid drift
     public float angularVelocityThreshold = 0.1f;
     // Our current drift score
-    private int driftScore = 0;
+    private int driftScore;
     // Our player controller
     [SerializeField] private PlayerController playerController;
     // Our player Rigidbody
