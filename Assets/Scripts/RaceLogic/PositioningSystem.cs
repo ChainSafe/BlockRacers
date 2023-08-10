@@ -54,7 +54,7 @@ public class PositioningSystem : MonoBehaviourPun
     /// <summary>
     /// Set our CheckPoints
     /// </summary>
-    public void SetCheckPoints()
+    private void SetCheckPoints()
     {
         // Initialize the array
         checkPointPositions = new Transform[totalCheckPoints];

@@ -31,6 +31,8 @@ public class SwapCars : MonoBehaviour
     private Vector3 spawnPoint = new Vector3(89.17f, 0.4f, -9.7f);
     // Reference the global manager
     private GlobalManager globalManager;
+    // Platform
+    [SerializeField] private GameObject platform;
     
     #endregion
 
@@ -47,6 +49,7 @@ public class SwapCars : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        platform.transform.position = new Vector3(currentPrefab.transform.position.x, currentPrefab.transform.position.y - 0.3f, currentPrefab.transform.position.z);
     }
 
     /// <summary>
