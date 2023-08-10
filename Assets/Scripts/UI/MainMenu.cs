@@ -19,9 +19,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Menu items
     [SerializeField] private GameObject connectMenu, mainMenu, raceMenu, wagerMenu, searchingMenu, connectButton, tutorialButton, oneVsOneButton, searchingBackButton, connectingText;
     // Back buttons
-    [SerializeField] private GameObject backButtonNormalRace, backButtonWager; 
+    [SerializeField] private GameObject backButtonNormalRace, backButtonWager, playersWagerReadyObj, playersReady2Obj, playersReady5Obj; 
     // Players text for multiplayer
     [SerializeField] private TextMeshProUGUI playersReadyNumberText;
+    // Players names arrays for multiplayer
+    [SerializeField] private TextMeshProUGUI[] playerWagerNames, player2v2Names, player5v5Names;
     // PHOTON - Are we connected to the master server?
     public static bool connectedToMaster;
     // PHOTON - Username
@@ -140,28 +142,29 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public override void OnJoinedRoom() 
     {
+        // Instantiates username prefab
+        PhotonNetwork.Instantiate("LobbyUserName", new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, 0);
         // Sets our username
         SetUsername();
-        Debug.Log($"Player Index {PhotonNetwork.LocalPlayer.ActorNumber}");
         // Sets our players ready text to 1 as we join
         playersReadyNumberText.text = "1";
         // Sets race config
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
         // Editor debug
-        if (Application.isEditor)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (!loadingLevel)
-                {
-                    loadingLevel = true;
-                    backButtonNormalRace.SetActive(false);
-                    // Loads level
-                    Invoke(nameof(LoadRaceTrack), 3);
-                }
-            }
-        }
+        // if (Application.isEditor)
+        // {
+        //     if (PhotonNetwork.IsMasterClient)
+        //     {
+        //         if (!loadingLevel)
+        //         {
+        //             loadingLevel = true;
+        //             backButtonNormalRace.SetActive(false);
+        //             // Loads level
+        //             Invoke(nameof(LoadRaceTrack), 3);
+        //         }
+        //     }
+        // }
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -201,6 +204,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         mainMenu.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(tutorialButton);
+        // Resets player names
+        ResetPlayerLobbyNames();
+        // Close username objects
+        CloseUserNameObjects();
         // Disconnects from photon
         PhotonNetwork.Disconnect();
         if (audioManager == null) return;
@@ -272,6 +279,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public void SearchingMenuBackButton()
     {
         PhotonNetwork.LeaveRoom();
+        // Resets player names
+        ResetPlayerLobbyNames();
+        // Close username objects
+        CloseUserNameObjects();
         wagerMenu.SetActive(false);
         searchingMenu.SetActive(false);
         raceMenu.SetActive(true);
@@ -286,23 +297,36 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     private void SetUsername()
     {
+        PhotonView[] LobbyUserName = FindObjectsOfType<PhotonView>();
         if (usernameInput.text == "")
         {
             // Sets a random username is none is chosen
             int rand = Random.Range(1, 6);
-            PhotonNetwork.LocalPlayer.NickName = rand switch
+            foreach (var user in LobbyUserName)
             {
-                1 => "Gary",
-                2 => "MoonCake",
-                3 => "Avocado",
-                4 => "Kevin",
-                _ => "Hue"
-            };
+                if (user.Owner.IsLocal)
+                {
+                    user.Owner.NickName = rand switch
+                    {
+                        1 => "Gary",
+                        2 => "MoonCake",
+                        3 => "Avocado",
+                        4 => "Kevin",
+                        _ => "Hue"
+                    };
+                }
+            }
         }
         else
         {
             // Sets our user name to what we have chosen
-            PhotonNetwork.LocalPlayer.NickName = usernameInput.text;
+            foreach (var user in LobbyUserName)
+            {
+                if (user.Owner.IsLocal)
+                {
+                    user.Owner.NickName = usernameInput.text;
+                }
+            }
         }
     }
     
@@ -330,6 +354,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 1v1 config
             case "RaceLobby1v1":
             {
+                PhotonView[] LobbyUserName = FindObjectsOfType<PhotonView>();
+                // Set player names
+                playersReady2Obj.SetActive(true);
+                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    player2v2Names[i].text = LobbyUserName[i].Owner.NickName;
+                }
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -348,6 +379,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 1v1 wager config
             case "RaceLobby1v1Wager":
             {
+                // Set player names
+                playersWagerReadyObj.SetActive(true);
+                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    playerWagerNames[i].text = gameObject.GetComponent<PhotonView>().Owner.NickName;
+                }
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
                 {
                     searchingMenu.SetActive(false);
@@ -371,6 +408,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
             // 5man config
             case "RaceLobby5Man":
             {
+                // Set player names
+                playersReady5Obj.SetActive(true);
+                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+                {
+                    player5v5Names[i].text = gameObject.GetComponent<PhotonView>().Owner.NickName;
+                }
                 if (PhotonNetwork.CurrentRoom.PlayerCount == 5)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -387,6 +430,37 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 break;
             }
         }
+    }
+    
+    /// <summary>
+    /// Resets the user names for each player in the lobby
+    /// </summary>
+    private void ResetPlayerLobbyNames()
+    {
+        foreach (var player in playerWagerNames)
+        {
+            player.text = "";
+        }
+        
+        foreach (var player in player2v2Names)
+        {
+            player.text = "";
+        }
+        
+        foreach (var player in player5v5Names)
+        {
+            player.text = "";
+        }
+    }
+    
+    /// <summary>
+    /// Closes username objects
+    /// </summary>
+    private void CloseUserNameObjects()
+    {
+        playersReady2Obj.SetActive(false);
+        playersReady5Obj.SetActive(false);
+        playersWagerReadyObj.SetActive(false);
     }
 
     /////////////////////////////////////////
