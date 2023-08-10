@@ -25,7 +25,7 @@ public class NftMenu : MonoBehaviour
     [SerializeField] private Texture2D Nft1, Nft2, Nft3;
 
     // The canvas to populate
-    [SerializeField] private GameObject scrollCanvas;
+    [SerializeField] private RectTransform scrollCanvas;
 
     #endregion
 
@@ -71,9 +71,9 @@ public class NftMenu : MonoBehaviour
             // Instantiate prefabs
             Instantiate(nftPrefab);
             // Set parent to scroll canvas
-            nftPrefab.transform.SetParent(scrollCanvas.gameObject.transform);
+            nftPrefabItem.transform.SetParent(scrollCanvas);
             // Populates the prefabs
-            PopulatePrefabs(nftPrefab);
+            PopulatePrefabs(nftPrefabItem);
         }
     }
 
@@ -84,8 +84,8 @@ public class NftMenu : MonoBehaviour
     {
         foreach (Texture2D nftImage in nfts)
         {
-            GameObject image = GameObject.Find("Image");
-            image.GetComponent<Image>().sprite = nftImage.GetComponent<Image>().sprite;
+            Image image = nftPrefab.GetComponent<Image>();
+            image.sprite = nftImage.GetComponent<Image>().sprite;
         }
     }
 
