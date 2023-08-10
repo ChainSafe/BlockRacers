@@ -28879,6 +28879,7 @@ GameObject:
   - component: {fileID: 5459080129973006870}
   - component: {fileID: 3897692608368124408}
   - component: {fileID: 7476780502023651028}
+  - component: {fileID: -4666986323600757377}
   m_Layer: 0
   m_Name: Car2
   m_TagString: Player
@@ -28966,6 +28967,7 @@ MonoBehaviour:
   userName: {fileID: 74244932846886740}
   staticCamera: {fileID: 4536713376200338806}
   freeLookCamera: {fileID: 315163244000211858}
+  carBody: {fileID: 1633487961872555108}
 --- !u!54 &1057638535305188938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29014,6 +29016,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5459080129973006870}
   - {fileID: 3897692608368124408}
+  - {fileID: -4666986323600757377}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -29061,3 +29064,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801ca778d4288334f81b4d195fc5fcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4666986323600757377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562722798458900322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8069ffa6ab7df7340ad5ce0c3da47526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interpolationBackTime: 0.12
+  extrapolationMode: 1
+  useExtrapolationTimeLimit: 1
+  extrapolationTimeLimit: 5
+  useExtrapolationDistanceLimit: 0
+  extrapolationDistanceLimit: 20
+  sendPositionThreshold: 0
+  sendRotationThreshold: 0
+  sendScaleThreshold: 0
+  sendVelocityThreshold: 0
+  sendAngularVelocityThreshold: 0
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  snapPositionThreshold: 0
+  snapRotationThreshold: 0
+  snapScaleThreshold: 0
+  positionLerpSpeed: 0.85
+  rotationLerpSpeed: 0.85
+  scaleLerpSpeed: 0.85
+  timeCorrectionSpeed: 0.1
+  snapTimeThreshold: 0.3
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 0
+  isRotationCompressed: 0
+  isScaleCompressed: 0
+  isVelocityCompressed: 0
+  isAngularVelocityCompressed: 0
+  automaticallyResetTime: 1
+  isSmoothingAuthorityChanges: 0
+  whenToUpdateTransform: 0
+  setVelocityInsteadOfPositionOnNonOwners: 0
+  useLocalTransformOnly: 0
+  maxPositionDifferenceForVelocitySyncing: 10
+  ownerChangeIndicator: 1
+  receivedStatesCounter: 0

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 /// <summary>
 /// Manages the lap system, used when a user completes a lap
 /// </summary>
-public class LapSystem : MonoBehaviour
+public class LapSystem : MonoBehaviourPun
 {
     #region Fields
     
@@ -18,7 +19,29 @@ public class LapSystem : MonoBehaviour
     #endregion
 
     #region Methods
-    
+    /// <summary>
+    /// Initializes when we collide with the lap collider
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (this.photonView.IsMine)
+        {
+            if (other.CompareTag("LapCollider"))
+            {
+                LapComplete();
+            }
+            if (other.CompareTag("Test"))
+            {
+                Debug.Log("Collided with Split Time");
+
+                // Show our split time
+                //TimerSystem.instance.ShowSplitTime();
+            }
+        }
+    }
+
+
     /// <summary>
     /// Initializes our objects and fields
     /// </summary>
@@ -28,7 +51,7 @@ public class LapSystem : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         playerController.LapCount = 1;
     }
-    
+
     /// <summary>
     /// When the player completes a lap after hitting all checkpoints
     /// </summary>
