@@ -7,13 +7,10 @@ using TMPro;
 public class DriftSystem : MonoBehaviour
 {
     #region Fields
-    
-    // Singleton for access to drifting system
+
     public static DriftSystem instance;
     // Used for the UI
     public bool driftActive;
-    // Our audiosource
-    public AudioSource[] driftUISounds;
     // Our drift UI
     public GameObject driftStatus;
     public TextMeshProUGUI driftScoreText;
@@ -30,7 +27,6 @@ public class DriftSystem : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     // Our player Rigidbody
     [SerializeField] private Rigidbody playerCar;
-    private bool activateDriftSound;
 
     #endregion
 
@@ -43,10 +39,6 @@ public class DriftSystem : MonoBehaviour
     {
         // Singleton
         instance = this;
-        // For some reason, the drift audio doesn't work when I drift, but only when I don't, so I swapped logic, and for some reason now it works
-        // when I'm drifting, by saying it should play when I'm not drifting, it's strange and this probably needs to be checked.
-        activateDriftSound = false;
-        Invoke(nameof(EnableDriftAudio), 3f);
     }
 
     /// <summary>
@@ -66,10 +58,6 @@ public class DriftSystem : MonoBehaviour
         }
         else
         {
-            if (activateDriftSound)
-            {
-                driftUISounds[0].Play();
-            }
             driftActive = false;
             driftScore = 0;
             driftScoreText.text = "";
@@ -111,7 +99,6 @@ public class DriftSystem : MonoBehaviour
         // SetActive is used to trigger our animation everytime we drift
         if (driftActive && driftScore < 300)
         {
-            driftUISounds[1].Play();
             driftStatusText.text = "good drift";
             driftStatus.SetActive(true);
         }
@@ -133,15 +120,7 @@ public class DriftSystem : MonoBehaviour
             driftStatus.SetActive(false);
         }
     }
-    
-    /// <summary>
-    /// Enables drift audio
-    /// </summary>
-    private void EnableDriftAudio()
-    {
-        activateDriftSound = true;
-    }
-    
+
     /// <summary>
     /// Keeps the scripts functions running throughout the game
     /// </summary>

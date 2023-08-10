@@ -217,7 +217,7 @@ public class PositioningSystem : MonoBehaviourPun
     /// </summary>
     private void UpdatePositionText()
     {
-        cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().CarPosition}";
+        //cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().CarPosition}";
     }
     
     /// <summary>

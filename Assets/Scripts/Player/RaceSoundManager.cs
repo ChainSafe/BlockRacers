@@ -13,8 +13,11 @@ public class RaceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource accelerateSound;
     [SerializeField] private AudioSource decelerateSound;
     [SerializeField] private AudioSource collisionSound;
+    [SerializeField] private AudioSource driftCounterSound;
+    [SerializeField] private AudioSource driftEndSound;
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
+    private bool driftEnded;
     
     #endregion
 
@@ -26,7 +29,7 @@ public class RaceSoundManager : MonoBehaviour
     private void Update()
     {
         // Engine sounds
-        idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.SpeedRatio);
+        //idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.SpeedRatio);
         accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
         accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
         decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
@@ -45,7 +48,7 @@ public class RaceSoundManager : MonoBehaviour
         switch (playerController.Input)
         {
             // Idle
-            case 0 when (playerController.Speed == 0):
+            case 0 when (playerController.Speed == 0 || playerController.Input == 0):
             {
                 if (!idleSound.isPlaying)
                 {
@@ -74,6 +77,23 @@ public class RaceSoundManager : MonoBehaviour
                 break;
             }
         }
+        
+        // Drift sounds (reversed for some reason)
+        if (!DriftSystem.instance.driftActive)
+        {
+            driftCounterSound.Play();
+        }
+        else
+        {
+            driftEnded = true;
+        }
+        
+        if (driftEnded)
+        {
+            driftEnded = false;
+            driftEndSound.Play();
+        }
+
         // Collision sound based on collisions
         if (!playerController.collision) return;
         playerController.collision = false;
