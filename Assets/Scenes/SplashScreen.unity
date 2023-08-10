@@ -328,16 +328,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
-  username: 
-  playerCar: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
+  playerCar: {fileID: 8791386913672979934, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   nftSprite: {fileID: 2800000, guid: faf906343c4cd8f4091e10992def1b05, type: 3}
   engineLevel: 1
   handlingLevel: 1
   nosLevel: 1
   connected: 0
   raceWon: 0
+  winningPlayer: 
   wagering: 0
   wagerAccepted: 0
+  wagerAmount: 0
+  ERC20PrivateKey: a78313605b1ded96c3f2c991b8cbe883924035f4e338fe9f5a860429c2777b2f
 --- !u!1 &402067119
 GameObject:
   m_ObjectHideFlags: 0

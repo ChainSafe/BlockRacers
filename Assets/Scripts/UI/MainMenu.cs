@@ -148,6 +148,20 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Sets race config
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
+        // Editor debug
+        if (Application.isEditor)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (!loadingLevel)
+                {
+                    loadingLevel = true;
+                    backButtonNormalRace.SetActive(false);
+                    // Loads level
+                    Invoke("LoadRaceTrack", 3);
+                }
+            }
+        }
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
