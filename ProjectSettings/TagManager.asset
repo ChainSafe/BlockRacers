@@ -17,6 +17,7 @@ TagManager:
   - CheckPoint1
   - CheckPoint2
   - CheckPoint3
+  - SplitTimeCheckpoint
   layers:
   - Default
   - TransparentFX

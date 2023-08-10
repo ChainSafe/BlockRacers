@@ -73,11 +73,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject freeLookCamera;
     // Player Input
     private PlayerInputActions playerInput;
+    public GameObject carBody;
 
     #endregion
 
     #region Properties
-    
+
     /// <summary>
     /// The current lap
     /// </summary>
@@ -255,6 +256,9 @@ public class PlayerController : MonoBehaviour
                 tachometer.SetActive(true);
                 driftSystem.gameObject.SetActive(true);
                 userName.GetComponent<TextMesh>().text = PhotonNetwork.NickName;
+                this.gameObject.tag = "Player";
+                carBody.tag = "CarBody";
+
             }
             else
             {
@@ -265,6 +269,8 @@ public class PlayerController : MonoBehaviour
                 Destroy(lapCanvas);
                 Destroy(tachometer);
                 Destroy(driftSystem);
+                this.gameObject.tag = "Untagged";
+                carBody.tag = "Untagged";
             }
             userName.SetActive(true);
         }

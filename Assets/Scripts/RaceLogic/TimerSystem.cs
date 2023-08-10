@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
 /// <summary>
 /// The timer system used in conjunction with the lap system
 /// </summary>
-public class TimerSystem : MonoBehaviour
+public class TimerSystem : MonoBehaviourPun
 {
     #region Fields
     
@@ -75,7 +76,7 @@ public class TimerSystem : MonoBehaviour
     {
         splitTimeText.text = "";
     }
-    
+
     /// <summary>
     /// Checks if the start timer is running and displays it
     /// </summary>
@@ -91,6 +92,6 @@ public class TimerSystem : MonoBehaviour
             LapTimeText.text = timeString;
         }
     }
-    
+
     #endregion
 }

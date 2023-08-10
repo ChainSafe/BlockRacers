@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Manages our cars position for multiplayer races
 /// </summary>
-public class PositioningSystem : MonoBehaviour
+public class PositioningSystem : MonoBehaviourPun
 {
     #region Fields
     
@@ -50,7 +50,7 @@ public class PositioningSystem : MonoBehaviour
         // Sets our positions
         SetCarPositions();
     }
-    
+
     /// <summary>
     /// Set our CheckPoints
     /// </summary>
