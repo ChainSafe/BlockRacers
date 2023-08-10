@@ -19,6 +19,7 @@ public class PositioningSystem : MonoBehaviourPun
     [SerializeField] private GameObject[] checkPointForEachCarLap1;
     [SerializeField] private GameObject[] checkPointForEachCarLap2;
     [SerializeField] private GameObject[] checkPointForEachCarLap3;
+    [SerializeField] private GameObject[] checkPointForEachCarLap4;
     private int totalCars;
     private int position;
     // Debug
@@ -90,6 +91,13 @@ public class PositioningSystem : MonoBehaviourPun
             checkPointForEachCarLap3[i].tag = checkPointForEachCarLap3[i].name;
             checkPointForEachCarLap2[i].SetActive(false);
             checkPointForEachCarLap3[i].SetActive(false);
+            // Instantiate the lap 4 checkpoints to stop errors on race finish
+            checkPointForEachCarLap4[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap4[i].name = $"CheckPoint{i}";
+            // Assigns tags for each checkpoint
+            checkPointForEachCarLap4[i].tag = checkPointForEachCarLap4[i].name;
+            checkPointForEachCarLap4[i].SetActive(false);
         }
     }
     
@@ -110,13 +118,22 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap2[i].SetActive(true);
             }
         }
-        else
+        else if (playerController.LapCount == 2)
         {
             // If we're on lap 3
             for (int i = 0; i < totalCars; i++)
             {
                 checkPointForEachCarLap2[i].SetActive(false);
                 checkPointForEachCarLap3[i].SetActive(true);
+            }
+        }
+        else
+        {
+            // If we've finished instantiate the last checkpoint to stop errors
+            for (int i = 0; i < totalCars; i++)
+            {
+                checkPointForEachCarLap3[i].SetActive(false);
+                checkPointForEachCarLap4[i].SetActive(true);
             }
         }
     }
@@ -149,7 +166,7 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap3[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
                 break;
         }
-
+        // Compares car positions
         ComparePositions(carNumber);
     }
     

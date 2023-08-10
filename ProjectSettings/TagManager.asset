@@ -18,6 +18,7 @@ TagManager:
   - CheckPoint2
   - CheckPoint3
   - SplitTimeCheckpoint
+  - LobbyUserName
   layers:
   - Default
   - TransparentFX
