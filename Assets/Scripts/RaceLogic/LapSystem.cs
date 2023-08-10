@@ -87,7 +87,7 @@ public class LapSystem : MonoBehaviourPun
                     {
                         globalManager.raceWon = true;
                     }
-                    photonView.RPC("RaceOver", RpcTarget.All, playerController.GetComponent<PhotonView>().Owner.NickName);
+                    playerController.GetComponent<PhotonView>().RPC("RaceOver", RpcTarget.All, playerController.GetComponent<PhotonView>().Owner.NickName);
                 }
             }
         }
