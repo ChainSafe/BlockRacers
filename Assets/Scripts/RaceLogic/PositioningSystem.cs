@@ -204,12 +204,12 @@ public class PositioningSystem : MonoBehaviourPun
         for (int i = 0; i < totalCars; i++)
         {
             // Sets our cars position
-            cars[i].GetComponent<CheckPointManager>().CarPosition = i + 1;
+            cars[i].GetComponent<CheckPointManager>().CarPosition = playerController.GetComponent<PhotonView>().OwnerActorNr;
             // Sets our cars number
-            cars[i].GetComponent<CheckPointManager>().CarNumber = i + 1;
+            cars[i].GetComponent<CheckPointManager>().CarNumber = playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
+            // Updates our position text
+            UpdatePositionText();
         }
-        // Updates our position text
-        UpdatePositionText();
     }
     
     /// <summary>
@@ -217,7 +217,7 @@ public class PositioningSystem : MonoBehaviourPun
     /// </summary>
     private void UpdatePositionText()
     {
-        cars[0].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[0].GetComponent<CheckPointManager>().CarPosition}";
+        cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().CarPosition}";
     }
     
     /// <summary>

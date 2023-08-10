@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
     // Canvas
     [SerializeField] private GameObject canvas;
+    // Race end text
+    [SerializeField] private GameObject raceEndingText;
     // Lap canvas
     [SerializeField] private GameObject lapCanvas;
     // Lap config
@@ -550,6 +552,14 @@ public class PlayerController : MonoBehaviour
             transform.position = lastCheckPoint.transform.localPosition;
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
+    }
+    
+    /// <summary>
+    /// Shows text saying race is ending
+    /// </summary>
+    public void RaceEnding()
+    {
+        raceEndingText.SetActive(true);
     }
 
     /// <summary>

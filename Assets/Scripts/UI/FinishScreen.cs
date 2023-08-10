@@ -1,4 +1,5 @@
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,8 @@ public class FinishScreen : MonoBehaviour
     private AudioManager audioManager;
     // Buttons
     [SerializeField] private GameObject menuButton, claimButton;
+    // Winning player text
+    [SerializeField] private TextMeshProUGUI winningPlayerText;
 
     #endregion
 
@@ -49,6 +52,8 @@ public class FinishScreen : MonoBehaviour
         globalManager.raceWon = false;
         globalManager.wagering = false;
         globalManager.wagerAccepted = false;
+        // Sets the winning player text
+        winningPlayerText.text = globalManager.winningPlayer;
     }
     
     /// <summary>

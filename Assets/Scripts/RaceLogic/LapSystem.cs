@@ -15,6 +15,8 @@ public class LapSystem : MonoBehaviourPun
     private GlobalManager globalManager;
     // Player controller
     [SerializeField] private PlayerController playerController;
+    // Race over bool
+    public bool raceOver;
 
     #endregion
 
@@ -40,8 +42,7 @@ public class LapSystem : MonoBehaviourPun
             }
         }
     }
-
-
+    
     /// <summary>
     /// Initializes our objects and fields
     /// </summary>
@@ -79,16 +80,39 @@ public class LapSystem : MonoBehaviourPun
             if (playerController.LapCount > 3)
             {
                 // If we're first enable the global bool for claims
-                if (placement == 1 && globalManager.wagering)
+                if (!raceOver)
                 {
-                    globalManager.raceWon = true;
+                    raceOver = true;
+                    if (globalManager.wagering)
+                    {
+                        globalManager.raceWon = true;
+                    }
+                    photonView.RPC("RaceOver", RpcTarget.All, playerController.GetComponent<PhotonView>().Owner.NickName);
                 }
-                // Race over logic
-                globalManager.sceneToLoad = "FinishRace";
-                SceneManager.LoadScene("LoadingScreen");
-
             }
         }
+    }
+    
+    /// <summary>
+    /// Lets the players know the race is over
+    /// </summary>
+    [PunRPC]
+    private void RaceOver(string userName)
+    {
+        raceOver = true;
+        globalManager.winningPlayer = userName;
+        playerController.RaceEnding();
+        Invoke("RaceEndingTimer", 3);
+    }
+    
+    /// <summary>
+    /// Displays race ending text and moves scenes after 3 seconds
+    /// </summary>
+    private void RaceEndingTimer()
+    {
+        // Race over logic
+        globalManager.sceneToLoad = "FinishRace";
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     #endregion

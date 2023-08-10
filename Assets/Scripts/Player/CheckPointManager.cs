@@ -9,8 +9,8 @@ public class CheckPointManager : MonoBehaviour
     #region Fields
     // DEBUG SERIALIZE--------------------
     [SerializeField] private int checkPointCrossed;
-    private int carNumber;
-    private int carPosition;
+    [SerializeField] private int carNumber;
+    [SerializeField] private int carPosition;
     private PositioningSystem positioningSystem;
     public TextMeshProUGUI positionText;
 

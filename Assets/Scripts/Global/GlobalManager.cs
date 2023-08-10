@@ -19,6 +19,8 @@ public class GlobalManager : MonoBehaviour
     public bool connected;
     // Race won bool for wagering
     public bool raceWon;
+    // Player who won the race
+    public string winningPlayer;
     // Bool to check if wagering is active or not
     public bool wagering;
     public bool wagerAccepted;
