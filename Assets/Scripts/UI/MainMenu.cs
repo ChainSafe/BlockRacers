@@ -272,6 +272,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public void SearchingMenuBackButton()
     {
         PhotonNetwork.LeaveRoom();
+        wagerMenu.SetActive(false);
         searchingMenu.SetActive(false);
         raceMenu.SetActive(true);
         // Sets our first selected button
