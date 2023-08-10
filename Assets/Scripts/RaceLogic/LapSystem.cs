@@ -102,7 +102,7 @@ public class LapSystem : MonoBehaviourPun
         raceOver = true;
         globalManager.winningPlayer = userName;
         playerController.RaceEnding();
-        Invoke("RaceEndingTimer", 3);
+        Invoke(nameof(RaceEndingTimer), 3);
     }
     
     /// <summary>

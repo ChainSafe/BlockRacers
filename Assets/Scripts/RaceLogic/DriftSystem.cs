@@ -69,26 +69,15 @@ public class DriftSystem : MonoBehaviour
     /// </summary>
     private void UpdateScoreRate()
     {
-        if (playerController.Speed < 20)
+        scoringRate = playerController.Speed switch
         {
-            scoringRate = 0;
-        }
-        if (playerController.Speed > 20 && playerController.Speed < 80)
-        {
-            scoringRate = 1;
-        }
-        if (playerController.Speed > 80 && playerController.Speed < 120)
-        {
-            scoringRate = 2;
-        }
-        if (playerController.Speed > 120 && playerController.Speed < 180)
-        {
-            scoringRate = 3;
-        }
-        if (playerController.Speed > 180)
-        {
-            scoringRate = 4;
-        }
+            < 20 => 0,
+            > 20 and < 80 => 1,
+            > 80 and < 120 => 2,
+            > 120 and < 180 => 3,
+            > 180 => 4,
+            _ => scoringRate
+        };
     }
     
     /// <summary>
@@ -110,14 +99,15 @@ public class DriftSystem : MonoBehaviour
         {
             driftStatusText.text = "superb";
         }
-        if (driftActive && driftScore > 750)
+        switch (driftActive)
         {
-            driftStatusText.text = "insane drift";
-        }
-        else if (!driftActive)
-        {
-            driftStatusText.text = "";
-            driftStatus.SetActive(false);
+            case true when driftScore > 750:
+                driftStatusText.text = "insane drift";
+                break;
+            case false:
+                driftStatusText.text = "";
+                driftStatus.SetActive(false);
+                break;
         }
     }
 

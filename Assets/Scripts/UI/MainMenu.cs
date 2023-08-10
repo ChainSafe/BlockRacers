@@ -158,7 +158,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                     loadingLevel = true;
                     backButtonNormalRace.SetActive(false);
                     // Loads level
-                    Invoke("LoadRaceTrack", 3);
+                    Invoke(nameof(LoadRaceTrack), 3);
                 }
             }
         }
@@ -339,7 +339,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                             loadingLevel = true;
                             backButtonNormalRace.SetActive(false);
                             // Loads level
-                            Invoke("LoadRaceTrack", 3);
+                            Invoke(nameof(LoadRaceTrack), 3);
                         }
                     }
                 }
@@ -361,7 +361,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                                 loadingLevel = true;
                                 backButtonWager.SetActive(false);
                                 // Loads level
-                                Invoke("LoadRaceTrack", 3);
+                                Invoke(nameof(LoadRaceTrack), 3);
                             }
                         }
                     }
@@ -380,7 +380,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                             loadingLevel = true;
                             backButtonNormalRace.SetActive(false);
                             // Loads level
-                            Invoke("LoadRaceTrack", 3);
+                            Invoke(nameof(LoadRaceTrack), 3);
                         }
                     }
                 }
