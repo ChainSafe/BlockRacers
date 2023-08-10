@@ -148,11 +148,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Sets race config
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
-        // Debug for editor testing
-        if (Application.isEditor)
-        {
-            PhotonNetwork.LoadLevel("RaceTrack");
-        }
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
