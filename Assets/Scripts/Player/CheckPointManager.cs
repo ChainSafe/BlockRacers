@@ -7,6 +7,7 @@ using UnityEngine;
 public class CheckPointManager : MonoBehaviour
 {
     #region Fields
+
     // DEBUG SERIALIZE--------------------
     [SerializeField] private int checkPointCrossed;
     [SerializeField] private int carNumber;
@@ -17,7 +18,7 @@ public class CheckPointManager : MonoBehaviour
     #endregion
 
     #region Properties
-    
+
     /// <summary>
     /// The current CheckPoint our player is at
     /// </summary>
@@ -26,7 +27,7 @@ public class CheckPointManager : MonoBehaviour
         get => checkPointCrossed;
         set => checkPointCrossed = value;
     }
-    
+
     /// <summary>
     /// Unique identifier for each car
     /// </summary>
@@ -35,7 +36,7 @@ public class CheckPointManager : MonoBehaviour
         get => carNumber;
         set => carNumber = value;
     }
-    
+
     /// <summary>
     /// Keeps track of our car position
     /// </summary>
@@ -48,7 +49,7 @@ public class CheckPointManager : MonoBehaviour
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initialize needed objects
     /// </summary>
@@ -64,7 +65,7 @@ public class CheckPointManager : MonoBehaviour
     /// <param name="other">The checkpoint's collider</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("CheckPoint"+carNumber)) return;
+        if (!other.gameObject.CompareTag("CheckPoint" + carNumber)) return;
         checkPointCrossed += 1;
         positioningSystem.CarCollectedCheckPoint(carNumber, checkPointCrossed);
     }

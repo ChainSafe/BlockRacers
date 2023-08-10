@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 public class LoadScreen : MonoBehaviour
 {
     #region Fields
-    
+
     private GlobalManager globalManager;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Finds our global manager so we can set the scene to load later
     /// </summary>
@@ -27,7 +27,7 @@ public class LoadScreen : MonoBehaviour
     {
         StartCoroutine(LoadTime());
     }
-    
+
     /// <summary>
     /// Load time for the loading screen
     /// </summary>
@@ -38,4 +38,5 @@ public class LoadScreen : MonoBehaviour
         SceneManager.LoadScene(globalManager.sceneToLoad);
     }
 }
+
 #endregion

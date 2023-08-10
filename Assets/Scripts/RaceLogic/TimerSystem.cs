@@ -8,12 +8,15 @@ using Photon.Pun;
 public class TimerSystem : MonoBehaviourPun
 {
     #region Fields
-    
+
     // Singleton
     public static TimerSystem instance;
+
     // UI Elements
     public TextMeshProUGUI LapTimeText;
+
     public TextMeshProUGUI splitTimeText;
+
     // Timer logic
     private float elapsedTime = 0f;
     private bool isTimerRunning = false;
@@ -21,7 +24,7 @@ public class TimerSystem : MonoBehaviourPun
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes our instance
     /// </summary>

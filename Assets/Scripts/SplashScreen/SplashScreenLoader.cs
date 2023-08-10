@@ -11,13 +11,14 @@ public class SplashScreenLoader : MonoBehaviour
 
     // Video player renderer
     [SerializeField] private VideoPlayer videoPlayer;
+
     // The file name to play
     [SerializeField] private string videoFileName;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Skips to connect screen if on mobile as they can't play videos properly
     /// </summary>
@@ -36,7 +37,7 @@ public class SplashScreenLoader : MonoBehaviour
             videoPlayer.loopPointReached += CheckOver;
         }
     }
-    
+
     /// <summary>
     /// Loads connect scene after video has finished playing
     /// </summary>

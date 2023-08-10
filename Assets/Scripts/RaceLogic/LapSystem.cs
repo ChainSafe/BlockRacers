@@ -8,19 +8,23 @@ using Photon.Pun;
 public class LapSystem : MonoBehaviourPun
 {
     #region Fields
-    
+
     // Placement for race
     private int placement;
+
     // Global manager
     private GlobalManager globalManager;
+
     // Player controller
     [SerializeField] private PlayerController playerController;
+
     // Race over bool
     public bool raceOver;
 
     #endregion
 
     #region Methods
+
     /// <summary>
     /// Initializes when we collide with the lap collider
     /// </summary>
@@ -33,6 +37,7 @@ public class LapSystem : MonoBehaviourPun
             {
                 LapComplete();
             }
+
             if (other.CompareTag("Test"))
             {
                 Debug.Log("Collided with Split Time");
@@ -42,7 +47,7 @@ public class LapSystem : MonoBehaviourPun
             }
         }
     }
-    
+
     /// <summary>
     /// Initializes our objects and fields
     /// </summary>
@@ -59,7 +64,8 @@ public class LapSystem : MonoBehaviourPun
     public void LapComplete()
     {
         // If we have passed all check points
-        if (playerController.GetComponent<CheckPointManager>().CheckPointCrossed == FindObjectOfType<PositioningSystem>().totalCheckPoints)
+        if (playerController.GetComponent<CheckPointManager>().CheckPointCrossed ==
+            FindObjectOfType<PositioningSystem>().totalCheckPoints)
         {
             // Show our split time
             TimerSystem.instance.ShowSplitTime();
@@ -76,6 +82,7 @@ public class LapSystem : MonoBehaviourPun
             {
                 playerController.finalLapReminder.SetActive(true);
             }
+
             // When we've completed all three laps..
             if (playerController.LapCount > 3)
             {
@@ -87,12 +94,14 @@ public class LapSystem : MonoBehaviourPun
                     {
                         globalManager.raceWon = true;
                     }
-                    photonView.RPC("RaceOver", RpcTarget.All, playerController.GetComponent<PhotonView>().Owner.NickName);
+
+                    photonView.RPC("RaceOver", RpcTarget.All,
+                        playerController.GetComponent<PhotonView>().Owner.NickName);
                 }
             }
         }
     }
-    
+
     /// <summary>
     /// Lets the players know the race is over
     /// </summary>
@@ -104,7 +113,7 @@ public class LapSystem : MonoBehaviourPun
         playerController.RaceEnding();
         Invoke(nameof(RaceEndingTimer), 3);
     }
-    
+
     /// <summary>
     /// Displays race ending text and moves scenes after 3 seconds
     /// </summary>

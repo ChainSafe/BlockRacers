@@ -5,8 +5,7 @@ using Photon.Pun;
 
 public class SplitTimeTrigger : MonoBehaviourPun
 {
-    [SerializeField]
-    private PhotonView Player;
+    [SerializeField] private PhotonView Player;
 
 
     private void Awake()
@@ -29,6 +28,7 @@ public class SplitTimeTrigger : MonoBehaviourPun
             {
                 TimerSystem.instance.ShowSplitTime();
             }
+
             if (!Player.IsMine)
             {
                 return;

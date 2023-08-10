@@ -7,8 +7,9 @@ using UnityEngine;
 public class PositioningSystem : MonoBehaviourPun
 {
     #region Fields
-    
+
     public int totalCheckPoints;
+
     // WARNING -----------------------------------
     // change later to be photon multiplayer car prefabs, currently only works with camaro
     [SerializeField] private GameObject car1, car2, car3;
@@ -21,14 +22,16 @@ public class PositioningSystem : MonoBehaviourPun
     [SerializeField] private GameObject[] checkPointForEachCarLap3;
     [SerializeField] private GameObject[] checkPointForEachCarLap4;
     private int totalCars;
+
     private int position;
+
     // Debug
     [SerializeField] private PlayerController playerController;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initialize objects
     /// </summary>
@@ -43,6 +46,7 @@ public class PositioningSystem : MonoBehaviourPun
         {
             cars[i] = car1;
         }
+
         // Number of total cars
         totalCars = cars.Length;
         // Number of total checkPoints
@@ -65,6 +69,7 @@ public class PositioningSystem : MonoBehaviourPun
         {
             checkPointPositions[i] = checkPointHolder.transform.GetChild(i).transform;
         }
+
         // Initialize check point for each car array
         checkPointForEachCarLap1 = new GameObject[totalCars];
         checkPointForEachCarLap2 = new GameObject[totalCars];
@@ -72,11 +77,14 @@ public class PositioningSystem : MonoBehaviourPun
         for (int i = 0; i < totalCars; i++)
         {
             // Instantiate the initial check point for each car
-            checkPointForEachCarLap1[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            checkPointForEachCarLap1[i] = Instantiate(checkPoint, checkPointPositions[0].position,
+                checkPointPositions[0].rotation);
             // Instantiate the initial check point for each car
-            checkPointForEachCarLap2[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            checkPointForEachCarLap2[i] = Instantiate(checkPoint, checkPointPositions[0].position,
+                checkPointPositions[0].rotation);
             // Instantiate the initial check point for each car
-            checkPointForEachCarLap3[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            checkPointForEachCarLap3[i] = Instantiate(checkPoint, checkPointPositions[0].position,
+                checkPointPositions[0].rotation);
             // Gives each checkpoint a proper name as it's instantiated for each car
             checkPointForEachCarLap1[i].name = $"CheckPoint{i}";
             // Assigns tags for each checkpoint
@@ -92,7 +100,8 @@ public class PositioningSystem : MonoBehaviourPun
             checkPointForEachCarLap2[i].SetActive(false);
             checkPointForEachCarLap3[i].SetActive(false);
             // Instantiate the lap 4 checkpoints to stop errors on race finish
-            checkPointForEachCarLap4[i] = Instantiate(checkPoint, checkPointPositions[0].position, checkPointPositions[0].rotation);
+            checkPointForEachCarLap4[i] = Instantiate(checkPoint, checkPointPositions[0].position,
+                checkPointPositions[0].rotation);
             // Gives each checkpoint a proper name as it's instantiated for each car
             checkPointForEachCarLap4[i].name = $"CheckPoint{i}";
             // Assigns tags for each checkpoint
@@ -100,7 +109,7 @@ public class PositioningSystem : MonoBehaviourPun
             checkPointForEachCarLap4[i].SetActive(false);
         }
     }
-    
+
     /// <summary>
     /// Deactivates previous lap checkpoints and enables the next
     /// </summary>
@@ -149,27 +158,34 @@ public class PositioningSystem : MonoBehaviourPun
         {
             case 1:
                 // Updates position of checkpoint
-                checkPointForEachCarLap1[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                checkPointForEachCarLap1[carNumber].transform.position =
+                    checkPointPositions[checkPointNumber].transform.position;
                 // Updates rotation of checkpoint
-                checkPointForEachCarLap1[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                checkPointForEachCarLap1[carNumber].transform.rotation =
+                    checkPointPositions[checkPointNumber].transform.rotation;
                 break;
             case 2:
                 // Updates position of checkpoint
-                checkPointForEachCarLap2[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                checkPointForEachCarLap2[carNumber].transform.position =
+                    checkPointPositions[checkPointNumber].transform.position;
                 // Updates rotation of checkpoint
-                checkPointForEachCarLap2[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                checkPointForEachCarLap2[carNumber].transform.rotation =
+                    checkPointPositions[checkPointNumber].transform.rotation;
                 break;
             default:
                 // Updates position of checkpoint
-                checkPointForEachCarLap3[carNumber].transform.position = checkPointPositions[checkPointNumber].transform.position;
+                checkPointForEachCarLap3[carNumber].transform.position =
+                    checkPointPositions[checkPointNumber].transform.position;
                 // Updates rotation of checkpoint
-                checkPointForEachCarLap3[carNumber].transform.rotation = checkPointPositions[checkPointNumber].transform.rotation;
+                checkPointForEachCarLap3[carNumber].transform.rotation =
+                    checkPointPositions[checkPointNumber].transform.rotation;
                 break;
         }
+
         // Compares car positions
         ComparePositions(carNumber);
     }
-    
+
     /// <summary>
     /// Compares our car positions
     /// </summary>
@@ -202,17 +218,19 @@ public class PositioningSystem : MonoBehaviourPun
                 carInFrontCheckPoint = currentCar.GetComponent<CheckPointManager>().CheckPointCrossed;
                 break;
             }
+
             // Updates our position if we have more checkpoints
             if (currentCarCheckPoint > carInFrontCheckPoint)
             {
                 currentCar.GetComponent<CheckPointManager>().CarPosition = currentCarPos - 1;
                 carInFront.GetComponent<CheckPointManager>().CarPosition = carInFrontPos + 1;
             }
+
             // Updates our position text
             UpdatePositionText();
         }
     }
-    
+
     /// <summary>
     /// Sets ours cars number and position
     /// </summary>
@@ -222,14 +240,16 @@ public class PositioningSystem : MonoBehaviourPun
         for (int i = 0; i < totalCars; i++)
         {
             // Sets our cars position
-            cars[i].GetComponent<CheckPointManager>().CarPosition = playerController.GetComponent<PhotonView>().OwnerActorNr;
+            cars[i].GetComponent<CheckPointManager>().CarPosition =
+                playerController.GetComponent<PhotonView>().OwnerActorNr;
             // Sets our cars number
-            cars[i].GetComponent<CheckPointManager>().CarNumber = playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
+            cars[i].GetComponent<CheckPointManager>().CarNumber =
+                playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
             // Updates our position text
             UpdatePositionText();
         }
     }
-    
+
     /// <summary>
     /// Updates our position text
     /// </summary>
@@ -237,7 +257,7 @@ public class PositioningSystem : MonoBehaviourPun
     {
         //cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().CarPosition}";
     }
-    
+
     /// <summary>
     /// Finds our photon view component
     /// </summary>

@@ -9,29 +9,38 @@ public class DriftSystem : MonoBehaviour
     #region Fields
 
     public static DriftSystem instance;
+
     // Used for the UI
     public bool driftActive;
+
     // Our drift UI
     public GameObject driftStatus;
     public TextMeshProUGUI driftScoreText;
+
     public TextMeshProUGUI driftStatusText;
+
     // Adjust this value based on how fast you want the score to increase
     public int scoringRate = 1;
+
     // Adjust this value to set the minimum angle for a valid drift
     public float driftAngleThreshold = 30f;
+
     // Adjust this value to set the minimum angular velocity for a valid drift
     public float angularVelocityThreshold = 0.1f;
+
     // Our current drift score
     private int driftScore;
+
     // Our player controller
     [SerializeField] private PlayerController playerController;
+
     // Our player Rigidbody
     [SerializeField] private Rigidbody playerCar;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes our objects and fields
     /// </summary>
@@ -63,7 +72,7 @@ public class DriftSystem : MonoBehaviour
             driftScoreText.text = "";
         }
     }
-    
+
     /// <summary>
     /// Increments the users scoringRate based on how fast we're going
     /// </summary>
@@ -79,7 +88,7 @@ public class DriftSystem : MonoBehaviour
             _ => scoringRate
         };
     }
-    
+
     /// <summary>
     /// Changes the user's drift status text based on how well they're doing
     /// </summary>
@@ -91,14 +100,17 @@ public class DriftSystem : MonoBehaviour
             driftStatusText.text = "good drift";
             driftStatus.SetActive(true);
         }
+
         if (driftActive && driftScore > 300 && driftScore < 500)
         {
             driftStatusText.text = "great drift";
         }
+
         if (driftActive && driftScore > 500 && driftScore < 750)
         {
             driftStatusText.text = "superb";
         }
+
         switch (driftActive)
         {
             case true when driftScore > 750:
@@ -123,6 +135,6 @@ public class DriftSystem : MonoBehaviour
         // Update our drift score
         UpdateScore();
     }
-    
+
     #endregion
 }

@@ -13,20 +13,28 @@ public class PauseManager : MonoBehaviour
 
     // Our on-screen race UI to disable when we pause
     public GameObject[] raceUI;
+
     // Audio
     private AudioManager audioManager;
+
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
+
     // Options menu
     [SerializeField] private GameObject optionsMenu;
+
     // Controls menu
     [SerializeField] private GameObject controlsMenu;
+
     // Buttons
     [SerializeField] private GameObject firstButton;
+
     // Paused bool
     private bool paused;
+
     // Player Input
     private PlayerInputActions playerInput;
+
     // Global manager
     private GlobalManager globalManager;
 
@@ -44,7 +52,7 @@ public class PauseManager : MonoBehaviour
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -53,7 +61,7 @@ public class PauseManager : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
+
     /// <summary>
     /// Pause input
     /// </summary>
@@ -84,22 +92,23 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(true);
         paused = true;
         if (raceUI == null) return;
-        foreach(GameObject raceUI in raceUI)
+        foreach (GameObject raceUI in raceUI)
         {
             raceUI.SetActive(false);
         }
+
         // Plays pause sound
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Unpauses the game
     /// </summary>
     private void Unpause()
     {
         // Locks the cursor so the user can resume playing normally
-        Cursor.lockState =  CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         // Sets our paused bool
         pauseMenu.SetActive(false);
@@ -109,6 +118,7 @@ public class PauseManager : MonoBehaviour
         {
             raceUI.SetActive(true);
         }
+
         // Plays pause sound
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -123,6 +133,7 @@ public class PauseManager : MonoBehaviour
         {
             PhotonNetwork.Disconnect();
         }
+
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
         globalManager.sceneToLoad = "MenuScene";
@@ -130,7 +141,7 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Opens the controls menu
     /// </summary>
@@ -141,7 +152,7 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Closes the controls menu
     /// </summary>
@@ -152,7 +163,7 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Opens the options menu
     /// </summary>
@@ -163,7 +174,7 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Closes the options menu
     /// </summary>
@@ -174,7 +185,7 @@ public class PauseManager : MonoBehaviour
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
-    
+
     /// <summary>
     /// Toggles fullscreen mode
     /// </summary>
@@ -192,7 +203,7 @@ public class PauseManager : MonoBehaviour
     {
         playerInput.Enable();
     }
-    
+
     /// <summary>
     /// Disables player input
     /// </summary>

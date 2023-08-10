@@ -8,32 +8,44 @@ using UnityEngine.UI;
 public class SwapCars : MonoBehaviour
 {
     #region Fields
-    
+
     // Singleton
     public static SwapCars instance;
+
     // Index of the currently active prefab & livery
     public static int currentLiveryIndex;
+
     public int currentPrefabIndex;
+
     // Array of prefabs to swap between
     public GameObject[] prefabs;
+
     // Our UI elements for the showroom
     public TextMeshProUGUI carName;
+
     public Slider engineSlider, handlingSlider, boostSlider;
+
     // Our available colours for each model
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
+
     public Material[] ferrariLivery;
+
     // Car prefabs
     public GameObject car1, car2, car3;
+
     // Reference to the currently instantiated prefab
     private GameObject currentPrefab;
+
     // Set the spawnpoint 
     private Vector3 spawnPoint = new Vector3(89.17f, 0.4f, -9.7f);
+
     // Reference the global manager
     private GlobalManager globalManager;
+
     // Platform
     [SerializeField] private GameObject platform;
-    
+
     #endregion
 
     #region Methods
@@ -49,7 +61,8 @@ public class SwapCars : MonoBehaviour
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
-        platform.transform.position = new Vector3(currentPrefab.transform.position.x, currentPrefab.transform.position.y - 0.3f, currentPrefab.transform.position.z);
+        platform.transform.position = new Vector3(currentPrefab.transform.position.x,
+            currentPrefab.transform.position.y - 0.3f, currentPrefab.transform.position.z);
     }
 
     /// <summary>
@@ -65,9 +78,10 @@ public class SwapCars : MonoBehaviour
         {
             currentPrefabIndex = 0;
         }
+
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
-        
+
         // Logic for handling the car stats and other UI information
         // Array Index is as follows: 
         // 0 = Chevrolet Camaro (Nitro Nova GTL)
@@ -102,10 +116,11 @@ public class SwapCars : MonoBehaviour
                 globalManager.playerCar = car3;
                 break;
         }
+
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Changes to the previous car in the list
     /// </summary>
@@ -122,6 +137,7 @@ public class SwapCars : MonoBehaviour
         {
             currentPrefabIndex = 2;
         }
+
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
 
@@ -161,10 +177,11 @@ public class SwapCars : MonoBehaviour
                 globalManager.playerCar = car3;
                 break;
         }
+
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Changes the livery for each car based on the options available for each
     /// </summary>
@@ -179,6 +196,7 @@ public class SwapCars : MonoBehaviour
                 {
                     currentLiveryIndex = 0;
                 }
+
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = camaroLivery[currentLiveryIndex];
                 break;
             }
@@ -189,6 +207,7 @@ public class SwapCars : MonoBehaviour
                 {
                     currentLiveryIndex = 0;
                 }
+
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = fordGTLivery[currentLiveryIndex];
                 break;
             }
@@ -199,14 +218,16 @@ public class SwapCars : MonoBehaviour
                 {
                     currentLiveryIndex = 0;
                 }
+
                 currentPrefab.GetComponentInChildren<MeshRenderer>().material = ferrariLivery[currentLiveryIndex];
                 break;
             }
         }
+
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
-    
+
     /// <summary>
     /// Checks for arrow key input navigation
     /// </summary>
@@ -216,11 +237,12 @@ public class SwapCars : MonoBehaviour
         {
             PreviousCar();
         }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             NextCar();
         }
     }
-    
+
     #endregion
 }

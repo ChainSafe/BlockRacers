@@ -11,68 +11,104 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     #region Fields
-    
+
     // Global manager
     private GlobalManager globalManager;
+
     // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
+
     // Used for letting the game know if we're racing or tutorial
     public static bool isRacing;
+
     // Static for our nitrous system
     public static bool nosActive;
+
     // Reset bool
     public bool resetActive;
+
     // collision bool for sounds
     public bool collision;
+
     // Stats manager
     private StatsManager statsManager;
+
     // Audio
     private AudioManager audioManager;
+
     // Tachometer
     [SerializeField] private GameObject tachometer;
+
     // Current gear
     private int currentGear;
+
     // Speed
     private float speed, maxSpeed, speedRatio, motorForce, nosForce, breakForce;
+
     // Input
     private float input, horizontalInput, verticalInput;
+
     // Steering and braking
     private bool isDrifting, isBraking;
+
     private float currentSteerAngle, currentBrakeForce, maxSteerAngle;
+
     // Rigidbody
-    [Header("Objects & Particle Effects")]
-    [SerializeField] public Rigidbody rigidBody;
+    [Header("Objects & Particle Effects")] [SerializeField]
+    public Rigidbody rigidBody;
+
     // Particles
     [SerializeField] private GameObject nosParticles, tireTrailRL, tireTrailRR, driftSmoke, nftImage;
+
     // Taillights & headlights
     [SerializeField] private GameObject tailLights, headLights;
+
     // Wheel colliders
-    [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
+    [SerializeField] private WheelCollider frontLeftWheelCollider,
+        frontRightWheelCollider,
+        rearLeftWheelCollider,
+        rearRightWheelCollider;
+
     // Wheels
-    [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform, rearLeftWheelTransform, rearRightWheelTransform;
+    [SerializeField] private Transform frontLeftWheelTransform,
+        frontRightWheelTransform,
+        rearLeftWheelTransform,
+        rearRightWheelTransform;
+
     // Photon
     [SerializeField] private PhotonView PV;
     [SerializeField] private PhotonTransformView PVTransformView;
+
     [SerializeField] private PhotonRigidbodyView PVRigidBody;
+
     // Canvas
     [SerializeField] private GameObject canvas;
+
     // Race end text
     [SerializeField] private GameObject raceEndingText;
+
     // Lap canvas
     [SerializeField] private GameObject lapCanvas;
+
     // Lap config
     public TextMeshProUGUI lapCountText;
     public GameObject finalLapReminder;
     [SerializeField] private LapSystem lapSystem;
     [SerializeField] private DriftSystem driftSystem;
+
     private int lapCount;
+
     // Last checkpoint for reset
     [SerializeField] private Transform lastCheckPoint;
+
     // Username
     [SerializeField] private GameObject userName;
+
     // Cameras
     [SerializeField] private GameObject staticCamera;
+
     [SerializeField] private GameObject freeLookCamera;
+
     // Player Input
     private PlayerInputActions playerInput;
     public GameObject carBody;
@@ -98,7 +134,7 @@ public class PlayerController : MonoBehaviour
         get => currentGear;
         set => currentGear = value;
     }
-    
+
     /// <summary>
     /// Speed of the car
     /// </summary>
@@ -106,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         get => speed;
     }
-    
+
     /// <summary>
     /// Max speed of the car
     /// </summary>
@@ -115,7 +151,7 @@ public class PlayerController : MonoBehaviour
         get => maxSpeed;
         set => maxSpeed = value;
     }
-    
+
     /// <summary>
     /// Speed ratio used for sounds
     /// </summary>
@@ -123,7 +159,7 @@ public class PlayerController : MonoBehaviour
     {
         get => speedRatio;
     }
-    
+
     /// <summary>
     /// Motor force of the cars engine
     /// </summary>
@@ -132,7 +168,7 @@ public class PlayerController : MonoBehaviour
         get => motorForce;
         set => motorForce = value;
     }
-    
+
     /// <summary>
     /// Steering angle of the car
     /// </summary>
@@ -141,7 +177,7 @@ public class PlayerController : MonoBehaviour
         get => maxSteerAngle;
         set => maxSteerAngle = value;
     }
-    
+
     /// <summary>
     /// Input
     /// </summary>
@@ -150,7 +186,7 @@ public class PlayerController : MonoBehaviour
         get => input;
         set => input = value;
     }
-    
+
     /// <summary>
     /// Horizontal Input
     /// </summary>
@@ -159,7 +195,7 @@ public class PlayerController : MonoBehaviour
         get => horizontalInput;
         set => horizontalInput = value;
     }
-    
+
     /// <summary>
     /// Vertical Input
     /// </summary>
@@ -168,7 +204,7 @@ public class PlayerController : MonoBehaviour
         get => verticalInput;
         set => verticalInput = value;
     }
-    
+
     /// <summary>
     /// Checks if we're currently drifting
     /// </summary>
@@ -177,7 +213,7 @@ public class PlayerController : MonoBehaviour
         get => isDrifting;
         set => isDrifting = value;
     }
-    
+
     /// <summary>
     /// Checks if we're currently braking
     /// </summary>
@@ -190,7 +226,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes instance and needed objects
     /// </summary>
@@ -260,7 +296,6 @@ public class PlayerController : MonoBehaviour
                 userName.GetComponent<TextMesh>().text = PhotonNetwork.NickName;
                 this.gameObject.tag = "Player";
                 carBody.tag = "CarBody";
-
             }
             else
             {
@@ -274,8 +309,10 @@ public class PlayerController : MonoBehaviour
                 this.gameObject.tag = "Untagged";
                 carBody.tag = "Untagged";
             }
+
             userName.SetActive(true);
         }
+
         // Enables input
         OnEnable();
         // Updates body material
@@ -294,7 +331,7 @@ public class PlayerController : MonoBehaviour
         var currentMovementInput = context.ReadValue<Vector2>();
         HorizontalInput = currentMovementInput.x;
     }
-    
+
     /// <summary>
     /// Acceleration input
     /// </summary>
@@ -303,7 +340,7 @@ public class PlayerController : MonoBehaviour
     {
         VerticalInput = context.ReadValue<float>();
     }
-    
+
     /// <summary>
     /// Brake input
     /// </summary>
@@ -322,7 +359,7 @@ public class PlayerController : MonoBehaviour
     {
         IsDrifting = Convert.ToBoolean(context.ReadValue<float>());
     }
-    
+
     /// <summary>
     /// Nos input
     /// </summary>
@@ -331,7 +368,7 @@ public class PlayerController : MonoBehaviour
     {
         nosActive = Convert.ToBoolean(context.ReadValue<float>());
     }
-    
+
     /// <summary>
     /// Reset input
     /// </summary>
@@ -340,7 +377,7 @@ public class PlayerController : MonoBehaviour
     {
         resetActive = Convert.ToBoolean(context.ReadValue<float>());
     }
-    
+
     /// <summary>
     /// Used for player movement, call this to enable input detection
     /// </summary>
@@ -348,7 +385,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput.Enable();
     }
-    
+
     /// <summary>
     /// Used for player movement, call this to disable input detection
     /// </summary>
@@ -377,6 +414,7 @@ public class PlayerController : MonoBehaviour
             frontLeftWheelCollider.motorTorque = 0;
             frontRightWheelCollider.motorTorque = 0;
         }
+
         // Check if braking
         currentBrakeForce = isBraking && frontLeftWheelCollider.motorTorque > 0 ? breakForce : 0f;
         // Brake slightly when idling
@@ -384,10 +422,11 @@ public class PlayerController : MonoBehaviour
         {
             currentBrakeForce = 50;
         }
+
         // Apply the above
         ApplyBraking();
     }
-    
+
     /// <summary>
     /// Used for engine sounds
     /// </summary>
@@ -395,9 +434,9 @@ public class PlayerController : MonoBehaviour
     private float GetSpeedRatio()
     {
         var gas = Mathf.Clamp(verticalInput, 0.5f, 1f);
-        return (speed*gas) / maxSpeed;
+        return (speed * gas) / maxSpeed;
     }
-    
+
     /// <summary>
     /// Emits Nos particles and applies force if nos active
     /// </summary>
@@ -414,7 +453,7 @@ public class PlayerController : MonoBehaviour
             nosParticles.SetActive(false);
         }
     }
-    
+
     /// <summary>
     /// Tire trails and smoke
     /// </summary>
@@ -429,7 +468,7 @@ public class PlayerController : MonoBehaviour
             driftSmoke.SetActive(DriftSystem.instance.driftActive || isBraking);
         }
     }
-    
+
     /// <summary>
     /// Handles drift friction when enabled
     /// </summary>
@@ -463,7 +502,7 @@ public class PlayerController : MonoBehaviour
             rearRightWheelCollider.sidewaysFriction = sidewaysFrictionRR;
         }
     }
-    
+
     /// <summary>
     /// Applies braking when active
     /// </summary>
@@ -474,7 +513,7 @@ public class PlayerController : MonoBehaviour
         rearLeftWheelCollider.brakeTorque = currentBrakeForce;
         rearRightWheelCollider.brakeTorque = currentBrakeForce;
     }
-    
+
     /// <summary>
     /// Vehicle steering
     /// </summary>
@@ -484,7 +523,7 @@ public class PlayerController : MonoBehaviour
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
-    
+
     /// <summary>
     /// Wheel colliders & transforms
     /// </summary>
@@ -495,7 +534,7 @@ public class PlayerController : MonoBehaviour
         UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
         UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
     }
-    
+
     /// <summary>
     /// Wheel position & rotation
     /// </summary>
@@ -504,12 +543,13 @@ public class PlayerController : MonoBehaviour
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
     {
         Vector3 pos;
-        Quaternion rot; 
+        Quaternion rot;
         wheelCollider.GetWorldPose(out pos, out rot);
         if (wheelTransform.rotation != rot)
         {
             wheelTransform.rotation = Quaternion.Slerp(wheelTransform.rotation, rot, 0.2f);
         }
+
         wheelTransform.position = pos;
     }
 
@@ -521,7 +561,7 @@ public class PlayerController : MonoBehaviour
     {
         collision = true;
     }
-    
+
     /// <summary>
     /// Sets our last checkpoint for resets in case we flip over
     /// </summary>
@@ -532,13 +572,13 @@ public class PlayerController : MonoBehaviour
         {
             lastCheckPoint = other.transform;
         }
-        
+
         if (other.CompareTag("LapCollider"))
         {
             lapSystem.LapComplete();
         }
     }
-    
+
     /// <summary>
     /// Reset position to last checkpoint
     /// </summary>
@@ -553,7 +593,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
     }
-    
+
     /// <summary>
     /// Shows text saying race is ending
     /// </summary>
@@ -578,7 +618,7 @@ public class PlayerController : MonoBehaviour
             headLights.SetActive(useHeadLights);
         }
     }
-    
+
     /// <summary>
     /// Tracks needed vehicle functions
     /// </summary>
@@ -595,6 +635,6 @@ public class PlayerController : MonoBehaviour
             ResetPosition();
         }
     }
-    
+
     #endregion
 }

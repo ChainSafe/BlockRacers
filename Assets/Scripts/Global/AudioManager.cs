@@ -1,5 +1,3 @@
-// needed when working with sounds
-using UnityEngine.Audio;
 using System;
 using UnityEngine;
 
@@ -9,16 +7,17 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     #region Fields
-    
+
     // Array of game sounds
     public Sound[] sounds;
+
     // Instance of audio manager
     private static AudioManager instance;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes instance and sounds
     /// </summary>
@@ -35,6 +34,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         // Makes object global and doesnt destroy it when changing scenes
         DontDestroyOnLoad(gameObject);
         // Initializes sound params for each sound
@@ -65,7 +65,7 @@ public class AudioManager : MonoBehaviour
             return;
         s.source.Play();
     }
-    
+
     /// <summary>
     /// Pauses a sound when called
     /// </summary>
@@ -77,6 +77,6 @@ public class AudioManager : MonoBehaviour
             return;
         s.source.Pause();
     }
-    
+
     #endregion
 }

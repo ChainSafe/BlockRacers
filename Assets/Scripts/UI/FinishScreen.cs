@@ -10,20 +10,23 @@ using UnityEngine.SceneManagement;
 public class FinishScreen : MonoBehaviour
 {
     #region Fields
-    
+
     // Global Manager
     private GlobalManager globalManager;
+
     // Audio
     private AudioManager audioManager;
+
     // Buttons
     [SerializeField] private GameObject menuButton, claimButton;
+
     // Winning player text
     [SerializeField] private TextMeshProUGUI winningPlayerText;
 
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects, locks our cursor and changes BGM
     /// </summary>
@@ -48,6 +51,7 @@ public class FinishScreen : MonoBehaviour
         {
             claimButton.SetActive(true);
         }
+
         // Resets our race won and wagering bools for the next match
         globalManager.raceWon = false;
         globalManager.wagering = false;
@@ -55,7 +59,7 @@ public class FinishScreen : MonoBehaviour
         // Sets the winning player text
         winningPlayerText.text = globalManager.winningPlayer;
     }
-    
+
     /// <summary>
     /// Sets our selected button to what we've moused over
     /// </summary>
@@ -71,7 +75,7 @@ public class FinishScreen : MonoBehaviour
         Debug.Log("Claiming Winnings! Congratulations!");
         globalManager.wagerAmount = 0;
     }
-    
+
     /// <summary>
     /// Our main menu button, disconnects us from photon
     /// </summary>
@@ -81,6 +85,6 @@ public class FinishScreen : MonoBehaviour
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
     }
-    
+
     #endregion
 }

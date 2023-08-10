@@ -7,21 +7,25 @@ using UnityEngine.Rendering.PostProcessing;
 public class PostProcessing : MonoBehaviour
 {
     #region Fields
-    
+
     // Singleton
     public static PostProcessing Instance { get; private set; }
+
     // Referencing Effect attached to PP Profile
     public ChromaticAberration Nitrous;
+
     // Variables for our Nitrous function
     public float lerpSpeed = 1f;
+
     public float currentLerpValue = 0f;
+
     // Referencing Post Processing Volume attached to Camera
     private PostProcessVolume MainProfile;
-    
+
     #endregion
 
     #region Methods
-    
+
     /// <summary>
     /// Sets our instance and applies the post processing profile to our camera
     /// </summary>
@@ -45,11 +49,13 @@ public class PostProcessing : MonoBehaviour
         {
             PlayerController.nosActive = true;
         }
+
         // If NOS isn't being used
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             PlayerController.nosActive = false;
         }
+
         // If we are using NOS and we have more than 0, then activate our effects
         if (PlayerController.nosActive && NitrousManager.currentBoost > 0 && CountDownSystem.raceStarted)
         {
@@ -70,6 +76,7 @@ public class PostProcessing : MonoBehaviour
             CameraShake.Instance.MiddleRig.m_AmplitudeGain = 0f;
             CameraShake.Instance.BottomRig.m_AmplitudeGain = 0f;
         }
+
         // Adjust the range of the lerp value based on the desired intensity range
         float intensityStart = 0f; // Starting intensity value
         float intensityEnd = 2f; // Ending intensity value

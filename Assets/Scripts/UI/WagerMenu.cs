@@ -8,20 +8,21 @@ using UnityEngine;
 public class WagerMenu : MonoBehaviourPunCallbacks
 {
     #region Fields
-    
+
     // Global Manager
     private GlobalManager globalManager;
+
     // Wager config
     [SerializeField] private TMP_InputField wagerInput;
     [SerializeField] private GameObject setWagerObject;
     [SerializeField] private GameObject acceptWagerButton;
     [SerializeField] private TextMeshProUGUI wagerText;
     private int wagerAmount;
-    
+
     #endregion
-    
+
     #region Methods
-    
+
     /// <summary>
     /// Initializes needed objects
     /// </summary>
@@ -35,7 +36,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
             wagerText.text = "SET WAGER";
         }
     }
-    
+
     /// <summary>
     /// Sets our wager amount
     /// </summary>
@@ -50,12 +51,13 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         {
             wagerAmount = int.Parse(wagerInput.text);
         }
+
         // Chain call here to set wager
         Debug.Log($"Wager set at: {wagerAmount}");
         globalManager.wagerAmount = wagerAmount;
         photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount);
     }
-    
+
     /// <summary>
     /// Accepts wager
     /// </summary>
@@ -67,7 +69,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         globalManager.wagerAmount = wagerAmount;
         photonView.RPC("RPCWagerAccept", RpcTarget.Others);
     }
-    
+
     /// <summary>
     /// RPC to set wager
     /// </summary>
@@ -78,7 +80,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         acceptWagerButton.SetActive(true);
         wagerText.text = $"WAGER: {wagerAmount}";
     }
-    
+
     /// <summary>
     /// RPC to accept wager
     /// </summary>
