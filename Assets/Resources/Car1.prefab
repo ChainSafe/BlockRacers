@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedSlider: {fileID: 4114486025441513797}
-  speedBar: {fileID: 8044935534578501196}
+  speedBar: {fileID: 6795328681657509488}
   speedText: {fileID: 2454041928174848979}
   currentGear: {fileID: 3153381644877669609}
   playerController: {fileID: 7774591128921018038}
