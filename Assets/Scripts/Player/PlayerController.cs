@@ -652,7 +652,7 @@ public class PlayerController : MonoBehaviour
             // Head lights
             headLights.SetActive(useHeadLights);
             // If we're falling through the world, reset
-            if (transform.position.y > -100)
+            if (transform.position.y < -100)
             {
                 resetActive = true;
             }
