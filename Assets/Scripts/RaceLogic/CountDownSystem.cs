@@ -9,14 +9,14 @@ public class CountDownSystem : MonoBehaviour
 {
     #region Fields
 
+    // Audio
+    private AudioManager audioManager;
+
     // Our UI for the countdown circles
     public GameObject[] countDownSprites;
 
     // How long is the countdown
     public float countdownDuration = 3f;
-
-    // Our countdown audio
-    public AudioSource countDownSound;
 
     // Has the race started? - Used for player input
     public static bool raceStarted;
@@ -27,6 +27,9 @@ public class CountDownSystem : MonoBehaviour
 
     private void Start()
     {
+        // Finds our audio manager
+        audioManager = FindObjectOfType<AudioManager>();
+
         // If we chose to race, we initiate the countdown
         if (PlayerController.isRacing)
         {
@@ -45,7 +48,7 @@ public class CountDownSystem : MonoBehaviour
     private IEnumerator StartCountdown()
     {
         // Starts the countdown and displays each change
-        countDownSound.Play();
+        audioManager.sounds[10].source.Play();
         countDownSprites[0].SetActive(true);
         yield return new WaitForSeconds(1f);
         countDownSprites[1].SetActive(true);

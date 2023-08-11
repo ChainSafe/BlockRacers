@@ -7,23 +7,23 @@ public class RaceSoundManager : MonoBehaviour
 {
     #region Fields
 
-    // Audio objects
-    [SerializeField] private AudioSource nosSound;
-    [SerializeField] private AudioSource idleSound;
-    [SerializeField] private AudioSource accelerateSound;
-    [SerializeField] private AudioSource decelerateSound;
-    [SerializeField] private AudioSource collisionSound;
-    [SerializeField] private AudioSource driftCounterSound;
-
-    [SerializeField] private AudioSource driftEndSound;
+    // Audio
+    private AudioManager audioManager;
 
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private AudioSource accelerateSound, decelerateSound;
     private bool driftEnded;
 
     #endregion
 
     #region Methods
+
+    private void Awake()
+    {
+        // Finds our audio manager
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     /// <summary>
     /// Handles various sounds based on input and speed
@@ -31,7 +31,7 @@ public class RaceSoundManager : MonoBehaviour
     private void Update()
     {
         // Engine sounds
-        //idleSound.volume = Mathf.Lerp(0.25f, 0.25f, playerController.SpeedRatio);
+        // 3 nos, 4 idle, 5 acc, 6 dec, 7 collision, 8 drift counter, 9 drift end
         accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
         accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
         decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
@@ -41,9 +41,9 @@ public class RaceSoundManager : MonoBehaviour
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
         {
             // Nos
-            if (!nosSound.isPlaying)
+            if (!audioManager.sounds[3].source.isPlaying)
             {
-                nosSound.Play();
+                audioManager.sounds[3].source.Play();
             }
         }
 
@@ -53,9 +53,9 @@ public class RaceSoundManager : MonoBehaviour
             // Idle
             case 0 when (playerController.Speed == 0 || playerController.Input == 0):
             {
-                if (!idleSound.isPlaying)
+                if (!audioManager.sounds[4].source.isPlaying)
                 {
-                    idleSound.Play();
+                    audioManager.sounds[4].source.Play();
                 }
 
                 break;
@@ -87,7 +87,7 @@ public class RaceSoundManager : MonoBehaviour
         // Drift sounds (reversed for some reason)
         if (!DriftSystem.instance.driftActive)
         {
-            driftCounterSound.Play();
+            audioManager.sounds[8].source.Play();
         }
         else
         {
@@ -97,14 +97,14 @@ public class RaceSoundManager : MonoBehaviour
         if (driftEnded)
         {
             driftEnded = false;
-            driftEndSound.Play();
+            audioManager.sounds[9].source.Play();
         }
 
         // Collision sound based on collisions
         if (!playerController.collision) return;
         playerController.collision = false;
-        collisionSound.Pause();
-        collisionSound.Play();
+        audioManager.sounds[7].source.Pause();
+        audioManager.sounds[7].source.Play();
     }
 
     #endregion
