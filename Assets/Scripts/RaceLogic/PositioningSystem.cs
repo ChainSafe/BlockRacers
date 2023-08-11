@@ -83,27 +83,27 @@ public class PositioningSystem : MonoBehaviourPun
             // Instantiate the initial check point for each car
             checkPointForEachCarLap3[i] = Instantiate(checkPoint, checkPointPositions[0].position,
                 checkPointPositions[0].rotation);
-            // Gives each checkpoint a proper name as it's instantiated for each car
-            checkPointForEachCarLap1[i].name = $"CheckPoint{i}";
-            // Assigns tags for each checkpoint
-            checkPointForEachCarLap1[i].tag = checkPointForEachCarLap1[i].name;
-            // Gives each checkpoint a proper name as it's instantiated for each car
-            checkPointForEachCarLap2[i].name = $"CheckPoint{i}";
-            // Assigns tags for each checkpoint
-            checkPointForEachCarLap2[i].tag = checkPointForEachCarLap2[i].name;
-            // Gives each checkpoint a proper name as it's instantiated for each car
-            checkPointForEachCarLap3[i].name = $"CheckPoint{i}";
-            // Assigns tags for each checkpoint
-            checkPointForEachCarLap3[i].tag = checkPointForEachCarLap3[i].name;
-            checkPointForEachCarLap2[i].SetActive(false);
-            checkPointForEachCarLap3[i].SetActive(false);
             // Instantiate the lap 4 checkpoints to stop errors on race finish
             checkPointForEachCarLap4[i] = Instantiate(checkPoint, checkPointPositions[0].position,
                 checkPointPositions[0].rotation);
             // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap1[i].name = $"CheckPoint{i}";
+            // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap2[i].name = $"CheckPoint{i}";
+            // Gives each checkpoint a proper name as it's instantiated for each car
+            checkPointForEachCarLap3[i].name = $"CheckPoint{i}";
+            // Gives each checkpoint a proper name as it's instantiated for each car
             checkPointForEachCarLap4[i].name = $"CheckPoint{i}";
             // Assigns tags for each checkpoint
+            checkPointForEachCarLap1[i].tag = checkPointForEachCarLap1[i].name;
+            // Assigns tags for each checkpoint
+            checkPointForEachCarLap2[i].tag = checkPointForEachCarLap2[i].name;
+            // Assigns tags for each checkpoint
+            checkPointForEachCarLap3[i].tag = checkPointForEachCarLap3[i].name;
+            // Assigns tags for each checkpoint
             checkPointForEachCarLap4[i].tag = checkPointForEachCarLap4[i].name;
+            checkPointForEachCarLap2[i].SetActive(false);
+            checkPointForEachCarLap3[i].SetActive(false);
             checkPointForEachCarLap4[i].SetActive(false);
         }
     }
@@ -134,7 +134,7 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap3[i].SetActive(true);
             }
         }
-        else
+        else if (playerController.LapCount == 3)
         {
             // If we've finished instantiate the last checkpoint to stop errors
             for (int i = 0; i < totalCars; i++)
@@ -170,12 +170,20 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap2[carNumber].transform.rotation =
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
-            default:
+            case 3:
                 // Updates position of checkpoint
                 checkPointForEachCarLap3[carNumber].transform.position =
                     checkPointPositions[checkPointNumber].transform.position;
                 // Updates rotation of checkpoint
                 checkPointForEachCarLap3[carNumber].transform.rotation =
+                    checkPointPositions[checkPointNumber].transform.rotation;
+                break;
+            default:
+                // Updates position of checkpoint
+                checkPointForEachCarLap4[carNumber].transform.position =
+                    checkPointPositions[checkPointNumber].transform.position;
+                // Updates rotation of checkpoint
+                checkPointForEachCarLap4[carNumber].transform.rotation =
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
         }
@@ -191,7 +199,7 @@ public class PositioningSystem : MonoBehaviourPun
         {
             // Sets our cars position
             cars[i].GetComponent<CheckPointManager>().CarPosition =
-                playerController.GetComponent<PhotonView>().OwnerActorNr;
+                playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
             // Sets our cars number
             cars[i].GetComponent<CheckPointManager>().CarNumber =
                 playerController.GetComponent<PhotonView>().OwnerActorNr - 1;

@@ -71,7 +71,7 @@ public class RaceSoundManager : MonoBehaviour
 
                 break;
             }
-            default:
+            case < 0:
             {
                 // Decelerating
                 if (!decelerateSound.isPlaying)
