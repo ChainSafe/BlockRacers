@@ -62,7 +62,7 @@ public class SwapCars : MonoBehaviour
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         platform.transform.position = new Vector3(currentPrefab.transform.position.x,
-            currentPrefab.transform.position.y - 0.3f, currentPrefab.transform.position.z);
+            currentPrefab.transform.position.y - 0.45f, currentPrefab.transform.position.z);
     }
 
     /// <summary>
