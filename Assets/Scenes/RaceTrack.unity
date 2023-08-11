@@ -3509,6 +3509,7 @@ MonoBehaviour:
   checkPointForEachCarLap1: []
   checkPointForEachCarLap2: []
   checkPointForEachCarLap3: []
+  checkPointForEachCarLap4: []
   playerController: {fileID: 0}
 --- !u!1001 &1392850812
 PrefabInstance:
