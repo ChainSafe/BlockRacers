@@ -72,6 +72,7 @@ public class PositioningSystem : MonoBehaviourPun
         checkPointForEachCarLap1 = new GameObject[totalCars];
         checkPointForEachCarLap2 = new GameObject[totalCars];
         checkPointForEachCarLap3 = new GameObject[totalCars];
+        checkPointForEachCarLap4 = new GameObject[totalCars];
         for (int i = 0; i < totalCars; i++)
         {
             // Instantiate the initial check point for each car
@@ -197,12 +198,9 @@ public class PositioningSystem : MonoBehaviourPun
         // Loops through the cars
         for (int i = 0; i < totalCars; i++)
         {
-            // Sets our cars position
-            cars[i].GetComponent<CheckPointManager>().CarPosition =
-                playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
             // Sets our cars number
             cars[i].GetComponent<CheckPointManager>().CarNumber =
-                playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
+                playerController.GetComponent<PhotonView>().OwnerActorNr -1;
         }
     }
 

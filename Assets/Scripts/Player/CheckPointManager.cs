@@ -9,13 +9,10 @@ public class CheckPointManager : MonoBehaviour
     #region Fields
 
     // Checkpoint we cross
-    private int checkPointCrossed;
+    [SerializeField] private int checkPointCrossed;
 
     // Our car number
-    private int carNumber;
-
-    // Our car position
-    private int carPosition;
+    [SerializeField] private int carNumber;
 
     // Reference to the positioning script
     private PositioningSystem positioningSystem;
@@ -40,15 +37,6 @@ public class CheckPointManager : MonoBehaviour
     {
         get => carNumber;
         set => carNumber = value;
-    }
-
-    /// <summary>
-    /// Keeps track of our car position
-    /// </summary>
-    public int CarPosition
-    {
-        get => carPosition;
-        set => carPosition = value;
     }
 
     #endregion

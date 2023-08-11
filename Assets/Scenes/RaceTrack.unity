@@ -3499,9 +3499,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalCheckPoints: 0
-  car1: {fileID: 5401885449677968781, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
-  car2: {fileID: 8562722798458900322, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
-  car3: {fileID: 8562722798458900322, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
+  car1: {fileID: 4714100525530532339, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
+  car2: {fileID: 3040334448319442099, guid: 54db398ad77b5fa438d6aaeca9136f16, type: 3}
+  car3: {fileID: 8360915207729528789, guid: 6e683a3e635286a469cba346b97ef445, type: 3}
   checkPoint: {fileID: 7872560855583400713, guid: 075433e213ec7084ab8f15f7964e7248, type: 3}
   checkPointHolder: {fileID: 204971267}
   cars: []
