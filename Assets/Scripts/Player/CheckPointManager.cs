@@ -2,18 +2,23 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Checkpoint manager for positioning
+/// Checkpoint manager for our car
 /// </summary>
 public class CheckPointManager : MonoBehaviour
 {
     #region Fields
 
-    // DEBUG SERIALIZE--------------------
-    [SerializeField] private int checkPointCrossed;
-    [SerializeField] private int carNumber;
-    [SerializeField] private int carPosition;
+    // Checkpoint we cross
+    private int checkPointCrossed;
+
+    // Our car number
+    private int carNumber;
+
+    // Our car position
+    private int carPosition;
+
+    // Reference to the positioning script
     private PositioningSystem positioningSystem;
-    public TextMeshProUGUI positionText;
 
     #endregion
 

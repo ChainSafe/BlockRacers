@@ -8,10 +8,12 @@ public class PositioningSystem : MonoBehaviourPun
 {
     #region Fields
 
+    // Total amount of checkpoints
     public int totalCheckPoints;
 
-    // WARNING -----------------------------------
-    // change later to be photon multiplayer car prefabs, currently only works with camaro
+    // Amount of cars in the race
+    private int totalCars;
+
     [SerializeField] private GameObject car1, car2, car3;
     [SerializeField] private GameObject checkPoint;
     [SerializeField] private GameObject checkPointHolder;
@@ -21,9 +23,6 @@ public class PositioningSystem : MonoBehaviourPun
     [SerializeField] private GameObject[] checkPointForEachCarLap2;
     [SerializeField] private GameObject[] checkPointForEachCarLap3;
     [SerializeField] private GameObject[] checkPointForEachCarLap4;
-    private int totalCars;
-
-    private int position;
 
     // Debug
     [SerializeField] private PlayerController playerController;
@@ -46,7 +45,6 @@ public class PositioningSystem : MonoBehaviourPun
         {
             cars[i] = car1;
         }
-
         // Number of total cars
         totalCars = cars.Length;
         // Number of total checkPoints
@@ -181,54 +179,6 @@ public class PositioningSystem : MonoBehaviourPun
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
         }
-
-        // Compares car positions
-        ComparePositions(carNumber);
-    }
-
-    /// <summary>
-    /// Compares our car positions
-    /// </summary>
-    /// <param name="carNumber"></param>
-    private void ComparePositions(int carNumber)
-    {
-        // Checks if we're first or not, returns if first as we don't need to calculate
-        if (cars[carNumber].GetComponent<CheckPointManager>().CarPosition == 1) return;
-        // Finds our car
-        GameObject currentCar = cars[carNumber];
-        // Checks our cars position
-        int currentCarPos = currentCar.GetComponent<CheckPointManager>().CarPosition;
-        //  Checks our cars checkpoints
-        int currentCarCheckPoint = currentCar.GetComponent<CheckPointManager>().CheckPointCrossed;
-        // Initialize the local variables car in front
-        GameObject carInFront = null;
-        int carInFrontPos = 0;
-        int carInFrontCheckPoint = 0;
-        // loop through our cars to set our position
-        for (int i = 0; i < totalCars; i++)
-        {
-            // the car in front
-            if (cars[i].GetComponent<CheckPointManager>().CarPosition == currentCarPos - 1)
-            {
-                // Finds the car
-                carInFront = cars[i];
-                // Checks the cars position
-                carInFrontPos = currentCar.GetComponent<CheckPointManager>().CarPosition;
-                //  Checks the cars checkpoints
-                carInFrontCheckPoint = currentCar.GetComponent<CheckPointManager>().CheckPointCrossed;
-                break;
-            }
-
-            // Updates our position if we have more checkpoints
-            if (currentCarCheckPoint > carInFrontCheckPoint)
-            {
-                currentCar.GetComponent<CheckPointManager>().CarPosition = currentCarPos - 1;
-                carInFront.GetComponent<CheckPointManager>().CarPosition = carInFrontPos + 1;
-            }
-
-            // Updates our position text
-            UpdatePositionText();
-        }
     }
 
     /// <summary>
@@ -245,17 +195,7 @@ public class PositioningSystem : MonoBehaviourPun
             // Sets our cars number
             cars[i].GetComponent<CheckPointManager>().CarNumber =
                 playerController.GetComponent<PhotonView>().OwnerActorNr - 1;
-            // Updates our position text
-            UpdatePositionText();
         }
-    }
-
-    /// <summary>
-    /// Updates our position text
-    /// </summary>
-    private void UpdatePositionText()
-    {
-        //cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().positionText.text = $"POS  {cars[playerController.GetComponent<PhotonView>().OwnerActorNr - 1].GetComponent<CheckPointManager>().CarPosition}";
     }
 
     /// <summary>
