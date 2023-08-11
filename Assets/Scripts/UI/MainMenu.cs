@@ -94,6 +94,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void ConnectButton()
     {
+        // Connect to our preferred region
+        PhotonRegion.instance.ConnectToSelectedRegion();
+
         connectMenu.SetActive(false);
         mainMenu.SetActive(true);
         // Sets our first selected button
