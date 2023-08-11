@@ -1,4 +1,3 @@
-using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -28,8 +27,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         connectButton,
         tutorialButton,
         oneVsOneButton,
-        searchingBackButton,
-        connectingText;
+        searchingBackButton;
 
     // Back buttons
     [SerializeField] private GameObject backButtonNormalRace,
@@ -43,9 +41,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     // Players names arrays for multiplayer
     [SerializeField] private TextMeshProUGUI[] playerWagerNames, player2v2Names, player5v5Names;
-
-    // PHOTON - Are we connected to the master server?
-    public static bool connectedToMaster;
 
     // PHOTON - Username
     [SerializeField] private TMP_InputField usernameInput;
@@ -94,9 +89,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void ConnectButton()
     {
-        // Connect to our preferred region
-        PhotonRegion.instance.ConnectToSelectedRegion();
-
         connectMenu.SetActive(false);
         mainMenu.SetActive(true);
         // Sets our first selected button
@@ -143,23 +135,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     #region Photon
 
     /// <summary>
-    /// PHOTON Fires once a user is connected to proceed and let's the user know we're connected
-    /// </summary>
-    public override void OnConnectedToMaster()
-    {
-        // Syncs Photon to ensure scenes are all loaded correctly
-        PhotonNetwork.AutomaticallySyncScene = true;
-        Debug.Log("Connected To Master Server!");
-        connectedToMaster = true;
-        // Deactivates connecting text
-        connectingText.SetActive(false);
-        // Opens race menu
-        raceMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-    }
-
-    /// <summary>
     /// If we joined the room successfully, the scene changes based on the lobby we join
     /// </summary>
     public override void OnJoinedRoom()
@@ -175,19 +150,20 @@ public class MainMenu : MonoBehaviourPunCallbacks
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
         // Editor debug
-        // if (Application.isEditor)
-        // {
-        //     if (PhotonNetwork.IsMasterClient)
-        //     {
-        //         if (!loadingLevel)
-        //         {
-        //             loadingLevel = true;
-        //             backButtonNormalRace.SetActive(false);
-        //             // Loads level
-        //             Invoke(nameof(LoadRaceTrack), 3);
-        //         }
-        //     }
-        // }
+        if (Application.isEditor)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (!loadingLevel)
+                {
+                    loadingLevel = true;
+                    backButtonNormalRace.SetActive(false);
+                    // Loads level
+                    Invoke(nameof(LoadRaceTrack), 3);
+                }
+            }
+        }
+
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -197,22 +173,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void RaceButton()
     {
-        // PHOTON If we're not connected to photon, connect
-        if (!PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.ConnectUsingSettings();
-            // Activates connecting text
-            connectingText.SetActive(true);
-        }
-        else
-        {
-            // Opens race menu
-            raceMenu.SetActive(true);
-            // Sets our first selected button
-            EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-        }
-
-        // Closes the menu to stop duplicate connections
+        // Opens race menu
+        raceMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
+        // Closes the main menu
         mainMenu.SetActive(false);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
@@ -243,10 +208,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void RaceMenu1v1Button()
     {
-        SearchingMenu();
-        // The Official Room Options for 1v1, TTL set low to ensure there are no dead rooms
-        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
-        PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1", roomOps, TypedLobby.Default);
+        PhotonRegion.instance.CheckIfConnected();
+        PhotonRegion.instance.faceOffMatch = true;
     }
 
     /// <summary>
@@ -254,10 +217,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void RaceMenu1v1WagerButton()
     {
-        SearchingMenu();
-        // The Official Room Options for 1v1, TTL set low to ensure there are no dead rooms
-        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
-        PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1Wager", roomOps, TypedLobby.Default);
+        PhotonRegion.instance.CheckIfConnected();
+        PhotonRegion.instance.wagerMatch = true;
     }
 
     /// <summary>
@@ -265,23 +226,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void RaceMenu5ManButton()
     {
-        SearchingMenu();
-        // The Official Room Options for 5 man races, TTL set low to ensure there are no dead rooms
-        RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 5 };
-        PhotonNetwork.JoinOrCreateRoom("RaceLobby5Man", roomOps, TypedLobby.Default);
-    }
-
-    /// <summary>
-    /// Opens the wager menu
-    /// </summary>
-    public void WagerButton()
-    {
-        raceMenu.SetActive(false);
-        wagerMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        PhotonRegion.instance.CheckIfConnected();
+        PhotonRegion.instance.fiveManMatch = true;
     }
 
     /// <summary>
