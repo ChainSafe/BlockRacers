@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +12,7 @@ public class RaceSoundManager : MonoBehaviour
 
     // Player controller so we can listen for changes
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private AudioSource accelerateSound, decelerateSound;
     private bool driftEnded;
 
     #endregion
@@ -32,11 +32,10 @@ public class RaceSoundManager : MonoBehaviour
     {
         // Engine sounds
         // 3 nos, 4 idle, 5 acc, 6 dec, 7 collision, 8 drift counter, 9 drift end
-        audioManager.sounds[5].volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
-        audioManager.sounds[5].pitch =
-            Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
-        audioManager.sounds[6].volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
-        audioManager.sounds[6].pitch = Mathf.Lerp(0.3f * playerController.CurrentGear, 2, playerController.SpeedRatio);
+        accelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
+        accelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear / 2, 2, playerController.SpeedRatio);
+        decelerateSound.volume = Mathf.Lerp(0.25f, 0.35f, playerController.SpeedRatio);
+        decelerateSound.pitch = Mathf.Lerp(0.3f * playerController.CurrentGear, 2, playerController.SpeedRatio);
 
         // Nos sound based on input
         if (PlayerController.nosActive && CountDownSystem.raceStarted)
@@ -64,10 +63,10 @@ public class RaceSoundManager : MonoBehaviour
             // Accelerating
             case > 0:
             {
-                if (!audioManager.sounds[5].source.isPlaying)
+                if (!accelerateSound.isPlaying)
                 {
-                    audioManager.sounds[6].source.Pause();
-                    audioManager.sounds[5].source.Play();
+                    decelerateSound.Pause();
+                    accelerateSound.Play();
                 }
 
                 break;
@@ -75,10 +74,10 @@ public class RaceSoundManager : MonoBehaviour
             default:
             {
                 // Decelerating
-                if (!audioManager.sounds[6].source.isPlaying)
+                if (!decelerateSound.isPlaying)
                 {
-                    audioManager.sounds[5].source.Pause();
-                    audioManager.sounds[6].source.Play();
+                    accelerateSound.Pause();
+                    decelerateSound.Play();
                 }
 
                 break;

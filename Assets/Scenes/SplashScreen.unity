@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
-  playerCar: {fileID: 2449672782131625028, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
+  playerCar: {fileID: 4714100525530532339, guid: 5bb875217047b7c4abeedbbb915cbb21, type: 3}
   nftSprite: {fileID: 2800000, guid: 0d762260e1cba6148b1896f01f6a2f7b, type: 3}
   engineLevel: 1
   handlingLevel: 1
