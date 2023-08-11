@@ -77,18 +77,14 @@ public class LapSystem : MonoBehaviourPun
             else if (playerController.LapCount > 3)
             {
                 // If we're first enable the global bool for claims
-                if (!raceOver)
+                if (raceOver) return;
+                if (globalManager.wagering)
                 {
-                    raceOver = true;
-                    if (globalManager.wagering)
-                    {
-                        globalManager.raceWon = true;
-                    }
-
-                    // Sends RPC to other users
-                    photonView.RPC("RaceOver", RpcTarget.All,
-                        playerController.GetComponent<PhotonView>().Owner.NickName);
+                    globalManager.raceWon = true;
                 }
+                // Sends RPC to other users
+                photonView.RPC("RaceOver", RpcTarget.All,
+                    playerController.GetComponent<PhotonView>().Owner.NickName);
             }
         }
     }
