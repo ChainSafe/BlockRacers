@@ -553,7 +553,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="wheelCollider">The collider of the wheel</param>
     /// <param name="wheelTransform">The transform of the wheel</param>
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
-    {   
+    {
         // Sets wheel rotation
         Vector3 pos;
         Quaternion rot;
@@ -562,6 +562,7 @@ public class PlayerController : MonoBehaviour
         {
             wheelTransform.rotation = Quaternion.Slerp(wheelTransform.rotation, rot, 0.2f);
         }
+
         // Sets wheel position
         wheelTransform.position = pos;
     }

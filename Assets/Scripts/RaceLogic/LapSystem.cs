@@ -34,7 +34,7 @@ public class LapSystem : MonoBehaviourPun
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         playerController.LapCount = 1;
     }
-    
+
     /// <summary>
     /// Initializes when we collide with the lap collider
     /// </summary>
@@ -84,6 +84,7 @@ public class LapSystem : MonoBehaviourPun
                     {
                         globalManager.raceWon = true;
                     }
+
                     // Sends RPC to other users
                     photonView.RPC("RaceOver", RpcTarget.All,
                         playerController.GetComponent<PhotonView>().Owner.NickName);
