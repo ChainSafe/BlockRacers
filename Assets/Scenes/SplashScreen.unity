@@ -268,6 +268,54 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: Nos
+    clip: {fileID: 8300000, guid: 6126d8fa7d3fb3f45a9233a021613f38, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Idle
+    clip: {fileID: 8300000, guid: f0799a47705326a45a83a9dda49e573d, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Accelerate
+    clip: {fileID: 8300000, guid: 2b9cd42c39bf9e044b59beea42b2a104, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Decelerate
+    clip: {fileID: 8300000, guid: 6a3ead93c6ad6004d9e91e36238e679b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Collision
+    clip: {fileID: 8300000, guid: a4407b85c5a35ff478c593540f460566, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: DriftCount
+    clip: {fileID: 8300000, guid: b1f8e207094b45949a10c3f352d2f758, type: 3}
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: DriftEnd
+    clip: {fileID: 8300000, guid: fd049612099139847a64eb966c6c1770, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Countdown
+    clip: {fileID: 8300000, guid: c5a9a62c94be510448c06f466d8089d5, type: 3}
+    volume: 0.35
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!4 &4689980
 Transform:
   m_ObjectHideFlags: 0
