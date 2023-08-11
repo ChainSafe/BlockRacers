@@ -35,7 +35,7 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
 
         // Add our supported regions
         regionDropdown.ClearOptions();
-        regionDropdown.AddOptions(new List<string> { "Australia", "Asia", "Europe", "North America" });
+        regionDropdown.AddOptions(new List<string> { "North America", "Asia", "Europe", "Australia" });
 
         // You can also set the default selected option here
         regionDropdown.value = 0;
@@ -64,7 +64,7 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
                 return "usw";
 
             default:
-                return "asia"; // Default region code
+                return "usw"; // Default region code
         }
     }
 
@@ -138,10 +138,14 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinOrCreateRoom("RaceLobby5Man", roomOps, TypedLobby.Default);
         }
 
-        // Activates the searching menu
-        searchingMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(searchingBackButton);
+        if (!raceMenu.activeSelf)
+        {
+            // Activates the searching menu
+            searchingMenu.SetActive(true);
+            // Sets our first selected button
+            EventSystem.current.SetSelectedGameObject(searchingBackButton);
+        }
+
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
