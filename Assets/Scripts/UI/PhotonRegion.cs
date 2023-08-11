@@ -4,13 +4,16 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
+/// <summary>
+/// Changes our photon region
+/// </summary>
 public class PhotonRegion : MonoBehaviourPunCallbacks
 {
     // Menu items
     [SerializeField] private GameObject connectingText, searchingMenu, raceMenu, searchingBackButton;
     [SerializeField] private TMP_Dropdown regionDropdown;
+    private bool changingRegions;
     public bool faceOffMatch, wagerMatch, fiveManMatch;
 
     // Singleton
@@ -19,6 +22,9 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
     // Audio
     private AudioManager audioManager;
 
+    /// <summary>
+    /// Initialize objects
+    /// </summary>
     private void Start()
     {
         // Singleton
@@ -35,8 +41,11 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         regionDropdown.value = 0;
     }
 
-
-    // Here we assign regions manually based on the value the player selects
+    /// <summary>
+    /// Assigns regions manually based on the value the player selects
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
     private string GetRegionCodeFromOption(string option)
     {
         // Use conditional statements to map the selected option to a region code
@@ -59,8 +68,9 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         }
     }
 
-
-    // Connect to our selected region
+    /// <summary>
+    /// Connects to the selected region
+    /// </summary>
     private void ConnectToSelectedRegion()
     {
         // Sets region
@@ -74,6 +84,9 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    /// <summary>
+    /// Checks if we're connected to and changes regions
+    /// </summary>
     public void CheckIfConnected()
     {
         // PHOTON If we're not connected to photon, connect
@@ -86,15 +99,19 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         }
         else
         {
+            changingRegions = true;
             PhotonNetwork.Disconnect();
         }
     }
 
+    /// <summary>
+    /// When the user is connected to the master server
+    /// </summary>
     public override void OnConnectedToMaster()
     {
         // Syncs Photon to ensure scenes are all loaded correctly
         PhotonNetwork.AutomaticallySyncScene = true;
-        // Activates connecting text
+        // Deactivates connecting text
         connectingText.SetActive(false);
         // Lets the user know they're connected
         Debug.Log("Connected to server in region: " + PhotonNetwork.CloudRegion);
@@ -102,21 +119,25 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         if (faceOffMatch)
         {
             faceOffMatch = false;
-            RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
+            RoomOptions roomOps = new RoomOptions()
+                { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
             PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1", roomOps, TypedLobby.Default);
         }
         else if (wagerMatch)
         {
             wagerMatch = false;
-            RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
+            RoomOptions roomOps = new RoomOptions()
+                { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 2 };
             PhotonNetwork.JoinOrCreateRoom("RaceLobby1v1Wager", roomOps, TypedLobby.Default);
         }
         else if (fiveManMatch)
         {
             fiveManMatch = false;
-            RoomOptions roomOps = new RoomOptions() { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 5 };
+            RoomOptions roomOps = new RoomOptions()
+                { IsOpen = true, IsVisible = true, PlayerTtl = 300, MaxPlayers = 5 };
             PhotonNetwork.JoinOrCreateRoom("RaceLobby5Man", roomOps, TypedLobby.Default);
         }
+
         // Activates the searching menu
         searchingMenu.SetActive(true);
         // Sets our first selected button
@@ -125,11 +146,22 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
+    /// <summary>
+    /// When the user changes regions, disconnect and reconnect
+    /// </summary>
+    /// <param name="cause"></param>
     public override void OnDisconnected(DisconnectCause cause)
     {
-        // Lets the user know we're disconnecting
-        Debug.Log("Disconnected from server. Reason: " + cause.ToString());
-        // Changes photon region and connects
-        ConnectToSelectedRegion();
+        if (!changingRegions)
+        {
+            // Lets the user know we're disconnecting
+            Debug.Log("Disconnected from server. Reason: " + cause.ToString());
+        }
+        else
+        {
+            changingRegions = false;
+            // Changes photon region and connects
+            ConnectToSelectedRegion();
+        }
     }
 }
