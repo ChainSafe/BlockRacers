@@ -210,6 +210,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.faceOffMatch = true;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     /// <summary>
@@ -219,6 +221,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.wagerMatch = true;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     /// <summary>
@@ -228,6 +232,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.fiveManMatch = true;
+        if (audioManager == null) return;
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
 
     /// <summary>
