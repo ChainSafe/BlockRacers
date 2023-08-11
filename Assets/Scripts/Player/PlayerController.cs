@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     // Reset bool
     public bool resetActive;
 
+    // Reset timer
+    private bool resetTimer;
+
     // collision bool for sounds
     public bool collision;
 
@@ -598,12 +601,32 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ResetPosition()
     {
+        if (resetTimer) return;
         if (!resetActive) return;
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
+            transform.position = spawnPoint.transform.position;
+        }
+        else
+        {
+            if (lastCheckPoint == null) return;
+            // Raises the car slightly so it drops in to avoid spawning into another car
+            transform.position = lastCheckPoint.transform.localPosition;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+
         resetActive = false;
-        if (lastCheckPoint == null) return;
-        // Raises the car slightly so it drops in to avoid spawning into another car
-        transform.position = lastCheckPoint.transform.localPosition;
-        transform.rotation = new Quaternion(0, 0, 0, 0);
+        resetTimer = true;
+        Invoke(nameof(ResetTimer), 10);
+    }
+
+    /// <summary>
+    /// Timer to stop reset being spammed
+    /// </summary>
+    private void ResetTimer()
+    {
+        resetTimer = false;
     }
 
     /// <summary>
