@@ -98,7 +98,6 @@ public class RaceSoundManager : MonoBehaviour
         if (driftEnded)
         {
             driftEnded = false;
-            audioManager.sounds[8].source.Pause();
             audioManager.sounds[9].source.Play();
         }
 

@@ -18479,6 +18479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resetActive: 0
   collision: 0
+  sounds: {fileID: 2262468630754178669}
   tachometer: {fileID: 3065257330020929957}
   rigidBody: {fileID: 478234131405294013}
   nosParticles: {fileID: 8229648556761109790}

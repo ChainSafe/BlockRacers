@@ -1,5 +1,4 @@
 using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -163,6 +162,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 }
             }
         }
+
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }

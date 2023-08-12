@@ -12,9 +12,6 @@ public class PlayerController : MonoBehaviour
 {
     #region Fields
 
-    // Global manager
-    private GlobalManager globalManager;
-
     // Static to enabled / disable our headlights for the race & tutorial
     public static bool useHeadLights;
 
@@ -38,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
+    [SerializeField] private GameObject sounds;
 
     // Tachometer
     [SerializeField] private GameObject tachometer;
@@ -239,8 +237,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // Finds our global manager
-        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our stats manager
@@ -316,6 +312,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(lapCanvas);
                 Destroy(tachometer);
                 Destroy(driftSystem);
+                Destroy(sounds);
                 this.gameObject.tag = "Untagged";
                 carBody.tag = "Untagged";
             }
@@ -403,7 +400,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput.Disable();
     }
-    
+
     /// <summary>
     /// Hides the controls pop up
     /// </summary>
