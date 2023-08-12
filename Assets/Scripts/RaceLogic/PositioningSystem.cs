@@ -209,6 +209,7 @@ public class PositioningSystem : MonoBehaviourPun
     /// </summary>
     private void Update()
     {
+        if (!PhotonNetwork.IsConnected) return;
         if (playerController.GetComponent<PhotonView>().IsMine) return;
         Debug.Log("Finding our Player!");
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();

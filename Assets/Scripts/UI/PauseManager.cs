@@ -129,17 +129,12 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     public void MainMenuButton()
     {
-        if (PhotonNetwork.IsConnected)
+        audioManager.Pause("Bgm2");
+        audioManager.Play("Bgm1");
+        if (SceneManager.GetActiveScene().name != "Tutorial")
         {
             PhotonNetwork.Disconnect();
         }
-        // Disables sounds in menu
-        for (int i = 3; i < 10; i++)
-        {
-            audioManager.sounds[i].source.Pause();
-        }
-        audioManager.Pause("Bgm2");
-        audioManager.Play("Bgm1");
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;

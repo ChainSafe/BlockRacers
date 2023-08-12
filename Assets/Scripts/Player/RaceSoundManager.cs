@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages our car engine $ collision sounds
@@ -47,58 +48,61 @@ public class RaceSoundManager : MonoBehaviour
             }
         }
 
-        // Engine sound based on input
-        switch (playerController.Input)
+        if (SceneManager.GetActiveScene().name == "RaceTrack" || SceneManager.GetActiveScene().name == "Tutorial")
         {
-            // Idle
-            case 0 when (playerController.Speed == 0 || playerController.Input == 0):
+            // Engine sound based on input
+            switch (playerController.Input)
             {
-                if (!audioManager.sounds[4].source.isPlaying)
+                // Idle
+                case 0 when (playerController.Speed == 0 || playerController.Input == 0):
                 {
-                    audioManager.sounds[4].source.Play();
-                }
+                    if (!audioManager.sounds[4].source.isPlaying)
+                    {
+                        audioManager.sounds[4].source.Play();
+                    }
 
-                break;
+                    break;
+                }
+                // Accelerating
+                case > 0:
+                {
+                    if (!accelerateSound.isPlaying)
+                    {
+                        decelerateSound.Pause();
+                        accelerateSound.Play();
+                    }
+
+                    break;
+                }
+                case < 0:
+                {
+                    // Decelerating
+                    if (!decelerateSound.isPlaying)
+                    {
+                        accelerateSound.Pause();
+                        decelerateSound.Play();
+                    }
+
+                    break;
+                }
             }
-            // Accelerating
-            case > 0:
+
+            // Drift sounds (reversed for some reason)
+            if (!DriftSystem.instance.driftActive)
             {
-                if (!accelerateSound.isPlaying)
-                {
-                    decelerateSound.Pause();
-                    accelerateSound.Play();
-                }
-
-                break;
+                audioManager.sounds[8].source.Play();
             }
-            case < 0:
+            else
             {
-                // Decelerating
-                if (!decelerateSound.isPlaying)
-                {
-                    accelerateSound.Pause();
-                    decelerateSound.Play();
-                }
-
-                break;
+                audioManager.sounds[8].source.Pause();
+                driftEnded = true;
             }
-        }
 
-        // Drift sounds (reversed for some reason)
-        if (!DriftSystem.instance.driftActive)
-        {
-            audioManager.sounds[8].source.Play();
-        }
-        else
-        {
-            audioManager.sounds[8].source.Pause();
-            driftEnded = true;
-        }
-
-        if (driftEnded)
-        {
-            driftEnded = false;
-            audioManager.sounds[9].source.Play();
+            if (driftEnded)
+            {
+                driftEnded = false;
+                audioManager.sounds[9].source.Play();
+            }
         }
 
         // Collision sound based on collisions

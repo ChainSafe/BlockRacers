@@ -403,10 +403,16 @@ public class PlayerController : MonoBehaviour
     {
         playerInput.Disable();
     }
-
+    
+    /// <summary>
+    /// Hides the controls pop up
+    /// </summary>
     private void HideControls()
     {
-        controlsPopUp.SetActive(false);
+        if ((PhotonNetwork.IsConnected) || SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            controlsPopUp.SetActive(false);
+        }
     }
 
     #endregion
