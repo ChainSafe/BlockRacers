@@ -133,7 +133,11 @@ public class PauseManager : MonoBehaviour
         {
             PhotonNetwork.Disconnect();
         }
-
+        // Disables sounds in menu
+        for (int i = 3; i < 10; i++)
+        {
+            audioManager.sounds[i].source.Pause();
+        }
         audioManager.Pause("Bgm2");
         audioManager.Play("Bgm1");
         globalManager.sceneToLoad = "MenuScene";
