@@ -9,7 +9,11 @@ public class LoadScreen : MonoBehaviour
 {
     #region Fields
 
+    // Global manager
     private GlobalManager globalManager;
+
+    // Audio
+    private AudioManager audioManager;
 
     #endregion
 
@@ -21,10 +25,22 @@ public class LoadScreen : MonoBehaviour
     private void Awake()
     {
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+        // Finds our audio manager
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
     {
+        if (audioManager.sounds[4].source.isPlaying)
+        {
+            audioManager.sounds[4].source.Pause();
+        }
+
+        if (audioManager.sounds[8].source.isPlaying)
+        {
+            audioManager.sounds[8].source.Pause();
+        }
+
         StartCoroutine(LoadTime());
     }
 
