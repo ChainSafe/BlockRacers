@@ -77,7 +77,6 @@ public class GarageMenu : MonoBehaviour
             // Rotate our camera back
             CameraController.instance.RotateCamera(-95f, 0.5f);
         }
-
         menuMarket.SetActive(false);
         menuUpgrade.SetActive(false);
         menuShowRoom.SetActive(false);
@@ -123,7 +122,9 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void NftMenuButton()
     {
-        menuGarage.SetActive(false);
+        // Rotates our camera back
+        CameraController.instance.RotateCamera(-95f, 0.5f);
+        menuShowRoom.SetActive(false);
         menuChangeNft.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
