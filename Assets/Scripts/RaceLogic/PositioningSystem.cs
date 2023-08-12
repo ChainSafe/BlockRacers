@@ -114,7 +114,6 @@ public class PositioningSystem : MonoBehaviourPun
     /// </summary>
     public void ResetCheckPoints()
     {
-        Debug.Log("Resetting checkpoints");
         // Resets our checkpoint counter
         playerController.GetComponent<CheckPointManager>().CheckPointCrossed = 0;
         // If we're on lap 2
@@ -126,7 +125,7 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap2[i].SetActive(true);
             }
         }
-        else if (playerController.LapCount == 2)
+        else if (playerController.LapCount == 3)
         {
             // If we're on lap 3
             for (int i = 0; i < totalCars; i++)
@@ -135,7 +134,7 @@ public class PositioningSystem : MonoBehaviourPun
                 checkPointForEachCarLap3[i].SetActive(true);
             }
         }
-        else if (playerController.LapCount == 3)
+        else if (playerController.LapCount == 4)
         {
             // If we've finished instantiate the last checkpoint to stop errors
             for (int i = 0; i < totalCars; i++)

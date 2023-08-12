@@ -9,17 +9,17 @@ public class CountDownSystem : MonoBehaviour
 {
     #region Fields
 
-    // Audio
-    private AudioManager audioManager;
-
-    // Our UI for the countdown circles
-    public GameObject[] countDownSprites;
-
-    // How long is the countdown
-    public float countdownDuration = 3f;
-
     // Has the race started? - Used for player input
     public static bool raceStarted;
+
+    // Our UI for the countdown circles
+    [SerializeField] private GameObject[] countDownSprites;
+
+    // How long is the countdown
+    private float countdownDuration = 3f;
+
+    // Audio
+    private AudioManager audioManager;
 
     #endregion
 

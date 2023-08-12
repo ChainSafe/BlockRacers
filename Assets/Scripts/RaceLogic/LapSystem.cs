@@ -53,31 +53,30 @@ public class LapSystem : MonoBehaviourPun
     /// </summary>
     public void LapComplete()
     {
+        // If we have passed all check points & this is our photon view
         if (!playerController.GetComponent<PhotonView>().IsMine) return;
-        // If we have passed all check points
-        if (playerController.GetComponent<CheckPointManager>().CheckPointCrossed ==
-            FindObjectOfType<PositioningSystem>().totalCheckPoints)
+        if (playerController.GetComponent<CheckPointManager>().CheckPointCrossed !=
+            FindObjectOfType<PositioningSystem>().totalCheckPoints - 1) return;
+        // Show our split time
+        TimerSystem.instance.ShowSplitTime();
+        // Increase our lap count
+        playerController.LapCount++;
+        // Reset our timer
+        TimerSystem.instance.ResetTimer();
+        // reset checkpoints
+        FindObjectOfType<PositioningSystem>().ResetCheckPoints();
+        // Show our lap count on the UI
+        playerController.lapCountText.text = playerController.LapCount.ToString();
+        switch (playerController.LapCount)
         {
-            // Show our split time
-            TimerSystem.instance.ShowSplitTime();
-            // Increase our lap count
-            playerController.LapCount++;
-            // Reset our timer
-            TimerSystem.instance.ResetTimer();
-            // reset checkpoints
-            FindObjectOfType<PositioningSystem>().ResetCheckPoints();
-            // Show our lap count on the UI
-            playerController.lapCountText.text = playerController.LapCount.ToString();
             // Let the player know it's their final lap
-            if (playerController.LapCount > 2)
-            {
+            case 3:
                 playerController.finalLapReminder.SetActive(true);
-            }
+                break;
             // When we've completed all three laps
-            else if (playerController.LapCount > 3)
+            case 4:
             {
                 // If we're first enable the global bool for claims
-                Debug.Log("FIRING RACE OVER RPC");
                 if (raceOver) return;
                 if (globalManager.wagering)
                 {
@@ -87,6 +86,7 @@ public class LapSystem : MonoBehaviourPun
                 // Sends RPC to other users
                 photonView.RPC("RaceOver", RpcTarget.All,
                     playerController.GetComponent<PhotonView>().Owner.NickName);
+                break;
             }
         }
     }

@@ -1282,7 +1282,6 @@ MonoBehaviour:
   - {fileID: 7151829982036062673}
   - {fileID: 65160791259261308}
   - {fileID: 8335113903903302814}
-  countdownDuration: 3
 --- !u!82 &9114221341865838780
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14519,7 +14518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 970.0007, y: -115}
+  m_AnchoredPosition: {x: 990, y: -115}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3207205201031643014
