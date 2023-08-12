@@ -52401,6 +52401,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
   - {fileID: 2800000, guid: f199752ef46802a40b15199661a65695, type: 3}
   nftPrefabs: []
+  nftArray: []
   Nft1: {fileID: 2800000, guid: 0d762260e1cba6148b1896f01f6a2f7b, type: 3}
   Nft2: {fileID: 2800000, guid: 4bda65cae7a35e34e87b826fbc554e04, type: 3}
   Nft3: {fileID: 2800000, guid: f199752ef46802a40b15199661a65695, type: 3}

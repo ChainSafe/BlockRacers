@@ -20,6 +20,7 @@ TagManager:
   - SplitTimeCheckpoint
   - LobbyUserName
   - SpawnPoint
+  - NftPrefab
   layers:
   - Default
   - TransparentFX

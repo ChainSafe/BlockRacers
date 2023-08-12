@@ -15,9 +15,6 @@ public class CountDownSystem : MonoBehaviour
     // Our UI for the countdown circles
     [SerializeField] private GameObject[] countDownSprites;
 
-    // How long is the countdown
-    private float countdownDuration = 3f;
-
     // Audio
     private AudioManager audioManager;
 

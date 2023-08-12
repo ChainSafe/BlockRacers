@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 234221088536072994}
   m_Layer: 5
   m_Name: NftItem
-  m_TagString: Untagged
+  m_TagString: NftPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -19,7 +19,7 @@ public class NftMenu : MonoBehaviour
     [SerializeField] private Texture2D[] nfts;
 
     // Our nft object array
-    [SerializeField] private GameObject[] nftPrefabs;
+    [SerializeField] private GameObject[] nftPrefabs, nftArray;
 
     // NFT sprites
     [SerializeField] private Texture2D Nft1, Nft2, Nft3;
@@ -55,8 +55,9 @@ public class NftMenu : MonoBehaviour
     private void InitializeArrays()
     {
         // Initialize arrays by size
-        nfts = new Texture2D[2];
-        nftPrefabs = new GameObject[2];
+        nfts = new Texture2D[0];
+        nftArray = new GameObject[0];
+        nftPrefabs = new GameObject[nftArray.Length];
         InstantiatePrefabs();
     }
 
@@ -65,12 +66,24 @@ public class NftMenu : MonoBehaviour
     /// </summary>
     private void InstantiatePrefabs()
     {
-        // Instantiate prefabs and set parent to scroll canvas
-        foreach (var nftPrefabItem in nftPrefabs)
+        // Instantiate prefabs
+        for (int i = 0; i < nftArray.Length; i++)
         {
             // Instantiate prefabs
             Instantiate(nftPrefab);
-            // Set parent to scroll canvas
+        }
+        Invoke(nameof(AssignPrefabsToList), 1);
+    }
+    
+    /// <summary>
+    /// Assigns instantiated prefabs to a list
+    /// </summary>
+    private void AssignPrefabsToList()
+    {
+        // Find prefabs and set parents to canvas
+        nftPrefabs = GameObject.FindGameObjectsWithTag("NftPrefab");
+        foreach (var nftPrefabItem in nftPrefabs)
+        {
             nftPrefabItem.transform.SetParent(scrollCanvas);
             // Populates the prefabs
             PopulatePrefabs(nftPrefabItem);
