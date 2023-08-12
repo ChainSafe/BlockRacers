@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private DriftSystem driftSystem;
 
     // Lap count
-    private int lapCount;
+    [SerializeField] private int lapCount;
 
     // Last checkpoint for reset
     [SerializeField] private Transform lastCheckPoint;

@@ -19,7 +19,7 @@ public class LapSystem : MonoBehaviourPun
     [SerializeField] private PlayerController playerController;
 
     // Race over bool
-    public bool raceOver;
+    private bool raceOver;
 
     #endregion
 

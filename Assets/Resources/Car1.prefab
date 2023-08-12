@@ -12932,6 +12932,7 @@ MonoBehaviour:
   finalLapReminder: {fileID: 5667858399478996571}
   lapSystem: {fileID: 2584357933329559626}
   driftSystem: {fileID: 2364047829095223161}
+  lapCount: 0
   lastCheckPoint: {fileID: 0}
   userName: {fileID: 5328454667548982146}
   staticCamera: {fileID: 6934663591559330940}
