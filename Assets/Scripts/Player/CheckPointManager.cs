@@ -1,3 +1,4 @@
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
@@ -59,6 +60,7 @@ public class CheckPointManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.CompareTag("CheckPoint" + carNumber)) return;
+        if (!gameObject.GetComponent<PhotonView>().IsMine) return;
         checkPointCrossed += 1;
         positioningSystem.CarCollectedCheckPoint(carNumber, checkPointCrossed);
     }
