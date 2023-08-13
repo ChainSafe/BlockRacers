@@ -136,21 +136,6 @@ public class PauseManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Disconnect();
         }
-        else
-        {
-            globalManager.sceneToLoad = "MenuScene";
-            SceneManager.LoadScene("LoadingScreen");
-            if (audioManager == null) return;
-            FindObjectOfType<AudioManager>().Play("MenuSelect");
-        }
-    }
-    
-    /// <summary>
-    /// Waits for disconnect and fires
-    /// </summary>
-    /// <param name="cause"></param>
-    public override void OnDisconnected(DisconnectCause cause)
-    {
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
