@@ -262,8 +262,8 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
-        // Disables input
-        OnDisable();
+        // Enables input
+        OnEnable();
         // Shows controls menu
         controlsPopUp.SetActive(true);
         // Disables photon components in tutorial
@@ -319,9 +319,6 @@ public class PlayerController : MonoBehaviour
 
             userName.SetActive(true);
         }
-
-        // Enables input
-        OnEnable();
         // Updates body material
         if (statsManager.nftMaterial == null) return;
         nftImage.GetComponent<Renderer>().material = statsManager.nftMaterial;
