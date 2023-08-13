@@ -116,6 +116,17 @@ public class GarageMenu : MonoBehaviour
         PlayMenuSelect();
     }
 
+    public void MintNftFromUpgrades()
+    {
+        if (menuShowRoom.activeSelf)
+        {
+            // Rotate our camera back
+            CameraController.instance.RotateCamera(-95f, 0.5f);
+            menuUpgrade.SetActive(false);
+            menuMarket.SetActive(true);
+        }
+    }
+
 
     /// <summary>
     /// Opens the nft menu
