@@ -615,7 +615,7 @@ public class PlayerController : MonoBehaviour
         {
             if (lastCheckPoint == null) return;
             // Raises the car slightly so it drops in to avoid spawning into another car
-            transform.position = lastCheckPoint.transform.localPosition;
+            transform.position = new Vector3(lastCheckPoint.transform.localPosition.x, lastCheckPoint.transform.localPosition.y + 5, lastCheckPoint.transform.localPosition.z);
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
@@ -655,7 +655,7 @@ public class PlayerController : MonoBehaviour
             // Head lights
             headLights.SetActive(useHeadLights);
             // If we're falling through the world, reset
-            if (transform.position.y < -100)
+            if (transform.position.y < -10)
             {
                 resetActive = true;
             }
