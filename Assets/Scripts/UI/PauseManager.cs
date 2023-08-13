@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Pause manager functionality
 /// </summary>
-public class PauseManager : MonoBehaviour
+public class PauseManager : MonoBehaviourPunCallbacks
 {
     #region Fields
 
@@ -135,6 +136,21 @@ public class PauseManager : MonoBehaviour
         {
             PhotonNetwork.Disconnect();
         }
+        else
+        {
+            globalManager.sceneToLoad = "MenuScene";
+            SceneManager.LoadScene("LoadingScreen");
+            if (audioManager == null) return;
+            FindObjectOfType<AudioManager>().Play("MenuSelect");
+        }
+    }
+    
+    /// <summary>
+    /// Waits for disconnect and fires
+    /// </summary>
+    /// <param name="cause"></param>
+    public override void OnDisconnected(DisconnectCause cause)
+    {
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
         if (audioManager == null) return;
@@ -198,7 +214,7 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Enables player input
     /// </summary>
-    private void OnEnable()
+    public override void OnEnable()
     {
         playerInput.Enable();
     }
@@ -206,7 +222,7 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Disables player input
     /// </summary>
-    private void OnDisable()
+    public override void OnDisable()
     {
         playerInput.Disable();
     }

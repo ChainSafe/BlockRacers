@@ -155,6 +155,7 @@ public class PositioningSystem : MonoBehaviourPun
         switch (playerController.LapCount)
         {
             case 1:
+                playerController.LastCheckPoint = checkPointPositions[checkPointNumber-1];
                 // Updates position of checkpoint
                 checkPointForEachCarLap1[carNumber].transform.position =
                     checkPointPositions[checkPointNumber].transform.position;
@@ -163,6 +164,7 @@ public class PositioningSystem : MonoBehaviourPun
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
             case 2:
+                playerController.LastCheckPoint = checkPointPositions[checkPointNumber-1];
                 // Updates position of checkpoint
                 checkPointForEachCarLap2[carNumber].transform.position =
                     checkPointPositions[checkPointNumber].transform.position;
@@ -171,6 +173,7 @@ public class PositioningSystem : MonoBehaviourPun
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
             case 3:
+                playerController.LastCheckPoint = checkPointPositions[checkPointNumber-1];
                 // Updates position of checkpoint
                 checkPointForEachCarLap3[carNumber].transform.position =
                     checkPointPositions[checkPointNumber].transform.position;
@@ -179,6 +182,7 @@ public class PositioningSystem : MonoBehaviourPun
                     checkPointPositions[checkPointNumber].transform.rotation;
                 break;
             default:
+                playerController.LastCheckPoint = checkPointPositions[checkPointNumber-1];
                 // Updates position of checkpoint
                 checkPointForEachCarLap4[carNumber].transform.position =
                     checkPointPositions[checkPointNumber].transform.position;

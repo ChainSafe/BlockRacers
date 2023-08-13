@@ -24,9 +24,6 @@ public class PlayerController : MonoBehaviour
     // Reset bool
     public bool resetActive;
 
-    // Reset timer
-    private bool resetTimer;
-
     // collision bool for sounds
     public bool collision;
 
@@ -226,6 +223,15 @@ public class PlayerController : MonoBehaviour
     {
         get => isBraking;
         set => isBraking = value;
+    }
+    
+    /// <summary>
+    /// Checks if we're currently braking
+    /// </summary>
+    public Transform LastCheckPoint
+    {
+        get => lastCheckPoint;
+        set => lastCheckPoint = value;
     }
 
     #endregion
@@ -585,11 +591,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="other">The other object's trigger we're colliding with</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag($"CheckPoint{GetComponent<CheckPointManager>().CarNumber}"))
-        {
-            lastCheckPoint = other.transform;
-        }
-
         if (other.CompareTag("LapCollider"))
         {
             lapSystem.LapComplete();
@@ -601,7 +602,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ResetPosition()
     {
-        if (resetTimer) return;
         if (!resetActive) return;
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
@@ -612,21 +612,11 @@ public class PlayerController : MonoBehaviour
         {
             if (lastCheckPoint == null) return;
             // Raises the car slightly so it drops in to avoid spawning into another car
-            transform.position = new Vector3(lastCheckPoint.transform.localPosition.x, lastCheckPoint.transform.localPosition.y + 5, lastCheckPoint.transform.localPosition.z);
+            transform.position = new Vector3(lastCheckPoint.transform.position.x, lastCheckPoint.transform.position.y + 5, lastCheckPoint.transform.position.z);
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         resetActive = false;
-        resetTimer = true;
-        Invoke(nameof(ResetTimer), 10);
-    }
-
-    /// <summary>
-    /// Timer to stop reset being spammed
-    /// </summary>
-    private void ResetTimer()
-    {
-        resetTimer = false;
     }
 
     /// <summary>
