@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
 
     // collision bool for sounds
     public bool collision;
+    
+    // Global manager
+    private GlobalManager globalManager;
 
     // Stats manager
     private StatsManager statsManager;
@@ -85,9 +88,6 @@ public class PlayerController : MonoBehaviour
     // Controls pop up
     [SerializeField] private GameObject controlsPopUp;
 
-    // Race end text
-    [SerializeField] private GameObject raceEndingText;
-
     // Lap canvas
     [SerializeField] private GameObject lapCanvas;
 
@@ -110,6 +110,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject staticCamera;
 
     [SerializeField] private GameObject freeLookCamera;
+    
+    // Race end text
+    [SerializeField] private GameObject raceEndingText;
 
     // Player Input
     private PlayerInputActions playerInput;
@@ -243,8 +246,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Finds our global manager
+        globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
+        // Sets scene to load for finish
+        globalManager.sceneToLoad = "FinishRace";
         // Finds our stats manager
         statsManager = GameObject.FindWithTag("StatsManager").GetComponent<StatsManager>();
         // Lock our cursor to the game window
@@ -615,13 +622,26 @@ public class PlayerController : MonoBehaviour
 
         resetActive = false;
     }
+    
+    /// <summary>
+    /// Lets the players know the race is over
+    /// </summary>
+    [PunRPC]
+    private void RaceOver()
+    {
+        lapSystem.GetComponent<LapSystem>().raceOver = true;
+        globalManager.raceWon = true;
+        raceEndingText.SetActive(true);
+        Invoke(nameof(RaceEndingTimer), 3);
+    }
 
     /// <summary>
-    /// Shows text saying race is ending
+    /// Displays race ending text and moves scenes after 3 seconds
     /// </summary>
-    public void RaceEnding()
+    private void RaceEndingTimer()
     {
-        raceEndingText.SetActive(true);
+        // Race over logic
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     /// <summary>

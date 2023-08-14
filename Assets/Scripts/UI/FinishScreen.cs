@@ -21,6 +21,7 @@ public class FinishScreen : MonoBehaviour
     [SerializeField] private GameObject menuButton, claimButton;
 
     // Winning player text
+    [SerializeField] private GameObject winningPlayerObj;
     [SerializeField] private TextMeshProUGUI winningPlayerText;
 
     #endregion
@@ -51,13 +52,16 @@ public class FinishScreen : MonoBehaviour
         {
             claimButton.SetActive(true);
         }
-
+        // Sets the winning player text
+        if (globalManager.raceWon)
+        {
+            winningPlayerObj.SetActive(true);
+            winningPlayerText.text = "YOU WON";
+        }
         // Resets our race won and wagering bools for the next match
         globalManager.raceWon = false;
         globalManager.wagering = false;
         globalManager.wagerAccepted = false;
-        // Sets the winning player text
-        winningPlayerText.text = globalManager.winningPlayer;
     }
 
     /// <summary>

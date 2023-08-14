@@ -7133,6 +7133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 7793590912058981600}
+  raceOver: 0
 --- !u!114 &6760181882279362985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18501,7 +18502,6 @@ MonoBehaviour:
   PVRigidBody: {fileID: 2912746933237366462}
   canvas: {fileID: 3055785701345642396}
   controlsPopUp: {fileID: 3803645920457839499}
-  raceEndingText: {fileID: 7295776294572685276}
   lapCanvas: {fileID: 6897875633427082559}
   lapCountText: {fileID: 1179118835494783864}
   finalLapReminder: {fileID: 3103011878795639273}
@@ -18512,6 +18512,7 @@ MonoBehaviour:
   userName: {fileID: 4408330634909433078}
   staticCamera: {fileID: 6675994424819683809}
   freeLookCamera: {fileID: 4719313869201574723}
+  raceEndingText: {fileID: 7295776294572685276}
   carBody: {fileID: 4436005528644221219}
 --- !u!54 &478234131405294013
 Rigidbody:
