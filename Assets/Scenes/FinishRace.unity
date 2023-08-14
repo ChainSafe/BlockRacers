@@ -10589,7 +10589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &432485486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30500,7 +30500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: YOU LOST
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
   m_sharedMaterial: {fileID: -7744128936776479963, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
@@ -30594,7 +30594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 276.8518, y: -139}
+  m_AnchoredPosition: {x: 276.8518, y: -98}
   m_SizeDelta: {x: 550, y: 46.14319}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1197369854
@@ -33074,6 +33074,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1559009414}
+  - {fileID: 1875240750}
   - {fileID: 1989370305}
   m_Father: {fileID: 1060093668}
   m_RootOrder: -1
@@ -33097,6 +33098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuButton: {fileID: 1559009413}
   claimButton: {fileID: 1989370304}
+  winningPlayerObj: {fileID: 1875240749}
   winningPlayerText: {fileID: 1195997041}
 --- !u!1 &1323622225
 GameObject:
@@ -37044,7 +37046,6 @@ RectTransform:
   m_Children:
   - {fileID: 2141896121}
   - {fileID: 1773134488}
-  - {fileID: 1875240750}
   m_Father: {fileID: 1060093668}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47482,7 +47483,7 @@ GameObject:
   - component: {fileID: 1875240752}
   - component: {fileID: 1875240751}
   m_Layer: 5
-  m_Name: BG (1)
+  m_Name: WinningObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47502,12 +47503,12 @@ RectTransform:
   m_Children:
   - {fileID: 432485486}
   - {fileID: 1195997043}
-  m_Father: {fileID: 1465359585}
+  m_Father: {fileID: 1323103156}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216, y: -510}
+  m_AnchoredPosition: {x: -20, y: -377}
   m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875240751

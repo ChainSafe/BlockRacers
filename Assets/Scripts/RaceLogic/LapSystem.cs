@@ -5,7 +5,7 @@ using Photon.Pun;
 /// <summary>
 /// Manages the lap system, used when a user completes a lap
 /// </summary>
-public class LapSystem : MonoBehaviourPun
+public class LapSystem : MonoBehaviourPunCallbacks
 {
     #region Fields
 
@@ -19,7 +19,7 @@ public class LapSystem : MonoBehaviourPun
     [SerializeField] private PlayerController playerController;
 
     // Race over bool
-    private bool raceOver;
+    public bool raceOver;
 
     #endregion
 
@@ -82,35 +82,11 @@ public class LapSystem : MonoBehaviourPun
                 {
                     globalManager.raceWon = true;
                 }
-
                 // Sends RPC to other users
-                photonView.RPC("RaceOver", RpcTarget.All,
-                    playerController.GetComponent<PhotonView>().Owner.NickName);
+                playerController.GetComponent<PhotonView>().RPC("RaceOver", RpcTarget.All);
                 break;
             }
         }
-    }
-
-    /// <summary>
-    /// Lets the players know the race is over
-    /// </summary>
-    [PunRPC]
-    private void RaceOver(string userName)
-    {
-        raceOver = true;
-        globalManager.winningPlayer = userName;
-        playerController.RaceEnding();
-        Invoke(nameof(RaceEndingTimer), 3);
-    }
-
-    /// <summary>
-    /// Displays race ending text and moves scenes after 3 seconds
-    /// </summary>
-    private void RaceEndingTimer()
-    {
-        // Race over logic
-        globalManager.sceneToLoad = "FinishRace";
-        SceneManager.LoadScene("LoadingScreen");
     }
 
     #endregion
