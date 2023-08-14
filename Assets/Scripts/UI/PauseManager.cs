@@ -134,7 +134,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
         audioManager.Play("Bgm1");
         if (SceneManager.GetActiveScene().name != "Tutorial")
         {
-            PhotonNetwork.Disconnect();
+            PhotonNetwork.LeaveRoom();
         }
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
