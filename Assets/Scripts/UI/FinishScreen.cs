@@ -81,7 +81,6 @@ public class FinishScreen : MonoBehaviour
     /// </summary>
     public void MainMenuButton()
     {
-        PhotonNetwork.Disconnect();
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
     }
