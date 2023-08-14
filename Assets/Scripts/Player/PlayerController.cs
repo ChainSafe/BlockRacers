@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject tachometer;
 
     // Current gear
-    private int currentGear;
+    private int currentGear = 1;
 
     // Speed
     private float speed, maxSpeed, speedRatio, motorForce, nosForce, breakForce;
@@ -268,8 +268,6 @@ public class PlayerController : MonoBehaviour
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
-        // Enables input
-        OnEnable();
         // Shows controls menu
         controlsPopUp.SetActive(true);
         // Disables photon components in tutorial
@@ -322,7 +320,6 @@ public class PlayerController : MonoBehaviour
                 this.gameObject.tag = "Untagged";
                 carBody.tag = "Untagged";
             }
-
             userName.SetActive(true);
         }
         // Updates body material
