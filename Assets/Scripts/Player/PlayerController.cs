@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Player controls and functions
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     #region Fields
 
@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Used for player movement, call this to enable input detection
     /// </summary>
-    private void OnEnable()
+    public override void OnEnable()
     {
         playerInput.Enable();
     }
@@ -403,7 +403,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Used for player movement, call this to disable input detection
     /// </summary>
-    private void OnDisable()
+    public override void OnDisable()
     {
         playerInput.Disable();
     }
