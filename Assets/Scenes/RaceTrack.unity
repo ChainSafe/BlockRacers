@@ -9250,6 +9250,7 @@ GameObject:
   - component: {fileID: 5551949236590855229}
   - component: {fileID: 5551949236590855231}
   - component: {fileID: 5551949236590855230}
+  - component: {fileID: 5551949236590855232}
   m_Layer: 0
   m_Name: wall_a_019
   m_TagString: Untagged
@@ -31840,6 +31841,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8691640245942101614, guid: af38cf7afe5eeaf40831cebc0a44d342, type: 3}
+--- !u!65 &5551949236590855232
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864592079893422869}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7274.3003, y: 234.9581, z: 170.69843}
+  m_Center: {x: -959.96924, y: -114.52223, z: 85.34913}
 --- !u!23 &5552738281069847431
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -33762,6 +33784,7 @@ GameObject:
   - component: {fileID: 7256785497203122470}
   - component: {fileID: 4434406909761230783}
   - component: {fileID: 7256785497203122471}
+  - component: {fileID: 7256785497203122472}
   m_Layer: 0
   m_Name: garages002
   m_TagString: Untagged
@@ -42593,6 +42616,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2220536640410991038, guid: af38cf7afe5eeaf40831cebc0a44d342, type: 3}
+--- !u!65 &7256785497203122472
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825082332254561530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5441.5615, y: 437.47827, z: 406.62485}
+  m_Center: {x: 339.42462, y: -0.98898655, z: 203.31233}
 --- !u!1 &7259101260655776974
 GameObject:
   m_ObjectHideFlags: 0
