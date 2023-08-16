@@ -34,9 +34,6 @@ public class TransferMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-        // Unlocks the cursor so the user can select things
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
     }
@@ -71,6 +68,16 @@ public class TransferMenu : MonoBehaviour
         gameObject.SetActive(false);
         if (audioManager == null) return;
         FindObjectOfType<AudioManager>().Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Keeps cursor unlocked
+    /// </summary>
+    private void Update()
+    {
+        // Unlocks the cursor so the user can select things
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     #endregion

@@ -115,13 +115,17 @@ public class GarageMenu : MonoBehaviour
         // Play our menu select audio
         PlayMenuSelect();
     }
-
+    
+    /// <summary>
+    /// Opens market menu from the upgrades area for the player
+    /// </summary>
     public void MintNftFromUpgrades()
     {
         if (menuShowRoom.activeSelf)
         {
             // Rotate our camera back
             CameraController.instance.RotateCamera(-95f, 0.5f);
+            menuShowRoom.SetActive(false);
             menuUpgrade.SetActive(false);
             menuMarket.SetActive(true);
         }
