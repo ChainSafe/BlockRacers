@@ -73,12 +73,27 @@ public class FinishScreen : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    public void ClaimWinnings()
-    {
-        // Claim functionality goes here
-        Debug.Log("Claiming Winnings! Congratulations!");
-        globalManager.wagerAmount = 0;
-    }
+    // public void ClaimWinnings()
+    // {
+    //     // Chain call to claim wager
+    //     string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
+    //     string message = "secretmessage";
+    //     var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
+    //     Debug.Log($"Signed Message: {signature}");
+    //     string method = "claimPvpWager";
+    //     string opponent = ""; // TO DO SET
+    //     object[] args =
+    //     {
+    //         opponent,
+    //         globalManager.wagerAmount,
+    //         signature
+    //     };
+    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
+    //     var response = SampleOutputUtil.BuildOutputValue(data);
+    //     Debug.Log($"TX: {response}");
+    //     Debug.Log("Claiming Winnings! Congratulations!");
+    //     globalManager.wagerAmount = 0;
+    // }
 
     /// <summary>
     /// Our main menu button, disconnects us from photon

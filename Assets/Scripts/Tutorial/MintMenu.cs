@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -27,8 +29,7 @@ public class MintMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -40,23 +41,32 @@ public class MintMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    /// <summary>
-    /// Mints custom tokens to the users address
-    /// </summary>
-    public void MintCustomTokens()
-    {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
+    // /// <summary>
+    // /// Mints custom tokens to the users address
+    // /// </summary>
+    // public async void MintCustomTokens()
+    // {
+    //     string method = "mint";
+    //     BigInteger amount = 1;
+    //     string account = PlayerPrefs.GetString("PlayerAccount");
+    //     object[] args =
+    //     {
+    //         account,
+    //         amount
+    //     };
+    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.TokenAbi, ContractManager.TokenContract, args);
+    //     var response = SampleOutputUtil.BuildOutputValue(data);
+    //     Debug.Log($"TX: {response}");
+    //     audioManager.Play("MenuSelect");
+    // }
 
     /// <summary>
-    /// Opens the faucet webpage so the user can get some gas token
+    /// Opens the faucet webpage so the user can get some gas tokens
     /// </summary>
     public void OpenGasFaucetPage()
     {
         Application.OpenURL("https://cronos.org/faucet");
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -68,8 +78,7 @@ public class MintMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
     
     /// <summary>

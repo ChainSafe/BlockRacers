@@ -99,8 +99,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
         }
 
         // Plays pause sound
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -121,8 +120,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
         }
 
         // Plays pause sound
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -138,8 +136,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
         }
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -149,8 +146,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         pauseMenu.SetActive(false);
         controlsMenu.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -160,8 +156,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         controlsMenu.SetActive(false);
         pauseMenu.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -171,8 +166,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -182,8 +176,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     {
         optionsMenu.SetActive(false);
         pauseMenu.SetActive(true);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -192,8 +185,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public void FullScreenButton()
     {
         Screen.fullScreen = !Screen.fullScreen;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>

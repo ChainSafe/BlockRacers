@@ -93,8 +93,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(tutorialButton);
         globalManager.connected = true;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -106,8 +105,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("LoadingScreen");
         CountDownSystem.raceStarted = true;
         PlayerController.useHeadLights = true;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -117,8 +115,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         globalManager.sceneToLoad = "Garage";
         SceneManager.LoadScene("LoadingScreen");
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -126,8 +123,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     public void QuitButton()
     {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
         Application.Quit();
     }
 
@@ -162,9 +158,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -178,8 +172,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         EventSystem.current.SetSelectedGameObject(oneVsOneButton);
         // Closes the main menu
         mainMenu.SetActive(false);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -198,8 +191,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         CloseUserNameObjects();
         // Disconnects from photon
         PhotonNetwork.Disconnect();
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -209,8 +201,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.faceOffMatch = true;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -220,8 +211,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.wagerMatch = true;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -231,8 +221,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         PhotonRegion.instance.CheckIfConnected();
         PhotonRegion.instance.fiveManMatch = true;
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -244,8 +233,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         searchingMenu.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(searchingBackButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -263,8 +251,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         raceMenu.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>

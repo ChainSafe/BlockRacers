@@ -145,9 +145,7 @@ public class PhotonRegion : MonoBehaviourPunCallbacks
             // Sets our first selected button
             EventSystem.current.SetSelectedGameObject(searchingBackButton);
         }
-
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
