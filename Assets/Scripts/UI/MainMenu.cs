@@ -1,3 +1,5 @@
+using System.Collections;
+using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -16,6 +18,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     // Audio
     private AudioManager audioManager;
+    
+    // Coroutine
+    private Coroutine getWeb3Coroutine;
 
     // Menu items
     [SerializeField] private GameObject connectMenu,
@@ -81,19 +86,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public void OnMouseOverButton(GameObject button)
     {
         EventSystem.current.SetSelectedGameObject(button);
-    }
-
-    /// <summary>
-    /// Connects a users wallet to the game
-    /// </summary>
-    public void ConnectButton()
-    {
-        connectMenu.SetActive(false);
-        mainMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(tutorialButton);
-        globalManager.connected = true;
-        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -309,6 +301,17 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     private void Update()
     {
+        // Wallet connection
+        if (Web3Accessor.Web3 != null && !globalManager.connected)
+        {
+            globalManager.connected = true;
+            connectMenu.SetActive(false);
+            mainMenu.SetActive(true);
+            // Sets our first selected button
+            EventSystem.current.SetSelectedGameObject(tutorialButton);
+            audioManager.Play("MenuSelect");
+        }
+        // Multiplayer
         if (!PhotonNetwork.InRoom) return;
         playersReadyNumberText.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
         switch (PhotonNetwork.CurrentRoom.Name)

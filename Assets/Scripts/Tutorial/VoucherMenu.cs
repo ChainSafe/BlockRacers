@@ -1,4 +1,6 @@
 using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +16,9 @@ public class VoucherMenu : MonoBehaviour
 
     // First button
     [SerializeField] private GameObject firstButton;
+    
+    // Voucher
+    private string voucher;
 
     #endregion
 
@@ -40,36 +45,46 @@ public class VoucherMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Generates a voucher to be used to almost anything
-    // /// </summary>
-    // public void GenerateVoucher()
-    // {
-    //     string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-    //     string message = "secretmessage";
-    //     var response = Evm.EcdsaSignMessage(ecdsaKey, message);
-    //     Debug.Log($"Signed Message: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Generates a voucher to be used to almost anything
+    /// </summary>
+    public async void GenerateVoucher()
+    {
+        // Sign nonce and set voucher
+        string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
+        string account = PlayerPrefs.GetString("PlayerAccount");
+        var amount = 50*1e18;
+        int nftType = 1;
+        // Get nonce of account
+        var data = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.NftAbi, ContractManager.NftContract, new object[] {account});
+        var nonceResponse = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"Output: {nonceResponse}");
+        audioManager.Play("MenuSelect");
+        int nonce = int.Parse(nonceResponse);
+        string message = $"{nonce}{account}{amount}{nftType}";
+        var signatureResponse = Evm.EcdsaSignMessage(ecdsaKey, message);
+        Debug.Log($"Signed Message: {signatureResponse}");
+        voucher = signatureResponse;
+        audioManager.Play("MenuSelect");
+    }
 
-    // /// <summary>
-    // /// Redeems the generated voucher
-    // /// </summary>
-    // public async void RedeemVoucher()
-    // {
-    //     string voucher = "dwadwadawdwad"; // Fill this out later
-    //     string method = "mintNft";
-    //     BigInteger amount = 1;
-    //     object[] args =
-    //     {
-    //         amount,
-    //         voucher
-    //     };
-    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.NftAbi, ContractManager.NftContract, args);
-    //     var response = SampleOutputUtil.BuildOutputValue(data);
-    //     Debug.Log($"TX: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Redeems the generated voucher
+    /// </summary>
+    public async void RedeemVoucher()
+    {
+        string method = "mintNft";
+        BigInteger amount = 1;
+        object[] args =
+        {
+            amount,
+            voucher
+        };
+        var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.NftAbi, ContractManager.NftContract, args);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"TX: {response}");
+        audioManager.Play("MenuSelect");
+    }
 
     /// <summary>
     /// Closes the menu and gives input control back to the user

@@ -1,3 +1,5 @@
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -39,17 +41,17 @@ public class VerifyMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Verifies user owner ship of a wallet address
-    // /// </summary>
-    // public async void Verify()
-    // {
-    //     string message = "A man chooses, a slave obeys.";
-    //     var data = await Evm.SignVerify(Web3Accessor.Web3, message);
-    //     var response = data ? "Verified" : "Failed to verify";
-    //     Debug.Log($"Verified: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Verifies user owner ship of a wallet address
+    /// </summary>
+    public async void Verify()
+    {
+        string message = "A man chooses, a slave obeys.";
+        var data = await Evm.SignVerify(Web3Accessor.Web3, message);
+        var response = data ? "Verified" : "Failed to verify";
+        Debug.Log($"Verified: {response}");
+        audioManager.Play("MenuSelect");
+    }
 
     /// <summary>
     /// Closes the menu and gives input control back to the user

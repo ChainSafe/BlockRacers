@@ -1,3 +1,5 @@
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -39,16 +41,16 @@ public class SignMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Prompts to sign a call
-    // /// </summary>
-    // public async void Sign()
-    // {
-    //     string message = "The right man in the wrong place can make all the difference in the world.";
-    //     var response = await Evm.SignMessage(Web3Accessor.Web3, message);
-    //     Debug.Log($"Signed Message: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Prompts to sign a call
+    /// </summary>
+    public async void Sign()
+    {
+        string message = "The right man in the wrong place can make all the difference in the world.";
+        var response = await Evm.SignMessage(Web3Accessor.Web3, message);
+        Debug.Log($"Signed Message: {response}");
+        audioManager.Play("MenuSelect");
+    }
 
     /// <summary>
     /// Closes the menu and gives input control back to the user

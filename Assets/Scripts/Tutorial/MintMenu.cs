@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -41,24 +43,32 @@ public class MintMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Mints custom tokens to the users address
-    // /// </summary>
-    // public async void MintCustomTokens()
-    // {
-    //     string method = "mint";
-    //     BigInteger amount = 1;
-    //     string account = PlayerPrefs.GetString("PlayerAccount");
-    //     object[] args =
-    //     {
-    //         account,
-    //         amount
-    //     };
-    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.TokenAbi, ContractManager.TokenContract, args);
-    //     var response = SampleOutputUtil.BuildOutputValue(data);
-    //     Debug.Log($"TX: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Mints custom tokens to the users address
+    /// </summary>
+    public async void MintCustomTokens()
+    {
+        // Sign nonce and set voucher
+        string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
+        string account = PlayerPrefs.GetString("PlayerAccount");
+        var amount = 500*1e18;
+        var nonceData = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.TokenAbi, ContractManager.TokenContract, new object[] {account});
+        var nonceResponse = SampleOutputUtil.BuildOutputValue(nonceData);
+        int nonce = int.Parse(nonceResponse);
+        string message = $"{nonce}{account}{amount}";
+        var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
+        // Mint
+        object[] args =
+        {
+            account,
+            amount,
+            signature
+        };
+        var data = await Evm.ContractSend(Web3Accessor.Web3, "mint", ContractManager.TokenAbi, ContractManager.TokenContract, args);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"TX: {response}");
+        audioManager.Play("MenuSelect");
+    }
 
     /// <summary>
     /// Opens the faucet webpage so the user can get some gas tokens

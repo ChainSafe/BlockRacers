@@ -1,4 +1,6 @@
 using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,18 +49,18 @@ public class TransferMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Transfers custom tokens to an address
-    // /// </summary>
-    // public async void Transfer()
-    // {
-    //     walletAddress = inputField.text;
-    //     string amount = "1000000000000000";
-    //     var data = await Erc20.TransferErc20(Web3Accessor.Web3, ContractManager.TokenContract, walletAddress, amount);
-    //     var response = SampleOutputUtil.BuildOutputValue(data);
-    //     Debug.Log($"TX: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Transfers custom tokens to an address
+    /// </summary>
+    public async void Transfer()
+    {
+        walletAddress = inputField.text;
+        BigInteger amount = 1000000000000000000;
+        var data = await Erc20.TransferErc20(Web3Accessor.Web3, ContractManager.TokenContract, walletAddress, amount);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"TX: {response}");
+        audioManager.Play("MenuSelect");
+    }
 
     /// <summary>
     /// Closes the menu and gives input control back to the user

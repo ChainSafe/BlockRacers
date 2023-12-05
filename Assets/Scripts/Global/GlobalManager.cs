@@ -31,7 +31,7 @@ public class GlobalManager : MonoBehaviour
     // Bool to check if wagering is active or not
     public bool wagering;
     public bool wagerAccepted;
-
+    public string wagerOpponent;
     public int wagerAmount;
 
     // Private key for the auth wallet 0x0d9566FcE2513cBD388DCD7749a873900033401C
