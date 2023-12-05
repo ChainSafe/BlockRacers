@@ -65,8 +65,7 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void PlayMenuSelect()
     {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     // Closes other menus & opens the garage menu
@@ -237,11 +236,24 @@ public class GarageMenu : MonoBehaviour
     /// <summary>
     /// Upgrades car engine
     /// </summary>
-    private void PurchaseEngineUpgrade()
+    private async void PurchaseEngineUpgrade()
     {
         switch (globalManager.engineLevel)
         {
             case 1:
+                //     string method = "upgradeEngine";
+                //     int increaseAmount = 1;
+                //     int nftId = 1;
+                //     string signature = "";
+                //     object[] args =
+                //     {
+                //         increaseAmount,
+                //         nftId,
+                //         signature
+                //     };
+                //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
+                //     var response = SampleOutputUtil.BuildOutputValue(data);
+                //     Debug.Log($"TX: {response}");
                 globalManager.engineLevel = 2;
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
@@ -304,9 +316,7 @@ public class GarageMenu : MonoBehaviour
                 nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
                 break;
         }
-
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>

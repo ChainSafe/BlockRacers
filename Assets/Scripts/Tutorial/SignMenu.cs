@@ -27,8 +27,7 @@ public class SignMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -40,14 +39,16 @@ public class SignMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    /// <summary>
-    /// Prompts to sign a call
-    /// </summary>
-    public void Sign()
-    {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-    }
+    // /// <summary>
+    // /// Prompts to sign a call
+    // /// </summary>
+    // public async void Sign()
+    // {
+    //     string message = "The right man in the wrong place can make all the difference in the world.";
+    //     var response = await Evm.SignMessage(Web3Accessor.Web3, message);
+    //     Debug.Log($"Signed Message: {response}");
+    //     audioManager.Play("MenuSelect");
+    // }
 
     /// <summary>
     /// Closes the menu and gives input control back to the user
@@ -58,8 +59,7 @@ public class SignMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
     
     /// <summary>

@@ -29,8 +29,7 @@ public class DocsMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -47,8 +46,8 @@ public class DocsMenu : MonoBehaviour
     /// </summary>
     public void OpenDocsPage()
     {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        Application.OpenURL("https://docs.gaming.chainsafe.io/");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -60,8 +59,7 @@ public class DocsMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
     
     /// <summary>

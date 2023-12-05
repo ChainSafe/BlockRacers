@@ -27,8 +27,7 @@ public class DashboardMenu : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(firstButton);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -45,8 +44,8 @@ public class DashboardMenu : MonoBehaviour
     /// </summary>
     public void OpenDashboard()
     {
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        Application.OpenURL("https://dashboard.gaming.chainsafe.io/");
+        audioManager.Play("MenuSelect");
     }
 
     /// <summary>
@@ -58,8 +57,7 @@ public class DashboardMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        if (audioManager == null) return;
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        audioManager.Play("MenuSelect");
     }
     
     /// <summary>
