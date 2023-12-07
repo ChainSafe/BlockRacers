@@ -48,17 +48,6 @@ public class MintMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
-    
-    public static byte[] HexadecimalStringToByteArray(string input)
-    {
-        var output = new byte[input.Length];
-        var chars = input.ToCharArray();
-        for (int i = 0; i < input.Length; i++)
-        {
-            output[i] = (byte)chars[i];
-        }
-        return output;
-    }
 
     /// <summary>
     /// Mints custom tokens to the users address
