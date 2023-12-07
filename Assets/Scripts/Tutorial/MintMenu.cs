@@ -16,9 +16,6 @@ public class MintMenu : MonoBehaviour
     // Audio
     private AudioManager audioManager;
     
-    // Global manager
-    private GlobalManager globalManager;
-    
     // First button
     [SerializeField] private GameObject firstButton;
 
@@ -31,8 +28,6 @@ public class MintMenu : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // Finds our global manager
-        globalManager = FindObjectOfType<GlobalManager>();
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
@@ -58,7 +53,7 @@ public class MintMenu : MonoBehaviour
         {
             // Sign nonce and set voucher
             BigInteger amount = (BigInteger)(500*1e18);
-            var account = await Web3Accessor.Web3.Signer.GetAddress(); ;
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
             // Mint
             object[] args =
             {
