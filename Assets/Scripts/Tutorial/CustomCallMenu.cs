@@ -1,3 +1,4 @@
+using System;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
 using UnityEngine;
@@ -46,15 +47,24 @@ public class CustomCallMenu : MonoBehaviour
     /// </summary>
     public async void ReadContract()
     {
-        string method = "myTotal";
-        object[] args =
+        try
         {
-            await Web3Accessor.Web3.Signer.GetAddress()
-        };
-        var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"Output: {response}");
-        audioManager.Play("MenuSelect");
+            string method = "myTotal";
+            string account = await Web3Accessor.Web3.Signer.GetAddress();
+            object[] args =
+            {
+                account
+            };
+            var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"Output: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     /// <summary>
@@ -62,16 +72,24 @@ public class CustomCallMenu : MonoBehaviour
     /// </summary>
     public async void WriteContract()
     {
-        string method = "addTotal";
-        int increaseAmount = 1;
-        object[] args =
+        try
         {
-            increaseAmount
-        };
-        var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"TX: {response}");
-        audioManager.Play("MenuSelect");
+            string method = "addTotal";
+            int increaseAmount = 1;
+            object[] args =
+            {
+                increaseAmount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

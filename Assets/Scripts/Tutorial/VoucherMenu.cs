@@ -52,16 +52,10 @@ public class VoucherMenu : MonoBehaviour
     {
         // Sign nonce and set voucher
         string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-        string account = PlayerPrefs.GetString("PlayerAccount");
-        var amount = 50*1e18;
+        var account = await Web3Accessor.Web3.Signer.GetAddress(); 
+        BigInteger amount = (BigInteger)(50*1e18);
         int nftType = 1;
-        // Get nonce of account
-        var data = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.NftAbi, ContractManager.NftContract, new object[] {account});
-        var nonceResponse = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"Output: {nonceResponse}");
-        audioManager.Play("MenuSelect");
-        int nonce = int.Parse(nonceResponse);
-        string message = $"{nonce}{account}{amount}{nftType}";
+        string message = (account + amount + nftType);
         var signatureResponse = Evm.EcdsaSignMessage(ecdsaKey, message);
         Debug.Log($"Signed Message: {signatureResponse}");
         voucher = signatureResponse;
@@ -74,7 +68,7 @@ public class VoucherMenu : MonoBehaviour
     public async void RedeemVoucher()
     {
         string method = "mintNft";
-        BigInteger amount = 1;
+        BigInteger amount = (BigInteger)(50*1e18);
         object[] args =
         {
             amount,

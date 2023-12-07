@@ -1,3 +1,4 @@
+using System;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
 using UnityEngine;
@@ -46,10 +47,18 @@ public class SignMenu : MonoBehaviour
     /// </summary>
     public async void Sign()
     {
-        string message = "The right man in the wrong place can make all the difference in the world.";
-        var response = await Evm.SignMessage(Web3Accessor.Web3, message);
-        Debug.Log($"Signed Message: {response}");
-        audioManager.Play("MenuSelect");
+        try
+        {
+            string message = "The right man in the wrong place can make all the difference in the world.";
+            var response = await Evm.SignMessage(Web3Accessor.Web3, message);
+            Debug.Log($"Signed Message: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

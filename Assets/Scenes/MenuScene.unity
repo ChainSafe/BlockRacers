@@ -4104,7 +4104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -179, y: 0}
+  m_AnchoredPosition: {x: -179, y: 53.7}
   m_SizeDelta: {x: 665, y: 156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &448591216
@@ -19451,11 +19451,21 @@ MonoBehaviour:
   engineLevel: 1
   handlingLevel: 1
   nosLevel: 1
+  engineLevelNft1: 1
+  handlingLevelNft1: 1
+  nosLevelNft1: 1
+  engineLevelNft2: 1
+  handlingLevelNft2: 1
+  nosLevelNft2: 1
+  engineLevelNft3: 1
+  handlingLevelNft3: 1
+  nosLevelNft3: 1
   connected: 0
   raceWon: 0
   winningPlayer: 
   wagering: 0
   wagerAccepted: 0
+  wagerOpponent: 
   wagerAmount: 0
   ERC20PrivateKey: a78313605b1ded96c3f2c991b8cbe883924035f4e338fe9f5a860429c2777b2f
 --- !u!4 &1062820997

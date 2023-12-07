@@ -46,7 +46,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      public async void SetWager()
      {
          Debug.Log("Setting Wager!");
-         string account = PlayerPrefs.GetString("PlayerAccount");
+         var account = await Web3Accessor.Web3.Signer.GetAddress();
          
          if (int.Parse(wagerInput.text) > 100)
          {
@@ -59,18 +59,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
 
          try
          {
-             // Sign nonce and set voucher
-             string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-             var nonceData = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.WagerAbi, ContractManager.WagerContract, new object[] {account});
-             var nonceResponse = SampleOutputUtil.BuildOutputValue(nonceData);
-             int nonce = int.Parse(nonceResponse);
-             string message = $"{nonce}{wagerAmount}{account}";
-             var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
              // Set wager
              object[] args =
              {
-                 wagerAmount,
-                 signature
+                 wagerAmount
              };
              var data = await Evm.ContractSend(Web3Accessor.Web3, "setPvpWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
@@ -93,22 +85,15 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      public async void AcceptWager()
      {
          // Chain call to set wager
-         string account = PlayerPrefs.GetString("PlayerAccount");
+         var account = await Web3Accessor.Web3.Signer.GetAddress();
          try
          {
-             // Sign nonce and set voucher
-             string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-             var nonceData = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.WagerAbi, ContractManager.WagerContract, new object[] {account});
-             var nonceResponse = SampleOutputUtil.BuildOutputValue(nonceData);
-             int nonce = int.Parse(nonceResponse);
-             string opponent = ""; // TO DO SET
-             string message = $"{nonce}{wagerAmount}{account}{opponent}";
-             var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
+             // TO DO SET OPPONENT
+             string opponent = "";
              object[] args =
              {
                  opponent,
                  wagerAmount,
-                 signature
              };
              var data = await Evm.ContractSend(Web3Accessor.Web3, "acceptPvpWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);

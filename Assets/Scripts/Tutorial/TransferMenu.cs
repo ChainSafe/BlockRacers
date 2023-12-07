@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
@@ -54,12 +55,20 @@ public class TransferMenu : MonoBehaviour
     /// </summary>
     public async void Transfer()
     {
-        walletAddress = inputField.text;
-        BigInteger amount = 1000000000000000000;
-        var data = await Erc20.TransferErc20(Web3Accessor.Web3, ContractManager.TokenContract, walletAddress, amount);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"TX: {response}");
-        audioManager.Play("MenuSelect");
+        try
+        {
+            walletAddress = inputField.text;
+            BigInteger amount = (BigInteger)(1*1e18);
+            var data = await Erc20.TransferErc20(Web3Accessor.Web3, ContractManager.TokenContract, walletAddress, amount);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

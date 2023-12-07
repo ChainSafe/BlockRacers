@@ -104,7 +104,7 @@ public class GarageMenu : MonoBehaviour
         // Play our menu select audio
         PlayMenuSelect();
         // Chain call
-        string account = PlayerPrefs.GetString("PlayerAccount");
+        var account = await Web3Accessor.Web3.Signer.GetAddress();
         var response = await Erc721.BalanceOf(Web3Accessor.Web3, ContractManager.NftContract, account);
         if (response == 0) return;
         Debug.Log($"You own {response} Nfts");
@@ -246,26 +246,27 @@ public class GarageMenu : MonoBehaviour
 
     private async void PurchaseUpgrade(string _contractMethod)
     {
-        // Sign nonce and set voucher
-        string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-        string account = PlayerPrefs.GetString("PlayerAccount");
-        var amount = 20*1e18;
-        var nonceData = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.NftAbi, ContractManager.NftContract, new object[] {account});
-        var nonceResponse = SampleOutputUtil.BuildOutputValue(nonceData);
-        int nonce = int.Parse(nonceResponse);
-        string message = $"{nonce}{account}{amount}";
-        var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
-                
-        int nftId = 1;
-        object[] args =
+        try
         {
-            amount,
-            nftId,
-            signature
-        };
-        var data = await Evm.ContractSend(Web3Accessor.Web3, _contractMethod, ContractManager.NftAbi, ContractManager.NftContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"TX: {response}");
+            // Sign nonce and set voucher
+            BigInteger amount = (BigInteger)(20*1e18);
+            await ContractManager.Approve(ContractManager.NftContract, amount);
+            // CHANGE LATER TO POPULATED NFTS
+            int nftId = 1;
+            object[] args =
+            {
+                amount,
+                nftId,
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, _contractMethod, ContractManager.NftAbi, ContractManager.NftContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

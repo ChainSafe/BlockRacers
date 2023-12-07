@@ -1,6 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Threading.Tasks;
+using ChainSafe.Gaming.UnityPackage;
+using ChainSafe.Gaming.Web3;
+using Scripts.EVM.Token;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 /// <summary>
 ///  Changes the users chosen car
@@ -15,7 +23,7 @@ public class SwapCars : MonoBehaviour
     // Index of the currently active prefab & livery
     public static int currentLiveryIndex;
 
-    public int currentPrefabIndex;
+    public int currentPrefabIndex, nftTypesOwned;
 
     // Array of prefabs to swap between
     public GameObject[] prefabs;
@@ -63,6 +71,7 @@ public class SwapCars : MonoBehaviour
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         platform.transform.position = new Vector3(currentPrefab.transform.position.x,
             currentPrefab.transform.position.y - 0.45f, currentPrefab.transform.position.z);
+        GetNftIds();
     }
 
     /// <summary>
@@ -70,11 +79,19 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void NextCar()
     {
+        switch (nftTypesOwned)
+        {
+            case 0:
+                return;
+            case > 3:
+                nftTypesOwned = 3;
+                break;
+        }
         // Destroy the current prefab
         Destroy(currentPrefab);
         // Increment the index to switch to the next prefab
         currentPrefabIndex++;
-        if (currentPrefabIndex >= prefabs.Length)
+        if (currentPrefabIndex >= nftTypesOwned - 1)
         {
             currentPrefabIndex = 0;
         }
@@ -126,6 +143,15 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void PreviousCar()
     {
+        switch (nftTypesOwned)
+        {
+            case 0:
+                return;
+            case > 3:
+                nftTypesOwned = 3;
+                break;
+        }
+
         // Destroy the current prefab
         Destroy(currentPrefab);
         // Decrement the index to switch to the next prefab  
@@ -135,7 +161,7 @@ public class SwapCars : MonoBehaviour
         }
         else
         {
-            currentPrefabIndex = 2;
+            currentPrefabIndex = nftTypesOwned - 1;
         }
 
         // Instantiate the next prefab in the array
@@ -152,29 +178,38 @@ public class SwapCars : MonoBehaviour
         {
             case 0:
                 carName.text = "Nitro Nova GTL";
-                engineSlider.value = globalManager.engineLevel;
-                handlingSlider.value = globalManager.handlingLevel;
-                boostSlider.value = globalManager.nosLevel;
+                engineSlider.value = globalManager.engineLevelNft1;
+                handlingSlider.value = globalManager.handlingLevelNft1;
+                boostSlider.value = globalManager.nosLevelNft1;
                 // Actively select this car
                 globalManager.playerCar = car1;
+                globalManager.engineLevel = globalManager.engineLevelNft1;
+                globalManager.handlingLevel = globalManager.handlingLevelNft1;
+                globalManager.nosLevel = globalManager.nosLevelNft1;
                 break;
 
             case 1:
                 carName.text = "Turbo Storm GT";
-                engineSlider.value = globalManager.engineLevel;
-                handlingSlider.value = globalManager.handlingLevel;
-                boostSlider.value = globalManager.nosLevel;
+                engineSlider.value = globalManager.engineLevelNft2;
+                handlingSlider.value = globalManager.handlingLevelNft2;
+                boostSlider.value = globalManager.nosLevelNft2;
                 // Actively select this car
                 globalManager.playerCar = car2;
+                globalManager.engineLevel = globalManager.engineLevelNft2;
+                globalManager.handlingLevel = globalManager.handlingLevelNft2;
+                globalManager.nosLevel = globalManager.nosLevelNft2;
                 break;
 
             case 2:
                 carName.text = "Star Stream S6";
-                engineSlider.value = globalManager.engineLevel;
-                handlingSlider.value = globalManager.handlingLevel;
-                boostSlider.value = globalManager.nosLevel;
+                engineSlider.value = globalManager.engineLevelNft3;
+                handlingSlider.value = globalManager.handlingLevelNft3;
+                boostSlider.value = globalManager.nosLevelNft3;
                 // Actively select this car
                 globalManager.playerCar = car3;
+                globalManager.engineLevel = globalManager.engineLevelNft3;
+                globalManager.handlingLevel = globalManager.handlingLevelNft3;
+                globalManager.nosLevel = globalManager.nosLevelNft3;
                 break;
         }
 
@@ -226,6 +261,70 @@ public class SwapCars : MonoBehaviour
 
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
+    }
+    
+    /// <summary>
+    /// Array duplicate so we can use a method parameter
+    /// </summary>
+    /// <param name="web3"></param>
+    /// <param name="contractAddress"></param>
+    /// <param name="abi"></param>
+    /// <param name="method"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public static async Task<List<List<string>>> GetArray(Web3 web3, string contractAddress, string abi, string method, object[] args)
+    {
+        var contract = web3.ContractBuilder.Build(abi, contractAddress);
+        var rawResponse = await contract.Call(method, args);
+        return rawResponse.Select(raw => raw as List<string>).ToList();
+    }
+    
+    /// <summary>
+    /// Fetches owned Nft Ids
+    /// </summary>
+    private async void GetNftIds()
+    {
+        var account = await Web3Accessor.Web3.Signer.GetAddress();
+        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftAbi, ContractManager.NftContract, "getOwnerNftIds", new object[] {account});
+        var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
+        if (response == "") return;
+        Debug.Log($"Result: {response}");
+        foreach (var nftId in response)
+        {
+            Debug.Log("ADDING NFT " + nftId);
+            nftTypesOwned++;
+            GetNftStats(int.Parse(nftId.ToString()));
+        }
+    }
+    
+    /// <summary>
+    /// Gets nft stats
+    /// </summary>
+    /// <param name="_nftId"></param>
+    private async void GetNftStats(int _nftId)
+    {
+        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftAbi, ContractManager.NftContract, "nftStats", new object[] {_nftId});
+        var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
+        Debug.Log("Nft stats" + response);
+        // if (response == "") return;
+        // switch (response[0])
+        // {
+        //     case 1:
+        //         globalManager.engineLevelNft1 = response[1];
+        //         globalManager.handlingLevelNft1 = response[2];
+        //         globalManager.nosLevelNft1 = response[3];
+        //         break;
+        //     case 2:
+        //         globalManager.engineLevelNft2 = response[1];
+        //         globalManager.handlingLevelNft2 = response[2];
+        //         globalManager.nosLevelNft2 = response[3];
+        //         break;
+        //     case 3:
+        //         globalManager.engineLevelNft3 = response[1];
+        //         globalManager.handlingLevelNft3 = response[2];
+        //         globalManager.nosLevelNft3 = response[3];
+        //         break;
+        // }
     }
 
     /// <summary>

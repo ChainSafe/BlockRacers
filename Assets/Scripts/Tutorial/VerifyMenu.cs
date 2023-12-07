@@ -1,3 +1,4 @@
+using System;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
 using UnityEngine;
@@ -46,11 +47,19 @@ public class VerifyMenu : MonoBehaviour
     /// </summary>
     public async void Verify()
     {
-        string message = "A man chooses, a slave obeys.";
-        var data = await Evm.SignVerify(Web3Accessor.Web3, message);
-        var response = data ? "Verified" : "Failed to verify";
-        Debug.Log($"Verified: {response}");
-        audioManager.Play("MenuSelect");
+        try
+        {
+            string message = "A man chooses, a slave obeys.";
+            var data = await Evm.SignVerify(Web3Accessor.Web3, message);
+            var response = data ? "Verified" : "Failed to verify";
+            Debug.Log($"Verified: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

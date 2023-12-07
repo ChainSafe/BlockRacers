@@ -1,9 +1,10 @@
-using System.Linq;
+using System;
 using System.Numerics;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cursor = UnityEngine.Cursor;
 
 /// <summary>
 /// Allows the user to mint tokens
@@ -14,7 +15,10 @@ public class MintMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
-
+    
+    // Global manager
+    private GlobalManager globalManager;
+    
     // First button
     [SerializeField] private GameObject firstButton;
 
@@ -27,6 +31,8 @@ public class MintMenu : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Finds our global manager
+        globalManager = FindObjectOfType<GlobalManager>();
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
         // Sets our first selected button
@@ -42,32 +48,44 @@ public class MintMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(button);
     }
+    
+    public static byte[] HexadecimalStringToByteArray(string input)
+    {
+        var output = new byte[input.Length];
+        var chars = input.ToCharArray();
+        for (int i = 0; i < input.Length; i++)
+        {
+            output[i] = (byte)chars[i];
+        }
+        return output;
+    }
 
     /// <summary>
     /// Mints custom tokens to the users address
     /// </summary>
     public async void MintCustomTokens()
     {
-        // Sign nonce and set voucher
-        string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
-        string account = PlayerPrefs.GetString("PlayerAccount");
-        var amount = 500*1e18;
-        var nonceData = await Evm.ContractCall(Web3Accessor.Web3, "nonce", ContractManager.TokenAbi, ContractManager.TokenContract, new object[] {account});
-        var nonceResponse = SampleOutputUtil.BuildOutputValue(nonceData);
-        int nonce = int.Parse(nonceResponse);
-        string message = $"{nonce}{account}{amount}";
-        var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
-        // Mint
-        object[] args =
+        try
         {
-            account,
-            amount,
-            signature
-        };
-        var data = await Evm.ContractSend(Web3Accessor.Web3, "mint", ContractManager.TokenAbi, ContractManager.TokenContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"TX: {response}");
-        audioManager.Play("MenuSelect");
+            // Sign nonce and set voucher
+            BigInteger amount = (BigInteger)(500*1e18);
+            var account = await Web3Accessor.Web3.Signer.GetAddress(); ;
+            // Mint
+            object[] args =
+            {
+                account,
+                amount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "mint", ContractManager.TokenAbi, ContractManager.TokenContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>
