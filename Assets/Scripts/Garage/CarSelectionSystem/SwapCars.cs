@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
@@ -270,12 +271,13 @@ public class SwapCars : MonoBehaviour
     /// <param name="method"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public static async Task<List<List<string>>> GetArray(Web3 web3, string contractAddress, string abi, string method, object[] args)
+    public static async Task<List<List<BigInteger>>> GetArray(Web3 web3, string contractAddress, string abi, string method, object[] args)
     {
         var contract = web3.ContractBuilder.Build(abi, contractAddress);
         var rawResponse = await contract.Call(method, args);
-        return rawResponse.Select(raw => raw as List<string>).ToList();
+        return rawResponse.Select(raw => raw as List<BigInteger>).ToList();
     }
+    
     
     /// <summary>
     /// Fetches owned Nft Ids
@@ -284,45 +286,63 @@ public class SwapCars : MonoBehaviour
     {
         var account = await Web3Accessor.Web3.Signer.GetAddress();
         var data = await GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, "getOwnerNftIds", new object[] {account});
-        var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
+        var response = string.Join(" ", data.Select(list => string.Join(" ", list)));
+        var resultArray = response.Split(' ');
         if (response == "") return;
         Debug.Log($"Result: {response}");
-        foreach (var nftId in response)
+        foreach (var nftId in resultArray)
         {
             Debug.Log("ADDING NFT " + nftId);
             nftTypesOwned++;
-            GetNftStats(int.Parse(nftId.ToString()));
+            GetNftStats(int.Parse(nftId));
         }
     }
     
     /// <summary>
-    /// Gets nft stats
+    /// Struct getter
+    /// </summary>
+    /// <param name="web3"></param>
+    /// <param name="contractAddress"></param>
+    /// <param name="abi"></param>
+    /// <param name="method"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public static async Task<List<object>> GetStruct(Web3 web3, string contractAddress, string abi, string method, object[] args)
+    {
+        var contract = web3.ContractBuilder.Build(abi, contractAddress);
+        var rawResponse = await contract.Call(method, args);
+        return rawResponse.ToList();
+    }
+    
+    /// <summary>
+    /// Fetches NFT stats
     /// </summary>
     /// <param name="_nftId"></param>
     private async void GetNftStats(int _nftId)
     {
-        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, "nftStats", new object[] {_nftId});
-        var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
-        Debug.Log("Nft stats" + response);
-        // if (response == "") return;
-        // switch (response[0])
-        // {
-        //     case 1:
-        //         globalManager.engineLevelNft1 = response[1];
-        //         globalManager.handlingLevelNft1 = response[2];
-        //         globalManager.nosLevelNft1 = response[3];
-        //         break;
-        //     case 2:
-        //         globalManager.engineLevelNft2 = response[1];
-        //         globalManager.handlingLevelNft2 = response[2];
-        //         globalManager.nosLevelNft2 = response[3];
-        //         break;
-        //     case 3:
-        //         globalManager.engineLevelNft3 = response[1];
-        //         globalManager.handlingLevelNft3 = response[2];
-        //         globalManager.nosLevelNft3 = response[3];
-        //         break;
-        // }
+        var data = await GetStruct(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, "nftStats", new object[] { _nftId });
+        if (data[0] == null) return;
+        switch (data[0])
+        {
+            case 1:
+                globalManager.engineLevelNft1 = int.Parse(data[1].ToString());
+                globalManager.handlingLevelNft1 = int.Parse(data[2].ToString());
+                globalManager.nosLevelNft1 = int.Parse(data[3].ToString());
+                break;
+            case 2:
+                globalManager.engineLevelNft2 = int.Parse(data[1].ToString());
+                globalManager.handlingLevelNft2 = int.Parse(data[2].ToString());
+                globalManager.nosLevelNft2 = int.Parse(data[3].ToString());
+                break;
+            case 3:
+                globalManager.engineLevelNft3 = int.Parse(data[1].ToString());
+                globalManager.handlingLevelNft3 = int.Parse(data[2].ToString());
+                globalManager.nosLevelNft3 = int.Parse(data[3].ToString());
+                break;
+        }
+        engineSlider.value = globalManager.engineLevel;
+        handlingSlider.value = globalManager.handlingLevel;
+        boostSlider.value = globalManager.nosLevel;
     }
 
     /// <summary>
