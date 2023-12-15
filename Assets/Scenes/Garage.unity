@@ -6770,7 +6770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -312}
+  m_AnchoredPosition: {x: 0, y: -349}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &254056272
@@ -6819,12 +6819,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 423042309}
         m_TargetAssemblyTypeName: MarketplaceMenu, Assembly-CSharp
-        m_MethodName: SelectNft2
-        m_Mode: 1
+        m_MethodName: PurchaseNft
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9771,7 +9771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -312}
+  m_AnchoredPosition: {x: 0, y: -349}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335394068
@@ -9820,12 +9820,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 423042309}
         m_TargetAssemblyTypeName: MarketplaceMenu, Assembly-CSharp
-        m_MethodName: SelectNft2
-        m_Mode: 1
+        m_MethodName: PurchaseNft
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -13630,6 +13630,12 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a088b46a54460674b9cd01f5222fa8d0, type: 3}
   - {fileID: 2800000, guid: 1531e7c4df7941f4f83d1693e50dff74, type: 3}
   nftPrefabs: []
+  purchaseButton1: {fileID: 0}
+  purchaseButton2: {fileID: 0}
+  purchaseButton3: {fileID: 0}
+  selectButton1: {fileID: 0}
+  selectButton2: {fileID: 0}
+  selectButton3: {fileID: 0}
   Nft1: {fileID: 2800000, guid: e1d639ff6cef26440abde1351e730103, type: 3}
   Nft2: {fileID: 2800000, guid: a088b46a54460674b9cd01f5222fa8d0, type: 3}
   Nft3: {fileID: 2800000, guid: 1531e7c4df7941f4f83d1693e50dff74, type: 3}
@@ -14238,6 +14244,7 @@ MonoBehaviour:
   menuUpgrade: {fileID: 946512449}
   menuChangeNft: {fileID: 1658341960}
   menuMarket: {fileID: 423042307}
+  mintNftDescription: {fileID: 1136454868}
   engineLevelText: {fileID: 705452680}
   handlingLevelText: {fileID: 270261494}
   nosLevelText: {fileID: 1674179334}
@@ -16325,6 +16332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPrefabIndex: 0
+  nftTypesOwned: 0
   prefabs:
   - {fileID: 4591691155392393144, guid: f0728137da3bdd14a93565833da7929d, type: 3}
   - {fileID: 5253856450962222665, guid: e380ff849a0591e43ad29ff08338c2a9, type: 3}
@@ -46280,7 +46288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -312}
+  m_AnchoredPosition: {x: 0, y: -349}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526004672
@@ -46329,12 +46337,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 423042309}
         m_TargetAssemblyTypeName: MarketplaceMenu, Assembly-CSharp
-        m_MethodName: SelectNft3
-        m_Mode: 1
+        m_MethodName: PurchaseNft
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -59937,7 +59945,7 @@ GameObject:
   - component: {fileID: 1881846345}
   - component: {fileID: 1881846344}
   m_Layer: 5
-  m_Name: PurchaseButton
+  m_Name: SelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62871,7 +62879,7 @@ GameObject:
   - component: {fileID: 1999624667}
   - component: {fileID: 1999624666}
   m_Layer: 5
-  m_Name: PurchaseButton
+  m_Name: SelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63466,7 +63474,7 @@ GameObject:
   - component: {fileID: 2010383176}
   - component: {fileID: 2010383175}
   m_Layer: 5
-  m_Name: PurchaseButton
+  m_Name: SelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

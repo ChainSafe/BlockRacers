@@ -1,7 +1,10 @@
-using System.Linq;
+using System;
 using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cursor = UnityEngine.Cursor;
 
 /// <summary>
 /// Allows the user to mint tokens
@@ -12,7 +15,7 @@ public class MintMenu : MonoBehaviour
 
     // Audio
     private AudioManager audioManager;
-
+    
     // First button
     [SerializeField] private GameObject firstButton;
 
@@ -41,24 +44,33 @@ public class MintMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // /// <summary>
-    // /// Mints custom tokens to the users address
-    // /// </summary>
-    // public async void MintCustomTokens()
-    // {
-    //     string method = "mint";
-    //     BigInteger amount = 1;
-    //     string account = PlayerPrefs.GetString("PlayerAccount");
-    //     object[] args =
-    //     {
-    //         account,
-    //         amount
-    //     };
-    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.TokenAbi, ContractManager.TokenContract, args);
-    //     var response = SampleOutputUtil.BuildOutputValue(data);
-    //     Debug.Log($"TX: {response}");
-    //     audioManager.Play("MenuSelect");
-    // }
+    /// <summary>
+    /// Mints custom tokens to the users address
+    /// </summary>
+    public async void MintCustomTokens()
+    {
+        try
+        {
+            // Sign nonce and set voucher
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
+            BigInteger amount = (BigInteger)(500*1e18);
+            // Mint
+            object[] args =
+            {
+                account,
+                amount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "mint", ContractManager.TokenAbi, ContractManager.TokenContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            audioManager.Play("MenuSelect");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
     /// <summary>
     /// Opens the faucet webpage so the user can get some gas tokens

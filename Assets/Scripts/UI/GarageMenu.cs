@@ -1,3 +1,7 @@
+using System;
+using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +29,7 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, mintNftDescription;
 
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
 
@@ -90,7 +94,7 @@ public class GarageMenu : MonoBehaviour
     /// <summary>
     /// Takes the user to the showroom
     /// </summary>
-    public void ShowRoomMenuButton()
+    public async void ShowRoomMenuButton()
     {
         // Rotates our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
@@ -99,6 +103,13 @@ public class GarageMenu : MonoBehaviour
         menuShowRoom.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
+        // Chain call
+        var account = await Web3Accessor.Web3.Signer.GetAddress();
+        var response = await Erc721.BalanceOf(Web3Accessor.Web3, ContractManager.NftContract, account);
+        if (response == 0) return;
+        Debug.Log($"You own {response} Nfts");
+        // If balance of nfts greater than 0
+        mintNftDescription.SetActive(false);
     }
 
     /// <summary>
@@ -233,37 +244,66 @@ public class GarageMenu : MonoBehaviour
         PlayMenuSelect();
     }
 
+    private async void PurchaseUpgrade(string _contractMethod)
+    {
+        try
+        {
+            // Sign nonce and set voucher
+            BigInteger amount = (BigInteger)(20*1e18);
+            await ContractManager.Approve(ContractManager.NftContract, amount);
+            // CHANGE LATER TO POPULATED NFTS
+            int nftId = 1;
+            object[] args =
+            {
+                amount,
+                nftId,
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, _contractMethod, ContractManager.NftAbi, ContractManager.NftContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     /// <summary>
     /// Upgrades car engine
     /// </summary>
-    private async void PurchaseEngineUpgrade()
+    private void PurchaseEngineUpgrade()
     {
         switch (globalManager.engineLevel)
         {
             case 1:
-                //     string method = "upgradeEngine";
-                //     int increaseAmount = 1;
-                //     int nftId = 1;
-                //     string signature = "";
-                //     object[] args =
-                //     {
-                //         increaseAmount,
-                //         nftId,
-                //         signature
-                //     };
-                //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
-                //     var response = SampleOutputUtil.BuildOutputValue(data);
-                //     Debug.Log($"TX: {response}");
+                try
+                {
+                    PurchaseUpgrade("upgradeEngine");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.engineLevel = 2;
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
             case 2:
+                try
+                {
+                    PurchaseUpgrade("upgradeEngine");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.engineLevel = 3;
                 engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
                 break;
             case 3:
-                globalManager.engineLevel = 1;
-                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                Debug.Log("Engine Level Max!");
                 break;
         }
 
@@ -279,16 +319,33 @@ public class GarageMenu : MonoBehaviour
         switch (globalManager.handlingLevel)
         {
             case 1:
+                try
+                {
+                    PurchaseUpgrade("upgradeHandling");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.handlingLevel = 2;
                 handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
                 break;
             case 2:
+                try
+                {
+                    PurchaseUpgrade("upgradeHandling");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.handlingLevel = 3;
                 handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
                 break;
             case 3:
-                globalManager.handlingLevel = 1;
-                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                Debug.Log("Handling Level Max!");
                 break;
         }
 
@@ -304,16 +361,33 @@ public class GarageMenu : MonoBehaviour
         switch (globalManager.nosLevel)
         {
             case 1:
+                try
+                {
+                    PurchaseUpgrade("upgradeNos");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.nosLevel = 2;
                 nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
                 break;
             case 2:
+                try
+                {
+                    PurchaseUpgrade("upgradeNos");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 globalManager.nosLevel = 3;
                 nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
                 break;
             case 3:
-                globalManager.nosLevel = 1;
-                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                Debug.Log("Nos Level Max!");
                 break;
         }
         audioManager.Play("MenuSelect");

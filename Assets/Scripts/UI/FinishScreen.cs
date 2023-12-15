@@ -76,9 +76,8 @@ public class FinishScreen : MonoBehaviour
     // public void ClaimWinnings()
     // {
     //     // Chain call to claim wager
-    //     string ecdsaKey = "0x78dae1a22c7507a4ed30c06172e7614eb168d3546c13856340771e63ad3c0081";
     //     string message = "secretmessage";
-    //     var signature = Evm.EcdsaSignMessage(ecdsaKey, message);
+    //     var signature = Evm.EcdsaSignMessage(ContractManager.EcdsaKey, message);
     //     Debug.Log($"Signed Message: {signature}");
     //     string method = "claimPvpWager";
     //     string opponent = ""; // TO DO SET

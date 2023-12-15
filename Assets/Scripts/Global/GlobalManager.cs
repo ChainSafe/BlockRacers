@@ -9,6 +9,9 @@ public class GlobalManager : MonoBehaviour
 
     // String for loading screen
     public string sceneToLoad;
+    
+    // Security integer for contracts
+    public int walletInt;
 
     // Player car
     public GameObject playerCar;
@@ -17,7 +20,7 @@ public class GlobalManager : MonoBehaviour
     public Texture2D nftSprite;
 
     // Player stats
-    public int engineLevel, handlingLevel, nosLevel;
+    public int engineLevel, handlingLevel, nosLevel, engineLevelNft1 = 1, handlingLevelNft1 = 1, nosLevelNft1 = 1, engineLevelNft2 = 1, handlingLevelNft2 = 1, nosLevelNft2 = 1, engineLevelNft3 = 1, handlingLevelNft3 = 1, nosLevelNft3 = 1;
 
     // Connected bool
     public bool connected;
@@ -31,7 +34,7 @@ public class GlobalManager : MonoBehaviour
     // Bool to check if wagering is active or not
     public bool wagering;
     public bool wagerAccepted;
-
+    public string wagerOpponent;
     public int wagerAmount;
 
     // Private key for the auth wallet 0x0d9566FcE2513cBD388DCD7749a873900033401C

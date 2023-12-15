@@ -72,9 +72,9 @@ public class PostProcessing : MonoBehaviour
             currentLerpValue = Mathf.Clamp01(currentLerpValue - (Time.deltaTime * lerpSpeed));
             if (CameraShake.Instance == null) return;
             // Reset our camera rumble
-            CameraShake.Instance.TopRig.m_AmplitudeGain = 0f;
-            CameraShake.Instance.MiddleRig.m_AmplitudeGain = 0f;
-            CameraShake.Instance.BottomRig.m_AmplitudeGain = 0f;
+            //CameraShake.Instance.TopRig.m_AmplitudeGain = 0f;
+            //CameraShake.Instance.MiddleRig.m_AmplitudeGain = 0f;
+            //CameraShake.Instance.BottomRig.m_AmplitudeGain = 0f;
         }
 
         // Adjust the range of the lerp value based on the desired intensity range

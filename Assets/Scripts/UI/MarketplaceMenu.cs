@@ -1,3 +1,7 @@
+using System;
+using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
+using Scripts.EVM.Token;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,6 +24,8 @@ public class MarketplaceMenu : MonoBehaviour
 
     // Our nft object array
     [SerializeField] private GameObject[] nftPrefabs;
+    
+    [SerializeField] private GameObject purchaseButton1, purchaseButton2, purchaseButton3, selectButton1, selectButton2, selectButton3;
 
     // NFT sprites
     [SerializeField] private Texture2D Nft1, Nft2, Nft3;
@@ -38,7 +44,7 @@ public class MarketplaceMenu : MonoBehaviour
     {
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        CallData();
+        //CallData();
     }
 
     /// <summary>
@@ -89,34 +95,31 @@ public class MarketplaceMenu : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Changes to NFT 1
-    /// </summary>
-    public void SelectNft1()
+    public async void PurchaseNft(int _nftType)
     {
-        globalManager.nftSprite = Nft1;
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
-    }
-
-    /// <summary>
-    /// Changes to NFT 2
-    /// </summary>
-    public void SelectNft2()
-    {
-        globalManager.nftSprite = Nft2;
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
-    }
-
-    /// <summary>
-    /// Changes to NFT 3
-    /// </summary>
-    public void SelectNft3()
-    {
-        globalManager.nftSprite = Nft3;
-        // Play our menu select audio
-        GarageMenu.instance.PlayMenuSelect();
+        try
+        {
+            // Sign nonce and set voucher
+            BigInteger amount = (BigInteger)(50*1e18);
+            await ContractManager.Approve(ContractManager.NftContract, amount);
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
+            // Mint
+            object[] args =
+            {
+                amount,
+                _nftType,
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "mintNft", ContractManager.NftAbi, ContractManager.NftContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            // Play our menu select audio
+            GarageMenu.instance.PlayMenuSelect();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     #endregion
