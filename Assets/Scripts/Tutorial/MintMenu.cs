@@ -52,8 +52,8 @@ public class MintMenu : MonoBehaviour
         try
         {
             // Sign nonce and set voucher
-            BigInteger amount = (BigInteger)(500*1e18);
             var account = await Web3Accessor.Web3.Signer.GetAddress();
+            BigInteger amount = (BigInteger)(500*1e18);
             // Mint
             object[] args =
             {

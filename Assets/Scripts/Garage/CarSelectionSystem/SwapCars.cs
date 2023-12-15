@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
-using Scripts.EVM.Token;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -285,7 +283,7 @@ public class SwapCars : MonoBehaviour
     private async void GetNftIds()
     {
         var account = await Web3Accessor.Web3.Signer.GetAddress();
-        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftAbi, ContractManager.NftContract, "getOwnerNftIds", new object[] {account});
+        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, "getOwnerNftIds", new object[] {account});
         var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
         if (response == "") return;
         Debug.Log($"Result: {response}");
@@ -303,7 +301,7 @@ public class SwapCars : MonoBehaviour
     /// <param name="_nftId"></param>
     private async void GetNftStats(int _nftId)
     {
-        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftAbi, ContractManager.NftContract, "nftStats", new object[] {_nftId});
+        var data = await GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, "nftStats", new object[] {_nftId});
         var response = string.Join(",\n", data.Select((list, i) => $"#{i} {string.Join((string)", ", (IEnumerable<string>)list)}"));
         Debug.Log("Nft stats" + response);
         // if (response == "") return;
