@@ -186,23 +186,23 @@
       "url": "https://packages.unity.com"
     },
     "io.chainsafe.web3-unity": {
-      "version": "https://github.com/ChainSafe/web3.unity.git?path=/Packages/io.chainsafe.web3-unity",
+      "version": "2.5.5",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "c8c1899c2f6626538b26e7ed2638f42bb7ed292b"
+      "url": "https://package.openupm.com"
     },
     "io.chainsafe.web3-unity.web3auth": {
-      "version": "https://github.com/ChainSafe/web3.unity.git?path=/Packages/io.chainsafe.web3-unity.web3auth",
+      "version": "2.5.5",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "io.chainsafe.web3-unity": "2.5.2"
+        "io.chainsafe.web3-unity": "2.5.5"
       },
-      "hash": "c8c1899c2f6626538b26e7ed2638f42bb7ed292b"
+      "url": "https://package.openupm.com"
     },
     "nuget.mono-cecil": {
       "version": "1.0.0",
