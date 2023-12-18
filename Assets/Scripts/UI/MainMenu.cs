@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     private Coroutine getWeb3Coroutine;
 
     // Menu items
-    [SerializeField] private GameObject connectMenu,
+    [SerializeField] private GameObject
         mainMenu,
         raceMenu,
         wagerMenu,
@@ -64,19 +64,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         audioManager = FindObjectOfType<AudioManager>();
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        // By passes connection screen if connected
-        if (globalManager.connected)
-        {
-            connectMenu.SetActive(false);
-            mainMenu.SetActive(true);
-            // Sets our first selected button
-            EventSystem.current.SetSelectedGameObject(tutorialButton);
-        }
-        else
-        {
-            // Sets our first selected button
-            EventSystem.current.SetSelectedGameObject(connectButton);
-        }
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(connectButton);
     }
 
     /// <summary>
@@ -301,16 +290,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// </summary>
     private void Update()
     {
-        // Wallet connection
-        if (Web3Accessor.Web3 != null && !globalManager.connected)
-        {
-            globalManager.connected = true;
-            connectMenu.SetActive(false);
-            mainMenu.SetActive(true);
-            // Sets our first selected button
-            EventSystem.current.SetSelectedGameObject(tutorialButton);
-            audioManager.Play("MenuSelect");
-        }
         // Multiplayer
         if (!PhotonNetwork.InRoom) return;
         playersReadyNumberText.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();

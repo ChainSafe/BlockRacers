@@ -59,7 +59,7 @@ namespace Scenes
             LoginSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             // Attempt scene transition based on the login object sceneToLoad value
-            //SceneManager.LoadScene(SceneToLoad);
+            SceneManager.LoadScene(SceneToLoad);
         }
 
         private void ConfigureCommonServices(IWeb3ServiceCollection services)

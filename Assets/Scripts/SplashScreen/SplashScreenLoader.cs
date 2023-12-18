@@ -26,7 +26,7 @@ public class SplashScreenLoader : MonoBehaviour
     {
         if (Application.isMobilePlatform)
         {
-            SceneManager.LoadScene("MenuScene");
+            SceneManager.LoadScene("ConnectWallet");
         }
         else
         {
@@ -45,7 +45,7 @@ public class SplashScreenLoader : MonoBehaviour
     private void CheckOver(VideoPlayer videoPlayer)
     {
         // load this scene
-        SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene("ConnectWallet");
     }
 
     #endregion
