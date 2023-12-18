@@ -11953,6 +11953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96894e49d9863ec4db1d93a5e56f19cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <SceneToLoad>k__BackingField: 
   gelatoApiKey: 7MFQqyGS1Iui_e_MgmFW1BfbFeJ06g8nnL2oUTlIJug_
   errorPopup: {fileID: 19229787}
   supportedWalletsDropdown: {fileID: 2072239358}
@@ -19117,17 +19118,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4764608378852082086, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
   m_PrefabInstance: {fileID: 1015988923}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1015988925 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7324590823460843055, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
-  m_PrefabInstance: {fileID: 1015988923}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1023666634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19413,7 +19403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _qrCodeImage: {fileID: 873720180}
-  _copyToClipboardButton: {fileID: 1015988925}
+  _copyToClipboardButton: {fileID: 1476330131}
   _backButton: {fileID: 430705675}
   _container: {fileID: 1374926256}
 --- !u!1 &1062820995
@@ -26502,6 +26492,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454807023}
   m_CullTransparentMesh: 1
+--- !u!114 &1476330131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7324590823460843055, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
+  m_PrefabInstance: {fileID: 1015988923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1477695879
 GameObject:
   m_ObjectHideFlags: 0
