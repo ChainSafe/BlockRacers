@@ -1,0 +1,4 @@
+[submodule "Packages/web3.unity"]
+	path = Packages/web3.unity
+	url = https://github.com/ChainSafe/web3.unity
+	branch = main
