@@ -37215,6 +37215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1399175508}
   - component: {fileID: 1399175509}
+  - component: {fileID: 1399175510}
   m_Layer: 0
   m_Name: WalletConnectLogin
   m_TagString: Untagged
@@ -37274,6 +37275,19 @@ MonoBehaviour:
       Universal: 
     VerifyUrl: 
   walletConnectModal: {fileID: 504284425}
+--- !u!114 &1399175510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399175507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2237df0314604419146b916b88d158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: MenuScene
 --- !u!1 &1402324569
 GameObject:
   m_ObjectHideFlags: 0
