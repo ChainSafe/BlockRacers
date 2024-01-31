@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     // Input
     private float input, horizontalInput, verticalInput;
+    private Vector3 GyroRotation;
 
     // Steering and braking
     private bool isDrifting, isBraking;
@@ -275,6 +276,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         playerInput.Game.Drift.canceled += OnDriftInput;
         playerInput.Game.Drift.performed += OnDriftInput;
         playerInput.Game.Reset.performed += OnResetInput;
+        // gyroscope rotation
+        if (Application.isMobilePlatform)
+        {
+            UnityEngine.Input.gyro.enabled = true;
+            GyroRotation = Vector3.zero;
+        }
         // Shows controls menu
         controlsPopUp.SetActive(true);
         // Disables photon components in tutorial
@@ -544,7 +551,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     /// </summary>
     private void HandleSteering()
     {
-        currentSteerAngle = maxSteerAngle * horizontalInput;
+        if (!Application.isMobilePlatform)
+        {
+            currentSteerAngle = maxSteerAngle * horizontalInput;
+        }
+        else
+        {
+            GyroRotation.x = UnityEngine.Input.gyro.rotationRateUnbiased.x;
+            currentSteerAngle = maxSteerAngle * GyroRotation.x;
+        }
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
