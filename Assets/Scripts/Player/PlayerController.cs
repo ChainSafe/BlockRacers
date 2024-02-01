@@ -434,11 +434,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     /// </summary>
     private void HandleMotor()
     {
-        // Enables constant acceleration in mobile when not braking as holding forward is tiring
-        if (Application.isMobilePlatform && verticalInput != -1)
-        {
-            verticalInput = 1;
-        }
         // Gets input for acceleration
         input = verticalInput * motorForce / currentGear;
         // If speed less than max speed, add input to motor torque

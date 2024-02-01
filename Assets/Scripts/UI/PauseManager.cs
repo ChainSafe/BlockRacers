@@ -110,7 +110,7 @@ public class PauseManager : MonoBehaviourPunCallbacks
     /// <summary>
     /// Unpauses the game
     /// </summary>
-    private void Unpause()
+    public void Unpause()
     {
         // Locks the cursor so the user can resume playing normally
         Cursor.lockState = CursorLockMode.Locked;
