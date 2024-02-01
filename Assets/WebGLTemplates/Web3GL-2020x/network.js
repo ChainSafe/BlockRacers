@@ -2,7 +2,7 @@
 window.networks = [
   {
     id: 338,
-    label: "Cronos Testnet",
+    label: "Cronos Testnet CRO",
     token: "TCRO",
     rpcUrl: 'https://evm-t3.cronos.org',
   }

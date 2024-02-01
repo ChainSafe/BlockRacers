@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.Unity;
 using ChainSafe.Gaming.UnityPackage;
+using ChainSafe.Gaming.UnityPackage.Common;
 using ChainSafe.Gaming.WalletConnect;
 using ChainSafe.Gaming.WalletConnect.Models;
 using ChainSafe.Gaming.Web3.Build;
@@ -27,7 +28,7 @@ using WalletConnectSharp.Sign.Models.Engine.Methods;
 /// <summary>
 /// Login using an existing wallet using Wallet Connect.
 /// </summary>
-public class ExistingWalletLogin : Login
+public class WalletConnectLoginProvider : LoginProvider, IWeb3BuilderServiceAdapter
 {
     [Header("UI")][SerializeField] private TMP_Dropdown supportedWalletsDropdown;
 
@@ -62,7 +63,7 @@ public class ExistingWalletLogin : Login
 
     private bool redirectToWallet;
 
-    private Dictionary<string, WalletConnectWalletModel> supportedWallets;
+    private Dictionary<string, WalletConnectWalletModel> supportedWallets = new Dictionary<string, WalletConnectWalletModel>();
 
     private WalletConnectConfig walletConnectConfig;
 
@@ -76,8 +77,10 @@ public class ExistingWalletLogin : Login
         }
     }
 
-    protected override IEnumerator Initialize()
+    protected override async void Initialize()
     {
+        base.Initialize();
+        
         Assert.IsNotNull(loginButton);
         Assert.IsNotNull(rememberMeToggle);
 
@@ -110,13 +113,11 @@ public class ExistingWalletLogin : Login
 
         if (!isRedirectionWalletAgnostic)
         {
-            yield return InitializeWalletSelection();
+            await InitializeWalletSelection();
         }
 
         // try auto login first
-        var autoLoginTask = TryAutoLogin();
-
-        yield return new WaitUntil(() => autoLoginTask.IsCompleted);
+        await TryAutoLogin();
 
         loginButton.onClick.AddListener(LoginClicked);
     }
@@ -126,7 +127,7 @@ public class ExistingWalletLogin : Login
         await TryLogin();
     }
 
-    protected override Web3Builder ConfigureWeb3Services(Web3Builder web3Builder)
+    public Web3Builder ConfigureServices(Web3Builder web3Builder)
     {
         return web3Builder.Configure(services =>
         {
@@ -230,7 +231,7 @@ public class ExistingWalletLogin : Login
 
     private IEnumerator FetchSupportedWallets()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get("https://registry.walletconnect.com/data/wallets.json"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get($"https://explorer-api.walletconnect.com/v3/wallets?projectId={projectId}"))
         {
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
@@ -241,19 +242,9 @@ public class ExistingWalletLogin : Login
 
                 yield return null;
             }
-
             else
             {
-                var json = webRequest.downloadHandler.text;
-
-                supportedWallets = JsonConvert.DeserializeObject<Dictionary<string, WalletConnectWalletModel>>(json);
-
-                // make sure supported wallet is also supported on platform
-                supportedWallets = supportedWallets
-                    .Where(w => w.Value.IsAvailableForPlatform(UnityOperatingSystemMediator.GetCurrentPlatform()))
-                    .ToDictionary(p => p.Key, p => p.Value);
-
-                Debug.Log($"Fetched {supportedWallets.Count} Supported Wallets.");
+                Debug.Log($"Fetched Supported Wallets.");
             }
         }
     }
@@ -276,8 +267,6 @@ public class ExistingWalletLogin : Login
 
     private void SessionApproved(SessionStruct session)
     {
-        // Disable menu
-        walletConnectModal.gameObject.SetActive(false);
         // save/persist session
         if (walletConnectConfig.KeepSessionAlive)
         {

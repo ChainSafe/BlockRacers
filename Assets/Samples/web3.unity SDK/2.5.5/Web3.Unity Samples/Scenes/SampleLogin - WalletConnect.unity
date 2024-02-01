@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 3
+    serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    buildHeightMesh: 0
+    accuratePlacement: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -413,7 +413,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 311857776}
     m_Modifications:
     - target: {fileID: 4764608378852082086, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
@@ -517,15 +516,23 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
 --- !u!224 &212403313 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4764608378852082086, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
   m_PrefabInstance: {fileID: 212403312}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &212403314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7324590823460843055, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
+  m_PrefabInstance: {fileID: 212403312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &225123873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,10 +1165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb890e484538c444da09be8d0f89dcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _qrCodeImage: {fileID: 0}
-  _copyToClipboardButton: {fileID: 0}
-  _backButton: {fileID: 0}
-  _container: {fileID: 0}
+  _qrCodeImage: {fileID: 125483106}
+  _copyToClipboardButton: {fileID: 212403314}
+  _backButton: {fileID: 1993078182}
+  _container: {fileID: 1278821651}
 --- !u!1 &492023254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,7 +1889,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 654334440}
     m_Modifications:
     - target: {fileID: 4764608378852082086, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
@@ -1978,12 +1984,6 @@ PrefabInstance:
       value: Continue with Existing Wallet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8775736491206355084, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 787012152}
   m_SourcePrefab: {fileID: 100100000, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
 --- !u!224 &787012149 stripped
 RectTransform:
@@ -2641,6 +2641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334079841}
   - component: {fileID: 1334079842}
+  - component: {fileID: 1334079843}
   m_Layer: 0
   m_Name: Logic - Login
   m_TagString: Untagged
@@ -2675,9 +2676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96894e49d9863ec4db1d93a5e56f19cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SceneToLoad>k__BackingField: SampleMain
   gelatoApiKey: 7MFQqyGS1Iui_e_MgmFW1BfbFeJ06g8nnL2oUTlIJug_
   errorPopup: {fileID: 1701305868}
+  rampConfig: {fileID: 11400000, guid: d1f58846e4fc71d4e90f287a86f328f9, type: 2}
   supportedWalletsDropdown: {fileID: 540464236}
   redirectToWalletToggle: {fileID: 981405684}
   loginButton: {fileID: 787012150}
@@ -2701,6 +2702,19 @@ MonoBehaviour:
       Universal: 
     VerifyUrl: 
   walletConnectModal: {fileID: 395689441}
+--- !u!114 &1334079843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334079840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2237df0314604419146b916b88d158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: SampleMain
 --- !u!1 &1491563361
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,10 +3206,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1701305866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c001d0d5433b4215b8abba94194881bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 9df78976caa7771429cfe2b9b96e1491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageLabel: {fileID: 0}
+  MessageLabel: {fileID: 786896302}
 --- !u!1 &1791429088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,9 +3509,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -4388,17 +4400,9 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

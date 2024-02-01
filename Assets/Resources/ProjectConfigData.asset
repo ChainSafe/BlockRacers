@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectID: 01455906-305d-41e0-a548-5081b50413ff
   chainID: 338
-  chain: Cronos
-  network: Testnet
+  chain: Cronos Testnet
+  network: CRO
   symbol: TCRO
   rpc: https://evm-t3.cronos.org

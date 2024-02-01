@@ -21344,6 +21344,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719695611}
   m_Mesh: {fileID: 6517981525257773829, guid: af38cf7afe5eeaf40831cebc0a44d342, type: 3}
+--- !u!1 &724170425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724170426}
+  - component: {fileID: 724170427}
+  m_Layer: 5
+  m_Name: SelectLogin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &724170426
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724170425}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2043797578}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &724170427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724170425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc6d55a25793f4e8bb080c88883961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MetaMaskButton: {fileID: 1877403217}
+  QRButton: {fileID: 861555191}
 --- !u!1 &725177459
 GameObject:
   m_ObjectHideFlags: 0
@@ -23922,7 +23973,7 @@ GameObject:
   - component: {fileID: 861555193}
   - component: {fileID: 861555192}
   m_Layer: 5
-  m_Name: ConnectButton
+  m_Name: QRConnectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31125,7 +31176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c001d0d5433b4215b8abba94194881bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageLabel: {fileID: 1161397037}
 --- !u!224 &1147953478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37216,6 +37266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1399175508}
   - component: {fileID: 1399175509}
+  - component: {fileID: 1399175510}
   m_Layer: 0
   m_Name: WalletConnectLogin
   m_TagString: Untagged
@@ -37250,7 +37301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96894e49d9863ec4db1d93a5e56f19cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SceneToLoad>k__BackingField: MenuScene
   gelatoApiKey: 7MFQqyGS1Iui_e_MgmFW1BfbFeJ06g8nnL2oUTlIJug_
   errorPopup: {fileID: 1147953477}
   supportedWalletsDropdown: {fileID: 1558605325}
@@ -37276,6 +37326,19 @@ MonoBehaviour:
       Universal: 
     VerifyUrl: 
   walletConnectModal: {fileID: 504284425}
+--- !u!114 &1399175510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399175507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2237df0314604419146b916b88d158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: MenuScene
 --- !u!1 &1402324569
 GameObject:
   m_ObjectHideFlags: 0
@@ -45429,6 +45492,10 @@ PrefabInstance:
     - target: {fileID: 8775736491206355084, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
       propertyPath: m_Name
       value: Button - Existing Wallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775736491206355084, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8781309615174179339, guid: 50ad8ea555027414b8ddfc03fc7d41ab, type: 3}
       propertyPath: m_text
@@ -60723,14 +60790,13 @@ GameObject:
   - component: {fileID: 1877403219}
   - component: {fileID: 1877403218}
   - component: {fileID: 1877403220}
-  - component: {fileID: 1877403223}
   m_Layer: 5
-  m_Name: MetaMask
+  m_Name: MetaMaskButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1877403218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60860,21 +60926,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -526.9, y: 17}
+  m_AnchoredPosition: {x: -526.9, y: 78}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1877403223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877403217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc6d55a25793f4e8bb080c88883961, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1879381547
 GameObject:
   m_ObjectHideFlags: 0
@@ -74273,8 +74327,9 @@ RectTransform:
   - {fileID: 1192463609}
   - {fileID: 1277465113}
   - {fileID: 1399175508}
-  - {fileID: 649830000}
   - {fileID: 2108568039}
+  - {fileID: 724170426}
+  - {fileID: 649830000}
   - {fileID: 580551162}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -75952,8 +76007,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 766038205}
-  - {fileID: 861555196}
   - {fileID: 1877403222}
+  - {fileID: 861555196}
   m_Father: {fileID: 1277465113}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76668,6 +76723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2108568039}
   - component: {fileID: 2108568040}
+  - component: {fileID: 2108568041}
   m_Layer: 0
   m_Name: MetaMaskLogin
   m_TagString: Untagged
@@ -76702,10 +76758,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b547b7e8ac8d2f442bfefe0c9f59ed1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SceneToLoad>k__BackingField: MenuScene
   gelatoApiKey: 7MFQqyGS1Iui_e_MgmFW1BfbFeJ06g8nnL2oUTlIJug_
   errorPopup: {fileID: 1147953477}
   loginButton: {fileID: 1877403218}
+--- !u!114 &2108568041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108568038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2237df0314604419146b916b88d158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: MenuScene
 --- !u!1 &2109833452
 GameObject:
   m_ObjectHideFlags: 0
