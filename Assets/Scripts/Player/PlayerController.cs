@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // Input
     private float input, horizontalInput, verticalInput;
     private Vector3 GyroRotation;
+    private bool gyroEnabled;
 
     // Steering and braking
     private bool isDrifting, isBraking;
@@ -433,6 +434,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     /// </summary>
     private void HandleMotor()
     {
+        // Enables constant acceleration in mobile when not braking as holding forward is tiring
+        if (Application.isMobilePlatform && verticalInput != -1)
+        {
+            verticalInput = 1;
+        }
         // Gets input for acceleration
         input = verticalInput * motorForce / currentGear;
         // If speed less than max speed, add input to motor torque
@@ -555,7 +561,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             currentSteerAngle = maxSteerAngle * horizontalInput;
         }
-        else
+        else if (Application.isMobilePlatform && globalManager.gyroEnabled)
         {
             GyroRotation.x = UnityEngine.Input.gyro.rotationRateUnbiased.x;
             currentSteerAngle = maxSteerAngle * GyroRotation.x;

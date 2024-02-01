@@ -15,6 +15,9 @@ public class GlobalManager : MonoBehaviour
 
     // Player car
     public GameObject playerCar;
+    
+    // Gyro input
+    public bool gyroEnabled;
 
     // Player material
     public Texture2D nftSprite;

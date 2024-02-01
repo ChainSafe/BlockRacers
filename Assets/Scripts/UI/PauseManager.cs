@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pause manager functionality
@@ -28,7 +29,9 @@ public class PauseManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject controlsMenu;
 
     // Buttons
-    [SerializeField] private GameObject firstButton;
+    [SerializeField] private GameObject firstButton, gyroButton;
+
+    [SerializeField] private Toggle gyroToggle;
 
     // Paused bool
     private bool paused;
@@ -52,6 +55,9 @@ public class PauseManager : MonoBehaviourPunCallbacks
         // Initialize player input actions
         playerInput = new PlayerInputActions();
         playerInput.Game.Pause.performed += OnPauseInput;
+        if (!Application.isMobilePlatform) return;
+        gyroToggle.isOn = globalManager.gyroEnabled;
+        gyroButton.SetActive(true);
     }
 
     /// <summary>
@@ -97,7 +103,6 @@ public class PauseManager : MonoBehaviourPunCallbacks
         {
             raceUI.SetActive(false);
         }
-
         // Plays pause sound
         audioManager.Play("MenuSelect");
     }
@@ -185,6 +190,16 @@ public class PauseManager : MonoBehaviourPunCallbacks
     public void FullScreenButton()
     {
         Screen.fullScreen = !Screen.fullScreen;
+        audioManager.Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Toggles gyro movement
+    /// </summary>
+    public void ToggleGyro()
+    {
+        globalManager.gyroEnabled = !globalManager.gyroEnabled;
+        gyroToggle.isOn = globalManager.gyroEnabled;
         audioManager.Play("MenuSelect");
     }
 
