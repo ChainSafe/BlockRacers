@@ -1,10 +1,11 @@
-using System.Collections;
 using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
+using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Main menu functionality
@@ -34,14 +35,18 @@ public class MainMenu : MonoBehaviourPunCallbacks
         searchingBackButton;
 
     // Back buttons
-    [SerializeField] private GameObject backButtonNormalRace,
+    [SerializeField] private GameObject
+        backButtonNormalRace,
         backButtonWager,
         playersWagerReadyObj,
         playersReady2Obj,
         playersReady5Obj;
 
-    // Players text for multiplayer
-    [SerializeField] private TextMeshProUGUI playersReadyNumberText;
+    // UI texts
+    [SerializeField] private TextMeshProUGUI
+        playersReadyNumberText,
+        walletAddress,
+        raceTokensText;
 
     // Players names arrays for multiplayer
     [SerializeField] private TextMeshProUGUI[] playerWagerNames, player2v2Names, player5v5Names;
@@ -58,7 +63,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     /// <summary>
     /// Initializes objects and checks if we're connected
     /// </summary>
-    private void Awake()
+    private async void Awake()
     {
         // Finds our audio manager
         audioManager = FindObjectOfType<AudioManager>();
@@ -66,6 +71,20 @@ public class MainMenu : MonoBehaviourPunCallbacks
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(connectButton);
+        // Set our connected wallet
+        walletAddress.text = await Web3Accessor.Web3.Signer.GetAddress();
+        // Get race tokens
+        GetRaceTokenBalance();
+    }
+
+    private async void GetRaceTokenBalance()
+    {
+        var response = await Erc20.CustomTokenBalance(Web3Accessor.Web3, ContractManager.TokenAbi, ContractManager.TokenContract);
+        // Conversion with 18 decimals
+        double ethConversion = double.Parse(response.ToString()) / 1000000000000000000;
+        Debug.Log($"Race Tokens: {ethConversion}");
+        raceTokensText.text = ethConversion.ToString();
+        globalManager.raceTokens = ethConversion;
     }
 
     /// <summary>

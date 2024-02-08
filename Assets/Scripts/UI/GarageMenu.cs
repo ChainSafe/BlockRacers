@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using ChainSafe.Gaming.UnityPackage;
+using ChainSafe.Gaming.Web3;
 using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
@@ -251,18 +252,16 @@ public class GarageMenu : MonoBehaviour
             // Sign nonce and set voucher
             BigInteger amount = (BigInteger)(20*1e18);
             await ContractManager.Approve(ContractManager.NftContract, amount);
-            // CHANGE LATER TO POPULATED NFTS
-            int nftId = 1;
             object[] args =
             {
                 amount,
-                nftId,
+                globalManager.selectedNftId
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, _contractMethod, ContractManager.NftAbi, ContractManager.NftContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);
             Debug.Log($"TX: {response}");
         }
-        catch (Exception e)
+        catch (Web3Exception e)
         {
             Console.WriteLine(e);
             throw;
