@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -21,9 +22,33 @@ public class GlobalManager : MonoBehaviour
 
     // Player material
     public Texture2D nftSprite;
-
-    // Player stats
-    public int engineLevel, handlingLevel, nosLevel, engineLevelNft1 = 1, handlingLevelNft1 = 1, nosLevelNft1 = 1, engineLevelNft2 = 1, handlingLevelNft2 = 1, nosLevelNft2 = 1, engineLevelNft3 = 1, handlingLevelNft3 = 1, nosLevelNft3 = 1;
+    
+    // Race tokens
+    public double raceTokens;
+    
+    // Selected Nft to use for the player
+    public int selectedNftId;
+    
+    // Player nft ids
+    public List<int> ownedNftIds;
+    
+    // Player nfts unlocked
+    public bool[] unlockedNfts;
+    public int unlockedNftCount;
+    
+    // Player stats & default values
+    public int engineLevel,
+        handlingLevel,
+        nosLevel,
+        engineLevelNft1 = 1,
+        handlingLevelNft1 = 1,
+        nosLevelNft1 = 1,
+        engineLevelNft2 = 1,
+        handlingLevelNft2 = 1,
+        nosLevelNft2 = 1,
+        engineLevelNft3 = 1,
+        handlingLevelNft3 = 1,
+        nosLevelNft3 = 1;
 
     // Connected bool
     public bool connected;

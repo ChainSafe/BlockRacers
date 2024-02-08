@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using ChainSafe.Gaming.UnityPackage;
 using Scripts.EVM.Token;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Marketplace functionality
@@ -16,22 +17,7 @@ public class MarketplaceMenu : MonoBehaviour
     // Global manager
     private GlobalManager globalManager;
 
-    // The base prefab we're using to display nfts
-    [SerializeField] private GameObject nftPrefab;
-
-    // Our nft image array
-    [SerializeField] private Texture2D[] nfts;
-
-    // Our nft object array
-    [SerializeField] private GameObject[] nftPrefabs;
-    
-    [SerializeField] private GameObject purchaseButton1, purchaseButton2, purchaseButton3, selectButton1, selectButton2, selectButton3;
-
-    // NFT sprites
-    [SerializeField] private Texture2D Nft1, Nft2, Nft3;
-
-    // The canvas to populate
-    [SerializeField] private RectTransform scrollCanvas;
+    [SerializeField] private GameObject mintButton1, mintButton2, mintButton3;
 
     #endregion
 
@@ -44,70 +30,141 @@ public class MarketplaceMenu : MonoBehaviour
     {
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        //CallData();
+        GetOwnerIds();
     }
 
     /// <summary>
-    /// Calls nft data
+    /// Calls owned nfts
     /// </summary>
-    private void CallData()
+    private async void GetOwnerIds()
     {
-        InitializeArrays();
-    }
-
-    /// <summary>
-    /// Initializes our prefab arrays
-    /// </summary>
-    private void InitializeArrays()
-    {
-        // Initialize arrays by size
-        nfts = new Texture2D[2];
-        nftPrefabs = new GameObject[2];
-        InstantiatePrefabs();
-    }
-
-    /// <summary>
-    /// Spawns our nft prefabs
-    /// </summary>
-    private void InstantiatePrefabs()
-    {
-        // Instantiate prefabs and set parent to scroll canvas
-        foreach (var nftPrefabItem in nftPrefabs)
+        var method = "getOwnerNftIds";
+        // Call nft array
+        var data = await Evm.GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+        // Clear the ownedNftIds array before adding new members
+        ((IList)globalManager.ownedNftIds)?.Clear();
+        globalManager.ownedNftIds ??= new List<int>();
+        foreach (var member in data.SelectMany(list => list))
         {
-            // Instantiate prefabs
-            Instantiate(nftPrefab);
-            // Set parent to scroll canvas
-            nftPrefabItem.transform.SetParent(scrollCanvas);
-            // Populates the prefabs
-            PopulatePrefabs(nftPrefabItem);
+            // Add id to players array
+            ((IList)globalManager.ownedNftIds)?.Add(int.Parse(member));
+            Debug.Log($"Getting stats for nftId {member}");
+            GetNftStats(int.Parse(member));
+        }
+        var responseString = string.Join(",\n", data.Select((list, i) => $"{string.Join((string)", ", (IEnumerable<string>)list)}"));
+        SampleOutputUtil.PrintResult(responseString, nameof(Evm), nameof(Evm.GetArray));
+        // Set selected NFT to first ID in the array
+        if (globalManager.ownedNftIds != null) globalManager.selectedNftId = globalManager.ownedNftIds.FirstOrDefault();
+        GetUnlockedNfts();
+    }
+
+    /// <summary>
+    /// Checks unlocked nfts to be used in upgrades
+    /// </summary>
+    private async void GetUnlockedNfts()
+    {
+        var method = "getUnlockedNfts";
+        var data = await Evm.GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+        var responseString = string.Join(",\n", data.Select((list, i) => $"{string.Join((string)", ", (IEnumerable<string>)list)}"));
+        SampleOutputUtil.PrintResult(responseString, nameof(Evm), nameof(Evm.GetArray));
+        string[] values = responseString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        if (values.All(string.IsNullOrWhiteSpace))
+        {
+            Debug.Log("No unlocked nfts, please mint 1");
+            mintButton1.SetActive(true);
+            mintButton2.SetActive(true);
+            mintButton3.SetActive(true);
+            return;
+        }
+        for (int i = 0; i < values.Length; i++)
+        {
+            bool isActive = bool.Parse(values[i].Trim());
+            switch (i)
+            {
+                case 0:
+                    mintButton1.SetActive(!isActive);
+                    if (isActive)
+                    {
+                        globalManager.unlockedNftCount++;
+                    }
+                    break;
+                case 1:
+                    mintButton2.SetActive(!isActive);
+                    if (isActive)
+                    {
+                        globalManager.unlockedNftCount++;
+                    }
+                    break;
+                case 2:
+                    mintButton3.SetActive(!isActive);
+                    if (isActive)
+                    {
+                        globalManager.unlockedNftCount++;
+                    }
+                    break;
+            }
+        }
+        Debug.Log("Unlocked nfts found, mint buttons disabled for owned nfts");
+    }
+
+    private async void GetNftStats(int _nftId)
+    {
+        string method = "getNftStats";
+        object[] args =
+        {
+            _nftId
+        };
+        var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.NftAbi, ContractManager.NftContract, args);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"NFTSTATS: {response}");
+        string[] values = response.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        var nftType = int.Parse(values[0]);
+        var engineLevel = int.Parse(values[1]);
+        var handlingLevel = int.Parse(values[2]);
+        var nosLevel = int.Parse(values[3]);
+        switch (nftType)
+        {
+            case 1:
+                globalManager.engineLevelNft1 = engineLevel;
+                globalManager.handlingLevelNft1 = handlingLevel;
+                globalManager.nosLevelNft1 = nosLevel;
+                break;
+            case 2:
+                globalManager.engineLevelNft2 = engineLevel;
+                globalManager.handlingLevelNft2 = handlingLevel;
+                globalManager.nosLevelNft2 = nosLevel;
+                break;
+            case 3:
+                globalManager.engineLevelNft3 = engineLevel;
+                globalManager.handlingLevelNft3 = handlingLevel;
+                globalManager.nosLevelNft3 = nosLevel;
+                break;
+            default:
+                break;
         }
     }
-
-    /// <summary>
-    /// Populates the nft prefab base with images
-    /// </summary>
-    private void PopulatePrefabs(GameObject nftPrefab)
-    {
-        foreach (Texture2D nftImage in nfts)
-        {
-            Image image = nftPrefab.GetComponent<Image>();
-            image.sprite = nftImage.GetComponent<Image>().sprite;
-        }
-    }
+    
+    // TODO: typecast to ints or rather a tuple to deal with different data types & update main
+    // public static async Task<List<List<string>>> GetArray(Web3 web3, string contractAddress, string abi, string method)
+    // {
+    //     var contract = web3.ContractBuilder.Build(abi, contractAddress);
+    //     var rawResponse = await contract.Call(method);
+    //     return rawResponse.Select(raw => raw as List<string>).ToList();
+    // }
 
     public async void PurchaseNft(int _nftType)
     {
         try
         {
-            // Sign nonce and set voucher
+            // TODO:Sign nonce and set voucher for ECDSA
             BigInteger amount = (BigInteger)(50*1e18);
             await ContractManager.Approve(ContractManager.NftContract, amount);
             var account = await Web3Accessor.Web3.Signer.GetAddress();
-            // Mint
             object[] args =
             {
+                account,
                 amount,
-                _nftType,
+                _nftType
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, "mintNft", ContractManager.NftAbi, ContractManager.NftContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);

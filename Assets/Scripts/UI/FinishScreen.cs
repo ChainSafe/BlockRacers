@@ -1,4 +1,7 @@
+using System.Numerics;
+using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
+using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,21 +50,19 @@ public class FinishScreen : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(menuButton);
         PhotonNetwork.LeaveRoom();
-        // Enables the claim button if we've won
-        if (globalManager.raceWon && globalManager.wagering)
-        {
-            claimButton.SetActive(true);
-        }
-        // Sets the winning player text
+        // Enables the claim button if we've won & sets the winning player text
         if (globalManager.raceWon)
         {
-            winningPlayerObj.SetActive(true);
             winningPlayerText.text = "YOU WON";
+            if (globalManager.wagering)
+            {
+                claimButton.SetActive(true);
+            }
         }
-        // Resets our race won and wagering bools for the next match
-        globalManager.raceWon = false;
-        globalManager.wagering = false;
-        globalManager.wagerAccepted = false;
+        else
+        {
+            winningPlayerText.text = "YOU LOST";
+        }
     }
 
     /// <summary>
@@ -73,32 +74,56 @@ public class FinishScreen : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    // public void ClaimWinnings()
-    // {
-    //     // Chain call to claim wager
-    //     string message = "secretmessage";
-    //     var signature = Evm.EcdsaSignMessage(ContractManager.EcdsaKey, message);
-    //     Debug.Log($"Signed Message: {signature}");
-    //     string method = "claimPvpWager";
-    //     string opponent = ""; // TO DO SET
-    //     object[] args =
-    //     {
-    //         opponent,
-    //         globalManager.wagerAmount,
-    //         signature
-    //     };
-    //     var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.ArrayAndTotalAbi, ContractManager.ArrayAndTotalContract, args);
-    //     var response = SampleOutputUtil.BuildOutputValue(data);
-    //     Debug.Log($"TX: {response}");
-    //     Debug.Log("Claiming Winnings! Congratulations!");
-    //     globalManager.wagerAmount = 0;
-    // }
+    public async void ClaimWinnings()
+    {
+        if (globalManager.wagering)
+        {
+            // TODO: Add ECDSA
+            // Chain call to claim wager
+            //string message = "secretmessage";
+            //var signature = Evm.EcdsaSignMessage(ContractManager.EcdsaKey, message);
+            //Debug.Log($"Signed Message: {signature}");
+            string method = "pvpWagerClaim";
+            // TODO: Set opponent here via photon
+            string opponent = "";
+            object[] args =
+            {
+                opponent,
+                globalManager.wagerAmount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            Debug.Log("Claiming Wager Winnings! Congratulations!");
+            globalManager.wagerAmount = 0;
+            MainMenuButton();
+        }
+        else
+        {
+            // TODO: Add ECDSA
+            string method = "claimWinnings";
+            BigInteger amount = (BigInteger)(50*1e18);
+            object[] args =
+            {
+                amount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"TX: {response}");
+            Debug.Log("Claiming Winnings! Congratulations!");
+            MainMenuButton();
+        }
+    }
 
     /// <summary>
     /// Our main menu button, disconnects us from photon
     /// </summary>
     public void MainMenuButton()
     {
+        // Resets our race won and wagering bools for the next match
+        globalManager.raceWon = false;
+        globalManager.wagering = false;
+        globalManager.wagerAccepted = false;
         globalManager.sceneToLoad = "MenuScene";
         SceneManager.LoadScene("LoadingScreen");
     }
