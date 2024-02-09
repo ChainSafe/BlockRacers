@@ -21,16 +21,17 @@ public class IncrementBuildNumberAndAddLinkerFlag : IPostprocessBuildWithReport,
 
         Debug.Log("OnPostprocessBuild iOS");
         string projPath = PBXProject.GetPBXProjectPath(path);
-
+        Debug.Log(projPath);
         PBXProject proj = new PBXProject();
         proj.ReadFromFile(projPath);
 
-        string target = proj.GetUnityMainTargetGuid();
+        string target = proj.GetUnityFrameworkTargetGuid();
 
         // Set a custom link flag
         proj.AddBuildProperty(target, "OTHER_LDFLAGS", "-ld_classic");
 
         File.WriteAllText(projPath, proj.WriteToString());
+        Debug.Log(proj.WriteToString());
 #endif
     }
     
