@@ -1,9 +1,3 @@
- #!/bin/bash 
-
-if [[ -d "Frameworks" ]]; then
-    rm -fr Frameworks
-fi
-
 echo "Uploading IPA to Appstore Connect..."
  
 #Path is "/BUILD_PATH/<ORG_ID>.<PROJECT_ID>.<BUILD_TARGET_ID>/.build/last/<BUILD_TARGET_ID>/build.ipa"

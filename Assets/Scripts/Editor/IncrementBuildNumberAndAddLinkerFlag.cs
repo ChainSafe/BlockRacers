@@ -29,9 +29,10 @@ public class IncrementBuildNumberAndAddLinkerFlag : IPostprocessBuildWithReport,
 
         // Set a custom link flag
         proj.AddBuildProperty(target, "OTHER_LDFLAGS", "-ld_classic");
+        proj.SetBuildProperty(targetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
+
 
         File.WriteAllText(projPath, proj.WriteToString());
-        Debug.Log(proj.WriteToString());
 #endif
     }
     
