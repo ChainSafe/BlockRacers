@@ -43,6 +43,7 @@ public class IncrementBuildNumberAndAddLinkerFlag : IPostprocessBuildWithReport,
         //But we might end up getting two or three builds in an hour or two or three builds in a day.
         var version = Mathf.RoundToInt((float)(DateTime.Now - new DateTime(2024, 01, 01)).TotalMinutes);
         PlayerSettings.iOS.buildNumber = version.ToString();
-        PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.iOS, ManagedStrippingLevel.Low);
+        PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.iOS, ManagedStrippingLevel.Minimal);
+        PlayerSettings.stripEngineCode = false;
     }
 }

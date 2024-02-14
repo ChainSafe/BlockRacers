@@ -168,7 +168,7 @@ PlayerSettings:
     Bratwurst: 0
     Standalone: 0
     VisionOS: 0
-    iPhone: 62533
+    iPhone: 63937
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
@@ -894,7 +894,7 @@ PlayerSettings:
     WebGL: 4
     Windows Store Apps: 1
     XboxOne: 1
-    iPhone: 1
+    iPhone: 4
     tvOS: 1
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1
