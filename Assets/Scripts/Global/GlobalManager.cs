@@ -23,9 +23,6 @@ public class GlobalManager : MonoBehaviour
     // Race tokens
     public double raceTokens;
     
-    // Selected Nft to use for the player
-    public int selectedNftId;
-    
     // Player nft ids
     public List<int> ownedNftIds;
     
@@ -33,7 +30,9 @@ public class GlobalManager : MonoBehaviour
     public bool[] unlockedNfts;
     
     // Player stats & default values
-    public int engineLevel,
+    public int selectedNftId,
+        selectedNftType,
+        engineLevel,
         handlingLevel,
         nosLevel,
         engineLevelNft1 = 1,
