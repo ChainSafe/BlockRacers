@@ -10,9 +10,6 @@ public class GlobalManager : MonoBehaviour
 
     // String for loading screen
     public string sceneToLoad;
-    
-    // Security integer for contracts
-    public int walletInt;
 
     // Player car
     public GameObject playerCar;
@@ -34,7 +31,6 @@ public class GlobalManager : MonoBehaviour
     
     // Player nfts unlocked
     public bool[] unlockedNfts;
-    public int unlockedNftCount;
     
     // Player stats & default values
     public int engineLevel,

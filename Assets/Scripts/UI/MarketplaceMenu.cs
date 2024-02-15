@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
-using ChainSafe.Gaming.Web3;
 using Scripts.EVM.Token;
 using UnityEngine;
 
@@ -37,11 +35,11 @@ public class MarketplaceMenu : MonoBehaviour
     /// <summary>
     /// Calls owned nfts
     /// </summary>
-    private async void GetOwnerIds()
+    public async void GetOwnerIds()
     {
         var method = "getOwnerNftIds";
         // Call nft array
-        var data = await GetArray<BigInteger>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+        var data = await Evm.GetArray<BigInteger>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
         // Clear the ownedNftIds array before adding new members
         globalManager.ownedNftIds?.Clear();
         globalManager.ownedNftIds ??= new List<int>();
@@ -52,14 +50,12 @@ public class MarketplaceMenu : MonoBehaviour
                 foreach (int member in list)
                 {
                     // Add id to players array
-                    globalManager.ownedNftIds.Add((int)member);
+                    globalManager.ownedNftIds.Add(member);
                     Debug.Log($"Getting stats for nftId {member}");
                     GetNftStats(member);
                 }
             }
         }
-        var responseString = string.Join(",\n", data.Select((list, i) => $"{string.Join(", ", list)}"));
-        SampleOutputUtil.PrintResult(responseString, nameof(Evm), nameof(Evm.GetArray));
         // Set selected NFT to first ID in the array
         globalManager.selectedNftId = globalManager.ownedNftIds.FirstOrDefault();
         GetUnlockedNfts();
@@ -71,7 +67,7 @@ public class MarketplaceMenu : MonoBehaviour
     private async void GetUnlockedNfts()
     {
         var method = "getUnlockedNfts";
-        var data = await GetArray<bool>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+        var data = await Evm.GetArray<bool>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
     
         // Flatten the list of lists into a single list of bool values
         var boolValues = data.SelectMany(innerList => innerList).ToList();
@@ -84,6 +80,9 @@ public class MarketplaceMenu : MonoBehaviour
             mintButton3.SetActive(true);
             return;
         }
+        
+        // Initialize unlockedNfts array with size 3
+        globalManager.unlockedNfts = new bool[3];
     
         for (int i = 0; i < boolValues.Count; i++)
         {
@@ -94,21 +93,21 @@ public class MarketplaceMenu : MonoBehaviour
                     mintButton1.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[0] = true;
                     }
                     break;
                 case 1:
                     mintButton2.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[1] = true;
                     }
                     break;
                 case 2:
                     mintButton3.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[2] = true;
                     }
                     break;
             }
@@ -148,17 +147,7 @@ public class MarketplaceMenu : MonoBehaviour
                 globalManager.handlingLevelNft3 = handlingLevel;
                 globalManager.nosLevelNft3 = nosLevel;
                 break;
-            default:
-                break;
         }
-    }
-    
-    //TODO: REMOVE WHEN MAIN IS UPDATED, JUST HERE TEMPORARILY
-    public static async Task<List<List<T>>> GetArray<T>(Web3 web3, string contractAddress, string abi, string method, object[] args = null)
-    {
-        var contract = web3.ContractBuilder.Build(abi, contractAddress);
-        var rawResponse = args != null ? await contract.Call(method, args) : await contract.Call(method);
-        return rawResponse.Select(raw => raw as List<T>).ToList();
     }
 
     public async void PurchaseNft(int _nftType)
