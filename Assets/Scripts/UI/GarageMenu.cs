@@ -95,7 +95,7 @@ public class GarageMenu : MonoBehaviour
     /// <summary>
     /// Takes the user to the showroom
     /// </summary>
-    public async void ShowRoomMenuButton()
+    public void ShowRoomMenuButton()
     {
         // Rotates our camera to the showroom cars
         CameraController.instance.RotateCamera(95f, 0.5f);
@@ -104,13 +104,6 @@ public class GarageMenu : MonoBehaviour
         menuShowRoom.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
-        // Chain call
-        var account = await Web3Accessor.Web3.Signer.GetAddress();
-        var response = await Erc721.BalanceOf(Web3Accessor.Web3, ContractManager.NftContract, account);
-        if (response == 0) return;
-        Debug.Log($"You own {response} Nfts");
-        // If balance of nfts greater than 0
-        mintNftDescription.SetActive(false);
     }
 
     /// <summary>

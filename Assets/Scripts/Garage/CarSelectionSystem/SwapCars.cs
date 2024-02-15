@@ -20,7 +20,7 @@ public class SwapCars : MonoBehaviour
     // Index of the currently active prefab & livery
     public static int currentLiveryIndex;
 
-    public int currentPrefabIndex, nftTypesOwned;
+    public int currentPrefabIndex;
 
     // Array of prefabs to swap between
     public GameObject[] prefabs;
@@ -65,8 +65,8 @@ public class SwapCars : MonoBehaviour
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         platform.transform.position = new Vector3(currentPrefab.transform.position.x,
             currentPrefab.transform.position.y - 0.45f, currentPrefab.transform.position.z);
-        nftTypesOwned = globalManager.unlockedNftCount;
-        GetNftIds();
+        // Get the initial nft stats
+        GetNftStats();
     }
 
     /// <summary>
@@ -76,15 +76,11 @@ public class SwapCars : MonoBehaviour
     {
         // Destroy the current prefab
         Destroy(currentPrefab);
-        currentPrefabIndex++;
-        if (currentPrefabIndex >= 2)
-        {
-            currentPrefabIndex = 0;
-        }
+        currentPrefabIndex = (currentPrefabIndex <= 1) ? currentPrefabIndex + 1 : 0;
         // Instantiate the next prefab in the array
-        // TODO: Spawn based on nfttype
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
-        GetNftStats(globalManager.ownedNftIds[currentPrefabIndex]);
+        // If owned, fetch stats
+        GetNftStats();
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -96,15 +92,11 @@ public class SwapCars : MonoBehaviour
     {
         // Destroy the current prefab
         Destroy(currentPrefab);
-        currentPrefabIndex--;
-        if (currentPrefabIndex <= 0)
-        {
-            currentPrefabIndex = 2;
-        }
+        currentPrefabIndex = (currentPrefabIndex >= 1) ? currentPrefabIndex - 1 : 2;
         // Instantiate the next prefab in the array
-        // TODO: Spawn based on nfttype
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
-        GetNftStats(globalManager.ownedNftIds[currentPrefabIndex]);
+        // Call stats at start of garage, If nft type owned, change stats else stats go back to default
+        GetNftStats();
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -153,26 +145,12 @@ public class SwapCars : MonoBehaviour
     }
     
     /// <summary>
-    /// Fetches owned Nft Ids
-    /// </summary>
-    private void GetNftIds()
-    {
-        if (globalManager.ownedNftIds == null) return;
-        Debug.Log("Getting nft stats");
-        foreach (var nftId in globalManager.ownedNftIds)
-        {
-            GetNftStats(nftId);
-        }
-    }
-    
-    /// <summary>
     /// Fetches NFT stats
     /// </summary>
     /// <param name="_nftId"></param>
-    private void GetNftStats(int _nftId)
+    private void GetNftStats()
     {
-        Debug.Log("Parsing nft stats data");
-        switch (_nftId)
+        switch (currentPrefabIndex + 1)
         {
             case 1:
                 engineSlider.value = globalManager.engineLevelNft1;
@@ -190,6 +168,10 @@ public class SwapCars : MonoBehaviour
                 boostSlider.value = globalManager.nosLevelNft3;
                 break;
         }
+        globalManager.engineLevel = (int)engineSlider.value;
+        globalManager.handlingLevel = (int)handlingSlider.value;
+        globalManager.nosLevel = (int)boostSlider.value;
+        globalManager.selectedNftId = currentPrefabIndex + 1;
     }
 
     /// <summary>

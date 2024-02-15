@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -36,25 +35,29 @@ public class MarketplaceMenu : MonoBehaviour
     /// <summary>
     /// Calls owned nfts
     /// </summary>
-    private async void GetOwnerIds()
+    public async void GetOwnerIds()
     {
         var method = "getOwnerNftIds";
         // Call nft array
-        var data = await Evm.GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+        var data = await Evm.GetArray<BigInteger>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
         // Clear the ownedNftIds array before adding new members
-        ((IList)globalManager.ownedNftIds)?.Clear();
+        globalManager.ownedNftIds?.Clear();
         globalManager.ownedNftIds ??= new List<int>();
-        foreach (var member in data.SelectMany(list => list))
+        if (data != null)
         {
-            // Add id to players array
-            ((IList)globalManager.ownedNftIds)?.Add(int.Parse(member));
-            Debug.Log($"Getting stats for nftId {member}");
-            GetNftStats(int.Parse(member));
+            foreach (var list in data)
+            {
+                foreach (int member in list)
+                {
+                    // Add id to players array
+                    globalManager.ownedNftIds.Add(member);
+                    Debug.Log($"Getting stats for nftId {member}");
+                    GetNftStats(member);
+                }
+            }
         }
-        var responseString = string.Join(",\n", data.Select((list, i) => $"{string.Join((string)", ", (IEnumerable<string>)list)}"));
-        SampleOutputUtil.PrintResult(responseString, nameof(Evm), nameof(Evm.GetArray));
         // Set selected NFT to first ID in the array
-        if (globalManager.ownedNftIds != null) globalManager.selectedNftId = globalManager.ownedNftIds.FirstOrDefault();
+        globalManager.selectedNftId = globalManager.ownedNftIds.FirstOrDefault();
         GetUnlockedNfts();
     }
 
@@ -64,11 +67,12 @@ public class MarketplaceMenu : MonoBehaviour
     private async void GetUnlockedNfts()
     {
         var method = "getUnlockedNfts";
-        var data = await Evm.GetArray(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
-        var responseString = string.Join(",\n", data.Select((list, i) => $"{string.Join((string)", ", (IEnumerable<string>)list)}"));
-        SampleOutputUtil.PrintResult(responseString, nameof(Evm), nameof(Evm.GetArray));
-        string[] values = responseString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-        if (values.All(string.IsNullOrWhiteSpace))
+        var data = await Evm.GetArray<bool>(Web3Accessor.Web3, ContractManager.NftContract, ContractManager.NftAbi, method);
+    
+        // Flatten the list of lists into a single list of bool values
+        var boolValues = data.SelectMany(innerList => innerList).ToList();
+    
+        if (boolValues.All(value => !value))
         {
             Debug.Log("No unlocked nfts, please mint 1");
             mintButton1.SetActive(true);
@@ -76,30 +80,34 @@ public class MarketplaceMenu : MonoBehaviour
             mintButton3.SetActive(true);
             return;
         }
-        for (int i = 0; i < values.Length; i++)
+        
+        // Initialize unlockedNfts array with size 3
+        globalManager.unlockedNfts = new bool[3];
+    
+        for (int i = 0; i < boolValues.Count; i++)
         {
-            bool isActive = bool.Parse(values[i].Trim());
+            bool isActive = boolValues[i];
             switch (i)
             {
                 case 0:
                     mintButton1.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[0] = true;
                     }
                     break;
                 case 1:
                     mintButton2.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[1] = true;
                     }
                     break;
                 case 2:
                     mintButton3.SetActive(!isActive);
                     if (isActive)
                     {
-                        globalManager.unlockedNftCount++;
+                        globalManager.unlockedNfts[2] = true;
                     }
                     break;
             }
@@ -139,18 +147,8 @@ public class MarketplaceMenu : MonoBehaviour
                 globalManager.handlingLevelNft3 = handlingLevel;
                 globalManager.nosLevelNft3 = nosLevel;
                 break;
-            default:
-                break;
         }
     }
-    
-    // TODO: typecast to ints or rather a tuple to deal with different data types & update main
-    // public static async Task<List<List<string>>> GetArray(Web3 web3, string contractAddress, string abi, string method)
-    // {
-    //     var contract = web3.ContractBuilder.Build(abi, contractAddress);
-    //     var rawResponse = await contract.Call(method);
-    //     return rawResponse.Select(raw => raw as List<string>).ToList();
-    // }
 
     public async void PurchaseNft(int _nftType)
     {
