@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Samples/web3.unity SDK Web3Auth.meta
 guid: 15a43d6b92929d6488f218cd1098de59
+========
+guid: fc29598b49c2de14d8703af4b9cc505e
+>>>>>>>> main:Assets/Samples/web3.unity SDK/2.5.5/Web3.Unity Samples/Data.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
