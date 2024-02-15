@@ -552,14 +552,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
     /// </summary>
     private void HandleSteering()
     {
-        if (!Application.isMobilePlatform)
+        if (Application.isMobilePlatform)
         {
-            currentSteerAngle = maxSteerAngle * horizontalInput;
+            if (globalManager.gyroEnabled)
+            {
+                // If we have gyro input enabled
+                GyroRotation.x = UnityEngine.Input.gyro.rotationRateUnbiased.x;
+                currentSteerAngle = maxSteerAngle * GyroRotation.x;
+            }
+            else
+            {
+                // If we have a mobile device or ipad
+                currentSteerAngle = maxSteerAngle * horizontalInput;
+            }
         }
-        else if (Application.isMobilePlatform && globalManager.gyroEnabled)
+        else
         {
-            GyroRotation.x = UnityEngine.Input.gyro.rotationRateUnbiased.x;
-            currentSteerAngle = maxSteerAngle * GyroRotation.x;
+            // If we're on a desktop with a keyboard
+            currentSteerAngle = maxSteerAngle * horizontalInput;
         }
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
