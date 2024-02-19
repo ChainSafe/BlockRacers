@@ -1,8 +1,4 @@
 using System;
-using System.Numerics;
-using ChainSafe.Gaming.UnityPackage;
-using ChainSafe.Gaming.Web3;
-using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -238,27 +234,12 @@ public class GarageMenu : MonoBehaviour
         PlayMenuSelect();
     }
 
-    private async void PurchaseUpgrade(string _contractMethod)
+    private async void PurchaseUpgrade(int enumValue)
     {
-        try
-        {
-            // Sign nonce and set voucher
-            BigInteger amount = (BigInteger)(20*1e18);
-            await ContractManager.Approve(ContractManager.NftContract, amount);
-            object[] args =
-            {
-                amount,
-                globalManager.selectedNftId
-            };
-            var data = await Evm.ContractSend(Web3Accessor.Web3, _contractMethod, ContractManager.NftAbi, ContractManager.NftContract, args);
-            var response = SampleOutputUtil.BuildOutputValue(data);
-            Debug.Log($"TX: {response}");
-        }
-        catch (Web3Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        var response = await ContractManager.PurchaseUpgrade(globalManager.selectedNftId, enumValue);
+        Debug.Log(response);
+        // Play our menu select audio
+        PlayMenuSelect();
     }
 
     /// <summary>
@@ -271,7 +252,7 @@ public class GarageMenu : MonoBehaviour
             case 1:
                 try
                 {
-                    PurchaseUpgrade("upgradeEngine");
+                    PurchaseUpgrade(1);
                 }
                 catch (Exception e)
                 {
@@ -279,12 +260,12 @@ public class GarageMenu : MonoBehaviour
                     throw;
                 }
                 globalManager.engineLevel = 2;
-                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                engineLevelText.text = $"LEVEL 2";
                 break;
             case 2:
                 try
                 {
-                    PurchaseUpgrade("upgradeEngine");
+                    PurchaseUpgrade(1);
                 }
                 catch (Exception e)
                 {
@@ -292,7 +273,7 @@ public class GarageMenu : MonoBehaviour
                     throw;
                 }
                 globalManager.engineLevel = 3;
-                engineLevelText.text = $"LEVEL {globalManager.engineLevel}";
+                engineLevelText.text = $"LEVEL 3";
                 break;
             case 3:
                 Debug.Log("Engine Level Max!");
@@ -313,20 +294,19 @@ public class GarageMenu : MonoBehaviour
             case 1:
                 try
                 {
-                    PurchaseUpgrade("upgradeHandling");
+                    PurchaseUpgrade(2);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.handlingLevel = 2;
-                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                handlingLevelText.text = $"LEVEL 2";
                 break;
             case 2:
                 try
                 {
-                    PurchaseUpgrade("upgradeHandling");
+                    PurchaseUpgrade(2);
                 }
                 catch (Exception e)
                 {
@@ -334,7 +314,7 @@ public class GarageMenu : MonoBehaviour
                     throw;
                 }
                 globalManager.handlingLevel = 3;
-                handlingLevelText.text = $"LEVEL {globalManager.handlingLevel}";
+                handlingLevelText.text = $"LEVEL 3";
                 break;
             case 3:
                 Debug.Log("Handling Level Max!");
@@ -355,7 +335,7 @@ public class GarageMenu : MonoBehaviour
             case 1:
                 try
                 {
-                    PurchaseUpgrade("upgradeNos");
+                    PurchaseUpgrade(3);
                 }
                 catch (Exception e)
                 {
@@ -363,12 +343,12 @@ public class GarageMenu : MonoBehaviour
                     throw;
                 }
                 globalManager.nosLevel = 2;
-                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                nosLevelText.text = $"LEVEL 2";
                 break;
             case 2:
                 try
                 {
-                    PurchaseUpgrade("upgradeNos");
+                    PurchaseUpgrade(3);
                 }
                 catch (Exception e)
                 {
@@ -376,7 +356,7 @@ public class GarageMenu : MonoBehaviour
                     throw;
                 }
                 globalManager.nosLevel = 3;
-                nosLevelText.text = $"LEVEL {globalManager.nosLevel}";
+                nosLevelText.text = $"LEVEL 3";
                 break;
             case 3:
                 Debug.Log("Nos Level Max!");

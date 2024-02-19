@@ -36,7 +36,7 @@ public class MarketplaceMenu : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        fetchingStatsDisplay.SetActive(true);
+        //fetchingStatsDisplay.SetActive(true);
         GetUnlockedNfts();
     }
 

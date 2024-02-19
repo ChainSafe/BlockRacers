@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -72,45 +71,6 @@ public class SwapCars : MonoBehaviour
         fetchingStatsDisplay.SetActive(true);
         // Call nft data
         GetOwnerIds();
-    }
-
-    public async void GetOwnerIds()
-    {
-        // Contract call
-        var values = await ContractManager.GetOwnerNftIds();
-        // Clear the ownedNftIds list before adding new members
-        globalManager.ownedNftIds?.Clear();
-        globalManager.ownedNftIds ??= new List<int>();
-        if (values != null)
-        {
-            foreach (var list in values)
-            {
-                foreach (int member in list)
-                {
-                    // Add id to players array
-                    globalManager.ownedNftIds.Add(member);
-                    Debug.Log($"Getting stats for nftId {member}");
-                    GetNftData(member);
-                }
-            }
-        }
-    }
-
-    public async void GetNftData(int _nftId)
-    {
-        // Contract call
-        var values = await ContractManager.GetNftStats(_nftId);
-        // Parse values
-        var nftType = int.Parse(values[0]);
-        var engineLevel = int.Parse(values[1]);
-        var handlingLevel = int.Parse(values[2]);
-        var nosLevel = int.Parse(values[3]);
-        // Alter global values based on nft type -1 here as we're converting from type which starts at 1
-        globalManager.engineLevelStats[nftType - 1] = engineLevel;
-        globalManager.handlingLevelStats[nftType - 1] = handlingLevel;
-        globalManager.nosLevelStats[nftType - 1] = nosLevel;
-        // Get the initial nft stats
-        DisplayNftStats();
     }
 
     /// <summary>
@@ -189,7 +149,61 @@ public class SwapCars : MonoBehaviour
     }
     
     /// <summary>
-    /// Fetches NFT stats
+    /// Gets a users owned nft ids array
+    /// </summary>
+    private async void GetOwnerIds()
+    {
+        // Contract call
+        var values = await ContractManager.GetOwnerNftIds();
+        // Clear the ownedNftIds list before adding new members
+        globalManager.ownedNftIds?.Clear();
+        globalManager.ownedNftIds ??= new List<int>();
+        if (values != null)
+        {
+            foreach (var list in values)
+            {
+                foreach (int member in list)
+                {
+                    // Add id to players array
+                    globalManager.ownedNftIds.Add(member);
+                }
+            }
+            // Set the first nftID as selected
+            globalManager.selectedNftId = globalManager.ownedNftIds[0];
+            GetNftData();
+        }
+    }
+    
+    /// <summary>
+    /// Fetches NFT data from the chain
+    /// </summary>
+    /// <param name="_nftId"></param>
+    private async void GetNftData()
+    {
+        Debug.Log($"Getting stats");
+        // Contract call
+        //var values = await ContractManager.GetNftStatsWithType();
+        var values = await ContractManager.GetNftStatsWithType();
+        foreach (var member in values)
+        {
+            foreach (var value in member)
+            {
+                Debug.Log("ID: " + value);
+            }
+        }
+        // Parse values
+        for (int i = 1; i < values.Count; i++)
+        {
+            globalManager.engineLevelStats[i] = int.Parse(values[i][1]);
+            globalManager.handlingLevelStats[i] = int.Parse(values[i][2]);
+            globalManager.nosLevelStats[i] = int.Parse(values[i][3]);
+        }
+        // Get the initial nft stats
+        DisplayNftStats();
+    }
+    
+    /// <summary>
+    /// Displays NFT stats
     /// </summary>
     /// <param name="_nftId"></param>
     private void DisplayNftStats()
@@ -204,6 +218,8 @@ public class SwapCars : MonoBehaviour
         globalManager.nosLevel = (int)boostSlider.value;
         // +1 here as we're converting from index to type which starts at 1
         globalManager.selectedNftType = currentPrefabIndex + 1;
+        // Sets our selected NFT ID
+        globalManager.selectedNftId = globalManager.ownedNftIds[currentPrefabIndex];
         fetchingStatsDisplay.SetActive(false);
     }
 
