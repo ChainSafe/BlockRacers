@@ -34,16 +34,9 @@ public class GlobalManager : MonoBehaviour
         selectedNftType,
         engineLevel,
         handlingLevel,
-        nosLevel,
-        engineLevelNft1 = 1,
-        handlingLevelNft1 = 1,
-        nosLevelNft1 = 1,
-        engineLevelNft2 = 1,
-        handlingLevelNft2 = 1,
-        nosLevelNft2 = 1,
-        engineLevelNft3 = 1,
-        handlingLevelNft3 = 1,
-        nosLevelNft3 = 1;
+        nosLevel;
+
+    public int[] engineLevelStats, nosLevelStats, handlingLevelStats;
 
     // Connected bool
     public bool connected;
@@ -76,6 +69,23 @@ public class GlobalManager : MonoBehaviour
         Application.targetFrameRate = 60;
         // Makes object global and doesnt destroy it when changing scenes
         DontDestroyOnLoad(this);
+        // Initialize data arrays so they dont error
+        unlockedNfts = new bool[3];
+        engineLevelStats = new int[3];
+        nosLevelStats = new int[3];
+        handlingLevelStats = new int[3];
+        // Temp array to assign initial values
+        int[] initialValues = { 1, 1, 1 };
+        // Iterate over arrays and set values
+        int index = 0;
+        foreach (int[] array in new[] { engineLevelStats, nosLevelStats, handlingLevelStats })
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = initialValues[index];
+            }
+            index++;
+        }
     }
 
     #endregion

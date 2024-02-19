@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectLogin : MonoBehaviour
 {
@@ -35,5 +36,14 @@ public class SelectLogin : MonoBehaviour
         w3AObject.SetActive(false);
         menuObject.SetActive(true);
         audioManager.Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Sets our selected button to what we've moused over
+    /// </summary>
+    /// <param name="button">The button being moused over</param>
+    public void OnMouseOverButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
     }
 }
