@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
@@ -33,8 +34,11 @@ public class SwapCars : MonoBehaviour
     // Our available colours for each model
     public Material[] camaroLivery;
     public Material[] fordGTLivery;
-
     public Material[] ferrariLivery;
+    
+    // Nft stat fetch display
+    [SerializeField]
+    private GameObject fetchingStatsDisplay;
 
     // Car prefabs
     public GameObject car1, car2, car3;
@@ -65,8 +69,48 @@ public class SwapCars : MonoBehaviour
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         platform.transform.position = new Vector3(currentPrefab.transform.position.x,
             currentPrefab.transform.position.y - 0.45f, currentPrefab.transform.position.z);
+        fetchingStatsDisplay.SetActive(true);
+        // Call nft data
+        GetOwnerIds();
+    }
+
+    public async void GetOwnerIds()
+    {
+        // Contract call
+        var values = await ContractManager.GetOwnerNftIds();
+        // Clear the ownedNftIds list before adding new members
+        globalManager.ownedNftIds?.Clear();
+        globalManager.ownedNftIds ??= new List<int>();
+        if (values != null)
+        {
+            foreach (var list in values)
+            {
+                foreach (int member in list)
+                {
+                    // Add id to players array
+                    globalManager.ownedNftIds.Add(member);
+                    Debug.Log($"Getting stats for nftId {member}");
+                    GetNftData(member);
+                }
+            }
+        }
+    }
+
+    public async void GetNftData(int _nftId)
+    {
+        // Contract call
+        var values = await ContractManager.GetNftStats(_nftId);
+        // Parse values
+        var nftType = int.Parse(values[0]);
+        var engineLevel = int.Parse(values[1]);
+        var handlingLevel = int.Parse(values[2]);
+        var nosLevel = int.Parse(values[3]);
+        // Alter global values based on nft type -1 here as we're converting from type which starts at 1
+        globalManager.engineLevelStats[nftType - 1] = engineLevel;
+        globalManager.handlingLevelStats[nftType - 1] = handlingLevel;
+        globalManager.nosLevelStats[nftType - 1] = nosLevel;
         // Get the initial nft stats
-        GetNftStats();
+        DisplayNftStats();
     }
 
     /// <summary>
@@ -80,7 +124,7 @@ public class SwapCars : MonoBehaviour
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         // If owned, fetch stats
-        GetNftStats();
+        DisplayNftStats();
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -96,7 +140,7 @@ public class SwapCars : MonoBehaviour
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         // Call stats at start of garage, If nft type owned, change stats else stats go back to default
-        GetNftStats();
+        DisplayNftStats();
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -148,30 +192,19 @@ public class SwapCars : MonoBehaviour
     /// Fetches NFT stats
     /// </summary>
     /// <param name="_nftId"></param>
-    private void GetNftStats()
+    private void DisplayNftStats()
     {
-        switch (currentPrefabIndex + 1)
-        {
-            case 1:
-                engineSlider.value = globalManager.engineLevelNft1;
-                handlingSlider.value = globalManager.handlingLevelNft1;
-                boostSlider.value = globalManager.nosLevelNft1;
-                break;
-            case 2:
-                engineSlider.value = globalManager.engineLevelNft2;
-                handlingSlider.value = globalManager.handlingLevelNft2;
-                boostSlider.value = globalManager.nosLevelNft2;
-                break;
-            case 3:
-                engineSlider.value = globalManager.engineLevelNft3;
-                handlingSlider.value = globalManager.handlingLevelNft3;
-                boostSlider.value = globalManager.nosLevelNft3;
-                break;
-        }
+        // Set slider values to stored data values
+        engineSlider.value = globalManager.engineLevelStats[currentPrefabIndex];
+        handlingSlider.value = globalManager.handlingLevelStats[currentPrefabIndex];
+        boostSlider.value = globalManager.nosLevelStats[currentPrefabIndex];
+        // Set selected type & nft stats for use in race
         globalManager.engineLevel = (int)engineSlider.value;
         globalManager.handlingLevel = (int)handlingSlider.value;
         globalManager.nosLevel = (int)boostSlider.value;
-        globalManager.selectedNftId = currentPrefabIndex + 1;
+        // +1 here as we're converting from index to type which starts at 1
+        globalManager.selectedNftType = currentPrefabIndex + 1;
+        fetchingStatsDisplay.SetActive(false);
     }
 
     /// <summary>

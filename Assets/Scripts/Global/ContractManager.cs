@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
+using ChainSafe.Gaming.Web3;
 using Scripts.EVM.Token;
 using UnityEngine;
 
@@ -41,29 +45,140 @@ public class ContractManager : MonoBehaviour
     
     public static async Task Approve(string _spender, BigInteger _amount)
     {
-        object[] args =
+        try
         {
-            _spender,
-            _amount
-        };
-        Debug.Log($"Approving spend amount");
-        var data = await Evm.ContractSend(Web3Accessor.Web3, "approve", TokenAbi, TokenContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"Approval TX: {response}");
+            object[] args =
+            {
+                _spender,
+                _amount
+            };
+            Debug.Log($"Approving spend amount");
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "approve", TokenAbi, TokenContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"Approval TX: {response}");
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     public static async Task<BigInteger> GetNonce(string _contract, string _abi)
     {
-        string account = await Web3Accessor.Web3.Signer.GetAddress();
-        object[] args =
+        try
         {
-            account
-        };
-        Debug.Log($"Getting nonce");
-        var data = await Evm.ContractCall(Web3Accessor.Web3, "nonce", _abi, _contract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"Nonce: {response}");
-        return BigInteger.Parse(response);
+            string account = await Web3Accessor.Web3.Signer.GetAddress();
+            object[] args =
+            {
+                account
+            };
+            Debug.Log($"Getting nonce");
+            var data = await Evm.ContractCall(Web3Accessor.Web3, "nonce", _abi, _contract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"Nonce: {response}");
+            return BigInteger.Parse(response);
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task<List<bool>> GetUnlockedNfts()
+    {
+        try
+        {
+            var method = "getUnlockedNfts";
+            var data = await Evm.GetArray<bool>(Web3Accessor.Web3, NftContract, NftAbi, method);
+            // Flatten the list of lists into a single list of bool values
+            var boolValues = data.SelectMany(innerList => innerList).ToList();
+            return boolValues;
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task<string[]> GetNftStats(int _nftId)
+    {
+        try
+        {
+            string method = "getNftStats";
+            object[] args =
+            {
+                _nftId
+            };
+            var data = await Evm.ContractCall(Web3Accessor.Web3, method, NftAbi, NftContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            string[] values = response.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return values;
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task<string> PurchaseNft(int _nftType)
+    {
+        try
+        {
+            // TODO:Sign nonce and set voucher for ECDSA
+            BigInteger amount = (BigInteger)(50*1e18);
+            await ContractManager.Approve(ContractManager.NftContract, amount);
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
+            object[] args =
+            {
+                account,
+                amount,
+                _nftType
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "mintNft", NftAbi, NftContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            return response;
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task<string> MintRaceTokens()
+    {
+        try
+        {
+            // Sign nonce and set voucher
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
+            BigInteger amount = (BigInteger)(500*1e18);
+            // Mint
+            object[] args =
+            {
+                account,
+                amount
+            };
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "mint", TokenAbi, TokenContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            return response;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task<List<List<BigInteger>>> GetOwnerNftIds()
+    {
+        var method = "getOwnerNftIds";
+        // Call nft array
+        var data = await Evm.GetArray<BigInteger>(Web3Accessor.Web3, NftContract, NftAbi, method);
+        return data;
     }
     
     #endregion
