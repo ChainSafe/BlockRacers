@@ -182,7 +182,6 @@ public class SwapCars : MonoBehaviour
     {
         Debug.Log($"Getting stats");
         // Contract call
-        //var values = await ContractManager.GetNftStatsWithType();
         var values = await ContractManager.GetNftStatsWithType();
         foreach (var member in values)
         {
