@@ -229,23 +229,5 @@ public class ContractManager : MonoBehaviour
         }
     }
     
-    /// <summary>
-    /// Gets all owned Nft ids
-    /// </summary>
-    /// <returns></returns>
-    public static async Task<List<List<BigInteger>>> GetOwnerNftIds()
-    {
-        var method = "getUserCars";
-        var account = await Web3Accessor.Web3.Signer.GetAddress();
-        // Mint
-        object[] args =
-        {
-            account
-        };
-        // Call nft array
-        var data = await Evm.GetArray<BigInteger>(Web3Accessor.Web3, NftContract, NftAbi, method, args);
-        return data;
-    }
-    
     #endregion
 }
