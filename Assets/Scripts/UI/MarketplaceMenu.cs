@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -34,7 +35,7 @@ public class MarketplaceMenu : MonoBehaviour
     /// <summary>
     /// Calls unlocked nfts whenever the menu is opened
     /// </summary>
-    private void Start()
+    private void OnEnable()
     {
         fetchingStatsDisplay.SetActive(true);
         GetUnlockedNfts();

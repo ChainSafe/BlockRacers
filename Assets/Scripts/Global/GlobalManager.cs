@@ -23,20 +23,20 @@ public class GlobalManager : MonoBehaviour
     // Race tokens
     public double raceTokens;
     
-    // Player nft ids
-    public List<int> ownedNftIds;
-    
     // Player nfts unlocked
     public bool[] unlockedNfts;
     
-    // Player stats & default values
+    // Player stats
     public int selectedNftId,
         selectedNftType,
         engineLevel,
         handlingLevel,
         nosLevel;
 
-    public int[] engineLevelStats, nosLevelStats, handlingLevelStats;
+    public int[] ownedNftIds, 
+        engineLevelStats,
+        nosLevelStats,
+        handlingLevelStats;
 
     // Connected bool
     public bool connected;
@@ -71,6 +71,7 @@ public class GlobalManager : MonoBehaviour
         DontDestroyOnLoad(this);
         // Initialize data arrays so they dont error
         unlockedNfts = new bool[3];
+        ownedNftIds = new int [3];
         engineLevelStats = new int[3];
         nosLevelStats = new int[3];
         handlingLevelStats = new int[3];
