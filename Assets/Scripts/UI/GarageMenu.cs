@@ -1,4 +1,5 @@
 using System;
+using ChainSafe.Gaming.Web3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,7 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, mintNftDescription;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, mintNftDescription, fetchingStatsDisplay;
 
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
 
@@ -237,10 +238,23 @@ public class GarageMenu : MonoBehaviour
 
     private async void PurchaseUpgrade(int enumValue)
     {
-        var response = await ContractManager.PurchaseUpgrade(globalManager.selectedNftId, enumValue);
-        Debug.Log(response);
-        // Play our menu select audio
-        PlayMenuSelect();
+        try
+        {
+            fetchingStatsDisplay.SetActive(true);
+            var response = await ContractManager.PurchaseUpgrade(globalManager.selectedNftId, enumValue);
+            Debug.Log(response);
+            // Play our menu select audio
+            PlayMenuSelect();
+            await new WaitForSeconds(8);
+            fetchingStatsDisplay.SetActive(false);
+            GarageMenuButton();
+        }
+        catch (Web3Exception e)
+        {
+            fetchingStatsDisplay.SetActive(false);
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>

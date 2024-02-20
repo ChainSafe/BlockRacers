@@ -116,6 +116,7 @@ public class SwapCars : MonoBehaviour
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
         // Display stats
         DisplayNftStats();
+        globalManager.playerCar = currentPrefab;
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -191,6 +192,14 @@ public class SwapCars : MonoBehaviour
     /// <param name="_nftId"></param>
     private void DisplayNftStats()
     {
+        // Set our selected car
+        globalManager.playerCar = currentPrefabIndex switch
+        {
+            0 => car1,
+            1 => car2,
+            2 => car3,
+            _ => globalManager.playerCar
+        };
         // Set slider values to stored data values
         engineSlider.value = globalManager.engineLevelStats[currentPrefabIndex];
         handlingSlider.value = globalManager.handlingLevelStats[currentPrefabIndex];

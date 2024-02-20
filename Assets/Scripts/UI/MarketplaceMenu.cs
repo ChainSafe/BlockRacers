@@ -1,4 +1,5 @@
 using System;
+using ChainSafe.Gaming.Web3;
 using UnityEngine;
 
 /// <summary>
@@ -88,9 +89,22 @@ public class MarketplaceMenu : MonoBehaviour
     /// <param name="_nftType"></param>
     public async void PurchaseNft(int _nftType)
     {
-        var response = await ContractManager.PurchaseNft(_nftType);
-        Debug.Log($"Response: {response}");
-        GarageMenu.instance.PlayMenuSelect();
+        try
+        {
+            fetchingStatsDisplay.SetActive(true);
+            var response = await ContractManager.PurchaseNft(_nftType);
+            Debug.Log($"Response: {response}");
+            GarageMenu.instance.PlayMenuSelect();
+            await new WaitForSeconds(8);
+            GetUnlockedNfts();
+            fetchingStatsDisplay.SetActive(false);
+        }
+        catch (Web3Exception e)
+        {
+            fetchingStatsDisplay.SetActive(false);
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     /// <summary>
