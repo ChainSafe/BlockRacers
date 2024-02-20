@@ -14399,6 +14399,7 @@ MonoBehaviour:
   menuChangeNft: {fileID: 1658341960}
   menuMarket: {fileID: 423042307}
   mintNftDescription: {fileID: 1136454868}
+  fetchingStatsDisplay: {fileID: 627306665}
   engineLevelText: {fileID: 705452680}
   handlingLevelText: {fileID: 270261494}
   nosLevelText: {fileID: 1674179334}

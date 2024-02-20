@@ -9526,7 +9526,7 @@ GameObject:
   - component: {fileID: 5078472153164806727}
   - component: {fileID: 4744235669282096191}
   - component: {fileID: 6289212256194757638}
-  - component: {fileID: 5333052610545169933}
+  - component: {fileID: 1334217136827141976}
   m_Layer: 0
   m_Name: CarBody
   m_TagString: CarBody
@@ -9604,8 +9604,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5333052610545169933
-MeshCollider:
+--- !u!65 &1334217136827141976
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9622,10 +9622,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3209554841506446676, guid: 93b188ea694fefb4b83b5683e3a2ac6a, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.021177275, y: 0.046875592, z: 0.01012642}
+  m_Center: {x: 0, y: -0.0000902452, z: 0.008}
 --- !u!1 &4452216545660761275
 GameObject:
   m_ObjectHideFlags: 0
