@@ -47,40 +47,49 @@ public class MarketplaceMenu : MonoBehaviour
     /// </summary>
     private async void GetUnlockedNfts()
     {
-        // Contract call
-        var values = await ContractManager.GetUnlockedNfts();
-        Debug.Log("Checking unlocked Nfts");
-        // Disable the mint button for an NFT if already purchased
-        for (int i = 0; i < values.Count; i++)
+        try
         {
-            bool isActive = values[i];
-            switch (i)
+            // Contract call
+            var values = await ContractManager.GetUnlockedNfts();
+            Debug.Log("Checking unlocked Nfts");
+            // Disable the mint button for an NFT if already purchased
+            for (int i = 0; i < values.Count; i++)
             {
-                case 0:
-                    mintButton1.SetActive(!isActive);
-                    if (isActive)
-                    {
-                        globalManager.unlockedNfts[0] = true;
-                    }
-                    break;
-                case 1:
-                    mintButton2.SetActive(!isActive);
-                    if (isActive)
-                    {
-                        globalManager.unlockedNfts[1] = true;
-                    }
-                    break;
-                case 2:
-                    mintButton3.SetActive(!isActive);
-                    if (isActive)
-                    {
-                        globalManager.unlockedNfts[2] = true;
-                    }
-                    break;
+                bool isActive = values[i];
+                switch (i)
+                {
+                    case 0:
+                        mintButton1.SetActive(!isActive);
+                        if (isActive)
+                        {
+                            globalManager.unlockedNfts[0] = true;
+                        }
+                        break;
+                    case 1:
+                        mintButton2.SetActive(!isActive);
+                        if (isActive)
+                        {
+                            globalManager.unlockedNfts[1] = true;
+                        }
+                        break;
+                    case 2:
+                        mintButton3.SetActive(!isActive);
+                        if (isActive)
+                        {
+                            globalManager.unlockedNfts[2] = true;
+                        }
+                        break;
+                }
             }
+            Debug.Log("Unlocked nfts found, mint buttons disabled for owned nfts");
+            fetchingStatsDisplay.SetActive(false);
         }
-        Debug.Log("Unlocked nfts found, mint buttons disabled for owned nfts");
-        fetchingStatsDisplay.SetActive(false);
+        catch (Web3Exception e)
+        {
+            fetchingStatsDisplay.SetActive(false);
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     /// <summary>
