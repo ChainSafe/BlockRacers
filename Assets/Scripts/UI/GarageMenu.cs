@@ -366,8 +366,11 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // If no upgrade is selected, we don't want the purchase button to show.
-        purchaseButton.SetActive(upgradeIndex >= 1);
+        // If no upgrade is selected and we dont own the nft, we don't want the purchase button to show.
+        if (globalManager.selectedNftId != 0)
+        {
+            purchaseButton.SetActive(upgradeIndex >= 1);
+        }
         // We also want to set the description based on what upgrade is selected
         descriptionText.text =
             (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
