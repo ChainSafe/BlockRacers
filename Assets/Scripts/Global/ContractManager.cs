@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
+using Newtonsoft.Json;
 using Scripts.EVM.Token;
 using UnityEngine;
 
@@ -127,7 +128,7 @@ public class ContractManager : MonoBehaviour
     /// Gets an NFTs stats with type included
     /// </summary>
     /// <returns></returns>
-    public static async Task<List<List<string>>> GetNftStatsWithType()
+    public static async Task<List<List<List<BigInteger>>>> GetNftStatsWithType()
     {
         try
         {
@@ -137,20 +138,8 @@ public class ContractManager : MonoBehaviour
             {
                 account
             };
-            var data = await Evm.ContractCall(Web3Accessor.Web3, method, helperAbi, helperContract, args);
-            var response = SampleOutputUtil.BuildOutputValue(data);
-            List<List<string>> parsedResponse = new List<List<string>>();
-            // Removing brackets and splitting by comma followed by space
-            string[] elements = response.Replace("[[", "").Replace("]]", "").Split(new string[] { "], [" }, StringSplitOptions.None);
-            foreach (string element in elements)
-            {
-                // Removing extra spaces and splitting by comma
-                string[] items = element.Replace(" ", "").Split(',');
-
-                List<string> itemList = new List<string>(items);
-                parsedResponse.Add(itemList);
-            }
-            return parsedResponse;
+            var data = await Evm.GetArray<List<BigInteger>>(Web3Accessor.Web3, helperContract, helperAbi, method, args);
+            return data;
         }
         catch (Web3Exception e)
         {
@@ -197,13 +186,13 @@ public class ContractManager : MonoBehaviour
         try
         {
             BigInteger amount = (BigInteger)(20*1e18);
-            await ContractManager.Approve(ContractManager.NftContract, amount);
+            await Approve(NftContract, amount);
             object[] args =
             {
                 nftId,
                 enumValue
             };
-            var data = await Evm.ContractSend(Web3Accessor.Web3, "upgrade", ContractManager.NftAbi, ContractManager.NftContract, args);
+            var data = await Evm.ContractSend(Web3Accessor.Web3, "upgrade", NftAbi, NftContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);
             return response;
         }

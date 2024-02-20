@@ -97,6 +97,7 @@ public class GarageMenu : MonoBehaviour
         CameraController.instance.RotateCamera(95f, 0.5f);
         // Changes menu displays
         menuGarage.SetActive(false);
+        menuUpgrade.SetActive(false);
         menuShowRoom.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
@@ -259,7 +260,6 @@ public class GarageMenu : MonoBehaviour
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.engineLevel = 2;
                 engineLevelText.text = $"LEVEL 2";
                 break;
             case 2:
@@ -272,7 +272,6 @@ public class GarageMenu : MonoBehaviour
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.engineLevel = 3;
                 engineLevelText.text = $"LEVEL 3";
                 break;
             case 3:
@@ -313,7 +312,6 @@ public class GarageMenu : MonoBehaviour
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.handlingLevel = 3;
                 handlingLevelText.text = $"LEVEL 3";
                 break;
             case 3:
@@ -342,7 +340,6 @@ public class GarageMenu : MonoBehaviour
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.nosLevel = 2;
                 nosLevelText.text = $"LEVEL 2";
                 break;
             case 2:
@@ -355,7 +352,6 @@ public class GarageMenu : MonoBehaviour
                     Console.WriteLine(e);
                     throw;
                 }
-                globalManager.nosLevel = 3;
                 nosLevelText.text = $"LEVEL 3";
                 break;
             case 3:
