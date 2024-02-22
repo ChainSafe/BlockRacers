@@ -675,6 +675,7 @@ namespace Smooth
         /// <summary>Automatically sends teleport message for this object OnEnable(). Also add scene loaded event handler.</summary>
         public override void OnEnable()
         {
+            if(!PhotonNetwork.IsConnected) return;
             photonView.AddCallbackTarget(this);
             SceneManager.sceneLoaded += OnSceneLoaded;
             if (photonView && photonView.IsMine && photonView.ViewID > 0)
