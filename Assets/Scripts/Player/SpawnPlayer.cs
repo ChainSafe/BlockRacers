@@ -47,6 +47,8 @@ public class SpawnPlayer : MonoBehaviour
                     spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position.z),
                 spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.rotation, 0);
         }
+        
+        if(SwapCars.instance == null || globalManager.playerCar == null) return;
 
         // If we're racing with the Camaro
         if (globalManager.playerCar == SwapCars.instance.car1)
