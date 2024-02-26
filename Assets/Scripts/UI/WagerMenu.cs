@@ -1,5 +1,6 @@
 using System;
 using ChainSafe.Gaming.UnityPackage;
+using ChainSafe.Gaming.Web3;
 using Photon.Pun;
 using Scripts.EVM.Token;
 using TMPro;
@@ -47,7 +48,6 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      {
          Debug.Log("Setting Wager!");
          var account = await Web3Accessor.Web3.Signer.GetAddress();
-         
          if (int.Parse(wagerInput.text) > 100)
          {
              wagerAmount = 100;
@@ -56,24 +56,6 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          {
              wagerAmount = int.Parse(wagerInput.text);
          }
-
-         try
-         {
-             // Set wager
-             object[] args =
-             {
-                 wagerAmount
-             };
-             var data = await Evm.ContractSend(Web3Accessor.Web3, "setPvpWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
-             var response = SampleOutputUtil.BuildOutputValue(data);
-             Debug.Log($"TX: {response}");
-         }
-         catch (Exception e)
-         {
-             Console.WriteLine(e);
-             throw;
-         }
-         
          Debug.Log($"Wager set at: {wagerAmount}");
          globalManager.wagerAmount = wagerAmount;
          photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account);
@@ -88,18 +70,19 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          var account = await Web3Accessor.Web3.Signer.GetAddress();
          try
          {
-             // TO DO SET OPPONENT
-             string opponent = "";
              object[] args =
              {
-                 opponent,
+                 globalManager.wagerOpponent,
                  wagerAmount,
+                 null,
+                 null,
+                 null
              };
-             var data = await Evm.ContractSend(Web3Accessor.Web3, "acceptPvpWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
+             var data = await Evm.ContractSend(Web3Accessor.Web3, "startWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
          }
-         catch (Exception e)
+         catch (Web3Exception e)
          {
              Console.WriteLine(e);
              throw;

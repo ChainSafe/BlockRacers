@@ -79,17 +79,12 @@ public class FinishScreen : MonoBehaviour
         if (globalManager.wagering)
         {
             // TODO: Add ECDSA
-            // Chain call to claim wager
-            //string message = "secretmessage";
-            //var signature = Evm.EcdsaSignMessage(ContractManager.EcdsaKey, message);
-            //Debug.Log($"Signed Message: {signature}");
-            string method = "pvpWagerClaim";
-            // TODO: Set opponent here via photon
-            string opponent = "";
+            string method = "completeWager";
             object[] args =
             {
-                opponent,
-                globalManager.wagerAmount
+                null,
+                null,
+                null
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);
