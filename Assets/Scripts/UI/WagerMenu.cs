@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using Photon.Pun;
@@ -56,6 +57,8 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          {
              wagerAmount = int.Parse(wagerInput.text);
          }
+         // Approve transfer amount
+         await ContractManager.Approve(ContractManager.WagerContract, globalManager.wagerAmount);
          Debug.Log($"Wager set at: {wagerAmount}");
          globalManager.wagerAmount = wagerAmount;
          photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account);
@@ -70,13 +73,19 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          var account = await Web3Accessor.Web3.Signer.GetAddress();
          try
          {
+             // Approve transfer amount
+             //await ContractManager.Approve(ContractManager.WagerContract, globalManager.wagerAmount);
+             // Additional function parameters
+             BigInteger nonce = 0;
+             BigInteger deadline = 0;
+             byte[] opponentSig = { };
              object[] args =
              {
                  globalManager.wagerOpponent,
-                 wagerAmount,
-                 null,
-                 null,
-                 null
+                 globalManager.wagerAmount,
+                 nonce,
+                 deadline,
+                 opponentSig
              };
              var data = await Evm.ContractSend(Web3Accessor.Web3, "startWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);

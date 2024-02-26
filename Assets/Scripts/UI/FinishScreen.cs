@@ -80,11 +80,15 @@ public class FinishScreen : MonoBehaviour
         {
             // TODO: Add ECDSA
             string method = "completeWager";
+            // Additional function parameters
+            BigInteger nonce = 0;
+            BigInteger deadline = 0;
+            byte[] opponentSig = { };
             object[] args =
             {
-                null,
-                null,
-                null
+                nonce,
+                deadline,
+                opponentSig
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);

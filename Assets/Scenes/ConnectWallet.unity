@@ -15275,10 +15275,10 @@ RectTransform:
   m_Father: {fileID: 1698289654}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -25}
+  m_SizeDelta: {x: 300, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530285491
 MonoBehaviour:
@@ -21452,10 +21452,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffc6d55a25793f4e8bb080c88883961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MetaMaskButton: {fileID: 1877403217}
-  QRButton: {fileID: 861555191}
+  metamaskButton: {fileID: 1877403217}
+  qrButton: {fileID: 861555191}
+  metamaskObject: {fileID: 2108568038}
   w3AObject: {fileID: 330725707}
   menuObject: {fileID: 1277465112}
+  qrObject: {fileID: 1073938965}
 --- !u!1 &725177459
 GameObject:
   m_ObjectHideFlags: 0
@@ -24515,7 +24517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &861555192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29652,7 +29654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1073938966
 Transform:
   m_ObjectHideFlags: 0
@@ -51939,7 +51941,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.725}
   m_AnchoredPosition: {x: 960, y: 783}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1698289655
 MonoBehaviour:
@@ -77134,7 +77136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2108568039
 Transform:
   m_ObjectHideFlags: 0
