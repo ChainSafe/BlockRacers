@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Text;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using Photon.Pun;
@@ -47,49 +48,68 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      /// </summary>
      public async void SetWager()
      {
-         Debug.Log("Setting Wager!");
-         var account = await Web3Accessor.Web3.Signer.GetAddress();
-         if (int.Parse(wagerInput.text) > 100)
+         try
          {
-             wagerAmount = 100;
+             Debug.Log("Setting Wager!");
+             var account = await Web3Accessor.Web3.Signer.GetAddress();
+             if (int.Parse(wagerInput.text) > 100)
+             {
+                 wagerAmount = 100;
+             }
+             else
+             {
+                 wagerAmount = int.Parse(wagerInput.text);
+             }
+             // Approve transfer amount
+             BigInteger wager = BigInteger.Multiply(wagerAmount, BigInteger.Pow(10, 18));
+             await ContractManager.Approve(ContractManager.WagerContract, wager);
+             // Convert the current time to Unix timestamp & add 15 minutes so it doesn't expire
+             BigInteger deadline = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 900;
+             // Additional function parameters
+             BigInteger nonce = 1;
+             var message = $"{account}{wager}{nonce}{deadline}{ContractManager.WagerContract}{338}";
+             // Sign & send sig to opponent over rpc
+             string signature = await Evm.SignMessage(Web3Accessor.Web3, message);
+             Debug.Log($"Wager set at: {wagerAmount}");
+             globalManager.wagerAmount = wagerAmount;
+             photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account, signature, deadline.ToString());
          }
-         else
+         catch (Web3Exception e)
          {
-             wagerAmount = int.Parse(wagerInput.text);
+             Console.WriteLine(e);
+             throw;
          }
-         // Approve transfer amount
-         await ContractManager.Approve(ContractManager.WagerContract, globalManager.wagerAmount);
-         Debug.Log($"Wager set at: {wagerAmount}");
-         globalManager.wagerAmount = wagerAmount;
-         photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account);
      }
-    
+     
      /// <summary>
      /// Accepts wager
      /// </summary>
      public async void AcceptWager()
      {
-         // Chain call to set wager
-         var account = await Web3Accessor.Web3.Signer.GetAddress();
          try
          {
+             var account = await Web3Accessor.Web3.Signer.GetAddress();
              // Approve transfer amount
-             //await ContractManager.Approve(ContractManager.WagerContract, globalManager.wagerAmount);
+             BigInteger wager = BigInteger.Multiply(globalManager.wagerAmount, BigInteger.Pow(10, 18));
+             await ContractManager.Approve(ContractManager.WagerContract, wager);
              // Additional function parameters
-             BigInteger nonce = 0;
-             BigInteger deadline = 0;
-             byte[] opponentSig = { };
+             BigInteger nonce = 1;
+             byte[] opponentSig = Encoding.UTF8.GetBytes(globalManager.opponentSignature);
              object[] args =
              {
                  globalManager.wagerOpponent,
-                 globalManager.wagerAmount,
+                 wager,
                  nonce,
-                 deadline,
+                 globalManager.deadline,
                  opponentSig
              };
              var data = await Evm.ContractSend(Web3Accessor.Web3, "startWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
+             // Set wagering to true
+             globalManager.wagering = true;
+             globalManager.wagerAccepted = true;
+             photonView.RPC("RPCWagerAccept", RpcTarget.Others, account);
          }
          catch (Web3Exception e)
          {
@@ -97,22 +117,50 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              throw;
          }
          
-         // Set wagering to true
-         globalManager.wagering = true;
-         globalManager.wagerAccepted = true;
-         globalManager.wagerAmount = wagerAmount;
-         photonView.RPC("RPCWagerAccept", RpcTarget.Others, account);
     }
+     
+     /// <summary>
+     /// Accepts wager
+     /// </summary>
+     public async void CancelWager()
+     {
+         try
+         {
+             // Additional function parameters
+             BigInteger nonce = 1;
+             byte[] opponentSig = Encoding.UTF8.GetBytes(globalManager.opponentSignature);
+             object[] args =
+             {
+                 nonce,
+                 globalManager.deadline,
+                 opponentSig
+             };
+             var data = await Evm.ContractSend(Web3Accessor.Web3, "cancelWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
+             var response = SampleOutputUtil.BuildOutputValue(data);
+             Debug.Log($"TX: {response}");
+             // Set wagering to false
+             globalManager.wagering = false;
+             globalManager.wagerAccepted = false;
+         }
+         catch (Web3Exception e)
+         {
+             Console.WriteLine(e);
+             throw;
+         }
+         
+     }
 
      /// <summary>
      /// RPC to set wager
      /// </summary>
      [PunRPC]
-     private void RPCWagerSet(int _wagerAmount, string _account)
+     private void RPCWagerSet(int _wagerAmount, string _account, string _opponentSignature, string _deadline)
      {
          // Set wager values
          globalManager.wagerAmount = _wagerAmount;
          globalManager.wagerOpponent = _account;
+         globalManager.opponentSignature = _opponentSignature;
+         globalManager.deadline = BigInteger.Parse(_deadline);
          wagerText.text = $"WAGER: {_wagerAmount}";
          acceptWagerButton.SetActive(true);
      }

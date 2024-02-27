@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Text;
 using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
 using Scripts.EVM.Token;
@@ -81,13 +82,12 @@ public class FinishScreen : MonoBehaviour
             // TODO: Add ECDSA
             string method = "completeWager";
             // Additional function parameters
-            BigInteger nonce = 0;
-            BigInteger deadline = 0;
-            byte[] opponentSig = { };
+            BigInteger nonce = 1;
+            byte[] opponentSig = Encoding.UTF8.GetBytes(globalManager.opponentSignature);
             object[] args =
             {
                 nonce,
-                deadline,
+                globalManager.deadline,
                 opponentSig
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
