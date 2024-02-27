@@ -21458,6 +21458,7 @@ MonoBehaviour:
   w3AObject: {fileID: 330725707}
   menuObject: {fileID: 1277465112}
   qrObject: {fileID: 1073938965}
+  errorMenu: {fileID: 1147953476}
 --- !u!1 &725177459
 GameObject:
   m_ObjectHideFlags: 0
@@ -74757,9 +74758,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Scenes.ErrorPopup, Assembly-CSharp
-        m_MethodName: Close
+      - m_Target: {fileID: 724170427}
+        m_TargetAssemblyTypeName: SelectLogin, Assembly-CSharp
+        m_MethodName: CloseErrorBox
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
