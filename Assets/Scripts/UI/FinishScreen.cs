@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Text;
 using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
 using Scripts.EVM.Token;
@@ -79,17 +80,15 @@ public class FinishScreen : MonoBehaviour
         if (globalManager.wagering)
         {
             // TODO: Add ECDSA
-            // Chain call to claim wager
-            //string message = "secretmessage";
-            //var signature = Evm.EcdsaSignMessage(ContractManager.EcdsaKey, message);
-            //Debug.Log($"Signed Message: {signature}");
-            string method = "pvpWagerClaim";
-            // TODO: Set opponent here via photon
-            string opponent = "";
+            string method = "completeWager";
+            // Additional function parameters
+            BigInteger nonce = 1;
+            byte[] opponentSig = Encoding.UTF8.GetBytes(globalManager.opponentSignature);
             object[] args =
             {
-                opponent,
-                globalManager.wagerAmount
+                nonce,
+                globalManager.deadline,
+                opponentSig
             };
             var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.WagerAbi, ContractManager.WagerContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);

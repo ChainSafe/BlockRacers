@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class SelectLogin : MonoBehaviour
 {
-    [SerializeField] private GameObject MetaMaskButton, QRButton, w3AObject, menuObject;
+    [SerializeField] private GameObject metamaskButton, qrButton, metamaskObject, w3AObject, menuObject, qrObject;
     private AudioManager audioManager;
     /// <summary>
     /// Sets metamask login to false if not webgl
@@ -13,8 +13,13 @@ public class SelectLogin : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            MetaMaskButton.SetActive(true);
-            QRButton.SetActive(false);
+            metamaskButton.SetActive(true);
+            metamaskObject.SetActive(true);
+        }
+        else
+        { 
+            qrButton.SetActive(true);
+            qrObject.SetActive(true);
         }
     }
     
