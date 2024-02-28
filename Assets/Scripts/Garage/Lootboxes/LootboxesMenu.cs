@@ -60,8 +60,8 @@ public class LootboxesMenu : MonoBehaviour
         var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract, args);
         var response = SampleOutputUtil.BuildOutputValue(data);
         Debug.Log($"TX: {response}");
-        GetTxData();
         Debug.Log($"Lootbox Opened!");
+        GetTxData();
     }
     
     /// <summary>
