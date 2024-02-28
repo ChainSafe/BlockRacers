@@ -7,6 +7,7 @@ using ChainSafe.Gaming.UnityPackage;
 using LootBoxes.Chainlink;
 using LootBoxes.Chainlink.Scene;
 using LootBoxes.Chainlink.Scene.StageItems;
+using Nethereum.Hex.HexTypes;
 using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
@@ -56,6 +57,7 @@ public class LootboxesMenu : MonoBehaviour
     {
         Debug.Log($"Opening Lootbox");
         string method = "claimAndOpen";
+        //HexBigInteger value = new HexBigInteger(100000000000000);
         object[] args = { };
         var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract, args);
         var response = SampleOutputUtil.BuildOutputValue(data);
