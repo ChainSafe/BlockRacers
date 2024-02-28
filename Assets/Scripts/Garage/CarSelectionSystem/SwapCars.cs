@@ -28,7 +28,7 @@ public class SwapCars : MonoBehaviour
     public GameObject[] prefabs;
 
     // Our UI elements for the showroom
-    public TextMeshProUGUI carName;
+    public TextMeshProUGUI carName, liveriesOwnedText;
 
     public Slider engineSlider, handlingSlider, boostSlider;
 
@@ -42,7 +42,7 @@ public class SwapCars : MonoBehaviour
     private GameObject fetchingStatsDisplay;
 
     // Car prefabs
-    public GameObject car1, car2, car3;
+    public GameObject car1, car2, car3, liveryLockedDisplay;
 
     // Reference to the currently instantiated prefab
     private GameObject currentPrefab;
@@ -80,6 +80,7 @@ public class SwapCars : MonoBehaviour
         fetchingStatsDisplay.SetActive(true);
         // Reset the prefab index so the first car is displayed
         currentPrefabIndex = 0;
+        currentLiveryIndex = 0;
         // Destroy the current prefab
         Destroy(currentPrefab);
         // Instantiate the next prefab in the array
@@ -93,6 +94,8 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void NextCar()
     {
+        // Reset livery index
+        currentLiveryIndex = 0;
         // Destroy the current prefab
         Destroy(currentPrefab);
         currentPrefabIndex = (currentPrefabIndex <= 1) ? currentPrefabIndex + 1 : 0;
@@ -109,6 +112,8 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void PreviousCar()
     {
+        // Reset livery index
+        currentLiveryIndex = 0;
         // Destroy the current prefab
         Destroy(currentPrefab);
         currentPrefabIndex = (currentPrefabIndex >= 1) ? currentPrefabIndex - 1 : 2;
@@ -126,6 +131,8 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void ChangeLivery()
     {
+        fetchingStatsDisplay.SetActive(true);
+        GetNftSkinsData();
         switch (currentPrefabIndex)
         {
             case 0:
@@ -212,6 +219,95 @@ public class SwapCars : MonoBehaviour
         globalManager.selectedNftType = currentPrefabIndex;
         // Sets our selected NFT ID
         globalManager.selectedNftId = globalManager.ownedNftIds[currentPrefabIndex];
+        fetchingStatsDisplay.SetActive(false);
+    }
+    
+    /// <summary>
+    /// Gets unlocked Nft skins
+    /// </summary>
+    private async void GetNftSkinsData()
+    {
+        // Check skins
+        Debug.Log("Getting Nft skins data");
+        var unlockedSkins = await ContractManager.GetNftSkins();
+        List<List<BigInteger>> nestedSkinsList = new List<List<BigInteger>>(unlockedSkins[0]);
+        Dictionary<BigInteger, BigInteger> skinsDictionary = new Dictionary<BigInteger, BigInteger>();
+        // Initialize dictionary with default values as 0
+        for (int i = 0; i < 9; i++)
+        {
+            skinsDictionary.Add(i, 0);
+        }
+        // Populate dictionary with provided values
+        foreach (var pair in nestedSkinsList)
+        {
+            if (pair.Count == 2 && pair[0] >= 0 && pair[0] <= 8)
+            {
+                skinsDictionary[pair[0]] = pair[1];
+            }
+        }
+        DisplayLiveryLock(skinsDictionary);
+    }
+    
+    /// <summary>
+    /// // Display livery lock and owned livery text number
+    /// </summary>
+    /// <param name="result"></param>
+    private void DisplayLiveryLock(Dictionary<BigInteger, BigInteger> skinsDictionary)
+    {
+        switch (currentPrefabIndex)
+        {
+            case 0 when currentLiveryIndex == 1:
+                liveryLockedDisplay.SetActive(skinsDictionary[0] == 0);
+                liveriesOwnedText.text = skinsDictionary[0].ToString();
+                break;
+            case 0 when currentLiveryIndex == 2:
+                liveryLockedDisplay.SetActive(skinsDictionary[1] == 0);
+                liveriesOwnedText.text = skinsDictionary[1].ToString();
+                break;
+            case 0:
+            {
+                if (currentLiveryIndex == 3)
+                {
+                    liveryLockedDisplay.SetActive(skinsDictionary[2] == 0);
+                    liveriesOwnedText.text = skinsDictionary[2].ToString();
+                }
+                break;
+            }
+            case 1 when currentLiveryIndex == 1:
+                liveryLockedDisplay.SetActive(skinsDictionary[3] == 0);
+                liveriesOwnedText.text = skinsDictionary[3].ToString();
+                break;
+            case 1 when currentLiveryIndex == 2:
+                liveryLockedDisplay.SetActive(skinsDictionary[4] == 0);
+                liveriesOwnedText.text = skinsDictionary[4].ToString();
+                break;
+            case 1:
+            {
+                if (currentLiveryIndex == 3)
+                {
+                    liveryLockedDisplay.SetActive(skinsDictionary[5] == 0);
+                    liveriesOwnedText.text = skinsDictionary[5].ToString();
+                }
+                break;
+            }
+            case 2 when currentLiveryIndex == 1:
+                liveryLockedDisplay.SetActive(skinsDictionary[6] == 0);
+                liveriesOwnedText.text = skinsDictionary[6].ToString();
+                break;
+            case 2 when currentLiveryIndex == 2:
+                liveryLockedDisplay.SetActive(skinsDictionary[7] == 0);
+                liveriesOwnedText.text = skinsDictionary[7].ToString();
+                break;
+            case 2:
+            {
+                if (currentLiveryIndex == 3)
+                {
+                    liveryLockedDisplay.SetActive(skinsDictionary[8] == 0);
+                    liveriesOwnedText.text = skinsDictionary[8].ToString();
+                }
+                break;
+            }
+        }
         fetchingStatsDisplay.SetActive(false);
     }
 

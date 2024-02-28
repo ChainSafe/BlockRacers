@@ -653,10 +653,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     /// Lets the players know the race is over
     /// </summary>
     [PunRPC]
-    private void RaceOver()
+    public void RaceOver()
     {
         lapSystem.GetComponent<LapSystem>().raceOver = true;
-        globalManager.raceWon = true;
         raceEndingText.SetActive(true);
         Invoke(nameof(RaceEndingTimer), 3);
     }

@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.Evm.Contracts;
 using ChainSafe.Gaming.Lootboxes.Chainlink;
+using ChainSafe.Gaming.UnityPackage;
 using LootBoxes.Chainlink;
 using LootBoxes.Chainlink.Scene;
 using LootBoxes.Chainlink.Scene.StageItems;
+using Scripts.EVM.Token;
+using TMPro;
 using UnityEngine;
 
 public class LootboxesMenu : MonoBehaviour
 {
     #region fields
     
+    private int lootBoxCount;
+    [SerializeField]private TextMeshProUGUI lootBoxCountText;
     private ILootboxService lootBoxService;
     public LootBoxStageItemFactory LootBoxStageItemFactory { get; private set; }
     public RewardStageItemSpawner rewardSpawner;
@@ -19,35 +24,69 @@ public class LootboxesMenu : MonoBehaviour
     #endregion
     
     #region methods
-
-    private async void OnEnable()
+    
+    /// <summary>
+    /// Get lootboxes whenever the menu is opened
+    /// </summary>
+    private void OnEnable()
     {
-        var response = await lootBoxService.FetchAllLootboxes();
-        foreach (var member in response)
-        {
-            Debug.Log($"Lootbox Type {member} found!");
-        }
+        GetLootboxes();
     }
-
-    private void Awake()
+    
+    /// <summary>
+    /// Gets lootboxes
+    /// </summary>
+    private async void GetLootboxes()
     {
-        // TODO SET THIS
-        Configure(null, null, null);
+        Debug.Log($"Getting lootbox supply");
+        string method = "getAvailableSupply";
+        object[] args = { };
+        var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.LootboxViewAbi, ContractManager.LootboxViewContract, args);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"Lootboxes: {response}");
+        lootBoxCount = int.Parse(response);
+        lootBoxCountText.text = lootBoxCount.ToString();
+        // You can make additional changes after this line
     }
-
+    
+    /// <summary>
+    /// Opens lootboxes
+    /// </summary>
+    public async void OpenLootbox()
+    {
+        Debug.Log($"Opening Lootbox");
+        string method = "claimAndOpen";
+        object[] args = { };
+        var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract, args);
+        var response = SampleOutputUtil.BuildOutputValue(data);
+        Debug.Log($"TX: {response}");
+        GetTxData();
+        Debug.Log($"Lootbox Opened!");
+    }
+    
+    /// <summary>
+    /// Gets event via transaction data and displays on screen
+    /// </summary>
+    private void GetTxData()
+    {
+        Debug.Log("Getting event data from TX");
+        DisplayLootBoxRewards();
+    }
+    
+    /// <summary>
+    /// Instantiates reward prefabs and displays them on screen
+    /// </summary>
+    private void DisplayLootBoxRewards()
+    {
+        Debug.Log("Displaying rewards on screen");
+    }
+    
     public void Configure(ILootboxService lootBoxService, IContractBuilder contractBuilder,
         Erc1155MetaDataReader erc1155MetaDataReader)
     {
         this.lootBoxService = lootBoxService;
         LootBoxStageItemFactory = new LootBoxStageItemFactory();
         rewardSpawner.Configure(contractBuilder, erc1155MetaDataReader);
-    }
-
-    public async void OpenLootbox()
-    {
-        Debug.Log($"Opening Lootbox");
-        await lootBoxService.OpenLootbox(1, 1);
-        Debug.Log($"Lootbox Opened!");
     }
     
     public Task<List<uint>> GetTypes() => lootBoxService.GetLootboxTypes();
