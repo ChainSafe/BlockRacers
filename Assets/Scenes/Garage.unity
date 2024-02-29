@@ -31047,7 +31047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: UNLIMITED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
   m_sharedMaterial: {fileID: -7744128936776479963, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
@@ -63843,8 +63843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2057591961cdb4a9c42a6e7fce3ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootBoxCountText: {fileID: 941305817}
-  rewardSpawner: {fileID: 664030420}
 --- !u!1 &1908463451
 GameObject:
   m_ObjectHideFlags: 0

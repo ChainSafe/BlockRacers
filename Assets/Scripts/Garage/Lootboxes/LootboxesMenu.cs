@@ -1,26 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using ChainSafe.Gaming.Evm.Contracts;
+using ChainSafe.Gaming.Evm.Contracts.Extensions;
 using ChainSafe.Gaming.Lootboxes.Chainlink;
 using ChainSafe.Gaming.UnityPackage;
-using LootBoxes.Chainlink;
-using LootBoxes.Chainlink.Scene;
-using LootBoxes.Chainlink.Scene.StageItems;
-using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Newtonsoft.Json;
 using Scripts.EVM.Token;
-using TMPro;
 using UnityEngine;
+using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
 
 public class LootboxesMenu : MonoBehaviour
 {
     #region fields
     
-    private int lootBoxCount;
-    [SerializeField]private TextMeshProUGUI lootBoxCountText;
     private ILootboxService lootBoxService;
-    public LootBoxStageItemFactory LootBoxStageItemFactory { get; private set; }
-    public RewardStageItemSpawner rewardSpawner;
+    private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     
     #endregion
     
@@ -31,7 +27,7 @@ public class LootboxesMenu : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        GetLootboxes();
+        //GetLootboxes();
     }
     
     /// <summary>
@@ -45,9 +41,6 @@ public class LootboxesMenu : MonoBehaviour
         var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.LootboxViewAbi, ContractManager.LootboxViewContract, args);
         var response = SampleOutputUtil.BuildOutputValue(data);
         Debug.Log($"Lootboxes: {response}");
-        lootBoxCount = int.Parse(response);
-        lootBoxCountText.text = lootBoxCount.ToString();
-        // You can make additional changes after this line
     }
     
     /// <summary>
@@ -56,48 +49,97 @@ public class LootboxesMenu : MonoBehaviour
     public async void OpenLootbox()
     {
         Debug.Log($"Opening Lootbox");
-        string method = "claimAndOpen";
-        object[] args = { };
-        var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"TX: {response}");
+        var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
+        var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
+        Debug.Log($"TX: {data.receipt}");
+        await new WaitForSeconds(12);
         Debug.Log($"Lootbox Opened!");
-        GetTxData(response);
+        GetTxData(data.receipt);
     }
     
     /// <summary>
     /// Gets event via transaction data and displays on screen
     /// </summary>
-    private void GetTxData(string txReceipt)
+    private void GetTxData(TransactionReceipt txReceipt)
     {
         Debug.Log("Getting event data from TX");
-        DisplayLootBoxRewards();
+        var logs = txReceipt.Logs.Select(jToken => JsonConvert.DeserializeObject<FilterLog>(jToken.ToString()));
+        var eventAbi = EventExtensions.GetEventABI<RewardsClaimedEvent>();
+        var eventLogs = logs
+            .Select(log => eventAbi.DecodeEvent<RewardsClaimedEvent>(log))
+            .Where(l => l != null);
+
+        if (!eventLogs.Any())
+        {
+            Debug.Log("No Rewards Found!");
+        }
+        else
+        {
+            Debug.Log("Rewards Found!");
+            var lootboxRewards = ExtractRewards(eventLogs);
+            DisplayLootBoxRewards(lootboxRewards);
+        }
     }
-    
+
+    LootboxRewards ExtractRewards(IEnumerable<EventLog<RewardsClaimedEvent>> eventLogs)
+    {
+        var rewards = LootboxRewards.Empty;
+        rewardTypeByTokenAddress = new Dictionary<string, RewardType>();
+        foreach (var eventLog in eventLogs)
+        {
+            var eventData = eventLog.Event;
+            var rewardType = rewardTypeByTokenAddress[eventData.TokenAddress];
+
+            switch (rewardType)
+            {
+                case RewardType.Erc20:
+                    rewards.Erc20Rewards.Add(new Erc20Reward
+                    {
+                        ContractAddress = eventData.TokenAddress,
+                        AmountRaw = eventData.Amount,
+                    });
+                    break;
+                case RewardType.Erc721:
+                    rewards.Erc721Rewards.Add(new Erc721Reward
+                    {
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
+                    });
+                    break;
+                case RewardType.Erc1155:
+                    rewards.Erc1155Rewards.Add(new Erc1155Reward
+                    {
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
+                        Amount = eventData.Amount,
+                    });
+                    break;
+                case RewardType.Erc1155Nft:
+                    rewards.Erc1155NftRewards.Add(new Erc1155NftReward
+                    {
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
+                    });
+                    break;
+                case RewardType.Unset:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        return rewards;
+    }
+
     /// <summary>
     /// Instantiates reward prefabs and displays them on screen
     /// </summary>
-    private void DisplayLootBoxRewards()
+    /// <param name="lootboxRewards"></param>
+    private void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
     {
         Debug.Log("Displaying rewards on screen");
+        Debug.Log($"ERC20Reward: {lootboxRewards.Erc20Rewards[0].AmountRaw}");
+        Debug.Log($"ERC1155Reward: {lootboxRewards.Erc1155Rewards[0].TokenId}");
     }
-    
-    public void Configure(ILootboxService lootBoxService, IContractBuilder contractBuilder,
-        Erc1155MetaDataReader erc1155MetaDataReader)
-    {
-        this.lootBoxService = lootBoxService;
-        LootBoxStageItemFactory = new LootBoxStageItemFactory();
-        rewardSpawner.Configure(contractBuilder, erc1155MetaDataReader);
-    }
-    
-    public Task<List<uint>> GetTypes() => lootBoxService.GetLootboxTypes();
-    public Task<uint> GetBalance(uint typeId) => lootBoxService.BalanceOf(typeId);
-    public Task<bool> CanClaimRewards() => lootBoxService.CanClaimRewards();
-    public Task<LootboxRewards> ClaimRewards() => lootBoxService.ClaimRewards();
-    public Task<bool> IsOpeningLootBox() => lootBoxService.IsOpeningLootbox();
-    public Task<List<LootboxTypeInfo>> FetchAllLootBoxes() => lootBoxService.FetchAllLootboxes();
-    public Task<uint> OpeningLootBoxType() => lootBoxService.OpeningLootboxType();
-    public Task OpenLootBoxes(uint lootBoxType, uint count) => lootBoxService.OpenLootbox(lootBoxType, count);
     
     #endregion
 }
