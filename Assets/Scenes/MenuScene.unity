@@ -2145,7 +2145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69, y: 117}
+  m_AnchoredPosition: {x: 90, y: 117}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &374633985
@@ -8639,7 +8639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CANCEL $$$
+  m_text: CANCEL WAGER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
   m_sharedMaterial: {fileID: -7744128936776479963, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
@@ -8666,8 +8666,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10786,7 +10786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -129}
+  m_AnchoredPosition: {x: 32, y: -129}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &738411096
@@ -24619,6 +24619,7 @@ MonoBehaviour:
   wagerInput: {fileID: 725603486}
   setWagerObject: {fileID: 726744496}
   acceptWagerButton: {fileID: 1865620798}
+  cancelWagerButton: {fileID: 1567539868}
   wagerText: {fileID: 461277650}
 --- !u!114 &1445833361
 MonoBehaviour:
@@ -25860,7 +25861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1567539869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28039,7 +28040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68, y: -160}
+  m_AnchoredPosition: {x: 100, y: -160}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1865620800

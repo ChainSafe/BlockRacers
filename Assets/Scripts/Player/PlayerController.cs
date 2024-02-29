@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private DriftSystem driftSystem;
 
     // Lap count
-    [SerializeField] private int lapCount;
+    private int lapCount;
 
     // Last checkpoint for reset
     [SerializeField] private Transform lastCheckPoint;

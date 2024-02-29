@@ -10,10 +10,10 @@ public class CheckPointManager : MonoBehaviour
     #region Fields
 
     // Checkpoint we cross
-    [SerializeField] private int checkPointCrossed;
+    private int checkPointCrossed;
 
     // Our car number
-    [SerializeField] private int carNumber;
+    private int carNumber;
 
     // Reference to the positioning script
     private PositioningSystem positioningSystem;

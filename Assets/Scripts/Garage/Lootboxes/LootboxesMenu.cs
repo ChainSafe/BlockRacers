@@ -57,19 +57,18 @@ public class LootboxesMenu : MonoBehaviour
     {
         Debug.Log($"Opening Lootbox");
         string method = "claimAndOpen";
-        //HexBigInteger value = new HexBigInteger(100000000000000);
         object[] args = { };
         var data = await Evm.ContractSend(Web3Accessor.Web3, method, ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract, args);
         var response = SampleOutputUtil.BuildOutputValue(data);
         Debug.Log($"TX: {response}");
         Debug.Log($"Lootbox Opened!");
-        GetTxData();
+        GetTxData(response);
     }
     
     /// <summary>
     /// Gets event via transaction data and displays on screen
     /// </summary>
-    private void GetTxData()
+    private void GetTxData(string txReceipt)
     {
         Debug.Log("Getting event data from TX");
         DisplayLootBoxRewards();
