@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using UnityEngine;
 using TMPro;
@@ -94,6 +93,8 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void NextCar()
     {
+        // Disable lock display as the first skin is free
+        liveryLockedDisplay.SetActive(false);
         // Reset livery index
         currentLiveryIndex = 0;
         // Destroy the current prefab
@@ -112,6 +113,8 @@ public class SwapCars : MonoBehaviour
     /// </summary>
     public void PreviousCar()
     {
+        // Disable lock display as the first skin is free
+        liveryLockedDisplay.SetActive(false);
         // Reset livery index
         currentLiveryIndex = 0;
         // Destroy the current prefab
