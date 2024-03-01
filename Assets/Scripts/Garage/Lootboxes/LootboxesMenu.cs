@@ -10,7 +10,6 @@ using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
-using Scripts.EVM.Token;
 using UnityEngine;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
 
@@ -19,33 +18,12 @@ public class LootboxesMenu : MonoBehaviour
     #region fields
     
     private ILootboxService lootBoxService;
-    [SerializeField] private Dictionary<string, RewardType> rewardTypeByTokenAddress;
+    private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu;
     
     #endregion
     
     #region methods
-    
-    /// <summary>
-    /// Get lootboxes whenever the menu is opened
-    /// </summary>
-    private void OnEnable()
-    {
-        //GetLootboxes();
-    }
-    
-    /// <summary>
-    /// Gets lootboxes
-    /// </summary>
-    private async void GetLootboxes()
-    {
-        Debug.Log($"Getting lootbox supply");
-        string method = "getAvailableSupply";
-        object[] args = { };
-        var data = await Evm.ContractCall(Web3Accessor.Web3, method, ContractManager.LootboxViewAbi, ContractManager.LootboxViewContract, args);
-        var response = SampleOutputUtil.BuildOutputValue(data);
-        Debug.Log($"Lootboxes: {response}");
-    }
     
     /// <summary>
     /// Opens lootboxes

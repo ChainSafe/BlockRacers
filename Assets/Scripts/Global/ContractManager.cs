@@ -5,7 +5,6 @@ using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
-using Newtonsoft.Json;
 using Scripts.EVM.Token;
 using UnityEngine;
 
