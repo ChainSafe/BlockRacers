@@ -12,7 +12,9 @@ using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
+using Vector3 = UnityEngine.Vector3;
 
 public class LootboxesMenu : MonoBehaviour
 {
@@ -31,23 +33,32 @@ public class LootboxesMenu : MonoBehaviour
     /// </summary>
     public async void OpenLootbox()
     {
-        Debug.Log($"Opening Lootbox");
-        FindObjectOfType<AudioManager>().Play("MenuSelect");
-        openMenu.SetActive(false);
-        crateCanvas.SetActive(true);
-        crateAnimationMenu.SetActive(true);
-        var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
-        rewardTypeByTokenAddress = await MapTokenAddressToRewardType();
-        var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
-        Debug.Log($"TX: {data.receipt}");
-        Debug.Log($"Lootbox Opened!");
-        var logs = data.receipt.Logs;
-        Debug.Log($"Logs!");
-        foreach (var log in logs)
+        try
         {
-            Debug.Log(log.ToString());
+            Debug.Log($"Opening Lootbox");
+            FindObjectOfType<AudioManager>().Play("MenuSelect");
+            openMenu.SetActive(false);
+            crateCanvas.SetActive(true);
+            crateAnimationMenu.SetActive(true);
+            var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
+            rewardTypeByTokenAddress = await MapTokenAddressToRewardType();
+            var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
+            Debug.Log($"TX: {data.receipt}");
+            Debug.Log($"Lootbox Opened!");
+            var logs = data.receipt.Logs;
+            Debug.Log($"Logs!");
+            foreach (var log in logs)
+            {
+                Debug.Log(log.ToString());
+            }
+            GetTxData(data.receipt);
         }
-        GetTxData(data.receipt);
+        catch (Web3Exception e)
+        {
+            CloseRewards();
+            Console.WriteLine(e);
+            throw;
+        }
     }
     
     /// <summary>
@@ -74,7 +85,7 @@ public class LootboxesMenu : MonoBehaviour
         }
         FindObjectOfType<AudioManager>().Play("NFTBuySound");
         await new WaitForSeconds(6);
-        Instantiate(brokenCrate);
+        Instantiate(brokenCrate, new Vector3(crate.transform.position.x, crate.transform.position.y, crate.transform.position.z), Quaternion.identity);
         crate.SetActive(false);
         rewardsMenu.SetActive(true);
         crateAnimationMenu.SetActive(false);
@@ -157,13 +168,17 @@ public class LootboxesMenu : MonoBehaviour
     private void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
     {
         Debug.Log("Displaying rewards on screen");
+        Debug.Log($"ERC20COUNT: {lootboxRewards.Erc20Rewards.Count}");
+        Debug.Log($"ERC1155COUNT: {lootboxRewards.Erc1155Rewards.Count}");
+        Debug.Log($"ERC1155NFTCOUNT: {lootboxRewards.Erc1155NftRewards.Count}");
+        Debug.Log("Displaying rewards on screen");
         foreach (var erc20Reward in lootboxRewards.Erc20Rewards)
         {
             var rewardClone = Instantiate(rewardPrefab, rewardPanel.transform, true);
             var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
             lootboxTextComponent.text = "ERC20";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-            displayTextComponent.text = erc20Reward.AmountRaw.ToString();
+            displayTextComponent.text = (erc20Reward.AmountRaw / (BigInteger)1e18).ToString();
         }
         foreach (var erc1155Reward in lootboxRewards.Erc1155Rewards)
         {
@@ -171,7 +186,15 @@ public class LootboxesMenu : MonoBehaviour
             var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
             lootboxTextComponent.text = "ERC1155";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-            displayTextComponent.text = $"ID: {erc1155Reward.TokenId.ToString()}";
+            displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
+        }
+        foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
+        {
+            var rewardClone = Instantiate(rewardPrefab, rewardPanel.transform, true);
+            var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
+            lootboxTextComponent.text = "ERC1155Nft";
+            var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
+            displayTextComponent.text = $"ID: {erc1155NftReward.TokenId}";
         }
     }
     
@@ -182,6 +205,7 @@ public class LootboxesMenu : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("MenuSelect");
         crate.SetActive(true);
+        crateAnimationMenu.SetActive(false);
         rewardsMenu.SetActive(false);
         openMenu.SetActive(true);
     }
