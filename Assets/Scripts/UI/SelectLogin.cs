@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class SelectLogin : MonoBehaviour
 {
-    [SerializeField] private GameObject metamaskButton, qrButton, metamaskObject, w3AObject, menuObject, qrObject;
+    [SerializeField] private GameObject metamaskButton, qrButton, metamaskObject, w3AObject, menuObject, qrObject, errorMenu;
     private AudioManager audioManager;
     /// <summary>
     /// Sets metamask login to false if not webgl
@@ -41,6 +41,14 @@ public class SelectLogin : MonoBehaviour
         w3AObject.SetActive(false);
         menuObject.SetActive(true);
         audioManager.Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Reset the menus
+    /// </summary>
+    public void CloseErrorBox()
+    {
+        errorMenu.SetActive(false);
     }
     
     /// <summary>

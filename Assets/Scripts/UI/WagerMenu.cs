@@ -21,9 +21,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     // Wager config
     [SerializeField] private TMP_InputField wagerInput;
     [SerializeField] private GameObject setWagerObject;
-    [SerializeField] private GameObject acceptWagerButton;
+    [SerializeField] private GameObject acceptWagerButton, cancelWagerButton;
     [SerializeField] private TextMeshProUGUI wagerText;
     private int wagerAmount;
+    private bool wagering;
 
     #endregion
 
@@ -32,14 +33,53 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     /// <summary>
     /// Initializes needed objects
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
-        if (PhotonNetwork.IsMasterClient)
+    }
+
+    /// <summary>
+    /// Starts wager check
+    /// </summary>
+    private new void OnEnable()
+    {
+        // Check if wager is active
+        WagerCheck();
+    }
+ 
+    /// <summary>
+    /// Checks if we're wagering and enables button
+    /// </summary>
+    private async void WagerCheck()
+    {
+        try
         {
-            setWagerObject.SetActive(true);
-            wagerText.text = "SET WAGER";
+            var account = await Web3Accessor.Web3.Signer.GetAddress();
+            object[] args =
+            {
+                account
+            };
+            var data = await Evm.ContractCall(Web3Accessor.Web3, "getWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
+            var response = SampleOutputUtil.BuildOutputValue(data);
+            Debug.Log($"Output: {response}");
+            // Display wager cancel button if wager is set as you can't have 2 wagers at once
+            if (response[1] != 0)
+            {
+                wagering = true;
+            }
+            cancelWagerButton.SetActive(wagering);
+            // Enable wager object if master client to set wager
+            if (PhotonNetwork.IsMasterClient)
+            {
+                setWagerObject.SetActive(true);
+                wagerText.text = "SET WAGER";
+            }
+        }
+        catch (Web3Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
