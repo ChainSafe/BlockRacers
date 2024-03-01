@@ -316,6 +316,12 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: NFTBuySound
+    clip: {fileID: 8300000, guid: 8adc352ab2fa0ff458d88bab98c31a82, type: 3}
+    volume: 0.35
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!4 &4689980
 Transform:
   m_ObjectHideFlags: 0

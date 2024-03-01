@@ -61,6 +61,8 @@ public class LootboxesMenu : MonoBehaviour
         var response = SampleOutputUtil.BuildOutputValue(data);
         Debug.Log($"Lootboxes: {response}");
     }
+        //var data = await contract.SendWithReceipt("claimRewards", new object[] { await Web3Accessor.Web3.Signer.GetAddress() });
+        //var lbContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxAbi, ContractManager.LootboxContract);
     
     /// <summary>
     /// Opens lootboxes
@@ -71,10 +73,9 @@ public class LootboxesMenu : MonoBehaviour
         openMenu.SetActive(false);
         crateCanvas.SetActive(true);
         crateAnimationMenu.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("NFTBuySound");
         var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
         var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
-        //var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxAbi, ContractManager.LootboxContract);
-        //var data = await contract.SendWithReceipt("claimRewards", new object[] { await Web3Accessor.Web3.Signer.GetAddress() });
         Debug.Log($"TX: {data.receipt}");
         await new WaitForSeconds(20);
         Debug.Log($"Lootbox Opened!");
@@ -117,16 +118,6 @@ public class LootboxesMenu : MonoBehaviour
         rewardsMenu.SetActive(true);
     }
     
-    /// <summary>
-    /// Closes the rewards menu
-    /// </summary>
-    public void CloseRewards()
-    {
-        crate.SetActive(true);
-        rewardsMenu.SetActive(false);
-        openMenu.SetActive(true);
-    }
-
     LootboxRewards ExtractRewards(IEnumerable<EventLog<RewardsClaimedEvent>> eventLogs)
     {
         var rewards = LootboxRewards.Empty;
@@ -185,6 +176,16 @@ public class LootboxesMenu : MonoBehaviour
         Debug.Log("Displaying rewards on screen");
         Debug.Log($"ERC20Reward: {lootboxRewards.Erc20Rewards[0].AmountRaw}");
         Debug.Log($"ERC1155Reward: {lootboxRewards.Erc1155Rewards[0].TokenId}");
+    }
+    
+    /// <summary>
+    /// Closes the rewards menu
+    /// </summary>
+    public void CloseRewards()
+    {
+        crate.SetActive(true);
+        rewardsMenu.SetActive(false);
+        openMenu.SetActive(true);
     }
     
     #endregion
