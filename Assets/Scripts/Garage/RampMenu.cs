@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class RampMenu : MonoBehaviour
 {
-    private Web3 _web3;
-    
     #if !UNITY_EDITOR && (UNITY_WEBGL || UNITY_IOS)
+    private Web3 _web3;
+
     private void Awake()
     {
         _web3 = Web3Accessor.Web3;
@@ -23,16 +23,18 @@ public class RampMenu : MonoBehaviour
     {
         Debug.Log(obj.ToString());
     }
-#endif
+
     public async void OpenRamp()
     {
         await _web3.RampExchanger().BuyCrypto(new RampBuyWidgetSettings
         {
-            DefaultAsset = "TCRO",
-            FiatCurrency = "USD",
-            FiatValue = 20,
+            SwapAsset = "SEPOLIA_ETH",
+            DefaultAsset = "SEPOLIA_ETH",
+            FiatCurrency = "EUR",
+            FiatValue = 100,
+            SwapAmount = 5,
             SelectedCountryCode = "US"
         });
     }
-
+#endif
 }
