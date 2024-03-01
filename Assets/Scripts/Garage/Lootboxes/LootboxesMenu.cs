@@ -2,39 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using ChainSafe.Gaming.Evm.Contracts;
 using ChainSafe.Gaming.Evm.Contracts.Extensions;
 using ChainSafe.Gaming.Lootboxes.Chainlink;
 using ChainSafe.Gaming.UnityPackage;
-using Nethereum.ABI.FunctionEncoding.Attributes;
+using ChainSafe.Gaming.Web3;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
 using Scripts.EVM.Token;
 using UnityEngine;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
 
-[Event("RewardsClaimed")]
-public class RewardsClaimedEvent : IEventDTO
-{
-    [Parameter("address", "claimer", 1, true)]
-    public string Claimer { get; set; }
-
-    [Parameter("address", "token", 2, false)]
-    public string Token { get; set; }
-
-    [Parameter("uint256", "id", 3, false)]
-    public BigInteger Id { get; set; }
-
-    [Parameter("uint256", "amount", 4, false)]
-    public BigInteger Amount { get; set; }
-}
-
 public class LootboxesMenu : MonoBehaviour
 {
     #region fields
     
     private ILootboxService lootBoxService;
-    private Dictionary<string, RewardType> rewardTypeByTokenAddress;
+    [SerializeField] private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu;
     
     #endregion
@@ -61,8 +46,6 @@ public class LootboxesMenu : MonoBehaviour
         var response = SampleOutputUtil.BuildOutputValue(data);
         Debug.Log($"Lootboxes: {response}");
     }
-        //var data = await contract.SendWithReceipt("claimRewards", new object[] { await Web3Accessor.Web3.Signer.GetAddress() });
-        //var lbContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxAbi, ContractManager.LootboxContract);
     
     /// <summary>
     /// Opens lootboxes
@@ -75,9 +58,15 @@ public class LootboxesMenu : MonoBehaviour
         crateAnimationMenu.SetActive(true);
         FindObjectOfType<AudioManager>().Play("NFTBuySound");
         var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
+        rewardTypeByTokenAddress = await MapTokenAddressToRewardType();
+        Debug.Log("REWARD TOKEN COUNT: " + rewardTypeByTokenAddress.Count);
+        foreach (var kvp in rewardTypeByTokenAddress)
+        {
+            Debug.Log($"Key: {kvp.Key}");
+            Debug.Log($"Key: {kvp.Value}");
+        }
         var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
         Debug.Log($"TX: {data.receipt}");
-        await new WaitForSeconds(20);
         Debug.Log($"Lootbox Opened!");
         var logs = data.receipt.Logs;
         Debug.Log($"Logs!");
@@ -117,45 +106,65 @@ public class LootboxesMenu : MonoBehaviour
         crateCanvas.SetActive(false);
         rewardsMenu.SetActive(true);
     }
+
+    async Task<Dictionary<string, RewardType>> MapTokenAddressToRewardType()
+    {
+        var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.ImplementedLootbox);
+        var tokenAddresses = (List<string>)(await lbvContract.Call("getAllowedTokens"))[0];
+
+        // Array of token reward types in the same order as getAllowedTokens()
+        var rewardTypes = ((List<BigInteger>)(await lbvContract.Call("getAllowedTokenTypes"))[0])
+            .Select(bi => (int)bi)
+            .Cast<RewardType>()
+            .ToList();
+
+        if (tokenAddresses.Count != rewardTypes.Count)
+        {
+            throw new Web3Exception(
+                "Element count mismatch between \"getAllowedTokens\" and \"getAllowedTokenTypes\"");
+        }
+
+        return Enumerable.Range(0, tokenAddresses.Count)
+            .ToDictionary(index => tokenAddresses[index], index => rewardTypes[index]);
+    }
     
     LootboxRewards ExtractRewards(IEnumerable<EventLog<RewardsClaimedEvent>> eventLogs)
     {
         var rewards = LootboxRewards.Empty;
-        rewardTypeByTokenAddress = new Dictionary<string, RewardType>();
         foreach (var eventLog in eventLogs)
         {
             var eventData = eventLog.Event;
-            var rewardType = rewardTypeByTokenAddress[eventData.Token];
+            var rewardType = rewardTypeByTokenAddress[eventData.TokenAddress];
 
             switch (rewardType)
             {
                 case RewardType.Erc20:
                     rewards.Erc20Rewards.Add(new Erc20Reward
                     {
-                        ContractAddress = eventData.Token,
+                        ContractAddress = eventData.TokenAddress,
                         AmountRaw = eventData.Amount,
                     });
                     break;
                 case RewardType.Erc721:
                     rewards.Erc721Rewards.Add(new Erc721Reward
                     {
-                        ContractAddress = eventData.Token,
-                        TokenId = eventData.Id,
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
                     });
                     break;
                 case RewardType.Erc1155:
                     rewards.Erc1155Rewards.Add(new Erc1155Reward
                     {
-                        ContractAddress = eventData.Token,
-                        TokenId = eventData.Id,
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
                         Amount = eventData.Amount,
                     });
                     break;
                 case RewardType.Erc1155Nft:
                     rewards.Erc1155NftRewards.Add(new Erc1155NftReward
                     {
-                        ContractAddress = eventData.Token,
-                        TokenId = eventData.Id,
+                        ContractAddress = eventData.TokenAddress,
+                        TokenId = eventData.TokenId,
                     });
                     break;
                 case RewardType.Unset:
@@ -175,7 +184,6 @@ public class LootboxesMenu : MonoBehaviour
     {
         Debug.Log("Displaying rewards on screen");
         Debug.Log($"ERC20Reward: {lootboxRewards.Erc20Rewards[0].AmountRaw}");
-        Debug.Log($"ERC1155Reward: {lootboxRewards.Erc1155Rewards[0].TokenId}");
     }
     
     /// <summary>
