@@ -36,15 +36,8 @@ public class LootboxesMenu : MonoBehaviour
         openMenu.SetActive(false);
         crateCanvas.SetActive(true);
         crateAnimationMenu.SetActive(true);
-        FindObjectOfType<AudioManager>().Play("NFTBuySound");
         var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
         rewardTypeByTokenAddress = await MapTokenAddressToRewardType();
-        Debug.Log("REWARD TOKEN COUNT: " + rewardTypeByTokenAddress.Count);
-        foreach (var kvp in rewardTypeByTokenAddress)
-        {
-            Debug.Log($"Key: {kvp.Key}");
-            Debug.Log($"Value: {kvp.Value}");
-        }
         var data = await contract.SendWithReceipt("claimAndOpen", new object[] { });
         Debug.Log($"TX: {data.receipt}");
         Debug.Log($"Lootbox Opened!");
@@ -79,12 +72,14 @@ public class LootboxesMenu : MonoBehaviour
             var lootboxRewards = ExtractRewards(eventLogs);
             DisplayLootBoxRewards(lootboxRewards);
         }
+        FindObjectOfType<AudioManager>().Play("NFTBuySound");
+        await new WaitForSeconds(6);
         Instantiate(brokenCrate);
         crate.SetActive(false);
-        await new WaitForSeconds(3);
-        crateAnimationMenu.SetActive(false);
-        crateCanvas.SetActive(false);
         rewardsMenu.SetActive(true);
+        crateAnimationMenu.SetActive(false);
+        await new WaitForSeconds(2);
+        crateCanvas.SetActive(false);
     }
 
     async Task<Dictionary<string, RewardType>> MapTokenAddressToRewardType()
@@ -152,7 +147,6 @@ public class LootboxesMenu : MonoBehaviour
                     throw new ArgumentOutOfRangeException();
             }
         }
-
         return rewards;
     }
 
@@ -163,38 +157,21 @@ public class LootboxesMenu : MonoBehaviour
     private void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
     {
         Debug.Log("Displaying rewards on screen");
-        foreach (var reward in lootboxRewards.Erc20Rewards)
+        foreach (var erc20Reward in lootboxRewards.Erc20Rewards)
         {
-            // Instantiate prefabs & add to scroll area
-            Debug.Log("INSTANTIATING PREFABS");
             var rewardClone = Instantiate(rewardPrefab, rewardPanel.transform, true);
             var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
             lootboxTextComponent.text = "ERC20";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-            displayTextComponent.text = reward.AmountRaw.ToString();
-            Debug.Log($"ERC20Reward Amount: {reward.AmountRaw}");
+            displayTextComponent.text = erc20Reward.AmountRaw.ToString();
         }
-        foreach (var reward in lootboxRewards.Erc1155Rewards)
+        foreach (var erc1155Reward in lootboxRewards.Erc1155Rewards)
         {
-            // Instantiate prefabs & add to scroll area
-            Debug.Log("INSTANTIATING PREFABS");
             var rewardClone = Instantiate(rewardPrefab, rewardPanel.transform, true);
             var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
             lootboxTextComponent.text = "ERC1155";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-            displayTextComponent.text = $"ID: {reward.TokenId.ToString()}";
-            Debug.Log($"ERC1155Reward ID: {reward.TokenId}");
-        }
-        foreach (var reward in lootboxRewards.Erc1155NftRewards)
-        {
-            // Instantiate prefabs & add to scroll area
-            Debug.Log("INSTANTIATING PREFABS");
-            var rewardClone = Instantiate(rewardPrefab, rewardPanel.transform, true);
-            var lootboxTextComponent = rewardClone.transform.Find("LootboxText").GetComponent<TextMeshProUGUI>();
-            lootboxTextComponent.text = "ERC1155";
-            var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-            displayTextComponent.text = $"ID: {reward.TokenId.ToString()}";
-            Debug.Log($"ERC1155Reward Address: {reward.TokenId}");
+            displayTextComponent.text = $"ID: {erc1155Reward.TokenId.ToString()}";
         }
     }
     
