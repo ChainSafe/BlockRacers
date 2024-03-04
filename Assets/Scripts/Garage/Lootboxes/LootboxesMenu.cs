@@ -98,7 +98,12 @@ public class LootboxesMenu : MonoBehaviour
         await new WaitForSeconds(2);
         crateCanvas.SetActive(false);
     }
-
+    
+    /// <summary>
+    /// Maps token rewards to the dictionary for use with extracting rewards
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Web3Exception"></exception>
     async Task<Dictionary<string, RewardType>> MapTokenAddressToRewardType()
     {
         var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.LootboxContract);
@@ -120,6 +125,12 @@ public class LootboxesMenu : MonoBehaviour
             .ToDictionary(index => tokenAddresses[index], index => rewardTypes[index]);
     }
     
+    /// <summary>
+    /// Extracts the rewards from the rewards claimed event on chain
+    /// </summary>
+    /// <param name="eventLogs"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     LootboxRewards ExtractRewards(IEnumerable<EventLog<RewardsClaimedEvent>> eventLogs)
     {
         var rewards = LootboxRewards.Empty;
@@ -201,7 +212,6 @@ public class LootboxesMenu : MonoBehaviour
             // parse json to get image uri
             var imageUri = data.image;
             imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
-            Debug.Log("Downloading image");
             StartCoroutine(DownloadImage(imageUri));
             rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
@@ -220,14 +230,19 @@ public class LootboxesMenu : MonoBehaviour
             // parse json to get image uri
             var imageUri = data.image;
             imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
-            Debug.Log("Downloading image");
             StartCoroutine(DownloadImage(imageUri));
             rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
     }
     
+    /// <summary>
+    /// Downloads image from ipfs
+    /// </summary>
+    /// <param name="mediaUrl"></param>
+    /// <returns></returns>
     private IEnumerator DownloadImage(string mediaUrl)
     {
+        Debug.Log("Downloading image");
         var request = UnityWebRequestTexture.GetTexture(mediaUrl);
         yield return request.SendWebRequest();
         if (request.result == UnityWebRequest.Result.ProtocolError)
@@ -242,6 +257,11 @@ public class LootboxesMenu : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Gets sprite from texture
+    /// </summary>
+    /// <param name="texture"></param>
+    /// <returns></returns>
     private Sprite SpriteFromTexture2D(Texture2D texture)
     {
         return Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new UnityEngine.Vector2(0.5f, 0.5f), 100.0f);
@@ -262,7 +282,9 @@ public class LootboxesMenu : MonoBehaviour
     #endregion
 }
 
-// Used to hold URI properties
+/// <summary>
+/// Used to hold URI properties
+/// </summary>
 public class UriProperties
 {
     public string name { get; set; }
