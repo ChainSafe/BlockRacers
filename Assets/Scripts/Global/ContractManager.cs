@@ -294,7 +294,7 @@ public class ContractManager : MonoBehaviour
             {
                 _tokenId
             };
-            var data = await Evm.ContractCall(Web3Accessor.Web3, "uri", LootAbi, LootContract, args);
+            var data = await Evm.ContractCall(Web3Accessor.Web3, "uri", AssetsAbi, AssetsContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);
             return response;
         }
