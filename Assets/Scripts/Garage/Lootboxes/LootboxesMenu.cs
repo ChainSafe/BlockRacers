@@ -201,6 +201,7 @@ public class LootboxesMenu : MonoBehaviour
             // parse json to get image uri
             var imageUri = data.image;
             imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            Debug.Log("Downloading image");
             StartCoroutine(DownloadImage(imageUri));
             rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
@@ -219,6 +220,7 @@ public class LootboxesMenu : MonoBehaviour
             // parse json to get image uri
             var imageUri = data.image;
             imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            Debug.Log("Downloading image");
             StartCoroutine(DownloadImage(imageUri));
             rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
