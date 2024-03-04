@@ -12,6 +12,7 @@ using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
 using Vector3 = UnityEngine.Vector3;
@@ -188,8 +189,11 @@ public class LootboxesMenu : MonoBehaviour
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
             // Add image
+            var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite;
             var uri = await ContractManager.GetLootImage(erc1155Reward.TokenId);
             Debug.Log($"URI: {uri}");
+            //var uriImage = "";
+            //displayImage = uriImage;
         }
         foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
         {
