@@ -43,6 +43,7 @@ public class LootboxesMenu : MonoBehaviour
             Debug.Log($"Opening Lootbox");
             FindObjectOfType<AudioManager>().Play("MenuSelect");
             openMenu.SetActive(false);
+            crate.SetActive(true);
             crateCanvas.SetActive(true);
             crateAnimationMenu.SetActive(true);
             var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
