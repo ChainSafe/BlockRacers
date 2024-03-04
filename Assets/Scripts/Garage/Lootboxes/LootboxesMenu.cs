@@ -189,11 +189,11 @@ public class LootboxesMenu : MonoBehaviour
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
             // Add image
-            var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite;
+            //var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>();
             var uri = await ContractManager.GetLootImage(erc1155Reward.TokenId);
             Debug.Log($"URI: {uri}");
             //var uriImage = "";
-            //displayImage = uriImage;
+            //displayImage.sprite = uriImage;
         }
         foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
         {
@@ -203,8 +203,11 @@ public class LootboxesMenu : MonoBehaviour
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155NftReward.TokenId}";
             // Add image
+            //var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>();
             var uri = await ContractManager.GetLootImage(erc1155NftReward.TokenId);
             Debug.Log($"URI: {uri}");
+            //var uriImage = "";
+            //displayImage.sprite = uriImage;
         }
     }
     
@@ -214,7 +217,7 @@ public class LootboxesMenu : MonoBehaviour
     public void CloseRewards()
     {
         FindObjectOfType<AudioManager>().Play("MenuSelect");
-        crate.SetActive(true);
+        crateCanvas.SetActive(false);
         crateAnimationMenu.SetActive(false);
         rewardsMenu.SetActive(false);
         openMenu.SetActive(true);
