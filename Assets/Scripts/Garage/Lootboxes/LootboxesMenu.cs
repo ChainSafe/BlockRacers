@@ -95,7 +95,7 @@ public class LootboxesMenu : MonoBehaviour
 
     async Task<Dictionary<string, RewardType>> MapTokenAddressToRewardType()
     {
-        var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.ImplementedLootbox);
+        var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.LootboxContract);
         var tokenAddresses = (List<string>)(await lbvContract.Call("getAllowedTokens"))[0];
 
         // Array of token reward types in the same order as getAllowedTokens()
@@ -165,7 +165,7 @@ public class LootboxesMenu : MonoBehaviour
     /// Instantiates reward prefabs and displays them on screen
     /// </summary>
     /// <param name="lootboxRewards"></param>
-    private void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
+    private async void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
     {
         Debug.Log("Displaying rewards on screen");
         Debug.Log($"ERC20COUNT: {lootboxRewards.Erc20Rewards.Count}");
@@ -187,6 +187,9 @@ public class LootboxesMenu : MonoBehaviour
             lootboxTextComponent.text = "ERC1155";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
+            // Add image
+            var uri = await ContractManager.GetLootImage(erc1155Reward.TokenId);
+            Debug.Log($"URI: {uri}");
         }
         foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
         {
@@ -195,6 +198,9 @@ public class LootboxesMenu : MonoBehaviour
             lootboxTextComponent.text = "ERC1155Nft";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155NftReward.TokenId}";
+            // Add image
+            var uri = await ContractManager.GetLootImage(erc1155NftReward.TokenId);
+            Debug.Log($"URI: {uri}");
         }
     }
     
