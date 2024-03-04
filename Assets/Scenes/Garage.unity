@@ -67202,7 +67202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 423042309}
         m_TargetAssemblyTypeName: MarketplaceMenu, Assembly-CSharp
         m_MethodName: MintRaceTokens
         m_Mode: 1
