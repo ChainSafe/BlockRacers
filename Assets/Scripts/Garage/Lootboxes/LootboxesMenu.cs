@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.Evm.Contracts;
 using ChainSafe.Gaming.Evm.Contracts.Extensions;
@@ -12,6 +14,7 @@ using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
@@ -24,6 +27,7 @@ public class LootboxesMenu : MonoBehaviour
     private ILootboxService lootBoxService;
     private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
+    private Sprite downloadedSprite;
     
     #endregion
     
@@ -189,11 +193,15 @@ public class LootboxesMenu : MonoBehaviour
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
             // Add image
-            //var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>();
             var uri = await ContractManager.GetLootImage(erc1155Reward.TokenId);
-            Debug.Log($"URI: {uri}");
-            //var uriImage = "";
-            //displayImage.sprite = uriImage;
+            var webRequest = UnityWebRequest.Get(uri);
+            await webRequest.SendWebRequest();
+            var data = JsonConvert.DeserializeObject<UriProperties>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+            // parse json to get image uri
+            var imageUri = data.image;
+            imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            StartCoroutine(DownloadImage(imageUri));
+            rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
         foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
         {
@@ -203,12 +211,37 @@ public class LootboxesMenu : MonoBehaviour
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155NftReward.TokenId}";
             // Add image
-            //var displayImage = rewardClone.transform.Find("DisplayImage").GetComponent<Image>();
             var uri = await ContractManager.GetLootImage(erc1155NftReward.TokenId);
-            Debug.Log($"URI: {uri}");
-            //var uriImage = "";
-            //displayImage.sprite = uriImage;
+            var webRequest = UnityWebRequest.Get(uri);
+            await webRequest.SendWebRequest();
+            var data = JsonConvert.DeserializeObject<UriProperties>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+            // parse json to get image uri
+            var imageUri = data.image;
+            imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            StartCoroutine(DownloadImage(imageUri));
+            rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
+    }
+    
+    private IEnumerator DownloadImage(string mediaUrl)
+    {
+        var request = UnityWebRequestTexture.GetTexture(mediaUrl);
+        yield return request.SendWebRequest();
+        if (request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            var webTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            var webSprite = SpriteFromTexture2D(webTexture);
+            downloadedSprite = webSprite;
+        }
+    }
+    
+    private Sprite SpriteFromTexture2D(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new UnityEngine.Vector2(0.5f, 0.5f), 100.0f);
     }
     
     /// <summary>
@@ -224,4 +257,12 @@ public class LootboxesMenu : MonoBehaviour
     }
     
     #endregion
+}
+
+// Used to hold URI properties
+public class UriProperties
+{
+    public string name { get; set; }
+    public string description { get; set; }
+    public string image { get; set; }
 }
