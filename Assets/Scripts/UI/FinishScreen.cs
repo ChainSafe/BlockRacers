@@ -25,8 +25,8 @@ public class FinishScreen : MonoBehaviour
     [SerializeField] private GameObject menuButton, claimButton;
 
     // Winning player text
-    [SerializeField] private GameObject winningPlayerObj;
-    [SerializeField] private TextMeshProUGUI winningPlayerText;
+    [SerializeField] private GameObject winningPlayerObj, wagerDisplay;
+    [SerializeField] private TextMeshProUGUI winningPlayerText, wagerText;
 
     #endregion
 
@@ -51,6 +51,11 @@ public class FinishScreen : MonoBehaviour
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(menuButton);
         PhotonNetwork.LeaveRoom();
+        if (globalManager.wagering)
+        {
+            wagerDisplay.SetActive(true);
+            wagerText.text = globalManager.wagerAmount.ToString();
+        }
         // Enables the claim button if we've won & sets the winning player text
         if (globalManager.raceWon)
         {
