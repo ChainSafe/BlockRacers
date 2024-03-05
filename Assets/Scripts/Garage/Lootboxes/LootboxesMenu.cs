@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.Evm.Contracts;
 using ChainSafe.Gaming.Evm.Contracts.Extensions;
@@ -13,6 +15,8 @@ using Newtonsoft.Json;
 using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
 using Vector3 = UnityEngine.Vector3;
@@ -26,6 +30,8 @@ public class LootboxesMenu : MonoBehaviour
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
     [SerializeField] private RampMenu rampMenu;
     [SerializeField] private int lootboxCost = 10;
+    private Sprite downloadedSprite;
+    
     #endregion
     
     #region methods
@@ -45,6 +51,7 @@ public class LootboxesMenu : MonoBehaviour
                 return;
             }
             openMenu.SetActive(false);
+            crate.SetActive(true);
             crateCanvas.SetActive(true);
             crateAnimationMenu.SetActive(true);
             var contract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxWHAbi, ContractManager.LootboxWHContract);
@@ -106,10 +113,15 @@ public class LootboxesMenu : MonoBehaviour
         await new WaitForSeconds(2);
         crateCanvas.SetActive(false);
     }
-
+    
+    /// <summary>
+    /// Maps token rewards to the dictionary for use with extracting rewards
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Web3Exception"></exception>
     async Task<Dictionary<string, RewardType>> MapTokenAddressToRewardType()
     {
-        var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.ImplementedLootbox);
+        var lbvContract = Web3Accessor.Web3.ContractBuilder.Build(ContractManager.LootboxViewAbi, ContractManager.LootboxContract);
         var tokenAddresses = (List<string>)(await lbvContract.Call("getAllowedTokens"))[0];
 
         // Array of token reward types in the same order as getAllowedTokens()
@@ -128,6 +140,12 @@ public class LootboxesMenu : MonoBehaviour
             .ToDictionary(index => tokenAddresses[index], index => rewardTypes[index]);
     }
     
+    /// <summary>
+    /// Extracts the rewards from the rewards claimed event on chain
+    /// </summary>
+    /// <param name="eventLogs"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     LootboxRewards ExtractRewards(IEnumerable<EventLog<RewardsClaimedEvent>> eventLogs)
     {
         var rewards = LootboxRewards.Empty;
@@ -179,7 +197,7 @@ public class LootboxesMenu : MonoBehaviour
     /// Instantiates reward prefabs and displays them on screen
     /// </summary>
     /// <param name="lootboxRewards"></param>
-    private void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
+    private async void DisplayLootBoxRewards(LootboxRewards lootboxRewards)
     {
         Debug.Log("Displaying rewards on screen");
         Debug.Log($"ERC20COUNT: {lootboxRewards.Erc20Rewards.Count}");
@@ -201,6 +219,16 @@ public class LootboxesMenu : MonoBehaviour
             lootboxTextComponent.text = "ERC1155";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155Reward.TokenId}";
+            // Add image
+            var uri = await ContractManager.GetLootImage(erc1155Reward.TokenId);
+            var webRequest = UnityWebRequest.Get(uri);
+            await webRequest.SendWebRequest();
+            var data = JsonConvert.DeserializeObject<UriProperties>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+            // parse json to get image uri
+            var imageUri = data.image;
+            imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            StartCoroutine(DownloadImage(imageUri));
+            rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
         foreach (var erc1155NftReward in lootboxRewards.Erc1155NftRewards)
         {
@@ -209,7 +237,49 @@ public class LootboxesMenu : MonoBehaviour
             lootboxTextComponent.text = "ERC1155Nft";
             var displayTextComponent = rewardClone.transform.Find("DisplayText").GetComponent<TextMeshProUGUI>();
             displayTextComponent.text = $"ID: {erc1155NftReward.TokenId}";
+            // Add image
+            var uri = await ContractManager.GetLootImage(erc1155NftReward.TokenId);
+            var webRequest = UnityWebRequest.Get(uri);
+            await webRequest.SendWebRequest();
+            var data = JsonConvert.DeserializeObject<UriProperties>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+            // parse json to get image uri
+            var imageUri = data.image;
+            imageUri = imageUri.Replace("ipfs://", "https://ipfs.chainsafe.io/ipfs/");
+            StartCoroutine(DownloadImage(imageUri));
+            rewardClone.transform.Find("DisplayImage").GetComponent<Image>().sprite = downloadedSprite;
         }
+    }
+    
+    /// <summary>
+    /// Downloads image from ipfs
+    /// </summary>
+    /// <param name="mediaUrl"></param>
+    /// <returns></returns>
+    private IEnumerator DownloadImage(string mediaUrl)
+    {
+        Debug.Log("Downloading image");
+        var request = UnityWebRequestTexture.GetTexture(mediaUrl);
+        yield return request.SendWebRequest();
+        if (request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            var webTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            var webSprite = SpriteFromTexture2D(webTexture);
+            downloadedSprite = webSprite;
+        }
+    }
+    
+    /// <summary>
+    /// Gets sprite from texture
+    /// </summary>
+    /// <param name="texture"></param>
+    /// <returns></returns>
+    private Sprite SpriteFromTexture2D(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new UnityEngine.Vector2(0.5f, 0.5f), 100.0f);
     }
     
     /// <summary>
@@ -218,11 +288,21 @@ public class LootboxesMenu : MonoBehaviour
     public void CloseRewards()
     {
         FindObjectOfType<AudioManager>().Play("MenuSelect");
-        crate.SetActive(true);
+        crateCanvas.SetActive(false);
         crateAnimationMenu.SetActive(false);
         rewardsMenu.SetActive(false);
         openMenu.SetActive(true);
     }
     
     #endregion
+}
+
+/// <summary>
+/// Used to hold URI properties
+/// </summary>
+public class UriProperties
+{
+    public string name { get; set; }
+    public string description { get; set; }
+    public string image { get; set; }
 }

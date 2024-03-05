@@ -36,7 +36,7 @@ RectTransform:
   - {fileID: 1567167275022629527}
   - {fileID: 2238966589553731315}
   m_Father: {fileID: 0}
-  m_RootOrder: -2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8385119832990377223}
   - component: {fileID: 4393431926770222092}
   m_Layer: 5
-  m_Name: Image
+  m_Name: DisplayImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
