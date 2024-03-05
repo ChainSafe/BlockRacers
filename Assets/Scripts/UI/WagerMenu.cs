@@ -78,6 +78,14 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         }
         catch (Web3Exception e)
         {
+            // Dirty fallback if a wager hasn't been set
+            cancelWagerButton.SetActive(wagering);
+            // Enable wager object if master client to set wager
+            if (PhotonNetwork.IsMasterClient)
+            {
+                setWagerObject.SetActive(true);
+                wagerText.text = "SET WAGER";
+            }
             Console.WriteLine(e);
             throw;
         }
