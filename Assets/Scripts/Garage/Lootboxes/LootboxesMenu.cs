@@ -16,6 +16,7 @@ using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
@@ -29,7 +30,7 @@ public class LootboxesMenu : MonoBehaviour
     private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
     [SerializeField] private RampMenu rampMenu;
-    [SerializeField] private int lootboxCost = 10;
+    [SerializeField] private float lootboxGasCost = 1.8f;
     private Sprite downloadedSprite;
     
     #endregion
@@ -79,7 +80,7 @@ public class LootboxesMenu : MonoBehaviour
     {
         var account = await Web3Accessor.Web3.Signer.GetAddress();
         var balance = await Erc20.NativeBalanceOf(Web3Accessor.Web3, account);
-        return await Task.FromResult(balance > lootboxCost);
+        return await Task.FromResult(balance > new BigInteger(lootboxGasCost));
     }
 
     /// <summary>
