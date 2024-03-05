@@ -86,6 +86,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
         raceTokensText.text = ethConversion.ToString();
         globalManager.raceTokens = ethConversion;
     }
+    
+    /// <summary>
+    /// Copies the wallet address
+    /// </summary>
+    public void CopyWalletAddress()
+    {
+        audioManager.Play("MenuSelect");
+        GUIUtility.systemCopyBuffer = walletAddress.text;
+    }
 
     /// <summary>
     /// Sets our selected button to what we've moused over
@@ -145,19 +154,19 @@ public class MainMenu : MonoBehaviourPunCallbacks
         PlayerController.isRacing = true;
         PlayerController.useHeadLights = false;
         // Editor debug
-        if (Application.isEditor)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (!loadingLevel)
-                {
-                    loadingLevel = true;
-                    backButtonNormalRace.SetActive(false);
-                    // Loads level
-                    Invoke(nameof(LoadRaceTrack), 3);
-                }
-            }
-        }
+        // if (Application.isEditor)
+        // {
+        //     if (PhotonNetwork.IsMasterClient)
+        //     {
+        //         if (!loadingLevel)
+        //         {
+        //             loadingLevel = true;
+        //             backButtonNormalRace.SetActive(false);
+        //             // Loads level
+        //             Invoke(nameof(LoadRaceTrack), 3);
+        //         }
+        //     }
+        // }
         audioManager.Play("MenuSelect");
     }
 
