@@ -29,7 +29,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
         raceMenu,
         wagerMenu,
         searchingMenu,
-        connectButton,
         tutorialButton,
         oneVsOneButton,
         searchingBackButton;
