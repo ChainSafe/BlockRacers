@@ -1,6 +1,4 @@
-using System;
 using ChainSafe.Gaming.Exchangers.Ramp;
-using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using TMPro;
 using UnityEngine;
@@ -9,10 +7,8 @@ public class RampMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     private Web3 _web3;
-    private string formerText;
     private void Awake()
     {
-        formerText = text.text;
 #if !UNITY_EDITOR && (UNITY_WEBGL || UNITY_IOS)
         _web3 = Web3Accessor.Web3;
         _web3.RampExchanger().OnRampPurchaseCreated += RampPurchased;
@@ -31,11 +27,7 @@ public class RampMenu : MonoBehaviour
     {
         Debug.Log("PURCHASE HAPPENED AYYY " + onRampPurchaseData);
     }
-
-    private void OnDisable()
-    {
-        text.text = formerText;
-    }
+    
 
     public async void OpenRamp()
     {
