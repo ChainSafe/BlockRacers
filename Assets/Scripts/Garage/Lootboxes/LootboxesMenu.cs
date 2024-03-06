@@ -12,9 +12,11 @@ using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json;
+using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using TransactionReceipt = ChainSafe.Gaming.Evm.Transactions.TransactionReceipt;
@@ -27,6 +29,8 @@ public class LootboxesMenu : MonoBehaviour
     private ILootboxService lootBoxService;
     private Dictionary<string, RewardType> rewardTypeByTokenAddress;
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
+    [SerializeField] private RampMenu rampMenu;
+    [SerializeField] private float lootboxGasCost = 1.8f;
     private Sprite downloadedSprite;
     
     #endregion
@@ -42,6 +46,11 @@ public class LootboxesMenu : MonoBehaviour
         {
             Debug.Log($"Opening Lootbox");
             FindObjectOfType<AudioManager>().Play("MenuSelect");
+            if (await HasNativeTokenBalance() == false)
+            {
+                rampMenu.gameObject.SetActive(true);
+                return;
+            }
             openMenu.SetActive(false);
             crate.SetActive(true);
             crateCanvas.SetActive(true);
@@ -66,7 +75,14 @@ public class LootboxesMenu : MonoBehaviour
             throw;
         }
     }
-    
+
+    private async Task<bool> HasNativeTokenBalance()
+    {
+        var account = await Web3Accessor.Web3.Signer.GetAddress();
+        var balance = await Erc20.NativeBalanceOf(Web3Accessor.Web3, account);
+        return await Task.FromResult(balance > new BigInteger(lootboxGasCost));
+    }
+
     /// <summary>
     /// Gets event via transaction data and displays on screen
     /// </summary>
