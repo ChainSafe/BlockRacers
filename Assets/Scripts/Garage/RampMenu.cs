@@ -1,4 +1,5 @@
 using ChainSafe.Gaming.Exchangers.Ramp;
+using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
 using TMPro;
 using UnityEngine;
