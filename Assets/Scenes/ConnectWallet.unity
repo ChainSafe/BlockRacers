@@ -29696,7 +29696,7 @@ MonoBehaviour:
   gelatoApiKey: 7MFQqyGS1Iui_e_MgmFW1BfbFeJ06g8nnL2oUTlIJug_
   errorPopup: {fileID: 1147953479}
   walletConnectConfig: {fileID: 11400000, guid: f9e153ae0e842ea4cadd8bdb2212cc2d, type: 2}
-  autoLoginPreviousSession: 1
+  autoLoginPreviousSession: 0
   rememberSessionToggle: {fileID: 2070662788}
   loginButton: {fileID: 861555193}
 --- !u!114 &1073938970
