@@ -70,7 +70,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
         // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(connectButton);
+        EventSystem.current.SetSelectedGameObject(tutorialButton);
         // Set our connected wallet
         walletAddress.text = await Web3Accessor.Web3.Signer.GetAddress();
         // Get race tokens
