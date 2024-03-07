@@ -33,6 +33,7 @@ public class GetTokensFromApi : MonoBehaviour
             {
                 Debug.Log("Tokens mint failed from faucet API, damn");
                 Debug.LogError(webRequest.error);
+                OpenGasFaucetPage();
             }
             else
             {
@@ -40,5 +41,13 @@ public class GetTokensFromApi : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+    }
+    
+    /// <summary>
+    /// Opens the faucet webpage so the user can get some gas tokens
+    /// </summary>
+    private void OpenGasFaucetPage()
+    {
+        Application.OpenURL("https://cronos.org/faucet");
     }
 }

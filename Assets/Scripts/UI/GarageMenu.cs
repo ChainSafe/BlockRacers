@@ -27,7 +27,7 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, menuLootboxes, mintNftDescription, fetchingStatsDisplay;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, menuLootboxes, fetchingStatsDisplay;
 
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
 

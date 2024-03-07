@@ -169,7 +169,6 @@ public class SwapCars : MonoBehaviour
                 break;
             }
         }
-
         // Play our menu select audio
         GarageMenu.instance.PlayMenuSelect();
     }
@@ -214,7 +213,7 @@ public class SwapCars : MonoBehaviour
         engineSlider.value = globalManager.engineLevelStats[currentPrefabIndex];
         handlingSlider.value = globalManager.handlingLevelStats[currentPrefabIndex];
         boostSlider.value = globalManager.nosLevelStats[currentPrefabIndex];
-        // // Set selected type & nft stats for use in race
+        // Set selected type & nft stats for use in race
         globalManager.engineLevel = (int)engineSlider.value;
         globalManager.handlingLevel = (int)handlingSlider.value;
         globalManager.nosLevel = (int)boostSlider.value;
