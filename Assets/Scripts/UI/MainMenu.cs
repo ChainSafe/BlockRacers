@@ -26,11 +26,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Menu items
     [SerializeField] private GameObject
         mainMenu,
+        selectCarMenu,
         raceMenu,
         wagerMenu,
         searchingMenu,
         tutorialButton,
         oneVsOneButton,
+        selectCarRaceButton,
         searchingBackButton;
 
     // Back buttons
@@ -169,17 +171,39 @@ public class MainMenu : MonoBehaviourPunCallbacks
         audioManager.Play("MenuSelect");
     }
 
+    public void OpenSelectCarMenu()
+    {
+        // Opens race menu
+        selectCarMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
+        // Closes the main menu
+        mainMenu.SetActive(false);
+        audioManager.Play("MenuSelect");
+    }
+    
+    public void CloseSelectCarMenu()
+    {
+        // Opens the main menu
+        mainMenu.SetActive(true);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
+        // Closes the select car menu
+        selectCarMenu.SetActive(false);
+        audioManager.Play("MenuSelect");
+    }
+
     /// <summary>
     /// Opens the race menu and connects to photon for multiplayer
     /// </summary>
     public void RaceButton()
     {
+        // Closes the select car menu
+        selectCarMenu.SetActive(false);
+        // Sets our first selected button
+        EventSystem.current.SetSelectedGameObject(selectCarRaceButton);
         // Opens race menu
         raceMenu.SetActive(true);
-        // Sets our first selected button
-        EventSystem.current.SetSelectedGameObject(oneVsOneButton);
-        // Closes the main menu
-        mainMenu.SetActive(false);
         audioManager.Play("MenuSelect");
     }
 
