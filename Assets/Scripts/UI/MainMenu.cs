@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Menu items
     [SerializeField] private GameObject
         mainMenu,
+        lootBoxesMenu,
         selectCarMenu,
         raceMenu,
         wagerMenu,
@@ -191,6 +192,24 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Closes the select car menu
         selectCarMenu.SetActive(false);
         audioManager.Play("MenuSelect");
+    }
+    
+    /// <summary>
+    /// Opens lootboxes menu
+    /// </summary>
+    public void OpenLootboxesMenu()
+    {
+        mainMenu.SetActive(false);
+        lootBoxesMenu.SetActive(true);
+    }
+    
+    /// <summary>
+    /// Closes lootboxes menu
+    /// </summary>
+    public void CloseLootboxesMenu()
+    {
+        lootBoxesMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     /// <summary>
