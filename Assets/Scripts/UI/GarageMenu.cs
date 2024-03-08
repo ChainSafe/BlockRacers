@@ -386,8 +386,6 @@ public class GarageMenu : MonoBehaviour
             purchaseButton.SetActive(upgradeIndex >= 1);
         }
         // We also want to set the description based on what upgrade is selected
-        descriptionText.text =
-            (upgradeIndex == 0) ? "please select an upgrade to learn more about it" : descriptionText.text;
     }
 
     #endregion

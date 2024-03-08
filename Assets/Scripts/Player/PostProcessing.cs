@@ -62,9 +62,12 @@ public class PostProcessing : MonoBehaviour
             // Calculate the new lerp value based on time and speed
             currentLerpValue = Mathf.Clamp01(currentLerpValue + (Time.deltaTime * lerpSpeed));
             // Rumble the camera a little
-            CameraShake.Instance.TopRig.m_AmplitudeGain = 1f;
-            CameraShake.Instance.MiddleRig.m_AmplitudeGain = 1f;
-            CameraShake.Instance.BottomRig.m_AmplitudeGain = 1f;
+            if (CameraShake.Instance != null)
+            {
+                CameraShake.Instance.TopRig.m_AmplitudeGain = 1f;
+                CameraShake.Instance.MiddleRig.m_AmplitudeGain = 1f;
+                CameraShake.Instance.BottomRig.m_AmplitudeGain = 1f;
+            }
         }
         else
         {
