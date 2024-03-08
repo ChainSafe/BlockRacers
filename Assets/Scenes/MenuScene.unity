@@ -1395,7 +1395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1194770417058105116, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3707187587619891695, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
       propertyPath: m_Pivot.x
@@ -19705,7 +19705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1099260313
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31363,6 +31363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FaceOffButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1194770417058105116, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3707187587619891695, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -31441,7 +31445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3707187587619891695, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -68
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 3707187587619891695, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
