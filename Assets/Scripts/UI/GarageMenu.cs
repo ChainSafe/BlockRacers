@@ -27,7 +27,7 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, menuLootboxes, fetchingStatsDisplay;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, fetchingStatsDisplay;
 
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
 
@@ -82,22 +82,9 @@ public class GarageMenu : MonoBehaviour
         menuUpgrade.SetActive(false);
         menuShowRoom.SetActive(false);
         menuChangeNft.SetActive(false);
-        menuLootboxes.SetActive(false);
         menuGarage.SetActive(true);
         // Sets our first selected button
         EventSystem.current.SetSelectedGameObject(changeCarButton);
-        // Play our menu select audio
-        PlayMenuSelect();
-    }
-    
-    /// <summary>
-    /// Takes the user to the showroom
-    /// </summary>
-    public void LootboxesButton()
-    {
-        // Changes menu displays
-        menuGarage.SetActive(false);
-        menuLootboxes.SetActive(true);
         // Play our menu select audio
         PlayMenuSelect();
     }
