@@ -402,7 +402,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                 playersWagerReadyObj.SetActive(true);
                 for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
-                    if(playerWagerNames.Length >= i || LobbyUserName.Length >= i) continue;
+                    if(i >= playerWagerNames.Length ||  i >= LobbyUserName.Length) continue;
                     playerWagerNames[i].text = LobbyUserName[i].Owner.NickName;
                 }
 
