@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using ChainSafe.Gaming.Web3;
+using Nethereum.Web3.Accounts;
 using Scripts.EVM.Token;
 using UnityEngine;
 
@@ -81,6 +82,20 @@ public class ContractManager : MonoBehaviour
     {
         try
         {
+            // var account = await Web3Accessor.Web3.Signer.GetAddress();
+            // object[] initialCheckArgs =
+            // {
+            //     account,
+            //     _spender
+            // };
+            // Debug.Log($"Checking spend amount");
+            // var initialCheckdata = await Evm.ContractCall(Web3Accessor.Web3, "allowance", TokenAbi, TokenContract, initialCheckArgs);
+            // var initialCheckresponse = SampleOutputUtil.BuildOutputValue(initialCheckdata);
+            // if (BigInteger.Parse(initialCheckresponse) <= _amount)
+            // {
+            //     Debug.Log($"Allowance already approved");
+            //     return;
+            // }
             object[] args =
             {
                 _spender,

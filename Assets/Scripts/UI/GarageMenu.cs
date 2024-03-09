@@ -125,14 +125,9 @@ public class GarageMenu : MonoBehaviour
     /// </summary>
     public void MintNftFromUpgrades()
     {
-        if (menuShowRoom.activeSelf)
-        {
-            // Rotate our camera back
-            CameraController.instance.RotateCamera(-95f, 0.5f);
-            menuShowRoom.SetActive(false);
-            menuUpgrade.SetActive(false);
-            menuMarket.SetActive(true);
-        }
+        menuShowRoom.SetActive(false);
+        menuUpgrade.SetActive(false);
+        menuMarket.SetActive(true);
     }
 
 
@@ -180,7 +175,6 @@ public class GarageMenu : MonoBehaviour
     {
         // Contract call
         var values = await ContractManager.GetUnlockedNfts();
-        Debug.Log("Checking minted Nfts");
         // Disable the mint button for an NFT if already purchased
         for (int i = 0; i < values.Count; i++)
         {

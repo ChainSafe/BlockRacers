@@ -63,7 +63,6 @@ public class SelectCarMainMenu : MonoBehaviour
     /// </summary>
     private async void GetCarStats()
     {
-        Debug.Log($"Getting stats");
         // Contract call
         var values = await ContractManager.GetNftStatsWithType();
         List<List<BigInteger>> nestedList = new List<List<BigInteger>>(values[0]);
