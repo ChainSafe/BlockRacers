@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PreloadCameraMove : MonoBehaviour
 {
+    public GameObject menu, mainCamera;
     public Transform objectToMove;
     public float targetX = -170;
     public float duration = 3f;
@@ -26,6 +27,8 @@ public class PreloadCameraMove : MonoBehaviour
 
         if (percentageComplete >= 1.0f)
         {
+            mainCamera.SetActive(true);
+            menu.SetActive(true);
             Destroy(gameObject);
         }
     }
