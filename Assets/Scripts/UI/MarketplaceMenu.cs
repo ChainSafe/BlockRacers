@@ -81,7 +81,6 @@ public class MarketplaceMenu : MonoBehaviour
                         break;
                 }
             }
-            Debug.Log("Unlocked nfts found, mint buttons disabled for owned nfts");
             fetchingStatsDisplay.SetActive(false);
         }
         catch (Web3Exception e)
@@ -121,8 +120,10 @@ public class MarketplaceMenu : MonoBehaviour
     /// </summary>
     public async void MintRaceTokens()
     {
+        fetchingStatsDisplay.SetActive(true);
         var response = await ContractManager.MintRaceTokens();
         Debug.Log($"Response: {response}");
+        fetchingStatsDisplay.SetActive(false);
         GarageMenu.instance.PlayMenuSelect();
     }
 
