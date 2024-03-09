@@ -51,7 +51,6 @@ public class MarketplaceMenu : MonoBehaviour
         {
             // Contract call
             var values = await ContractManager.GetUnlockedNfts();
-            Debug.Log("Checking unlocked Nfts");
             // Disable the mint button for an NFT if already purchased
             for (int i = 0; i < values.Count; i++)
             {
