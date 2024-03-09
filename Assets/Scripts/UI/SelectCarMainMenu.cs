@@ -3,6 +3,7 @@ using System.Numerics;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class SelectCarMainMenu : MonoBehaviour
@@ -52,6 +53,7 @@ public class SelectCarMainMenu : MonoBehaviour
         carName.text = "Camaro";
         // Instantiate the initial prefab
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        currentPrefab.transform.rotation = Quaternion.Euler(0,45,0);
         fetchingDataPopup.SetActive(true);
         GetCarStats();
     }
@@ -206,6 +208,7 @@ public class SelectCarMainMenu : MonoBehaviour
         currentPrefabIndex = (currentPrefabIndex <= 1) ? currentPrefabIndex + 1 : 0;
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        currentPrefab.transform.rotation = Quaternion.Euler(0,45,0);
         // Display stats
         DisplayCarStats();
         // Play our menu select audio
@@ -226,6 +229,7 @@ public class SelectCarMainMenu : MonoBehaviour
         currentPrefabIndex = (currentPrefabIndex >= 1) ? currentPrefabIndex - 1 : 2;
         // Instantiate the next prefab in the array
         currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        currentPrefab.transform.rotation = Quaternion.Euler(0,45,0);
         // Display stats
         DisplayCarStats();
         globalManager.playerCar = currentPrefab;

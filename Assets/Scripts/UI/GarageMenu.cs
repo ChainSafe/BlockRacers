@@ -27,7 +27,7 @@ public class GarageMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     // Menu objects
-    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, fetchingStatsDisplay;
+    [SerializeField] private GameObject menuGarage, menuShowRoom, menuUpgrade, menuChangeNft, menuMarket, fetchingStatsDisplay, mintDescription, upgradeDescription;
 
     [SerializeField] private TextMeshProUGUI engineLevelText, handlingLevelText, nosLevelText;
 
@@ -114,6 +114,8 @@ public class GarageMenu : MonoBehaviour
         // Changes menu displays
         menuUpgrade.SetActive(true);
         menuShowRoom.SetActive(false);
+        fetchingStatsDisplay.SetActive(true);
+        GetUnlockedNfts();
         // Play our menu select audio
         PlayMenuSelect();
     }
@@ -169,6 +171,45 @@ public class GarageMenu : MonoBehaviour
         SceneManager.LoadScene("LoadingScreen");
         // Play our menu select audio
         PlayMenuSelect();
+    }
+    
+    /// <summary>
+    /// Checks unlocked nfts to be used in upgrades
+    /// </summary>
+    private async void GetUnlockedNfts()
+    {
+        // Contract call
+        var values = await ContractManager.GetUnlockedNfts();
+        Debug.Log("Checking minted Nfts");
+        // Disable the mint button for an NFT if already purchased
+        for (int i = 0; i < values.Count; i++)
+        {
+            bool isActive = values[i];
+            switch (i)
+            {
+                case 0:
+                    if (isActive)
+                    {
+                        globalManager.unlockedNfts[0] = true;
+                    }
+                    break;
+                case 1:
+                    if (isActive)
+                    {
+                        globalManager.unlockedNfts[1] = true;
+                    }
+                    break;
+                case 2:
+                    if (isActive)
+                    {
+                        globalManager.unlockedNfts[2] = true;
+                    }
+                    break;
+            }
+            upgradeDescription.SetActive(globalManager.unlockedNfts[globalManager.selectedNftType]);
+            mintDescription.SetActive(!globalManager.unlockedNfts[globalManager.selectedNftType]);
+            fetchingStatsDisplay.SetActive(false);
+        }
     }
 
     /// <summary>

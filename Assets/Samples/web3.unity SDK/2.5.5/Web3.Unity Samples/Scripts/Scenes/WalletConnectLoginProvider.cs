@@ -14,7 +14,7 @@ using UnityEngine.UI;
 public class WalletConnectLoginProvider : LoginProvider, IWeb3BuilderServiceAdapter
 {
     [SerializeField] private WalletConnectConfigSO walletConnectConfig;
-    [SerializeField] private bool autoLoginPreviousSession = true;
+    [SerializeField] private bool autoLoginPreviousSession;
     [Header("UI")]
     [SerializeField] private Toggle rememberSessionToggle;
     [SerializeField] private Button loginButton;
@@ -46,7 +46,7 @@ public class WalletConnectLoginProvider : LoginProvider, IWeb3BuilderServiceAdap
     {
         return web3Builder.Configure(services =>
         {
-            var rememberSession = rememberSessionToggle.isOn || storedSessionAvailable;
+            var rememberSession = rememberSessionToggle.isOn;
             
             services.UseWalletConnect(walletConnectConfig.WithRememberSession(rememberSession))
                 .UseWalletConnectSigner()
