@@ -26,12 +26,14 @@ public class SplashScreenLoader : MonoBehaviour
     {
         if (Application.isMobilePlatform)
         {
+            //Screen.orientation = ScreenOrientation.LandscapeLeft;
             SceneManager.LoadScene("ConnectWallet");
         }
         else
         {
             // play video
-            Screen.fullScreen = !Screen.fullScreen;
+            // Sets fullscreen (disabled as webgl has a permission warning)
+            //Screen.fullScreen = !Screen.fullScreen;
             videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
             videoPlayer.Play();
             videoPlayer.loopPointReached += CheckOver;
