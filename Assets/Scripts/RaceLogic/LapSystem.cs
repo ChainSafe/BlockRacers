@@ -88,6 +88,27 @@ public class LapSystem : MonoBehaviourPunCallbacks
             }
         }
     }
+    
+    /// <summary>
+    /// Debug auto win game call for testing
+    /// </summary>
+    public void WinGame()
+    {
+        if (!playerController.GetComponent<PhotonView>().IsMine) return;
+        if (globalManager.wagering)
+        {
+            globalManager.raceWon = true;
+        }
+        // Sends RPC to other users
+        playerController.GetComponent<PhotonView>().RPC("RaceOver", RpcTarget.All);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            WinGame();
+        }
+    }
 
     #endregion
 }
