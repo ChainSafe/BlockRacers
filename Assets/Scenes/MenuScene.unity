@@ -4286,7 +4286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter tx
+  m_text: Enter Code
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
   m_sharedMaterial: {fileID: -7744128936776479963, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
@@ -13054,8 +13054,8 @@ RectTransform:
   m_Children:
   - {fileID: 1875385717}
   - {fileID: 1613860586}
-  - {fileID: 1737312576}
   - {fileID: 1560245865}
+  - {fileID: 1737312576}
   - {fileID: 271234105}
   - {fileID: 632994261}
   - {fileID: 1152899942}
@@ -28110,7 +28110,7 @@ GameObject:
   - component: {fileID: 1560245867}
   - component: {fileID: 1560245866}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: UnlockTheBeastText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28132,7 +28132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -742.6, y: 255.20001}
+  m_AnchoredPosition: {x: -742.6, y: 231.6}
   m_SizeDelta: {x: -1720.863, y: -1044.809}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1560245866
@@ -28155,7 +28155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter blasterz TX for a boost
+  m_text: Unlock The Beast
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
   m_sharedMaterial: {fileID: -7744128936776479963, guid: f652b28f881a7bb469a63fb83a035f70, type: 2}
