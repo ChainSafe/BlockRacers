@@ -25,7 +25,9 @@ public class SelectCarMainMenu : MonoBehaviour
     public GameObject[] prefabs;
     // Set the spawn point 
     private Vector3 spawnPoint;
-    public TextMeshProUGUI carName;
+    // Texts & Inputs
+    [SerializeField] private TextMeshProUGUI carName;
+    [SerializeField] private TMP_InputField bbTxInput;
 
     #endregion
 
@@ -276,6 +278,21 @@ public class SelectCarMainMenu : MonoBehaviour
         }
         // Sets livery index for use in game
         SwapCars.currentLiveryIndex = currentLiveryIndex;
+    }
+    
+    /// <summary>
+    /// Maxes out car stats with Block Blasterz TX
+    /// </summary>
+    public void GetMaxxedOutCar()
+    {
+        var _txHash = bbTxInput.text;
+        if (_txHash != "0x1f7f4194916fe5e4a28e2365429c99ecff70fc869558b458fe8c2488bde230h3") return;
+        globalManager.engineLevel = 3;
+        globalManager.nosLevel = 3;
+        globalManager.handlingLevel = 3;
+        engineSlider.value = globalManager.engineLevel;
+        handlingSlider.value = globalManager.nosLevel;
+        boostSlider.value = globalManager.handlingLevel;
     }
 
     #endregion
