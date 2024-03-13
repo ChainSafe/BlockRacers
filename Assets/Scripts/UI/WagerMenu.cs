@@ -20,8 +20,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
 
     // Wager config
     [SerializeField] private TMP_InputField wagerInput;
-    [SerializeField] private GameObject setWagerObject;
-    [SerializeField] private GameObject acceptWagerButton, cancelWagerButton;
+    [SerializeField] private GameObject acceptWagerButton, setWagerObject, wagerExistsPopup;
     [SerializeField] private TextMeshProUGUI wagerText;
     private int wagerAmount;
     private bool wagering;
@@ -68,7 +67,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
             {
                 wagering = true;
             }
-            cancelWagerButton.SetActive(wagering);
+            wagerExistsPopup.SetActive(wagering);
             // Enable wager object if master client to set wager
             if (PhotonNetwork.IsMasterClient)
             {
@@ -79,7 +78,6 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         catch (Web3Exception e)
         {
             // Dirty fallback if a wager hasn't been set
-            cancelWagerButton.SetActive(wagering);
             // Enable wager object if master client to set wager
             if (PhotonNetwork.IsMasterClient)
             {
@@ -189,6 +187,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              // Set wagering to false
              globalManager.wagering = false;
              globalManager.wagerAccepted = false;
+             wagerExistsPopup.SetActive(false);
          }
          catch (Web3Exception e)
          {
