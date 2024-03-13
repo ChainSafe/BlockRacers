@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
@@ -60,6 +61,14 @@ public class SelectCarMainMenu : MonoBehaviour
         GetCarStats();
     }
     
+    /// <summary>
+    /// Destroys car prefab on menu close
+    /// </summary>
+    private void OnDisable()
+    {
+        Destroy(currentPrefab);
+    }
+
     /// <summary>
     /// Gets Nft car stats from chain
     /// </summary>
