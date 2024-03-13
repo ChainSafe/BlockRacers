@@ -181,18 +181,23 @@ public class WagerMenu : MonoBehaviourPunCallbacks
                  globalManager.deadline,
                  opponentSig
              };
-             var data = await Evm.ContractSend(Web3Accessor.Web3, "cancelWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
+             var data = await Evm.ContractSend(Web3Accessor.Web3, "cancelWager", ContractManager.WagerAbi,
+                 ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
              // Set wagering to false
-             globalManager.wagering = false;
-             globalManager.wagerAccepted = false;
-             wagerExistsPopup.SetActive(false);
+
          }
          catch (Web3Exception e)
          {
              Console.WriteLine(e);
              throw;
+         }
+         finally
+         {
+             globalManager.wagering = false;
+             globalManager.wagerAccepted = false;
+             wagerExistsPopup.SetActive(false);
          }
          
      }
