@@ -31,6 +31,7 @@ public class LootboxesMenu : MonoBehaviour
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
     [SerializeField] private RampMenu rampMenu;
     [SerializeField] private float lootboxGasCost = 1.8f;
+    private bool _rampShown;
     private Sprite downloadedSprite;
     
     #endregion
@@ -58,9 +59,10 @@ public class LootboxesMenu : MonoBehaviour
         {
             Debug.Log($"Opening Lootbox");
             FindObjectOfType<AudioManager>().Play("MenuSelect");
-            if (await HasNativeTokenBalance() == false)
+            if (await HasNativeTokenBalance() == false || !_rampShown)
             {
                 rampMenu.gameObject.SetActive(true);
+                _rampShown = true;
                 return;
             }
             openMenu.SetActive(false);
