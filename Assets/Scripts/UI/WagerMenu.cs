@@ -165,6 +165,9 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      {
          try
          {
+             acceptWagerButton.SetActive(false);
+             wagerText.SetText("Accepting wager");
+             spinner.SetActive(true);
              var account = await Web3Accessor.Web3.Signer.GetAddress();
              // Approve transfer amount
              BigInteger wager = BigInteger.Multiply(globalManager.wagerAmount, BigInteger.Pow(10, 18));
@@ -182,6 +185,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              };
              var data = await Evm.ContractSend(Web3Accessor.Web3, "startWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
+             wagerText.SetText("Loading scene");
              Debug.Log($"TX: {response}");
              wagerText.SetText("Wager accepted loading scene");
              // Set wagering to true
