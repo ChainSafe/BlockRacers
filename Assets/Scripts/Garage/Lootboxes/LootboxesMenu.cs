@@ -38,6 +38,18 @@ public class LootboxesMenu : MonoBehaviour
     #region methods
     
     /// <summary>
+    /// Mints race tokens to an account, good for testing purposes
+    /// </summary>
+    public async void MintRaceTokens()
+    {
+        FindObjectOfType<AudioManager>().Play("MenuSelect");
+        await ContractManager.MintRaceTokens();
+        await FindObjectOfType<MainMenu>().GetRaceTokenBalance();
+    }
+    
+   
+    
+    /// <summary>
     /// Opens lootboxes
     /// </summary>
     public async void OpenLootbox()

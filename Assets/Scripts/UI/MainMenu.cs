@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using ChainSafe.Gaming.UnityPackage;
 using Photon.Pun;
 using Scripts.EVM.Token;
@@ -76,10 +77,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // Set our connected wallet
         walletAddress.text = await Web3Accessor.Web3.Signer.GetAddress();
         // Get race tokens
-        GetRaceTokenBalance();
+        await GetRaceTokenBalance();
     }
 
-    private async void GetRaceTokenBalance()
+    public async Task GetRaceTokenBalance()
     {
         var response = await Erc20.CustomTokenBalance(Web3Accessor.Web3, ContractManager.TokenAbi, ContractManager.TokenContract);
         // Conversion with 18 decimals
