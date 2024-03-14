@@ -237,10 +237,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
                  ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
-             // Set wagering to false
-             
+
              if (PhotonNetwork.IsMasterClient)
              {
+                 spinner.SetActive(false);
                  setWagerObject.SetActive(true);
                  wagerText.text = "SET WAGER";
              }
@@ -260,6 +260,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          {
              if (PhotonNetwork.IsMasterClient)
              {
+                 spinner.SetActive(false);
                  setWagerObject.SetActive(true);
                  wagerText.text = "SET WAGER";
              }
