@@ -69,12 +69,7 @@ public class LapSystem : MonoBehaviourPunCallbacks
         playerController.lapCountText.text = playerController.LapCount.ToString();
         switch (playerController.LapCount)
         {
-            // Let the player know it's their final lap
-            case 3:
-                playerController.finalLapReminder.SetActive(true);
-                break;
-            // When we've completed all three laps
-            case 4:
+            case 2:
             {
                 // If we're first enable the global bool for claims
                 if (raceOver) return;
