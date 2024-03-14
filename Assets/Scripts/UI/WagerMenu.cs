@@ -86,6 +86,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
 
             wagerExistsPopup.SetActive(wagering);
             // Enable wager object if master client to set wager
+            if(wagering) return;
             if (PhotonNetwork.IsMasterClient)
             {
                 setWagerObject.SetActive(true);
@@ -219,6 +220,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      {
          try
          {
+             wagerExistsPopup.SetActive(false);
+             setWagerObject.SetActive(false);
+             spinner.SetActive(true);
+             wagerText.SetText("Cancelling wager");
              // Additional function parameters
              BigInteger nonce = 1;
              byte[] opponentSig = Encoding.UTF8.GetBytes(globalManager.opponentSignature);
@@ -233,6 +238,17 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
              // Set wagering to false
+             
+             if (PhotonNetwork.IsMasterClient)
+             {
+                 setWagerObject.SetActive(true);
+                 wagerText.text = "SET WAGER";
+             }
+             else
+             {
+                 spinner.SetActive(true);
+                 wagerText.SetText("Waiting for opponent to set wager");
+             }
 
          }
          catch (Web3Exception e)
@@ -242,9 +258,16 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          }
          finally
          {
-             globalManager.wagering = false;
-             globalManager.wagerAccepted = false;
-             wagerExistsPopup.SetActive(false);
+             if (PhotonNetwork.IsMasterClient)
+             {
+                 setWagerObject.SetActive(true);
+                 wagerText.text = "SET WAGER";
+             }
+             else
+             {
+                 spinner.SetActive(true);
+                 wagerText.SetText("Waiting for opponent to set wager");
+             }
          }
          
      }
