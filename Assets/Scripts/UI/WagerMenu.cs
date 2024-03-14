@@ -22,6 +22,8 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField wagerInput;
     [SerializeField] private GameObject acceptWagerButton, setWagerObject, wagerExistsPopup;
     [SerializeField] private TextMeshProUGUI wagerText;
+    [SerializeField] private GameObject spinner;
+    
     private int wagerAmount;
     private bool wagering;
 
@@ -45,6 +47,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     {
         // Check if wager is active
         WagerCheck();
+        
     }
  
     /// <summary>
@@ -54,12 +57,15 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     {
         try
         {
+            spinner.SetActive(true);
+            wagerText.SetText("Checking if wager exists");
             var account = await Web3Accessor.Web3.Signer.GetAddress();
             object[] args =
             {
                 account
             };
-            var data = await Evm.ContractCall(Web3Accessor.Web3, "getWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
+            var data = await Evm.ContractCall(Web3Accessor.Web3, "getWager", ContractManager.WagerAbi,
+                ContractManager.WagerContract, args);
             var response = SampleOutputUtil.BuildOutputValue(data);
             Debug.Log($"Output: {response}");
             // Display wager cancel button if wager is set as you can't have 2 wagers at once
@@ -67,6 +73,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
             {
                 wagering = true;
             }
+
             wagerExistsPopup.SetActive(wagering);
             // Enable wager object if master client to set wager
             if (PhotonNetwork.IsMasterClient)
@@ -84,8 +91,13 @@ public class WagerMenu : MonoBehaviourPunCallbacks
                 setWagerObject.SetActive(true);
                 wagerText.text = "SET WAGER";
             }
+
             Console.WriteLine(e);
             throw;
+        }
+        finally
+        {
+            spinner.SetActive(false);
         }
     }
 
@@ -94,9 +106,11 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      /// </summary>
      public async void SetWager()
      {
+         var previousText = wagerText.text;
          try
          {
-             Debug.Log("Setting Wager!");
+             spinner.SetActive(true);
+             wagerText.SetText("Setting Wager");
              var account = await Web3Accessor.Web3.Signer.GetAddress();
              if (int.Parse(wagerInput.text) > 100)
              {
@@ -106,6 +120,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              {
                  wagerAmount = int.Parse(wagerInput.text);
              }
+
              // Approve transfer amount
              BigInteger wager = BigInteger.Multiply(wagerAmount, BigInteger.Pow(10, 18));
              await ContractManager.Approve(ContractManager.WagerContract, wager);
@@ -118,10 +133,13 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              string signature = await Evm.SignMessage(Web3Accessor.Web3, message);
              Debug.Log($"Wager set at: {wagerAmount}");
              globalManager.wagerAmount = wagerAmount;
+             wagerText.SetText("Waiting for opponent to approve");
              photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account, signature, deadline.ToString());
          }
          catch (Web3Exception e)
          {
+             spinner.SetActive(false);
+             wagerText.text = previousText;
              Console.WriteLine(e);
              throw;
          }
@@ -152,6 +170,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              var data = await Evm.ContractSend(Web3Accessor.Web3, "startWager", ContractManager.WagerAbi, ContractManager.WagerContract, args);
              var response = SampleOutputUtil.BuildOutputValue(data);
              Debug.Log($"TX: {response}");
+             wagerText.SetText("Wager accepted loading scene");
              // Set wagering to true
              globalManager.wagering = true;
              globalManager.wagerAccepted = true;
@@ -159,6 +178,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          }
          catch (Web3Exception e)
          {
+             spinner.SetActive(false);
              Console.WriteLine(e);
              throw;
          }
@@ -223,6 +243,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      [PunRPC]
      private void RPCWagerAccept(string _account)
      {
+         wagerText.SetText("Loading scene");
          // Set wager values
          globalManager.wagerOpponent = _account;
          // Set wagering to true
