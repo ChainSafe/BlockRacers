@@ -58,6 +58,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
         try
         {
             spinner.SetActive(true);
+            setWagerObject.SetActive(false);
             wagerText.SetText("Checking if wager exists");
             var account = await Web3Accessor.Web3.Signer.GetAddress();
             object[] args =
