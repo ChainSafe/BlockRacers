@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float input, horizontalInput, verticalInput;
     private Vector3 GyroRotation;
     private bool gyroEnabled;
+    private bool prevGyroBool;
+    private PlayerInputActions playerInput;
+    public GameObject carBody, movementJoystick, gyroButtonMenu;
 
     // Steering and braking
     private bool isDrifting, isBraking;
@@ -116,9 +119,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // Race end text
     [SerializeField] private GameObject raceEndingText;
 
-    // Player Input
-    private PlayerInputActions playerInput;
-    public GameObject carBody;
 
     #endregion
 
@@ -280,9 +280,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // gyroscope rotation
         if (Application.isMobilePlatform)
         {
+            prevGyroBool = globalManager.gyroEnabled;
             UnityEngine.Input.gyro.enabled = true;
             GyroRotation = Vector3.zero;
         }
+        // Enables gyro buttons and disables movement joystick
+        movementJoystick.SetActive(!globalManager.gyroEnabled);
+        gyroButtonMenu.SetActive(globalManager.gyroEnabled);
         // Shows controls menu
         controlsPopUp.SetActive(true);
         // Disables photon components in tutorial
@@ -689,6 +693,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 resetActive = true;
             }
         }
+
+        if (globalManager.gyroEnabled == prevGyroBool) return;
+        prevGyroBool = globalManager.gyroEnabled;
+        // Enables gyro buttons and disables movement joystick
+        movementJoystick.SetActive(!globalManager.gyroEnabled);
+        gyroButtonMenu.SetActive(globalManager.gyroEnabled);
     }
 
     /// <summary>
