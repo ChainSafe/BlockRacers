@@ -23,9 +23,9 @@ public class FinishScreen : MonoBehaviour
 
     // Buttons
     [SerializeField] private GameObject menuButton, claimButton;
-
+    
     // Winning player text
-    [SerializeField] private GameObject winningPlayerObj, wagerDisplay;
+    [SerializeField] private GameObject spinner, wagerDisplay;
     [SerializeField] private TextMeshProUGUI winningPlayerText, wagerText;
 
     #endregion
@@ -82,6 +82,10 @@ public class FinishScreen : MonoBehaviour
 
     public async void ClaimWinnings()
     {
+        claimButton.SetActive(false);
+        spinner.SetActive(true);
+        winningPlayerText.SetText("Claiming Winnings...");
+        menuButton.SetActive(false);
         if (globalManager.wagering)
         {
             // TODO: Add ECDSA
