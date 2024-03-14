@@ -95,6 +95,12 @@ public class WagerMenu : MonoBehaviourPunCallbacks
             {
                 setWagerObject.SetActive(true);
                 wagerText.text = "SET WAGER";
+                spinner.SetActive(false);
+            }
+            else
+            {
+                spinner.SetActive(true);
+                wagerText.SetText("Waiting for opponent to set wager");
             }
 
             Console.WriteLine(e);
