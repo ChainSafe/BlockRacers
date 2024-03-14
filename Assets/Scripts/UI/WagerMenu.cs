@@ -7,6 +7,7 @@ using Photon.Pun;
 using Scripts.EVM.Token;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// An example of how wagering tokens would work
@@ -23,6 +24,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject acceptWagerButton, setWagerObject, wagerExistsPopup;
     [SerializeField] private TextMeshProUGUI wagerText;
     [SerializeField] private GameObject spinner;
+    [SerializeField] private Button setWagerButton;
     
     private int wagerAmount;
     private bool wagering;
@@ -36,8 +38,15 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     /// </summary>
     private void Awake()
     {
+        setWagerButton.interactable = false;
+        wagerInput.onValueChanged.AddListener(value => setWagerButton.interactable = !string.IsNullOrEmpty(value));
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
+    }
+
+    private void OnDestroy()
+    {
+        wagerInput.onValueChanged.RemoveAllListeners();
     }
 
     /// <summary>

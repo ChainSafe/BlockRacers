@@ -27422,6 +27422,7 @@ MonoBehaviour:
   wagerExistsPopup: {fileID: 2630163916125739945}
   wagerText: {fileID: 697463720}
   spinner: {fileID: 2103643131}
+  setWagerButton: {fileID: 1835930481}
 --- !u!114 &1445833361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31833,6 +31834,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3707187587619891695, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
   m_PrefabInstance: {fileID: 1835930479}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1835930481 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5712205681818221079, guid: ca0830fbba54a0c4182a74f5dde8d882, type: 3}
+  m_PrefabInstance: {fileID: 1835930479}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1856517777
 PrefabInstance:
   m_ObjectHideFlags: 0
