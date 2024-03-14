@@ -81,6 +81,11 @@ public class WagerMenu : MonoBehaviourPunCallbacks
                 setWagerObject.SetActive(true);
                 wagerText.text = "SET WAGER";
             }
+            else
+            {
+                spinner.SetActive(true);
+                wagerText.SetText("Waiting for opponent to set wager");
+            }
         }
         catch (Web3Exception e)
         {
@@ -109,8 +114,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
          var previousText = wagerText.text;
          try
          {
+             setWagerObject.SetActive(false);
              spinner.SetActive(true);
-             wagerText.SetText("Setting Wager");
+             wagerText.SetText("Sending wager amount");
+             
              var account = await Web3Accessor.Web3.Signer.GetAddress();
              if (int.Parse(wagerInput.text) > 100)
              {
@@ -130,10 +137,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
              BigInteger nonce = 1;
              var message = $"{account}{wager}{nonce}{deadline}{ContractManager.WagerContract}{338}";
              // Sign & send sig to opponent over rpc
+             wagerText.SetText("Waiting for opponent to approve");
              string signature = await Evm.SignMessage(Web3Accessor.Web3, message);
              Debug.Log($"Wager set at: {wagerAmount}");
              globalManager.wagerAmount = wagerAmount;
-             wagerText.SetText("Waiting for opponent to approve");
              photonView.RPC("RPCWagerSet", RpcTarget.Others, wagerAmount, account, signature, deadline.ToString());
          }
          catch (Web3Exception e)
