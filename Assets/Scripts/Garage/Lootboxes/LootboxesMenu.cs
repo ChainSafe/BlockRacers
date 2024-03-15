@@ -31,13 +31,20 @@ public class LootboxesMenu : MonoBehaviour
     [SerializeField] private GameObject crate, brokenCrate, openMenu, crateAnimationMenu, crateCanvas, rewardsMenu, rewardPrefab, rewardPanel;
     [SerializeField] private RampMenu rampMenu;
     [SerializeField] private float lootboxGasCost = 1.8f;
-    private bool _rampShown;
+    private bool _rampShown = true;
     private Sprite downloadedSprite;
     
     #endregion
     
     #region methods
-    
+
+    private void Awake()
+    {
+        #if !UNITY_EDITOR && (UNITY_WEBGL || UNITY_IOS)
+        _rampShown = false;
+        #endif
+    }
+
     /// <summary>
     /// Mints race tokens to an account, good for testing purposes
     /// </summary>
@@ -61,6 +68,7 @@ public class LootboxesMenu : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("MenuSelect");
             if (await HasNativeTokenBalance() == false || !_rampShown)
             {
+                Debug.Log("Showing Ramp");
                 rampMenu.gameObject.SetActive(true);
                 _rampShown = true;
                 return;
