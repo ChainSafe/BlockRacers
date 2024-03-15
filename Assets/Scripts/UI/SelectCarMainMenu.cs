@@ -55,7 +55,7 @@ public class SelectCarMainMenu : MonoBehaviour
         currentLiveryIndex = 0;
         carName.text = "Camaro";
         // Instantiate the initial prefab
-        currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation);
         currentPrefab.transform.rotation = Quaternion.Euler(0,45,0);
         fetchingDataPopup.SetActive(true);
         GetCarStats();
