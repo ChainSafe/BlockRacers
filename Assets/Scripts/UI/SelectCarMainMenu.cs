@@ -217,7 +217,7 @@ public class SelectCarMainMenu : MonoBehaviour
         Destroy(currentPrefab);
         currentPrefabIndex = (currentPrefabIndex <= 1) ? currentPrefabIndex + 1 : 0;
         // Instantiate the next prefab in the array
-        currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation, transform);
+        currentPrefab = Instantiate(prefabs[currentPrefabIndex], spawnPoint, transform.rotation);
         currentPrefab.transform.rotation = Quaternion.Euler(0,45,0);
         // Display stats
         DisplayCarStats();
