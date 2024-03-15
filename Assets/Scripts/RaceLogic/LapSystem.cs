@@ -99,10 +99,10 @@ public class LapSystem : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.L))
-        {
-            WinGame();
-        }
+        // if (Input.GetKeyUp(KeyCode.L))
+        // {
+        //     WinGame();
+        // }
     }
 
     #endregion
