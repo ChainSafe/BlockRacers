@@ -561,7 +561,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (globalManager.gyroEnabled)
             {
                 // If we have gyro input enabled
-                GyroRotation.x = UnityEngine.Input.gyro.rotationRateUnbiased.x;
+                GyroRotation.x = UnityEngine.Input.gyro.rotationRate.x;
                 currentSteerAngle = maxSteerAngle * GyroRotation.x;
             }
             else
