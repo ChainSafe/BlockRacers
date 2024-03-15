@@ -39,7 +39,10 @@ public class WagerMenu : MonoBehaviourPunCallbacks
     private void Awake()
     {
         setWagerButton.interactable = false;
-        wagerInput.onValueChanged.AddListener(value => setWagerButton.interactable = !string.IsNullOrEmpty(value));
+        wagerInput.onValueChanged.AddListener(value =>
+        {
+            setWagerButton.interactable = !string.IsNullOrEmpty(value) && int.TryParse(value, out var number) && number > 0 && number <= 100;
+        });
         // Finds our global manager
         globalManager = GameObject.FindWithTag("GlobalManager").GetComponent<GlobalManager>();
     }
