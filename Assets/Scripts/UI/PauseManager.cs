@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -57,7 +58,18 @@ public class PauseManager : MonoBehaviourPunCallbacks
         playerInput.Game.Pause.performed += OnPauseInput;
         if (!Application.isMobilePlatform) return;
         gyroToggle.isOn = globalManager.gyroEnabled;
+        gyroToggle.onValueChanged.AddListener(GyroToggleChanged);
         gyroButton.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        gyroToggle.onValueChanged.RemoveListener(GyroToggleChanged);
+    }
+
+    private void GyroToggleChanged(bool gyroEnabled)
+    {
+        globalManager.gyroEnabled = gyroEnabled;   
     }
 
     /// <summary>

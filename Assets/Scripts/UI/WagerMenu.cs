@@ -279,6 +279,7 @@ public class WagerMenu : MonoBehaviourPunCallbacks
      [PunRPC]
      private void RPCWagerSet(int _wagerAmount, string _account, string _opponentSignature, string _deadline)
      {
+         spinner.SetActive(false);
          // Set wager values
          globalManager.wagerAmount = _wagerAmount;
          globalManager.wagerOpponent = _account;

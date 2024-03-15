@@ -158,9 +158,9 @@
                 {
                     "name": "",
                     "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone(min=0.1,max=0.2)",
                     "groups": "Joystick",
                     "action": "Move",
                     "isComposite": false,
