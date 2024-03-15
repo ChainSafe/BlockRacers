@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     // Input
     private float input, horizontalInput, verticalInput;
-    private Vector3 GyroRotation;
     private bool gyroEnabled;
     private bool prevGyroBool;
     private PlayerInputActions playerInput;
@@ -282,7 +281,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             prevGyroBool = globalManager.gyroEnabled;
             UnityEngine.Input.gyro.enabled = true;
-            GyroRotation = Vector3.zero;
         }
         // Enables gyro buttons and disables movement joystick
         movementJoystick.SetActive(!globalManager.gyroEnabled);
@@ -561,8 +559,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (globalManager.gyroEnabled)
             {
                 // If we have gyro input enabled
-                GyroRotation.x = UnityEngine.Input.gyro.rotationRate.x;
-                currentSteerAngle = maxSteerAngle * GyroRotation.x;
+                currentSteerAngle = maxSteerAngle * UnityEngine.Input.gyro.rotationRateUnbiased.y;
             }
             else
             {
